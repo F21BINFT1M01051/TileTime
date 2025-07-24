@@ -10,12 +10,14 @@ export const COLORS = {
   placeholder: 'rgba(0,0,0,0.5)',
   inputColor: '#1D211E',
   focused: '#373A46',
+  white: '#FFFFFF',
 };
 
 export const IMAGES = {
   logo: require('../assets/images/logo.png'),
   onBoarding: require('../assets/images/onBoarding.png'),
   headline: require('../assets/images/headline.png'),
+  profile: require('../assets/images/profile.png'),
 };
 
 export const ICONS = {
@@ -23,6 +25,7 @@ export const ICONS = {
   apple: require('../assets/icons/ios.png'),
   google: require('../assets/icons/google.png'),
   user: require('../assets/icons/user.png'),
+  edit: require('../assets/icons/edit.png'),
 };
 
 export const FONTS = {

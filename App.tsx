@@ -5,24 +5,26 @@
  * @format
  */
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+import Navigator from './src/routers/StackNavigation';
+import { Provider as PaperProvider } from 'react-native-paper';
+import { COLORS } from './src/config/theme';
+
+const theme = {
+  colors: {
+    primary: COLORS.fieldBorder,
+    background: 'white',
+    surface: 'white',
+    text: COLORS.inputColor,
+    placeholder: '#999',
+  },
+};
 
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
-
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <NewAppScreen templateFileName="App.tsx" />
-    </View>
+    <PaperProvider theme={theme}>
+      <Navigator />
+    </PaperProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default App;
