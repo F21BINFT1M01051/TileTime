@@ -1,5 +1,4 @@
 import {
-  SafeAreaView,
   StyleSheet,
   Text,
   View,
@@ -46,13 +45,10 @@ const data = [
 
 const OnBoarding = ({ navigation }: any) => {
   return (
-    <LinearGradient
-      colors={[COLORS.gradient1, COLORS.gradient2]}
-      style={styles.gradient}
-    >
-      <ScrollView
-        contentContainerStyle={styles.scrollContainer}
-        showsVerticalScrollIndicator={false}
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <LinearGradient
+        colors={[COLORS.gradient1, COLORS.gradient2]}
+        style={styles.gradient}
       >
         <View style={styles.logoContainer}>
           <Image
@@ -99,8 +95,8 @@ const OnBoarding = ({ navigation }: any) => {
             </TouchableOpacity>
           </View>
         </View>
-      </ScrollView>
-    </LinearGradient>
+      </LinearGradient>
+    </ScrollView>
   );
 };
 
@@ -109,10 +105,6 @@ export default OnBoarding;
 const styles = StyleSheet.create({
   gradient: {
     flex: 1,
-    alignItems: 'center',
-  },
-  scrollContainer: {
-    flexGrow: 1,
     alignItems: 'center',
   },
   logoContainer: {
@@ -142,7 +134,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: RFPercentage(4),
     paddingBottom: RFPercentage(5),
-    justifyContent:'center'
+    justifyContent: 'center',
   },
   contentWrapper: {
     width: '90%',
@@ -157,7 +149,7 @@ const styles = StyleSheet.create({
   listContainer: {
     width: '100%',
     marginTop: RFPercentage(1),
-    alignSelf:'center',
+    alignSelf: 'center',
   },
   skipButton: {
     width: RFPercentage(20),

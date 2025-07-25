@@ -11,6 +11,16 @@ export const COLORS = {
   inputColor: '#1D211E',
   focused: '#373A46',
   white: '#FFFFFF',
+  icon : '#1F1F1F',
+  lightGrey : '#8C8C8C',
+  lightWhite : '#EEEEEE',
+  green : '#0A8B65',
+  pink : '#B14088',
+  grey : '#1D1D1D',
+  switch : '#E6E6E6EE',
+  dropDown : '#E0E0E0',
+  radio : '#DCDCDC'
+
 };
 
 export const IMAGES = {
@@ -26,6 +36,7 @@ export const ICONS = {
   google: require('../assets/icons/google.png'),
   user: require('../assets/icons/user.png'),
   edit: require('../assets/icons/edit.png'),
+  location: require('../assets/icons/location.png'),
 };
 
 export const FONTS = {

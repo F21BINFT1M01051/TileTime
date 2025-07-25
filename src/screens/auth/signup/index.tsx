@@ -1,22 +1,14 @@
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  FlatList,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import { COLORS, FONTS, ICONS, IMAGES } from '../../../config/theme';
+import { COLORS, FONTS, IMAGES } from '../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import { TextInput } from 'react-native-paper';
 import CustomButton from '../../../components/CustomButton';
+import InputField from '../../../components/InputField';
 
 const SignUp = ({ navigation }: any) => {
-  const [text, setText] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
   return (
     <LinearGradient
@@ -36,48 +28,26 @@ const SignUp = ({ navigation }: any) => {
       <View style={styles.whiteContainer}>
         <View style={styles.contentWrapper}>
           <Text style={styles.getStartedText}>Create Your Account</Text>
-          <View style={{ marginTop: RFPercentage(3) }}>
-            <TextInput
-              label="Email Address"
-              value={text}
-              onChangeText={text => setText(text)}
-              contentStyle={{
-                backgroundColor: COLORS.fieldColor,
-                // borderWidth: 1,
-                // borderColor: COLORS.fieldBorder,
-                // borderRadius: RFPercentage(2),
-              }}
-              activeUnderlineColor={COLORS.fieldBorder}
-              activeOutlineColor={COLORS.fieldBorder}
-              textColor={COLORS.inputColor}
-              cursorColor={COLORS.inputColor}
-              mode="flat"
-              style={{
-                height: RFPercentage(8),
-                backgroundColor: 'transparent',
-              }}
-            />
-          </View>
-          <View style={{ marginTop: RFPercentage(2.5) }}>
-            <TextInput
-              label="Create Your Password"
-              secureTextEntry
-              right={<TextInput.Icon icon="eye" />}
-              contentStyle={{
-                backgroundColor: COLORS.fieldColor,
-              }}
-              activeUnderlineColor={COLORS.fieldBorder}
-              activeOutlineColor={COLORS.fieldBorder}
-              textColor={COLORS.inputColor}
-              cursorColor={COLORS.inputColor}
-              style={{
-                height: RFPercentage(8),
-                backgroundColor: COLORS.fieldColor,
-              }}
+
+          <View style={styles.inputMarginTop}>
+            <InputField
+              placeholder="Email Address"
+              value={email}
+              onChangeText={setEmail}
+              password={false}
             />
           </View>
 
-          <View style={{ width: '100%', marginTop: RFPercentage(7) }}>
+          <View style={styles.inputField}>
+            <InputField
+              placeholder="Create Your Password"
+              password={true}
+              value={password}
+              onChangeText={setPassword}
+            />
+          </View>
+
+          <View style={styles.buttonWrapper}>
             <CustomButton
               title="Sign Up"
               onPress={() => {
@@ -85,50 +55,23 @@ const SignUp = ({ navigation }: any) => {
               }}
             />
           </View>
-          <View
-            style={{
-              alignSelf: 'center',
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'row',
-              marginTop: RFPercentage(5),
-            }}
-          >
-            <Text style={{ fontFamily: FONTS.regular2, color: '#8C8C8C' }}>
-              Already Have An Account?
-            </Text>
-            <TouchableOpacity>
-              <Text
-                style={{
-                  fontFamily: FONTS.semiBold2,
-                  color: COLORS.primary,
-                  left: RFPercentage(0.4),
-                }}
-              >
-                Sign in
-              </Text>
+
+          <View style={styles.footerLinkContainer}>
+            <Text style={styles.footerTextGray}>Already Have An Account?</Text>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Login');
+              }}
+            >
+              <Text style={styles.signInLink}>Sign in</Text>
             </TouchableOpacity>
           </View>
-          <Text
-            style={{
-              fontFamily: FONTS.regular2,
-              color: '#8C8C8C',
-              textAlign: 'center',
-              marginTop: RFPercentage(1.3),
-            }}
-          >
-            Privacy & Terms
-          </Text>
-          <Text
-            style={{
-              fontFamily: FONTS.regular2,
-              color: '#8C8C8C',
-              textAlign: 'center',
-              marginTop: RFPercentage(1.3),
-            }}
-          >
-            Contact Us
-          </Text>
+          <TouchableOpacity>
+            <Text style={styles.footerText}>Privacy & Terms</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={styles.footerText}>Contact Us</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </LinearGradient>
@@ -142,10 +85,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  scrollContainer: {
-    flexGrow: 1,
-    alignItems: 'center',
-  },
   logoContainer: {
     width: '100%',
     alignItems: 'center',
@@ -155,7 +94,6 @@ const styles = StyleSheet.create({
     width: RFPercentage(10),
     height: RFPercentage(10),
   },
-
   headlineImage: {
     width: RFPercentage(50),
     height: RFPercentage(10),
@@ -181,19 +119,36 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.headline,
     fontSize: RFPercentage(2.8),
   },
-  listContainer: {
+  inputMarginTop: {
+    marginTop: RFPercentage(2),
+  },
+  inputField: {
+    // Placeholder for layout consistency
+  },
+  buttonWrapper: {
     width: '100%',
-    marginTop: RFPercentage(1),
+    marginTop: RFPercentage(7),
   },
-  skipButton: {
-    width: RFPercentage(20),
+  footerLinkContainer: {
     alignSelf: 'center',
-    marginTop: RFPercentage(6),
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginTop: RFPercentage(5),
   },
-  skipText: {
-    fontFamily: FONTS.semiBold,
-    color: COLORS.black,
+  footerTextGray: {
+    fontFamily: FONTS.regular2,
+    color: COLORS.lightGrey,
+  },
+  signInLink: {
+    fontFamily: FONTS.semiBold2,
+    color: COLORS.primary,
+    left: RFPercentage(0.4),
+  },
+  footerText: {
+    fontFamily: FONTS.regular2,
+    color: COLORS.lightGrey,
     textAlign: 'center',
-    fontSize: RFPercentage(2),
+    marginTop: RFPercentage(1.3),
   },
 });

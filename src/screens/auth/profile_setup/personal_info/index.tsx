@@ -3,6 +3,7 @@ import React from 'react';
 import { COLORS, FONTS } from '../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import InputField from '../../../../components/InputField';
+import Feather from 'react-native-vector-icons/Feather';
 
 const PersonalInfo = () => {
   const [name, setName] = React.useState('');
@@ -20,21 +21,33 @@ const PersonalInfo = () => {
       >
         Enter Your Personal Details
       </Text>
-      <View style={{ marginTop: RFPercentage(4) }}>
-        <InputField placeholder="Full Name" value={name} changeText={setName} />
+      <View style={{ marginTop: RFPercentage(2) }}>
+        <InputField
+          placeholder="Full Name"
+          value={name}
+          onChangeText={setName}
+          password={false}
+        />
 
         <InputField
           placeholder="Create a Username"
           value={userName}
-          changeText={setUserName}
+          onChangeText={setUserName}
+          password={false}
         />
 
         <InputField
           placeholder="Phone Number"
           value={phoneNumber}
-          changeText={setPhoneNumber}
-          icon={true}
-          iconName="phone"
+          onChangeText={setPhoneNumber}
+          password={false}
+          icon={
+            <Feather
+              name="phone"
+              color={COLORS.icon}
+              size={RFPercentage(2.5)}
+            />
+          }
         />
       </View>
     </View>
@@ -52,8 +65,6 @@ const styles = StyleSheet.create({
   },
   contentStyle: {
     backgroundColor: COLORS.fieldColor,
-    // borderWidth: 1,
-    // borderColor: COLORS.fieldBorder,
     borderRadius: 4,
   },
 });

@@ -18,38 +18,20 @@ const SocialField = (props: Props) => {
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={() => {}}
-      style={{
-        width: '100%',
-        height: RFPercentage(6.8),
-        backgroundColor: COLORS.white,
-        borderWidth: 1.3,
-        borderColor: COLORS.borderColor,
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row',
-        borderRadius: RFPercentage(2.4),
-        marginTop: RFPercentage(2.3),
-      }}
+      style={styles.container}
     >
       {props.icon && (
         <Image
           source={props.icon}
           resizeMode="contain"
-          style={{
-            width: RFPercentage(3.5),
-            height: RFPercentage(3.5),
-            marginRight: RFPercentage(1.5),
-          }}
+          style={styles.icon}
         />
       )}
 
       <Text
         style={[
-          {
-            fontFamily: FONTS.bold,
-            color: props.color ? props.color : COLORS.black,
-            fontSize: RFPercentage(2),
-          },
+          styles.text,
+          { color: props.color ? props.color : COLORS.black },
         ]}
       >
         {props.name}
@@ -60,4 +42,26 @@ const SocialField = (props: Props) => {
 
 export default SocialField;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    height: RFPercentage(6.8),
+    backgroundColor: COLORS.white,
+    borderWidth: 1.3,
+    borderColor: COLORS.borderColor,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    borderRadius: RFPercentage(2.4),
+    marginTop: RFPercentage(2.3),
+  },
+  icon: {
+    width: RFPercentage(3.5),
+    height: RFPercentage(3.5),
+    marginRight: RFPercentage(1.5),
+  },
+  text: {
+    fontFamily: FONTS.bold,
+    fontSize: RFPercentage(2),
+  },
+});

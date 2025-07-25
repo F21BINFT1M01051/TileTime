@@ -1,11 +1,10 @@
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import React, { useState } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import { COLORS, FONTS, ICONS, IMAGES } from '../../../config/theme';
+import { COLORS, FONTS, IMAGES } from '../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import CustomButton from '../../../components/CustomButton';
 import Selection from '../../../components/Selection';
-
 
 const RoleSelection = ({ navigation }: any) => {
   const [selected, setSelected] = useState('option1');
@@ -103,14 +102,13 @@ const styles = StyleSheet.create({
     width: '100%',
     position: 'absolute',
     bottom: 0,
-    height: RFPercentage(13),
     borderTopWidth: 1,
-    borderTopColor: '#EEEEEE',
+    borderTopColor: COLORS.lightWhite,
     alignItems: 'center',
+    paddingVertical: RFPercentage(3),
   },
   buttonWrapper: {
     width: '90%',
     alignSelf: 'center',
-    top: RFPercentage(2),
   },
 });

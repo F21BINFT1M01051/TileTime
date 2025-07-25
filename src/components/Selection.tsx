@@ -18,7 +18,7 @@ const Selection = ({ title, subTitle, isSelected, onSelect }: Props) => {
       onPress={onSelect}
       style={[
         styles.container,
-        { borderColor: isSelected ? '#A33C7E' : '#EEEEEE' },
+        { borderColor: isSelected ? COLORS.pink : COLORS.lightWhite },
       ]}
     >
       <View style={styles.innerWrapper}>
@@ -32,8 +32,8 @@ const Selection = ({ title, subTitle, isSelected, onSelect }: Props) => {
             value="selected"
             status={isSelected ? 'checked' : 'unchecked'}
             onPress={onSelect}
-            uncheckedColor="#DCDCDC"
-            color="#A33C7E"
+            uncheckedColor={COLORS.radio}
+            color={COLORS.pink}
           />
         </View>
         <View style={styles.textWrapper}>
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   },
   subTitle: {
     fontFamily: FONTS.regular,
-    color: '#8C8C8C',
+    color: COLORS.lightGrey,
     fontSize: RFPercentage(1.9),
     marginTop: RFPercentage(1.4),
     lineHeight: RFPercentage(2.5),
