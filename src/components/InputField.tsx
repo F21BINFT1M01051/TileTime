@@ -38,7 +38,7 @@ const InputField = (props: Props) => {
     ...styles.label,
     top: animatedIsFocused.interpolate({
       inputRange: [0, 1],
-      outputRange: [RFPercentage(2.7), RFPercentage(1.1)],
+      outputRange: [RFPercentage(2.8), RFPercentage(1.1)],
     }),
     fontSize: animatedIsFocused.interpolate({
       inputRange: [0, 1],
@@ -89,8 +89,8 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: 1,
     width: '100%',
-    height: RFPercentage(8),
-    paddingVertical: RFPercentage(1),
+    // height: RFPercentage(8),
+    paddingVertical: RFPercentage(1.5),
     backgroundColor: COLORS.fieldColor,
     borderColor: COLORS.fieldBorder,
     borderRadius: RFPercentage(1.5),
@@ -102,20 +102,19 @@ const styles = StyleSheet.create({
     left: RFPercentage(2),
   },
   input: {
-    height: RFPercentage(6),
     color: COLORS.inputColor,
     fontFamily: FONTS.regular,
     width: '90%',
-    marginTop: RFPercentage(1.2),
+    top: RFPercentage(1.5),
   },
   iconContainer: {
     position: 'absolute',
     right: RFPercentage(2),
-    top: RFPercentage(2.6),
+    top: RFPercentage(2.8),
   },
   eyeIcon: {
     position: 'absolute',
     right: RFPercentage(2),
-    top: RFPercentage(2.6),
+    top: RFPercentage(2.8),
   },
 });

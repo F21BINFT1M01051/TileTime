@@ -42,7 +42,7 @@ const Login = ({ navigation }: any) => {
 
             <View style={styles.emailField}>
               <InputField
-                placeholder="Email Address"
+                placeholder="Email Address/username"
                 value={email}
                 onChangeText={setEmail}
                 password={false}
@@ -144,8 +144,9 @@ const styles = StyleSheet.create({
   },
   forgotPasswordText: {
     fontFamily: FONTS.regular,
-    marginTop: RFPercentage(1),
+    marginTop: RFPercentage(0.6),
     color: COLORS.lightGrey,
+    fontSize: RFPercentage(1.7),
   },
   buttonWrapper: {
     width: '100%',

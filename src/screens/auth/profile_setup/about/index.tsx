@@ -2,7 +2,6 @@ import { Image, StyleSheet, Text, TextInput, View } from 'react-native';
 import React from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import Feather from 'react-native-vector-icons/Feather';
 import DropdownField from '../../../../components/DropDown';
 
 const About = () => {
@@ -29,7 +28,11 @@ const About = () => {
         <View style={styles.bioContainer}>
           <View style={styles.bioHeader}>
             <Text style={styles.bioLabel}>Add Bio</Text>
-            <Feather name="user" color={COLORS.icon} size={RFPercentage(2)} />
+            <Image
+              source={ICONS.user2}
+              resizeMode="contain"
+              style={{ width: RFPercentage(2), height: RFPercentage(2) }}
+            />
           </View>
           <TextInput
             placeholder="Add Your Bio..."
@@ -37,6 +40,19 @@ const About = () => {
             style={styles.bioInput}
             multiline={true}
           />
+          <View
+            style={{
+              alignSelf: 'flex-end',
+              right: RFPercentage(2),
+              bottom: RFPercentage(1),
+            }}
+          >
+            <Image
+              source={ICONS.bars}
+              resizeMode="contain"
+              style={{ width: RFPercentage(2), height: RFPercentage(2) }}
+            />
+          </View>
         </View>
       </View>
 
@@ -97,16 +113,17 @@ const styles = StyleSheet.create({
   bioLabel: {
     fontFamily: FONTS.medium2,
     color: COLORS.primary,
+    fontSize: RFPercentage(1.7),
   },
   bioInput: {
     width: '92%',
-    marginTop: RFPercentage(1),
+    marginTop: RFPercentage(0.8),
     alignSelf: 'center',
     textAlignVertical: 'top',
     fontFamily: FONTS.regular,
     color: COLORS.inputColor,
     lineHeight: RFPercentage(2.5),
-    fontSize: RFPercentage(2),
+    fontSize: RFPercentage(1.8),
     height: RFPercentage(10),
   },
 });

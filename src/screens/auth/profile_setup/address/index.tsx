@@ -13,27 +13,46 @@ const Address = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Where can people find you</Text>
+      <Text style={styles.heading}>Connect SM</Text>
 
       <View style={styles.inputContainer}>
         <InputField
-          placeholder="Full Address"
+          placeholder="City,State"
+          value={address}
+          onChangeText={setAddress}
+          password={false}
+        />
+
+        <InputField
+          placeholder="Facebook Handle"
           value={address}
           onChangeText={setAddress}
           password={false}
           icon={
-            <Image
-              source={ICONS.location}
-              resizeMode="contain"
-              style={styles.iconImage}
+            <SimpleLineIcons
+              name="social-instagram"
+              color={COLORS.icon}
+              size={RFPercentage(2.5)}
             />
           }
         />
-
         <InputField
-          placeholder="Instagram Handle "
-          value={instagram}
-          onChangeText={setInstagram}
+          placeholder="TikTok Handle"
+          value={address}
+          onChangeText={setAddress}
+          password={false}
+          icon={
+            <SimpleLineIcons
+              name="social-instagram"
+              color={COLORS.icon}
+              size={RFPercentage(2.5)}
+            />
+          }
+        />
+        <InputField
+          placeholder="Instagram Handle"
+          value={address}
+          onChangeText={setAddress}
           password={false}
           icon={
             <SimpleLineIcons
@@ -46,14 +65,14 @@ const Address = () => {
 
         <InputField
           placeholder="Website URL"
-          value={website}
-          onChangeText={setWebsite}
+          value={instagram}
+          onChangeText={setInstagram}
           password={false}
           icon={
-            <Feather
-              name="globe"
-              color={COLORS.icon}
-              size={RFPercentage(2.5)}
+            <Image
+              source={ICONS.globe}
+              resizeMode="contain"
+              style={{ width: RFPercentage(3), height: RFPercentage(3) }}
             />
           }
         />
