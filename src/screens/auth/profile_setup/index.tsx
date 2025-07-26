@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
   contentWrapper: {
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(5),
+    marginTop: RFPercentage(4.5),
     flex: 1,
   },
   bottomWrapper: {

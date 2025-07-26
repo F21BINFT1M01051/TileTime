@@ -1,4 +1,10 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
 import React, { useState } from 'react';
 import { COLORS, FONTS } from '../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
@@ -12,54 +18,70 @@ const ProffessionalInfo = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedItem2, setSelectedItem2] = useState(null);
   const [isOn, setIsOn] = useState(false);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const [isDropdownVisible2, setIsDropdownVisible2] = useState(false);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.headerText}>
-        Share your coaching style and experience
-      </Text>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        Keyboard.dismiss();
+        if (isDropdownVisible || isDropdownVisible2) {
+          setIsDropdownVisible2(false);
+          setIsDropdownVisible(false);
+        }
+      }}
+    >
+      <View style={styles.container}>
+        <Text style={styles.headerText}>
+          Share your coaching style and experience
+        </Text>
 
-      <View style={styles.inputContainer}>
-        <DropdownField
-          placeholder="Teaching Experience"
-          data={['Beginner', 'Intermediate', 'Expert']}
-          selectedValue={selectedItem}
-          onValueChange={(val: any) => setSelectedItem(val)}
-        />
+        <View style={styles.inputContainer}>
+          <DropdownField
+            placeholder="Teaching Experience"
+            data={['Beginner', 'Intermediate', 'Expert']}
+            selectedValue={selectedItem}
+            onValueChange={(val: any) => setSelectedItem(val)}
+            isDropdownVisible={isDropdownVisible}
+            setIsDropdownVisible={setIsDropdownVisible}
+          />
 
-        <InputField
-          placeholder="Years of Experience"
-          value={experience}
-          onChangeText={setExperience}
-          password={false}
-        />
+          <InputField
+            placeholder="Years of Experience"
+            value={experience}
+            onChangeText={setExperience}
+            password={false}
+          />
 
-        <DropdownField
-          placeholder="Teaching Formats"
-          data={['Beginner', 'Intermediate', 'Expert']}
-          selectedValue={selectedItem2}
-          onValueChange={(val: any) => setSelectedItem2(val)}
-        />
+          <DropdownField
+            placeholder="Teaching Formats"
+            data={['Beginner', 'Intermediate', 'Expert']}
+            selectedValue={selectedItem2}
+            onValueChange={(val: any) => setSelectedItem2(val)}
+            isDropdownVisible={isDropdownVisible2}
+            setIsDropdownVisible={setIsDropdownVisible2}
+          />
 
-        <InputField
-          placeholder="Add Credentials"
-          value={credentials}
-          onChangeText={setCredentials}
-          password={false}
-        />
+          <InputField
+            placeholder="Add Credentials"
+            value={credentials}
+            onChangeText={setCredentials}
+            password={false}
+          />
+        </View>
+
+        <View style={styles.toggleRow}>
+          <Text style={styles.toggleLabel}>Keep my profile private</Text>
+          <ToggleSwitch
+            isOn={isOn}
+            onColor={COLORS.pink}
+            offColor={COLORS.switch}
+            size="small"
+            onToggle={() => setIsOn(!isOn)}
+          />
+        </View>
       </View>
-
-      <View style={styles.toggleRow}>
-        <Text style={styles.toggleLabel}>Keep my profile private</Text>
-        <ToggleSwitch
-          isOn={isOn}
-          onColor={COLORS.pink}
-          offColor={COLORS.switch}
-          size="small"
-          onToggle={() => setIsOn(!isOn)}
-        />
-      </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 

@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { COLORS, FONTS } from '../../../../config/theme';
+import { COLORS, FONTS, ICONS } from '../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import InputField from '../../../../components/InputField';
 import Feather from 'react-native-vector-icons/Feather';
@@ -42,10 +42,10 @@ const PersonalInfo = () => {
           onChangeText={setPhoneNumber}
           password={false}
           icon={
-            <Feather
-              name="phone"
-              color={COLORS.icon}
-              size={RFPercentage(2.4)}
+            <Image
+              source={ICONS.phone}
+              resizeMode="contain"
+              style={{ width: RFPercentage(2.5), height: RFPercentage(2.5) }}
             />
           }
         />

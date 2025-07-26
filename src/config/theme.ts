@@ -20,6 +20,7 @@ export const COLORS = {
   switch: '#E6E6E6EE',
   dropDown: '#E0E0E0',
   radio: '#DCDCDC',
+  radio2: '##F9F9F9',
 };
 
 export const IMAGES = {
@@ -39,6 +40,7 @@ export const ICONS = {
   user2: require('../assets/icons/user-2.png'),
   bars: require('../assets/icons/bars.png'),
   globe: require('../assets/icons/globe.png'),
+  phone: require('../assets/icons/phone.png'),
 };
 
 export const FONTS = {

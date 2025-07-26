@@ -38,7 +38,7 @@ const InputField = (props: Props) => {
     ...styles.label,
     top: animatedIsFocused.interpolate({
       inputRange: [0, 1],
-      outputRange: [RFPercentage(2), RFPercentage(1.1)],
+      outputRange: [RFPercentage(7) / 3.2, RFPercentage(0.6)],
     }),
     fontSize: animatedIsFocused.interpolate({
       inputRange: [0, 1],
@@ -53,32 +53,38 @@ const InputField = (props: Props) => {
 
   return (
     <View style={styles.container}>
-      <Animated.Text style={labelStyle}>{props.placeholder}</Animated.Text>
+      <View style={styles.wrap}>
+        <Animated.Text style={labelStyle}>{props.placeholder}</Animated.Text>
 
-      <TextInput
-        style={styles.input}
-        value={props.value}
-        onChangeText={props.onChangeText}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        blurOnSubmit
-        secureTextEntry={props.password ? secureText : false}
-      />
+        <TextInput
+          style={styles.input}
+          value={props.value}
+          onChangeText={props.onChangeText}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => {
+            if (!props.value) {
+              setIsFocused(false);
+            }
+          }}
+          blurOnSubmit
+          secureTextEntry={props.password ? secureText : false}
+        />
 
-      {props.password && (
-        <TouchableOpacity
-          style={styles.eyeIcon}
-          onPress={() => setSecureText(prev => !prev)}
-        >
-          <Feather
-            name={secureText ? 'eye-off' : 'eye'}
-            color={COLORS.icon}
-            size={RFPercentage(2)}
-          />
-        </TouchableOpacity>
-      )}
+        {props.password && (
+          <TouchableOpacity
+            style={styles.eyeIcon}
+            onPress={() => setSecureText(prev => !prev)}
+          >
+            <Feather
+              name={secureText ? 'eye-off' : 'eye'}
+              color={COLORS.icon}
+              size={RFPercentage(2)}
+            />
+          </TouchableOpacity>
+        )}
 
-      {props.icon && <View style={styles.iconContainer}>{props.icon}</View>}
+        {props.icon && <View style={styles.iconContainer}>{props.icon}</View>}
+      </View>
     </View>
   );
 };
@@ -87,36 +93,40 @@ export default InputField;
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 1,
+    borderWidth: RFPercentage(0.1),
     width: '100%',
     height: RFPercentage(7),
-    paddingVertical: RFPercentage(1.5),
     backgroundColor: COLORS.fieldColor,
     borderColor: COLORS.fieldBorder,
-    borderRadius: RFPercentage(1.5),
+    borderRadius: RFPercentage(1.3),
     marginTop: RFPercentage(2),
-    paddingHorizontal: RFPercentage(1.6),
   },
   label: {
     position: 'absolute',
-    left: RFPercentage(2),
+  },
+  wrap: {
+    width: '90%',
+    alignSelf: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    height: RFPercentage(7),
   },
   input: {
     color: COLORS.inputColor,
     fontFamily: FONTS.regular,
     width: '90%',
-    top: RFPercentage(1.5),
+    paddingVertical: 0,
+    paddingHorizontal: 0,
     fontSize: RFPercentage(2),
-    left: RFPercentage(0.5),
+    top: RFPercentage(1),
   },
   iconContainer: {
-    position: 'absolute',
-    right: RFPercentage(2),
-    top: RFPercentage(2.6),
+    right: 0,
+    top: 0,
   },
   eyeIcon: {
-    position: 'absolute',
-    right: RFPercentage(2),
-    top: RFPercentage(2.4),
+    right: 0,
+    top: 0,
   },
 });

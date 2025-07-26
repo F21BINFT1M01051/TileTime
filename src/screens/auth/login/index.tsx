@@ -5,6 +5,8 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -18,79 +20,81 @@ const Login = ({ navigation }: any) => {
   const [password, setPassword] = React.useState('');
 
   return (
-    <ScrollView>
-      <LinearGradient
-        colors={[COLORS.gradient1, COLORS.gradient2]}
-        style={styles.gradient}
-      >
-        <View style={styles.logoContainer}>
-          <Image
-            source={IMAGES.logo}
-            resizeMode="contain"
-            style={styles.logo}
-          />
-          <Image
-            source={IMAGES.headline}
-            resizeMode="contain"
-            style={styles.headlineImage}
-          />
-        </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <ScrollView>
+        <LinearGradient
+          colors={[COLORS.gradient1, COLORS.gradient2]}
+          style={styles.gradient}
+        >
+          <View style={styles.logoContainer}>
+            <Image
+              source={IMAGES.logo}
+              resizeMode="contain"
+              style={styles.logo}
+            />
+            <Image
+              source={IMAGES.headline}
+              resizeMode="contain"
+              style={styles.headlineImage}
+            />
+          </View>
 
-        <View style={styles.whiteContainer}>
-          <View style={styles.contentWrapper}>
-            <Text style={styles.getStartedText}>Log In Now</Text>
+          <View style={styles.whiteContainer}>
+            <View style={styles.contentWrapper}>
+              <Text style={styles.getStartedText}>Log In Now</Text>
 
-            <View style={styles.emailField}>
-              <InputField
-                placeholder="Email Address/username"
-                value={email}
-                onChangeText={setEmail}
-                password={false}
-              />
-            </View>
+              <View style={styles.emailField}>
+                <InputField
+                  placeholder="Email Address/username"
+                  value={email}
+                  onChangeText={setEmail}
+                  password={false}
+                />
+              </View>
 
-            <View style={styles.passwordField}>
-              <InputField
-                placeholder="Enter Password"
-                password={true}
-                value={password}
-                onChangeText={setPassword}
-              />
-            </View>
+              <View style={styles.passwordField}>
+                <InputField
+                  placeholder="Enter Password"
+                  password={true}
+                  value={password}
+                  onChangeText={setPassword}
+                />
+              </View>
 
-            <TouchableOpacity style={styles.forgotPasswordButton}>
-              <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-            </TouchableOpacity>
+              <TouchableOpacity style={styles.forgotPasswordButton}>
+                <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+              </TouchableOpacity>
 
-            <View style={styles.buttonWrapper}>
-              <CustomButton
-                title="Log Me In"
-                onPress={() => {
-                  navigation.navigate('SignUp');
-                }}
-              />
-            </View>
+              <View style={styles.buttonWrapper}>
+                <CustomButton
+                  title="Log Me In"
+                  onPress={() => {
+                    navigation.navigate('SignUp');
+                  }}
+                />
+              </View>
 
-            <View style={styles.signupContainer}>
-              <Text style={styles.noAccountText}>Don’t Have An Account?</Text>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate('SignUp');
-                }}
-              >
-                <Text style={styles.signupText}>Sign up</Text>
+              <View style={styles.signupContainer}>
+                <Text style={styles.noAccountText}>Don’t Have An Account?</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate('SignUp');
+                  }}
+                >
+                  <Text style={styles.signupText}>Sign up</Text>
+                </TouchableOpacity>
+              </View>
+              <TouchableOpacity>
+                <Text style={styles.footerText}>Privacy & Terms</Text>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Text style={styles.footerText}>Contact Us</Text>
               </TouchableOpacity>
             </View>
-            <TouchableOpacity>
-              <Text style={styles.footerText}>Privacy & Terms</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={styles.footerText}>Contact Us</Text>
-            </TouchableOpacity>
           </View>
-        </View>
-      </LinearGradient>
-    </ScrollView>
+        </LinearGradient>
+      </ScrollView>
+    </TouchableWithoutFeedback>
   );
 };
 

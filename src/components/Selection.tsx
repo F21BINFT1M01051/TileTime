@@ -2,7 +2,6 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { COLORS, FONTS, ICONS } from '../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import { RadioButton } from 'react-native-paper';
 
 interface Props {
   title: string;
@@ -23,18 +22,19 @@ const Selection = ({ title, subTitle, isSelected, onSelect }: Props) => {
     >
       <View style={styles.innerWrapper}>
         <View style={styles.header}>
-          <Image
-            source={ICONS.user}
-            resizeMode="contain"
-            style={styles.icon}
-          />
-          <RadioButton
-            value="selected"
-            status={isSelected ? 'checked' : 'unchecked'}
+          <Image source={ICONS.user} resizeMode="contain" style={styles.icon} />
+          <TouchableOpacity
             onPress={onSelect}
-            uncheckedColor={COLORS.radio}
-            color={COLORS.pink}
-          />
+            style={[
+              styles.radioButton,
+              {
+                borderColor: isSelected ? COLORS.pink : COLORS.radio,
+                backgroundColor: isSelected ? 'transparent' : COLORS.radio2,
+              },
+            ]}
+          >
+            {isSelected && <View style={styles.radioDot} />}
+          </TouchableOpacity>
         </View>
         <View style={styles.textWrapper}>
           <Text style={styles.title}>{title}</Text>
@@ -84,5 +84,19 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(1.9),
     marginTop: RFPercentage(1.4),
     lineHeight: RFPercentage(2.5),
+  },
+  radioButton: {
+    width: RFPercentage(3),
+    height: RFPercentage(3),
+    borderRadius: RFPercentage(100),
+    borderWidth: RFPercentage(0.1),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  radioDot: {
+    width: RFPercentage(2),
+    height: RFPercentage(2),
+    borderRadius: RFPercentage(100),
+    backgroundColor: COLORS.pink,
   },
 });

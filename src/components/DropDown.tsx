@@ -16,6 +16,8 @@ interface Props {
   data: string[];
   selectedValue: string | null;
   onValueChange: (value: string) => void;
+  isDropdownVisible: boolean;
+  setIsDropdownVisible: (visible: boolean) => void;
 }
 
 const DropdownField: React.FC<Props> = ({
@@ -23,9 +25,10 @@ const DropdownField: React.FC<Props> = ({
   data,
   selectedValue,
   onValueChange,
+  isDropdownVisible,
+  setIsDropdownVisible,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(false);
 
   const animatedIsFocused = useRef(
     new Animated.Value(selectedValue ? 1 : 0),
@@ -39,11 +42,28 @@ const DropdownField: React.FC<Props> = ({
     }).start();
   }, [isFocused, selectedValue]);
 
+  useEffect(() => {
+    if (!isDropdownVisible && !selectedValue) {
+      setIsFocused(false);
+    }
+  }, [isDropdownVisible, selectedValue]);
+
+  const toggleDropdown = () => {
+    setIsFocused(true);
+    setIsDropdownVisible(!isDropdownVisible);
+  };
+
+  const handleSelect = (item: string) => {
+    onValueChange(item);
+    setIsDropdownVisible(false);
+    setIsFocused(false);
+  };
+
   const labelStyle = {
     position: 'absolute' as const,
     top: animatedIsFocused.interpolate({
       inputRange: [0, 1],
-      outputRange: [RFPercentage(2.5), RFPercentage(1.1)],
+      outputRange: [0, RFPercentage(-1.3)],
     }),
     fontSize: animatedIsFocused.interpolate({
       inputRange: [0, 1],
@@ -54,18 +74,6 @@ const DropdownField: React.FC<Props> = ({
       outputRange: [COLORS.placeholder, COLORS.focused],
     }),
     fontFamily: isFocused || selectedValue ? FONTS.medium2 : FONTS.regular,
-    left: RFPercentage(2),
-  };
-
-  const toggleDropdown = () => {
-    setShowDropdown(prev => !prev);
-    setIsFocused(true);
-  };
-
-  const handleSelect = (item: string) => {
-    onValueChange(item);
-    setShowDropdown(false);
-    setIsFocused(false);
   };
 
   return (
@@ -73,19 +81,18 @@ const DropdownField: React.FC<Props> = ({
       <View
         style={[
           styles.container,
-          showDropdown && {
+          isDropdownVisible && {
             borderBottomLeftRadius: 0,
             borderBottomRightRadius: 0,
           },
         ]}
       >
-        <Animated.Text style={labelStyle}>{placeholder}</Animated.Text>
-
         <TouchableOpacity
           style={styles.dropdownButton}
           onPress={toggleDropdown}
           activeOpacity={0.8}
         >
+          <Animated.Text style={labelStyle}>{placeholder}</Animated.Text>
           <Text
             style={[
               styles.selectedText,
@@ -99,15 +106,14 @@ const DropdownField: React.FC<Props> = ({
           </Text>
 
           <Feather
-            name={showDropdown ? 'chevron-up' : 'chevron-down'}
+            name={isDropdownVisible ? 'chevron-up' : 'chevron-down'}
             size={RFPercentage(2.4)}
             color={COLORS.icon}
-            style={{ bottom: RFPercentage(1) }}
           />
         </TouchableOpacity>
       </View>
 
-      {showDropdown && (
+      {isDropdownVisible && (
         <View style={styles.dropdownList}>
           <FlatList
             data={data}
@@ -145,29 +151,28 @@ export default DropdownField;
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 1,
+    borderWidth: RFPercentage(0.1),
     width: '100%',
     height: RFPercentage(7),
     backgroundColor: COLORS.fieldColor,
     borderColor: COLORS.fieldBorder,
-    borderRadius: RFPercentage(1.5),
+    borderRadius: RFPercentage(1.3),
     marginTop: RFPercentage(2),
-    paddingHorizontal: RFPercentage(2),
     justifyContent: 'center',
   },
   dropdownButton: {
-    height: RFPercentage(6),
-    top: RFPercentage(1.2),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    width: '90%',
+    alignSelf: 'center',
   },
   selectedText: {
-    fontSize: RFPercentage(1.8),
-    flex: 1,
+    fontSize: RFPercentage(1.9),
+    top: RFPercentage(1),
   },
   dropdownList: {
-    borderWidth: 1,
+    borderWidth: RFPercentage(0.1),
     borderColor: COLORS.fieldBorder,
     borderBottomRightRadius: RFPercentage(1.2),
     borderBottomLeftRadius: RFPercentage(1.2),
@@ -179,7 +184,7 @@ const styles = StyleSheet.create({
   dropdownItem: {
     paddingVertical: RFPercentage(1.8),
     paddingHorizontal: RFPercentage(2),
-    borderBottomWidth: 1,
+    borderBottomWidth: RFPercentage(0.1),
     borderBottomColor: COLORS.dropDown,
   },
 });

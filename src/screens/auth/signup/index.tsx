@@ -1,4 +1,12 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import { COLORS, FONTS, IMAGES } from '../../../config/theme';
@@ -11,70 +19,78 @@ const SignUp = ({ navigation }: any) => {
   const [password, setPassword] = React.useState('');
 
   return (
-    <LinearGradient
-      colors={[COLORS.gradient1, COLORS.gradient2]}
-      style={styles.gradient}
-    >
-      <View style={styles.logoContainer}>
-        <Image source={IMAGES.logo} resizeMode="contain" style={styles.logo} />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <LinearGradient
+        colors={[COLORS.gradient1, COLORS.gradient2]}
+        style={styles.gradient}
+      >
+        <View style={styles.logoContainer}>
+          <Image
+            source={IMAGES.logo}
+            resizeMode="contain"
+            style={styles.logo}
+          />
 
-        <Image
-          source={IMAGES.headline}
-          resizeMode="contain"
-          style={styles.headlineImage}
-        />
-      </View>
+          <Image
+            source={IMAGES.headline}
+            resizeMode="contain"
+            style={styles.headlineImage}
+          />
+        </View>
 
-      <View style={styles.whiteContainer}>
-        <View style={styles.contentWrapper}>
-          <Text style={styles.getStartedText}>Create Your Account</Text>
+        <View style={styles.whiteContainer}>
+          <View style={styles.contentWrapper}>
+            <Text style={styles.getStartedText}>Create Your Account</Text>
 
-          <View style={styles.inputMarginTop}>
-            <InputField
-              placeholder="Email Address"
-              value={email}
-              onChangeText={setEmail}
-              password={false}
-            />
-          </View>
+            <View style={styles.inputMarginTop}>
+              <InputField
+                placeholder="Email Address"
+                value={email}
+                onChangeText={setEmail}
+                password={false}
+              />
+            </View>
 
-          <View style={styles.inputField}>
-            <InputField
-              placeholder="Create Your Password"
-              password={true}
-              value={password}
-              onChangeText={setPassword}
-            />
-          </View>
+            <View style={styles.inputField}>
+              <InputField
+                placeholder="Create Your Password"
+                password={true}
+                value={password}
+                onChangeText={setPassword}
+              />
+            </View>
 
-          <View style={styles.buttonWrapper}>
-            <CustomButton
-              title="Sign Up"
-              onPress={() => {
-                navigation.navigate('RoleSelection');
-              }}
-            />
-          </View>
+            <View style={styles.buttonWrapper}>
+              <CustomButton
+                title="Sign Up"
+                onPress={() => {
+                  navigation.navigate('RoleSelection');
+                }}
+              />
+            </View>
 
-          <View style={styles.footerLinkContainer}>
-            <Text style={styles.footerTextGray}>Already Have An Account?</Text>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('Login');
-              }}
-            >
-              <Text style={styles.signInLink}>Sign in</Text>
+            <View style={styles.footerLinkContainer}>
+              <Text style={styles.footerTextGray}>
+                Already Have An Account?
+              </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('Login');
+                }}
+              >
+                <Text style={styles.signInLink}>Sign in</Text>
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity>
+              <Text style={styles.footerText}>Privacy & Terms</Text>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Text style={styles.footerText}>Contact Us</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity>
-            <Text style={styles.footerText}>Privacy & Terms</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={styles.footerText}>Contact Us</Text>
-          </TouchableOpacity>
         </View>
-      </View>
-    </LinearGradient>
+      </LinearGradient>
+    </TouchableWithoutFeedback>
   );
 };
 
