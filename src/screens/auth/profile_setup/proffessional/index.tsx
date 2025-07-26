@@ -21,7 +21,7 @@ const ProffessionalInfo = () => {
 
       <View style={styles.inputContainer}>
         <DropdownField
-          placeholder="Speciality"
+          placeholder="Teaching Experience"
           data={['Beginner', 'Intermediate', 'Expert']}
           selectedValue={selectedItem}
           onValueChange={(val: any) => setSelectedItem(val)}

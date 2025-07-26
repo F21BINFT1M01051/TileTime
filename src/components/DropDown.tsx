@@ -18,11 +18,18 @@ interface Props {
   onValueChange: (value: string) => void;
 }
 
-const DropdownField: React.FC<Props> = ({ placeholder, data, selectedValue, onValueChange }) => {
+const DropdownField: React.FC<Props> = ({
+  placeholder,
+  data,
+  selectedValue,
+  onValueChange,
+}) => {
   const [isFocused, setIsFocused] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
 
-  const animatedIsFocused = useRef(new Animated.Value(selectedValue ? 1 : 0)).current;
+  const animatedIsFocused = useRef(
+    new Animated.Value(selectedValue ? 1 : 0),
+  ).current;
 
   useEffect(() => {
     Animated.timing(animatedIsFocused, {
@@ -93,7 +100,7 @@ const DropdownField: React.FC<Props> = ({ placeholder, data, selectedValue, onVa
 
           <Feather
             name={showDropdown ? 'chevron-up' : 'chevron-down'}
-            size={RFPercentage(2.6)}
+            size={RFPercentage(2.4)}
             color={COLORS.icon}
             style={{ bottom: RFPercentage(1) }}
           />
@@ -115,7 +122,13 @@ const DropdownField: React.FC<Props> = ({ placeholder, data, selectedValue, onVa
                   ]}
                   onPress={() => handleSelect(item)}
                 >
-                  <Text style={{ fontFamily: FONTS.regular, color: COLORS.inputColor }}>
+                  <Text
+                    style={{
+                      fontFamily: FONTS.regular,
+                      color: COLORS.inputColor,
+                      fontSize: RFPercentage(1.7),
+                    }}
+                  >
                     {item}
                   </Text>
                 </TouchableOpacity>
@@ -134,7 +147,7 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: 1,
     width: '100%',
-    height: RFPercentage(8),
+    height: RFPercentage(7),
     backgroundColor: COLORS.fieldColor,
     borderColor: COLORS.fieldBorder,
     borderRadius: RFPercentage(1.5),
@@ -161,7 +174,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.fieldColor,
     maxHeight: RFPercentage(20),
     borderTopWidth: 0,
-    zIndex:999999
+    zIndex: 999999,
   },
   dropdownItem: {
     paddingVertical: RFPercentage(1.8),

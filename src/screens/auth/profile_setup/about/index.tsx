@@ -50,7 +50,7 @@ const About = () => {
             <Image
               source={ICONS.bars}
               resizeMode="contain"
-              style={{ width: RFPercentage(2), height: RFPercentage(2) }}
+              style={{ width: RFPercentage(1.5), height: RFPercentage(1.5) }}
             />
           </View>
         </View>
@@ -88,8 +88,8 @@ const styles = StyleSheet.create({
     borderRadius: RFPercentage(100),
   },
   editIcon: {
-    width: RFPercentage(4),
-    height: RFPercentage(4),
+    width: RFPercentage(3.8),
+    height: RFPercentage(3.8),
     left: RFPercentage(4),
     bottom: RFPercentage(2),
   },
@@ -125,5 +125,6 @@ const styles = StyleSheet.create({
     lineHeight: RFPercentage(2.5),
     fontSize: RFPercentage(1.8),
     height: RFPercentage(10),
+    left: RFPercentage(0.5),
   },
 });

@@ -45,7 +45,7 @@ const PersonalInfo = () => {
             <Feather
               name="phone"
               color={COLORS.icon}
-              size={RFPercentage(2.5)}
+              size={RFPercentage(2.4)}
             />
           }
         />

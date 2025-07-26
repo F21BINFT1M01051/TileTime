@@ -15,9 +15,7 @@ const CustomButton = (props: Props) => {
       onPress={props.onPress}
       style={styles.button}
     >
-      <Text style={styles.text}>
-        {props.title}
-      </Text>
+      <Text style={styles.text}>{props.title}</Text>
     </TouchableOpacity>
   );
 };
@@ -27,7 +25,7 @@ export default CustomButton;
 const styles = StyleSheet.create({
   button: {
     width: '100%',
-    height: RFPercentage(7),
+    height: RFPercentage(6.4),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: COLORS.primary,

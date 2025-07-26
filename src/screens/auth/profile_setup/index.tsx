@@ -126,7 +126,7 @@ const ProfileSetup = ({ navigation }: any) => {
           </View>
           <View style={styles.bottomWrapper}>
             <View style={styles.buttonContainer}>
-              <CustomButton title="Save and Next" onPress={handleNext} />
+              <CustomButton title="Save And Next" onPress={handleNext} />
             </View>
           </View>
         </>
@@ -145,8 +145,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     paddingBottom: RFPercentage(2.3),
     borderColor: COLORS.fieldBorder,
-    paddingHorizontal: RFPercentage(3.5),
-    marginTop: RFPercentage(6),
+    paddingHorizontal: RFPercentage(2),
+    marginTop: RFPercentage(7),
   },
   headerText: {
     fontFamily: FONTS.headline,
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(2),
   },
   stepBar: {
-    width: RFPercentage(9),
+    width: RFPercentage(7),
     height: RFPercentage(0.8),
     borderRadius: RFPercentage(100),
   },
@@ -193,6 +193,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingVertical: RFPercentage(1.5),
     backgroundColor: COLORS.white,
-    width:'100%'
+    width: '100%',
   },
 });

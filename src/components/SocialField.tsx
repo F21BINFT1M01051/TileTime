@@ -21,11 +21,7 @@ const SocialField = (props: Props) => {
       style={styles.container}
     >
       {props.icon && (
-        <Image
-          source={props.icon}
-          resizeMode="contain"
-          style={styles.icon}
-        />
+        <Image source={props.icon} resizeMode="contain" style={styles.icon} />
       )}
 
       <Text
@@ -47,7 +43,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: RFPercentage(6.8),
     backgroundColor: COLORS.white,
-    borderWidth: 1.3,
+    borderWidth: RFPercentage(0.1),
     borderColor: COLORS.borderColor,
     justifyContent: 'center',
     alignItems: 'center',
@@ -56,8 +52,8 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(2.3),
   },
   icon: {
-    width: RFPercentage(3.5),
-    height: RFPercentage(3.5),
+    width: RFPercentage(3.2),
+    height: RFPercentage(3.2),
     marginRight: RFPercentage(1.5),
   },
   text: {

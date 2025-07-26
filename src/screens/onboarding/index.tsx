@@ -16,7 +16,7 @@ import SocialField from '../../components/SocialField';
 const data = [
   {
     id: 1,
-    name: 'Continue with Email address',
+    name: 'Continue with Email/Username',
     navigationScreen: '',
     color: COLORS.black,
   },
@@ -74,6 +74,7 @@ const OnBoarding = ({ navigation }: any) => {
             <View style={styles.listContainer}>
               <FlatList
                 data={data}
+                scrollEnabled={false}
                 keyExtractor={item => item.id.toString()}
                 renderItem={({ item }) => (
                   <SocialField
@@ -132,7 +133,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: RFPercentage(2.5),
     borderTopLeftRadius: RFPercentage(2.5),
     alignItems: 'center',
-    marginTop: RFPercentage(4),
+    marginTop: RFPercentage(2.1),
     paddingBottom: RFPercentage(5),
     justifyContent: 'center',
   },
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
   skipButton: {
     width: RFPercentage(20),
     alignSelf: 'center',
-    marginTop: RFPercentage(6),
+    marginTop: RFPercentage(4),
   },
   skipText: {
     fontFamily: FONTS.semiBold,

@@ -38,7 +38,7 @@ const InputField = (props: Props) => {
     ...styles.label,
     top: animatedIsFocused.interpolate({
       inputRange: [0, 1],
-      outputRange: [RFPercentage(2.8), RFPercentage(1.1)],
+      outputRange: [RFPercentage(2), RFPercentage(1.1)],
     }),
     fontSize: animatedIsFocused.interpolate({
       inputRange: [0, 1],
@@ -73,7 +73,7 @@ const InputField = (props: Props) => {
           <Feather
             name={secureText ? 'eye-off' : 'eye'}
             color={COLORS.icon}
-            size={RFPercentage(2.3)}
+            size={RFPercentage(2)}
           />
         </TouchableOpacity>
       )}
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: 1,
     width: '100%',
-    // height: RFPercentage(8),
+    height: RFPercentage(7),
     paddingVertical: RFPercentage(1.5),
     backgroundColor: COLORS.fieldColor,
     borderColor: COLORS.fieldBorder,
@@ -106,15 +106,17 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular,
     width: '90%',
     top: RFPercentage(1.5),
+    fontSize: RFPercentage(2),
+    left: RFPercentage(0.5),
   },
   iconContainer: {
     position: 'absolute',
     right: RFPercentage(2),
-    top: RFPercentage(2.8),
+    top: RFPercentage(2.6),
   },
   eyeIcon: {
     position: 'absolute',
     right: RFPercentage(2),
-    top: RFPercentage(2.8),
+    top: RFPercentage(2.4),
   },
 });

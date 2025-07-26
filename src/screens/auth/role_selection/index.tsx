@@ -42,7 +42,7 @@ const RoleSelection = ({ navigation }: any) => {
         <View style={styles.footer}>
           <View style={styles.buttonWrapper}>
             <CustomButton
-              title={`Proceed as ${role}`}
+              title={`Proceed As ${role}`}
               onPress={() => {
                 navigation.navigate('ProfileSetup');
               }}

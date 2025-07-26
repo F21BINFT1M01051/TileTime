@@ -162,15 +162,18 @@ const styles = StyleSheet.create({
   noAccountText: {
     fontFamily: FONTS.regular2,
     color: COLORS.lightGrey,
+    fontSize: RFPercentage(1.7),
   },
   signupText: {
     fontFamily: FONTS.semiBold2,
     color: COLORS.primary,
     left: RFPercentage(0.4),
+    fontSize: RFPercentage(1.7),
   },
   footerText: {
     fontFamily: FONTS.regular2,
     color: COLORS.lightGrey,
+    fontSize: RFPercentage(1.7),
     textAlign: 'center',
     marginTop: RFPercentage(1.3),
   },
