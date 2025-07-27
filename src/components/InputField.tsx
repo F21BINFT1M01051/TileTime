@@ -5,6 +5,7 @@ import {
   Animated,
   StyleSheet,
   TouchableOpacity,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS } from '../config/theme';
@@ -21,6 +22,7 @@ interface Props {
 const InputField = (props: Props) => {
   const [isFocused, setIsFocused] = useState(false);
   const [secureText, setSecureText] = useState(props.password);
+  const inputRef = useRef<TextInput>(null); // Reference for focusing
 
   const animatedIsFocused = useRef(
     new Animated.Value(props.value ? 1 : 0),
@@ -52,40 +54,43 @@ const InputField = (props: Props) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.wrap}>
-        <Animated.Text style={labelStyle}>{props.placeholder}</Animated.Text>
+    <TouchableWithoutFeedback onPress={() => inputRef.current?.focus()}>
+      <View style={styles.container}>
+        <View style={styles.wrap}>
+          <Animated.Text style={labelStyle}>{props.placeholder}</Animated.Text>
 
-        <TextInput
-          style={styles.input}
-          value={props.value}
-          onChangeText={props.onChangeText}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => {
-            if (!props.value) {
-              setIsFocused(false);
-            }
-          }}
-          blurOnSubmit
-          secureTextEntry={props.password ? secureText : false}
-        />
+          <TextInput
+            ref={inputRef}
+            style={styles.input}
+            value={props.value}
+            onChangeText={props.onChangeText}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => {
+              if (!props.value) {
+                setIsFocused(false);
+              }
+            }}
+            blurOnSubmit
+            secureTextEntry={props.password ? secureText : false}
+          />
 
-        {props.password && (
-          <TouchableOpacity
-            style={styles.eyeIcon}
-            onPress={() => setSecureText(prev => !prev)}
-          >
-            <Feather
-              name={secureText ? 'eye-off' : 'eye'}
-              color={COLORS.icon}
-              size={RFPercentage(2)}
-            />
-          </TouchableOpacity>
-        )}
+          {props.password && (
+            <TouchableOpacity
+              style={styles.eyeIcon}
+              onPress={() => setSecureText(prev => !prev)}
+            >
+              <Feather
+                name={secureText ? 'eye-off' : 'eye'}
+                color={COLORS.icon}
+                size={RFPercentage(2)}
+              />
+            </TouchableOpacity>
+          )}
 
-        {props.icon && <View style={styles.iconContainer}>{props.icon}</View>}
+          {props.icon && <View style={styles.iconContainer}>{props.icon}</View>}
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 

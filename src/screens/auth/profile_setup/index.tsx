@@ -119,9 +119,11 @@ const ProfileSetup = ({ navigation }: any) => {
         <>
           <View>
             {stepIndex !== 0 && (
-              <TouchableOpacity style={styles.skip}>
-                <Text style={styles.skipText}>Skip For Now</Text>
-              </TouchableOpacity>
+              <View style={{ width: '100%', backgroundColor: COLORS.white }}>
+                <TouchableOpacity style={styles.skip}>
+                  <Text style={styles.skipText}>Skip For Now</Text>
+                </TouchableOpacity>
+              </View>
             )}
           </View>
           <View style={styles.bottomWrapper}>
@@ -193,6 +195,5 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingVertical: RFPercentage(1.5),
     backgroundColor: COLORS.white,
-    width: '100%',
   },
 });

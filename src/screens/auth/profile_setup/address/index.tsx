@@ -3,13 +3,14 @@ import React from 'react';
 import { COLORS, FONTS, ICONS } from '../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import InputField from '../../../../components/InputField';
-import Feather from 'react-native-vector-icons/Feather';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
 const Address = () => {
   const [address, setAddress] = React.useState('');
   const [instagram, setInstagram] = React.useState('');
   const [website, setWebsite] = React.useState('');
+  const [facebook, setFacebook] = React.useState('');
+  const [tiktok, setTiktok] = React.useState('');
 
   return (
     <View style={styles.container}>
@@ -25,8 +26,8 @@ const Address = () => {
 
         <InputField
           placeholder="Facebook Handle"
-          value={address}
-          onChangeText={setAddress}
+          value={facebook}
+          onChangeText={setFacebook}
           password={false}
           icon={
             <SimpleLineIcons
@@ -38,8 +39,8 @@ const Address = () => {
         />
         <InputField
           placeholder="TikTok Handle"
-          value={address}
-          onChangeText={setAddress}
+          value={tiktok}
+          onChangeText={setTiktok}
           password={false}
           icon={
             <SimpleLineIcons
@@ -51,8 +52,8 @@ const Address = () => {
         />
         <InputField
           placeholder="Instagram Handle"
-          value={address}
-          onChangeText={setAddress}
+          value={instagram}
+          onChangeText={setInstagram}
           password={false}
           icon={
             <SimpleLineIcons
@@ -65,8 +66,8 @@ const Address = () => {
 
         <InputField
           placeholder="Website URL"
-          value={instagram}
-          onChangeText={setInstagram}
+          value={website}
+          onChangeText={setWebsite}
           password={false}
           icon={
             <Image
