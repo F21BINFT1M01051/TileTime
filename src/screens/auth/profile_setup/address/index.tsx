@@ -1,82 +1,70 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View, FlatList } from 'react-native';
 import React from 'react';
 import { COLORS, FONTS, ICONS } from '../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import InputField from '../../../../components/InputField';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import SocialField from '../../../../components/SocialField';
+
+const data = [
+  {
+    id: 1,
+    name: 'Connect With Facebook',
+    navigationScreen: '',
+    color: COLORS.skyBlue,
+    icon: ICONS.facebook,
+  },
+  {
+    id: 2,
+    name: 'Connect With Instagram',
+    navigationScreen: '',
+    icon: ICONS.insta,
+    color: COLORS.pink2,
+  },
+  {
+    id: 3,
+    name: 'Connect With TikTok',
+    navigationScreen: '',
+    icon: ICONS.tiktok,
+    color: COLORS.black,
+  },
+];
 
 const Address = () => {
-  const [address, setAddress] = React.useState('');
-  const [instagram, setInstagram] = React.useState('');
   const [website, setWebsite] = React.useState('');
-  const [facebook, setFacebook] = React.useState('');
-  const [tiktok, setTiktok] = React.useState('');
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Connect SM</Text>
+      <Text style={styles.heading}>Where can people find you</Text>
 
       <View style={styles.inputContainer}>
-        <InputField
-          placeholder="City,State"
-          value={address}
-          onChangeText={setAddress}
-          password={false}
-        />
-
-        <InputField
-          placeholder="Facebook Handle"
-          value={facebook}
-          onChangeText={setFacebook}
-          password={false}
-          icon={
-            <SimpleLineIcons
-              name="social-instagram"
-              color={COLORS.icon}
-              size={RFPercentage(2.5)}
+        <FlatList
+          data={data}
+          scrollEnabled={false}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({ item }) => (
+            <SocialField
+              icon={item.icon}
+              name={item.name}
+              navigation={item.navigationScreen}
+              color={item.color}
             />
-          }
+          )}
         />
-        <InputField
-          placeholder="TikTok Handle"
-          value={tiktok}
-          onChangeText={setTiktok}
-          password={false}
-          icon={
-            <SimpleLineIcons
-              name="social-instagram"
-              color={COLORS.icon}
-              size={RFPercentage(2.5)}
-            />
-          }
-        />
-        <InputField
-          placeholder="Instagram Handle"
-          value={instagram}
-          onChangeText={setInstagram}
-          password={false}
-          icon={
-            <SimpleLineIcons
-              name="social-instagram"
-              color={COLORS.icon}
-              size={RFPercentage(2.5)}
-            />
-          }
-        />
-
-        <InputField
-          placeholder="Website URL"
-          value={website}
-          onChangeText={setWebsite}
-          password={false}
-          icon={
-            <Image
-              source={ICONS.globe}
-              resizeMode="contain"
-              style={{ width: RFPercentage(3), height: RFPercentage(3) }}
-            />
-          }
-        />
+        <View style={{ marginTop: RFPercentage(0.5) }}>
+          <InputField
+            placeholder="Your Website URL"
+            value={website}
+            onChangeText={setWebsite}
+            password={false}
+            icon={
+              <Image
+                source={ICONS.globe}
+                resizeMode="contain"
+                style={{ width: RFPercentage(3), height: RFPercentage(3) }}
+              />
+            }
+          />
+        </View>
       </View>
     </View>
   );
@@ -91,7 +79,7 @@ const styles = StyleSheet.create({
   heading: {
     fontFamily: FONTS.headline,
     color: COLORS.primary,
-    fontSize: RFPercentage(2.2),
+    fontSize: RFPercentage(2.3),
   },
   inputContainer: {
     marginTop: RFPercentage(2),

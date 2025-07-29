@@ -18,6 +18,7 @@ interface Props {
   onValueChange: (value: string) => void;
   isDropdownVisible: boolean;
   setIsDropdownVisible: (visible: boolean) => void;
+  style?: object;
 }
 
 const DropdownField: React.FC<Props> = ({
@@ -27,6 +28,7 @@ const DropdownField: React.FC<Props> = ({
   onValueChange,
   isDropdownVisible,
   setIsDropdownVisible,
+  style,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -81,6 +83,7 @@ const DropdownField: React.FC<Props> = ({
       <View
         style={[
           styles.container,
+          style,
           isDropdownVisible && {
             borderBottomLeftRadius: 0,
             borderBottomRightRadius: 0,
@@ -108,7 +111,7 @@ const DropdownField: React.FC<Props> = ({
           <Feather
             name={isDropdownVisible ? 'chevron-up' : 'chevron-down'}
             size={RFPercentage(2.4)}
-            color={COLORS.icon}
+            color={COLORS.placeholder}
           />
         </TouchableOpacity>
       </View>
@@ -118,6 +121,8 @@ const DropdownField: React.FC<Props> = ({
           <FlatList
             data={data}
             keyExtractor={(item, index) => index.toString()}
+            scrollEnabled={true}
+            keyboardShouldPersistTaps="handled"
             renderItem={({ item, index }) => {
               const isLastItem = index === data.length - 1;
               return (
@@ -159,6 +164,7 @@ const styles = StyleSheet.create({
     borderRadius: RFPercentage(1.3),
     marginTop: RFPercentage(2),
     justifyContent: 'center',
+   
   },
   dropdownButton: {
     flexDirection: 'row',
@@ -177,7 +183,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: RFPercentage(1.2),
     borderBottomLeftRadius: RFPercentage(1.2),
     backgroundColor: COLORS.fieldColor,
-    maxHeight: RFPercentage(20),
+    maxHeight: RFPercentage(25),
     borderTopWidth: 0,
     zIndex: 999999,
   },

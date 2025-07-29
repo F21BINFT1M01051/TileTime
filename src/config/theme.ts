@@ -21,6 +21,8 @@ export const COLORS = {
   dropDown: '#E0E0E0',
   radio: '#DCDCDC',
   radio2: '##F9F9F9',
+  pink2: '#FF0069',
+  grey3 : "#696B74"
 };
 
 export const IMAGES = {
@@ -41,6 +43,8 @@ export const ICONS = {
   bars: require('../assets/icons/bars.png'),
   globe: require('../assets/icons/globe.png'),
   phone: require('../assets/icons/phone.png'),
+  insta: require('../assets/icons/insta.png'),
+  tiktok: require('../assets/icons/tiktok.png'),
 };
 
 export const FONTS = {

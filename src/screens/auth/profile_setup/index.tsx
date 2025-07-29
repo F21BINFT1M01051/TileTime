@@ -12,13 +12,12 @@ import {
 import { COLORS, FONTS } from '../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import PersonalInfo from './personal_info';
 import CustomButton from '../../../components/CustomButton';
 import About from './about';
 import ProffessionalInfo from './proffessional';
 import Address from './address';
 
-const steps = ['personal', 'about', 'professional', 'address'];
+const steps = ['about', 'professional', 'address'];
 
 const ProfileSetup = ({ navigation }: any) => {
   const [stepIndex, setStepIndex] = useState(0);
@@ -53,12 +52,10 @@ const ProfileSetup = ({ navigation }: any) => {
   const renderStepContent = () => {
     switch (stepIndex) {
       case 0:
-        return <PersonalInfo />;
-      case 1:
         return <About />;
-      case 2:
+      case 1:
         return <ProffessionalInfo />;
-      case 3:
+      case 2:
         return <Address />;
       default:
         return null;
@@ -153,7 +150,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontFamily: FONTS.headline,
     color: COLORS.primary,
-    fontSize: RFPercentage(2.6),
+    fontSize: RFPercentage(2.7),
     marginLeft: RFPercentage(1.2),
   },
   stepBarContainer: {
@@ -187,7 +184,7 @@ const styles = StyleSheet.create({
   },
   skipText: {
     textAlign: 'center',
-    fontFamily: FONTS.medium,
+    fontFamily: FONTS.semiBold,
     color: COLORS.black,
     fontSize: RFPercentage(1.9),
   },

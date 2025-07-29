@@ -13,11 +13,17 @@ import { COLORS, FONTS, ICONS, IMAGES } from '../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import DropdownField from '../../../../components/DropDown';
 import { launchImageLibrary } from 'react-native-image-picker';
+import InputField from '../../../../components/InputField';
 
 const About = () => {
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [city, setCity] = useState(null);
+  const [state, setState] = useState(null);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const [isDropdownVisible2, setIsDropdownVisible2] = useState(false);
   const [imageUri, setImageUri] = useState(null);
+  const [name, setName] = React.useState('');
+  const [userName, setUserName] = React.useState('');
+  const [phoneNumber, setPhoneNumber] = React.useState('');
 
   const pickImage = () => {
     const options = {
@@ -26,11 +32,7 @@ const About = () => {
     };
 
     launchImageLibrary(options, response => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.errorCode) {
-        console.log('ImagePicker Error: ', response.errorMessage);
-      } else if (response.assets && response.assets.length > 0) {
+      if (response.assets && response.assets.length > 0) {
         setImageUri(response?.assets[0].uri);
       }
     });
@@ -40,11 +42,14 @@ const About = () => {
     <TouchableWithoutFeedback
       onPress={() => {
         Keyboard.dismiss();
-        if (isDropdownVisible) setIsDropdownVisible(false);
+        if (isDropdownVisible || isDropdownVisible2) {
+          setIsDropdownVisible(false);
+          setIsDropdownVisible2(false);
+        }
       }}
     >
       <View style={styles.container}>
-        <Text style={styles.title}>Help others get to know you</Text>
+        <Text style={styles.title}>Enter Your Personal Details</Text>
 
         <TouchableOpacity
           activeOpacity={0.8}
@@ -53,19 +58,26 @@ const About = () => {
         >
           <Image
             source={imageUri ? { uri: imageUri } : IMAGES.profile}
-            resizeMode="contain"
+            resizeMode="cover"
             style={styles.profileImage}
           />
-           <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={pickImage}>
-          <Image
-            source={ICONS.edit}
-            resizeMode="contain"
-            style={styles.editIcon}
-          />
+          <TouchableOpacity activeOpacity={0.8} onPress={pickImage}>
+            <Image
+              source={ICONS.edit}
+              resizeMode="contain"
+              style={styles.editIcon}
+            />
           </TouchableOpacity>
         </TouchableOpacity>
+
+        <View style={{ marginTop: RFPercentage(-1) }}>
+          <InputField
+            placeholder="Full Name"
+            value={name}
+            onChangeText={setName}
+            password={false}
+          />
+        </View>
 
         <View style={styles.bioWrapper}>
           <View style={styles.bioContainer}>
@@ -105,15 +117,55 @@ const About = () => {
           </View>
         </View>
 
-        <View>
-          <DropdownField
-            placeholder="Skill Level"
-            data={['Beginner', 'Intermediate', 'Expert']}
-            selectedValue={selectedItem}
-            onValueChange={(val: any) => setSelectedItem(val)}
-            isDropdownVisible={isDropdownVisible}
-            setIsDropdownVisible={setIsDropdownVisible}
+        <View style={{ marginTop: RFPercentage(1) }}>
+          <InputField
+            placeholder="Create A Username"
+            value={userName}
+            onChangeText={setUserName}
+            password={false}
           />
+        </View>
+
+        <View style={{ marginTop: RFPercentage(1) }}>
+          <InputField
+            placeholder="Phone Number"
+            value={phoneNumber}
+            onChangeText={setPhoneNumber}
+            password={false}
+            icon={
+              <Image
+                source={ICONS.phone}
+                resizeMode="contain"
+                style={{ width: RFPercentage(2.5), height: RFPercentage(2.5) }}
+              />
+            }
+          />
+        </View>
+
+        <View style={styles.dropdowns}>
+          <View style={{ width: '48%' }}>
+            <DropdownField
+              placeholder="City"
+              data={['Beijing', 'Shanghai', 'Shenzhen', 'Chongqing']}
+              selectedValue={city}
+              onValueChange={(val: any) => setCity(val)}
+              isDropdownVisible={isDropdownVisible}
+              setIsDropdownVisible={setIsDropdownVisible}
+              style={{ paddingHorizontal: RFPercentage(1) }}
+            />
+          </View>
+
+          <View style={{ width: '48%' }}>
+            <DropdownField
+              placeholder="State"
+              data={['Beijing', 'Shanghai', 'Guangdong', 'Sichuan']}
+              selectedValue={state}
+              onValueChange={(val: any) => setState(val)}
+              isDropdownVisible={isDropdownVisible2}
+              setIsDropdownVisible={setIsDropdownVisible2}
+              style={{ paddingHorizontal: RFPercentage(1) }}
+            />
+          </View>
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -129,10 +181,10 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: FONTS.headline,
     color: COLORS.primary,
-    fontSize: RFPercentage(2.2),
+    fontSize: RFPercentage(2.3),
   },
   profileContainer: {
-    marginTop: RFPercentage(3),
+    marginTop: RFPercentage(4),
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
@@ -143,13 +195,18 @@ const styles = StyleSheet.create({
     height: RFPercentage(13.5),
     borderRadius: RFPercentage(100),
   },
+  dropdowns: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: RFPercentage(1),
+  },
   editIcon: {
     width: RFPercentage(3.8),
     height: RFPercentage(3.8),
     bottom: RFPercentage(2),
   },
   bioWrapper: {
-    marginTop: RFPercentage(1.5),
+    marginTop: RFPercentage(3),
   },
   bioContainer: {
     backgroundColor: COLORS.fieldColor,
