@@ -17,53 +17,29 @@ const Groups = ({ navigation }: any) => {
   const [activeTab, setActiveTab] = useState('groups');
 
   return (
-    <LinearGradient colors={['#FFFFFF', '#F7F0E1']} style={{ flex: 1 }}>
+    <LinearGradient colors={[COLORS.white, COLORS.offWhite2]} style={styles.gradientContainer}>
       <View>
         <ImageBackground
           source={IMAGES.background}
           resizeMode="cover"
-          style={{ width: '100%', height: RFPercentage(35) }}
+          style={styles.imageBackground}
         >
           <TopNavigation />
-          <View
-            style={{ width: '90%', alignSelf: 'center', alignItems: 'center' }}
-          >
-            <View
-              style={{
-                width: '100%',
-                backgroundColor: COLORS.white,
-                borderWidth: RFPercentage(0.1),
-                borderColor: COLORS.lightWhite,
-                borderRadius: RFPercentage(2.5),
-                height: RFPercentage(6.5),
-                marginTop: RFPercentage(4),
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                padding: RFPercentage(0.5),
-              }}
-            >
+          <View style={styles.contentContainer}>
+            <View style={styles.tabContainer}>
               {/* Groups Button */}
               <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={() => setActiveTab('groups')}
-                style={{
-                  width: '50%',
-                  backgroundColor:
-                    activeTab === 'groups' ? COLORS.pink : 'transparent',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  height: '100%',
-                  borderRadius: RFPercentage(2),
-                }}
+                style={[
+                  styles.tabButton,
+                  activeTab === 'groups' && styles.activeTabButton
+                ]}
               >
-                <Text
-                  style={{
-                    color: activeTab === 'groups' ? COLORS.white : '#82848C',
-                    fontFamily:
-                      activeTab === 'groups' ? FONTS.medium : FONTS.regular,
-                  }}
-                >
+                <Text style={[
+                  styles.tabButtonText,
+                  activeTab === 'groups' && styles.activeTabButtonText
+                ]}>
                   Groups
                 </Text>
               </TouchableOpacity>
@@ -72,84 +48,43 @@ const Groups = ({ navigation }: any) => {
               <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={() => setActiveTab('chats')}
-                style={{
-                  width: '50%',
-                  backgroundColor:
-                    activeTab === 'chats' ? COLORS.pink : 'transparent',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  height: '100%',
-                  borderRadius: RFPercentage(2),
-                }}
+                style={[
+                  styles.tabButton,
+                  activeTab === 'chats' && styles.activeTabButton
+                ]}
               >
-                <Text
-                  style={{
-                    color: activeTab === 'chats' ? COLORS.white : '#82848C',
-                    fontFamily:
-                      activeTab === 'chats' ? FONTS.medium : FONTS.regular,
-                  }}
-                >
+                <Text style={[
+                  styles.tabButtonText,
+                  activeTab === 'chats' && styles.activeTabButtonText
+                ]}>
                   Chats
                 </Text>
               </TouchableOpacity>
             </View>
-            <View style={{ marginTop: RFPercentage(3) }}>
-              <Text
-                style={{
-                  color: COLORS.primary,
-                  fontFamily: FONTS.headline,
-                  fontSize: RFPercentage(3),
-                  textAlign: 'center',
-                }}
-              >
+            <View style={styles.titleContainer}>
+              <Text style={styles.mainTitle}>
                 {`Start a Group and\nInvite Others`}
               </Text>
             </View>
-            <View style={{ marginTop: RFPercentage(1) }}>
-              <Text
-                style={{
-                  color: COLORS.primary,
-                  fontFamily: FONTS.stylish,
-                  fontSize: RFPercentage(2),
-                  textAlign: 'center',
-                }}
-              >
+            <View style={styles.subtitleContainer}>
+              <Text style={styles.subtitleText}>
                 {`Groups are a great way to connect with others\nwho share your interests.`}
               </Text>
               <Image
                 source={ICONS.border}
                 resizeMode="contain"
-                style={{
-                  width: RFPercentage(10),
-                  height: RFPercentage(2),
-                  alignSelf: 'flex-end',
-                  right: RFPercentage(7),
-                }}
+                style={styles.borderIcon}
               />
             </View>
           </View>
         </ImageBackground>
-        <View
-          style={{
-            width: '90%',
-            alignSelf: 'center',
-            marginTop: RFPercentage(8),
-            alignItems: 'center',
-          }}
-        >
+        <View style={styles.bottomContainer}>
           <Image
             source={IMAGES.group}
             resizeMode="contain"
-            style={{ width: RFPercentage(50), height: RFPercentage(30) }}
+            style={styles.groupImage}
           />
-          <View
-            style={{
-              width: '100%',
-              alignSelf: 'center',
-              alignContent: 'center',
-              marginTop: RFPercentage(5),
-            }}
-          >
+          <View style={styles.buttonWrapper}>
             <CustomButton
               title="Create Your First Group"
               onPress={() => {
@@ -165,4 +100,89 @@ const Groups = ({ navigation }: any) => {
 
 export default Groups;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  gradientContainer: {
+    flex: 1
+  },
+  imageBackground: {
+    width: '100%', 
+    height: RFPercentage(35)
+  },
+  contentContainer: {
+    width: '90%', 
+    alignSelf: 'center', 
+    alignItems: 'center'
+  },
+  tabContainer: {
+    width: '100%',
+    backgroundColor: COLORS.white,
+    borderWidth: RFPercentage(0.1),
+    borderColor: COLORS.lightWhite,
+    borderRadius: RFPercentage(2.5),
+    height: RFPercentage(6.5),
+    marginTop: RFPercentage(4),
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: RFPercentage(0.5),
+  },
+  tabButton: {
+    width: '50%',
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    borderRadius: RFPercentage(2),
+  },
+  activeTabButton: {
+    backgroundColor: COLORS.pink,
+  },
+  tabButtonText: {
+    color: COLORS.grey5,
+    fontFamily: FONTS.regular,
+  },
+  activeTabButtonText: {
+    color: COLORS.white,
+    fontFamily: FONTS.medium,
+  },
+  titleContainer: {
+    marginTop: RFPercentage(3)
+  },
+  mainTitle: {
+    color: COLORS.primary,
+    fontFamily: FONTS.headline,
+    fontSize: RFPercentage(3),
+    textAlign: 'center',
+  },
+  subtitleContainer: {
+    marginTop: RFPercentage(1)
+  },
+  subtitleText: {
+    color: COLORS.primary,
+    fontFamily: FONTS.stylish,
+    fontSize: RFPercentage(2),
+    textAlign: 'center',
+  },
+  borderIcon: {
+    width: RFPercentage(10),
+    height: RFPercentage(2),
+    alignSelf: 'flex-end',
+    right: RFPercentage(7),
+  },
+  bottomContainer: {
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: RFPercentage(8),
+    alignItems: 'center',
+  },
+  groupImage: {
+    width: RFPercentage(50), 
+    height: RFPercentage(30)
+  },
+  buttonWrapper: {
+    width: '100%',
+    alignSelf: 'center',
+    alignContent: 'center',
+    marginTop: RFPercentage(5),
+  }
+});

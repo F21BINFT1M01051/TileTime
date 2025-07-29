@@ -23,6 +23,18 @@ export const COLORS = {
   radio2: '##F9F9F9',
   pink2: '#FF0069',
   grey3: '#696B74',
+  yellow : "#FFCB4C",
+  offWhite : "#FBFAF9",
+  grey4 : "#696969",
+  grey5 : "#82848C",
+  green2 : "#40C3B1",
+  pink3 : "#BF5A9E",
+  purple : "#8D5BB7",
+  PURPLE2 : "#7B4CCB",
+  white2 : "#ECE1FF",
+  offWhite2 : "#F7F0E1",
+  tab : "#F6F6F6",
+  tbText : "#151515"
 };
 
 export const IMAGES = {
@@ -33,6 +45,9 @@ export const IMAGES = {
   background: require('../assets/images/background.png'),
   group: require('../assets/images/group.png'),
   contacts: require('../assets/images/contacts.png'),
+  profile1: require('../assets/images/profile1.png'),
+  profile2: require('../assets/images/profile2.png'),
+  chat: require('../assets/images/chat.png'),
 };
 
 export const ICONS = {
@@ -55,6 +70,9 @@ export const ICONS = {
   vector: require('../assets/icons/Vector.png'),
   border: require('../assets/icons/border.png'),
   group: require('../assets/icons/group.png'),
+  uncheck: require('../assets/icons/uncheck.png'),
+  checked: require('../assets/icons/checked.png'),
+  send: require('../assets/icons/send.png'),
 };
 
 export const FONTS = {

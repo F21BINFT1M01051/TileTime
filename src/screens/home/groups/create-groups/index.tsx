@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
   Keyboard,
   ScrollView,
@@ -13,7 +11,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 import CustomButton from '../../../../components/CustomButton';
 import Members from './members';
 import About from './about';
-import { COLORS, FONTS, ICONS } from '../../../../config/theme';
+import { COLORS, FONTS } from '../../../../config/theme';
 import Nav from '../../../../components/Nav';
 
 const steps = ['about', 'members'];
@@ -40,7 +38,7 @@ const CreateGroup = ({ navigation }: any) => {
     if (stepIndex < steps.length - 1) {
       setStepIndex(stepIndex + 1);
     } else {
-      navigation.navigate('BottomTabs');
+      navigation.navigate('GroupCreated');
     }
   };
 
@@ -96,7 +94,12 @@ const CreateGroup = ({ navigation }: any) => {
         <>
           <View style={styles.bottomWrapper}>
             <View style={styles.buttonContainer}>
-              <CustomButton title="Save And Next" onPress={handleNext} />
+              <CustomButton
+                title={
+                  stepIndex === 0 ? 'Save And Next' : 'Send Invites & Next'
+                }
+                onPress={handleNext}
+              />
             </View>
           </View>
         </>
@@ -152,16 +155,5 @@ const styles = StyleSheet.create({
   buttonContainer: {
     width: '90%',
     alignSelf: 'center',
-  },
-  skipText: {
-    textAlign: 'center',
-    fontFamily: FONTS.semiBold,
-    color: COLORS.black,
-    fontSize: RFPercentage(1.9),
-  },
-  skip: {
-    alignSelf: 'center',
-    paddingVertical: RFPercentage(1.5),
-    backgroundColor: COLORS.white,
   },
 });

@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { useState } from 'react';
-import { COLORS, FONTS, ICONS } from '../../../../../config/theme';
+import { COLORS, FONTS } from '../../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import ToggleSwitch from 'toggle-switch-react-native';
 import Contacts from './contacts';
@@ -25,44 +25,22 @@ const Members = () => {
         />
       </View>
 
-      <View
-        style={{ width: '100%', alignSelf: 'center', alignItems: 'center' }}
-      >
-        <View
-          style={{
-            width: '100%',
-            backgroundColor: COLORS.white,
-            borderWidth: RFPercentage(0.1),
-            borderColor: COLORS.lightWhite,
-            borderRadius: RFPercentage(2.5),
-            height: RFPercentage(6.5),
-            marginTop: RFPercentage(4),
-            alignItems: 'center',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            padding: RFPercentage(0.5),
-          }}
-        >
+      <View style={styles.tabContainer}>
+        <View style={styles.tabWrapper}>
           {/* Groups Button */}
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => setActiveTab('players')}
-            style={{
-              width: '50%',
-              backgroundColor:
-                activeTab === 'players' ? COLORS.pink : 'transparent',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '100%',
-              borderRadius: RFPercentage(2),
-            }}
+            style={[
+              styles.tabButton,
+              activeTab === 'players' && styles.activeTabButton,
+            ]}
           >
             <Text
-              style={{
-                color: activeTab === 'players' ? COLORS.white : '#82848C',
-                fontFamily:
-                  activeTab === 'players' ? FONTS.medium : FONTS.regular,
-              }}
+              style={[
+                styles.tabButtonText,
+                activeTab === 'players' && styles.activeTabButtonText,
+              ]}
             >
               All Players
             </Text>
@@ -72,22 +50,16 @@ const Members = () => {
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => setActiveTab('contacts')}
-            style={{
-              width: '50%',
-              backgroundColor:
-                activeTab === 'contacts' ? COLORS.pink : 'transparent',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '100%',
-              borderRadius: RFPercentage(2),
-            }}
+            style={[
+              styles.tabButton,
+              activeTab === 'contacts' && styles.activeTabButton,
+            ]}
           >
             <Text
-              style={{
-                color: activeTab === 'contacts' ? COLORS.white : '#82848C',
-                fontFamily:
-                  activeTab === 'contacts' ? FONTS.medium : FONTS.regular,
-              }}
+              style={[
+                styles.tabButtonText,
+                activeTab === 'contacts' && styles.activeTabButtonText,
+              ]}
             >
               Your Contacts
             </Text>
@@ -124,49 +96,42 @@ const styles = StyleSheet.create({
     color: COLORS.inputColor,
     fontSize: RFPercentage(1.8),
   },
-  dropdowns: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: RFPercentage(1),
-  },
-  editIcon: {
-    width: RFPercentage(3.8),
-    height: RFPercentage(3.8),
-    bottom: RFPercentage(2),
-  },
-  bioWrapper: {
-    marginTop: RFPercentage(3),
-  },
-  bioContainer: {
-    backgroundColor: COLORS.fieldColor,
-    borderWidth: RFPercentage(0.1),
-    borderColor: COLORS.fieldBorder,
-    borderRadius: RFPercentage(1.5),
-  },
-  bioHeader: {
-    flexDirection: 'row',
+
+  tabContainer: {
+    width: '100%',
+    alignSelf: 'center',
     alignItems: 'center',
+  },
+  tabWrapper: {
+    width: '100%',
+    backgroundColor: COLORS.white,
+    borderWidth: RFPercentage(0.1),
+    borderColor: COLORS.lightWhite,
+    borderRadius: RFPercentage(2.5),
+    height: RFPercentage(6.5),
+    marginTop: RFPercentage(4),
+    alignItems: 'center',
+    flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '100%',
-    alignSelf: 'center',
-    marginTop: RFPercentage(1),
+    padding: RFPercentage(0.5),
   },
-  bioLabel: {
-    fontFamily: FONTS.medium2,
-    color: COLORS.primary,
-    fontSize: RFPercentage(1.7),
+  tabButton: {
+    width: '50%',
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    borderRadius: RFPercentage(2),
   },
-  bioInput: {
-    width: '100%',
-    alignSelf: 'center',
-    textAlignVertical: 'top',
+  activeTabButton: {
+    backgroundColor: COLORS.pink,
+  },
+  tabButtonText: {
+    color: COLORS.grey5,
     fontFamily: FONTS.regular,
-    color: COLORS.inputColor,
-    lineHeight: RFPercentage(2.5),
-    fontSize: RFPercentage(1.8),
-    height: RFPercentage(12),
-    paddingHorizontal: 0,
-    paddingVertical: 0,
-    top: RFPercentage(2),
+  },
+  activeTabButtonText: {
+    color: COLORS.white,
+    fontFamily: FONTS.medium,
   },
 });

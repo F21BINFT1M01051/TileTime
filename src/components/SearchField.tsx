@@ -19,23 +19,11 @@ interface Props {
 const SearchField = (props: Props) => {
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          width: '90%',
-          alignSelf: 'center',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
+      <View style={styles.inputContainer}>
         <TextInput
           placeholder={props.placeholder}
           placeholderTextColor={COLORS.placeholder}
-          style={{
-            color: COLORS.inputColor,
-            fontFamily: FONTS.regular,
-            width: '90%',
-          }}
+          style={styles.textInput}
           value={props.value}
           onChangeText={props.onChangeText}
         />
@@ -63,6 +51,18 @@ const styles = StyleSheet.create({
     borderRadius: RFPercentage(1.3),
     marginTop: RFPercentage(3),
     alignItems: 'center',
-    justifyContent:'center'
+    justifyContent: 'center'
+  },
+  inputContainer: {
+    width: '90%',
+    alignSelf: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  textInput: {
+    color: COLORS.inputColor,
+    fontFamily: FONTS.regular,
+    width: '90%',
   },
 });

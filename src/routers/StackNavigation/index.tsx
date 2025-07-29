@@ -9,6 +9,7 @@ import RoleSelection from '../../screens/auth/role_selection';
 import ProfileSetup from '../../screens/auth/profile_setup';
 import BottomTabs from '../BottomTabs';
 import CreateGroup from '../../screens/home/groups/create-groups';
+import GroupCreated from '../../screens/home/groups/create-groups/group-created';
 
 export type RootStackParamList = {
   OnBoarding: undefined;
@@ -18,6 +19,7 @@ export type RootStackParamList = {
   ProfileSetup: undefined;
   BottomTabs: undefined;
   CreateGroup: undefined;
+  GroupCreated: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -37,6 +39,7 @@ const Navigator: React.FC = () => {
         <Stack.Screen name="ProfileSetup" component={ProfileSetup} />
         <Stack.Screen name="BottomTabs" component={BottomTabs} />
         <Stack.Screen name="CreateGroup" component={CreateGroup} />
+        <Stack.Screen name="GroupCreated" component={GroupCreated} />
       </Stack.Navigator>
     </NavigationContainer>
   );

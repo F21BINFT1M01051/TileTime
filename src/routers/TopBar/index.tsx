@@ -5,41 +5,15 @@ import { COLORS, FONTS, ICONS } from '../../config/theme';
 
 const TopNavigation = () => {
   return (
-    <View
-      style={{
-        width: '100%',
-        backgroundColor: '#B14088',
-        height: RFPercentage(12),
-        justifyContent: 'flex-end',
-        paddingBottom: RFPercentage(2),
-      }}
-    >
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          width: '90%',
-          alignSelf: 'center',
-        }}
-      >
-        <Text
-          style={{
-            color: COLORS.white,
-            fontFamily: FONTS.headline,
-            fontSize: RFPercentage(3),
-            marginRight: RFPercentage(0.2),
-          }}
-        >
+    <View style={styles.container}>
+      <View style={styles.innerContainer}>
+        <Text style={styles.titleText}>
           Groups & Chats
         </Text>
         <Image
           source={ICONS.vector}
           resizeMode="contain"
-          style={{
-            width: RFPercentage(2.2),
-            height: RFPercentage(2.2),
-            bottom: RFPercentage(1),
-          }}
+          style={styles.vectorIcon}
         />
       </View>
     </View>
@@ -47,3 +21,30 @@ const TopNavigation = () => {
 };
 
 export default TopNavigation;
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    backgroundColor: COLORS.pink,
+    height: RFPercentage(12),
+    justifyContent: 'flex-end',
+    paddingBottom: RFPercentage(2),
+  },
+  innerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '90%',
+    alignSelf: 'center',
+  },
+  titleText: {
+    color: COLORS.white,
+    fontFamily: FONTS.headline,
+    fontSize: RFPercentage(3),
+    marginRight: RFPercentage(0.2),
+  },
+  vectorIcon: {
+    width: RFPercentage(2.2),
+    height: RFPercentage(2.2),
+    bottom: RFPercentage(1),
+  },
+});

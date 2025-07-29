@@ -55,7 +55,7 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({
               <Image
                 source={iconName}
                 resizeMode="contain"
-                tintColor={isFocused ? COLORS.primary : '#82848C'}
+                tintColor={isFocused ? COLORS.primary : COLORS.grey5}
                 style={{ width: RFPercentage(3.5), height: RFPercentage(3.5) }}
               />
               {isFocused && (
@@ -107,13 +107,13 @@ export default function BottomTabs() {
 const styles = StyleSheet.create({
   tabContainer: {
     position: 'absolute',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.white,
     borderRadius: RFPercentage(3.2),
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 6,
     borderWidth: RFPercentage(0.1),
-    borderColor: '#EEEEEE',
+    borderColor: COLORS.lightWhite,
     shadowColor: 'rgba(73, 73, 73, 0.12)',
     height: RFPercentage(11),
     width: '90%',
@@ -127,13 +127,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   activeTab: {
-    backgroundColor: '#F6F6F6',
+    backgroundColor: COLORS.tab,
     paddingVertical: RFPercentage(1.3),
     paddingHorizontal: RFPercentage(1.8),
     borderRadius: RFPercentage(100),
   },
   activeText: {
-    color: '#151515',
+    color: COLORS.tbText,
     fontFamily: FONTS.semiBold2,
     fontSize: RFPercentage(1.7),
     marginLeft: RFPercentage(0.5),

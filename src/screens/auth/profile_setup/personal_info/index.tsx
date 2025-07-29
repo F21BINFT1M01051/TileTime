@@ -3,7 +3,6 @@ import React from 'react';
 import { COLORS, FONTS, ICONS } from '../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import InputField from '../../../../components/InputField';
-import Feather from 'react-native-vector-icons/Feather';
 
 const PersonalInfo = () => {
   const [name, setName] = React.useState('');

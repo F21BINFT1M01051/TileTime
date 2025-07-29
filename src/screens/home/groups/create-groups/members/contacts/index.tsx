@@ -1,5 +1,5 @@
 import {
-    FlatList,
+  FlatList,
   Image,
   ImageBackground,
   ScrollView,
@@ -9,119 +9,81 @@ import {
   View,
 } from 'react-native';
 import React, { useState } from 'react';
-import { COLORS, FONTS, IMAGES } from '../../../../../../config/theme';
+import { COLORS, FONTS, ICONS, IMAGES } from '../../../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import SearchField from '../../../../../../components/SearchField';
 
 const contacts = [
-  {
-    id: 1,
-    name: 'Jamie Anderson',
-    profile: 'JA',
-    phone: '(909) 92288 3355',
-  },
-  {
-    id: 2,
-    name: 'Jamie Anderson',
-    profile: 'JA',
-    phone: '(909) 92288 3355',
-  },
-  {
-    id: 3,
-    name: 'Jamie Anderson',
-    profile: 'JA',
-    phone: '(909) 92288 3355',
-  },
-  {
-    id: 4,
-    name: 'Jamie Anderson',
-    profile: 'JA',
-    phone: '(909) 92288 3355',
-  },
-  {
-    id: 5,
-    name: 'Jamie Anderson',
-    profile: 'JA',
-    phone: '(909) 92288 3355',
-  },
-  {
-    id: 6,
-    name: 'Jamie Anderson',
-    profile: 'JA',
-    phone: '(909) 92288 3355',
-  },
-  {
-    id: 1,
-    name: 'Jamie Anderson',
-    profile: 'JA',
-    phone: '(909) 92288 3355',
-  },
-  {
-    id: 1,
-    name: 'Jamie Anderson',
-    profile: 'JA',
-    phone: '(909) 92288 3355',
-  },
+  { id: 1, name: 'Jamie Anderson', profile: 'JA', phone: '(909) 92288 3355' },
+  { id: 2, name: 'Jamie Anderson', profile: 'JA', phone: '(909) 92288 3355' },
+  { id: 3, name: 'Jamie Anderson', profile: 'JA', phone: '(909) 92288 3355' },
+  { id: 4, name: 'Jamie Anderson', profile: 'JA', phone: '(909) 92288 3355' },
+  { id: 5, name: 'Jamie Anderson', profile: 'JA', phone: '(909) 92288 3355' },
+  { id: 6, name: 'Jamie Anderson', profile: 'JA', phone: '(909) 92288 3355' },
+  { id: 7, name: 'Jamie Anderson', profile: 'JA', phone: '(909) 92288 3355' },
+  { id: 8, name: 'Jamie Anderson', profile: 'JA', phone: '(909) 92288 3355' },
 ];
 
 const Contacts = () => {
   const [enable, setEnable] = useState(false);
+  const [selectedContacts, setSelectedContacts] = useState<number[]>([]);
+  const [quuery, setQuery] = useState('');
+
+  const toggleContact = (id: number) => {
+    setSelectedContacts(prev =>
+      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id],
+    );
+  };
+
   return (
     <ScrollView>
       {enable ? (
         <>
-          <SearchField placeholder="Search by name" />
-          <Text
-            style={{
-              color: '#82848C',
-              fontFamily: FONTS.medium,
-              fontSize: RFPercentage(1.7),
-              letterSpacing: 2,
-              marginTop: RFPercentage(2),
-            }}
-          >
-            YOUR CONTACTS
-          </Text>
+          <SearchField
+            placeholder="Search by name"
+            value={quuery}
+            onChangeText={setQuery}
+          />
+          <Text style={styles.sectionTitle}>YOUR CONTACTS</Text>
           <View>
-            {/* <FlatList data={contacts} keyExtractor={(item)=> item.id.toString()} renderItem={({item})=> { */}
-                
-            {/* }} /> */}
+            <FlatList
+              data={contacts}
+              keyExtractor={item => item.id.toString()}
+              renderItem={({ item }) => {
+                const isSelected = selectedContacts.includes(item.id);
+                return (
+                  <View style={styles.contactRow}>
+                    <View style={styles.contactInfo}>
+                      <View style={styles.avatar}>
+                        <Text style={styles.avatarText}>{item.profile}</Text>
+                      </View>
+                      <View style={styles.nameSection}>
+                        <Text style={styles.nameText}>{item.name}</Text>
+                        <Text style={styles.phoneText}>{item.phone}</Text>
+                      </View>
+                    </View>
+                    <TouchableOpacity onPress={() => toggleContact(item.id)}>
+                      <Image
+                        resizeMode="contain"
+                        source={isSelected ? ICONS.checked : ICONS.uncheck}
+                        style={styles.checkIcon}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                );
+              }}
+            />
           </View>
         </>
       ) : (
         <>
-          <Text
-            style={{
-              color: '#82848C',
-              fontFamily: FONTS.medium,
-              fontSize: RFPercentage(1.7),
-              letterSpacing: 2,
-              marginTop: RFPercentage(5),
-            }}
-          >
-            YOUR CONTACTS
-          </Text>
+          <Text style={styles.sectionTitleDisabled}>YOUR CONTACTS</Text>
           <ImageBackground
             source={IMAGES.contacts}
             resizeMode="contain"
-            style={{
-              width: '100%',
-              height: RFPercentage(30),
-              alignSelf: 'center',
-              justifyContent: 'flex-end',
-              marginTop: RFPercentage(1),
-            }}
+            style={styles.imageBackground}
           >
-            <Text
-              style={{
-                textAlign: 'center',
-                color: '#82848C',
-                fontFamily: FONTS.regular,
-                fontSize: RFPercentage(1.9),
-                bottom: RFPercentage(2),
-                marginHorizontal: RFPercentage(1),
-              }}
-            >
+            <Text style={styles.accessText}>
               Enable Access To Your Contacts So You Can Easily Connect, Share
               Invites, And Message Your Friends.
             </Text>
@@ -129,27 +91,9 @@ const Contacts = () => {
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => setEnable(true)}
-            style={{
-              height: RFPercentage(5.6),
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderWidth: RFPercentage(0.2),
-              borderColor: COLORS.primary,
-              borderRadius: RFPercentage(2.6),
-              alignSelf: 'center',
-              paddingHorizontal: RFPercentage(2.5),
-              marginTop: RFPercentage(2),
-            }}
+            style={styles.enableButton}
           >
-            <Text
-              style={{
-                color: COLORS.primary,
-                fontFamily: FONTS.semiBold,
-                fontSize: RFPercentage(1.9),
-              }}
-            >
-              Enable Contact Access
-            </Text>
+            <Text style={styles.enableButtonText}>Enable Contact Access</Text>
           </TouchableOpacity>
         </>
       )}
@@ -159,4 +103,92 @@ const Contacts = () => {
 
 export default Contacts;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  sectionTitle: {
+    color: COLORS.grey5,
+    fontFamily: FONTS.medium,
+    fontSize: RFPercentage(1.7),
+    letterSpacing: 2,
+    marginTop: RFPercentage(2),
+  },
+  sectionTitleDisabled: {
+    color: COLORS.grey5,
+    fontFamily: FONTS.medium,
+    fontSize: RFPercentage(1.7),
+    letterSpacing: 2,
+    marginTop: RFPercentage(5),
+  },
+  imageBackground: {
+    width: '100%',
+    height: RFPercentage(30),
+    alignSelf: 'center',
+    justifyContent: 'flex-end',
+    marginTop: RFPercentage(1),
+  },
+  accessText: {
+    textAlign: 'center',
+    color: COLORS.grey5,
+    fontFamily: FONTS.regular,
+    fontSize: RFPercentage(1.9),
+    bottom: RFPercentage(2),
+    marginHorizontal: RFPercentage(1),
+  },
+  enableButton: {
+    height: RFPercentage(5.6),
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: RFPercentage(0.2),
+    borderColor: COLORS.primary,
+    borderRadius: RFPercentage(2.6),
+    alignSelf: 'center',
+    paddingHorizontal: RFPercentage(2.5),
+    marginTop: RFPercentage(2),
+  },
+  enableButtonText: {
+    color: COLORS.primary,
+    fontFamily: FONTS.semiBold,
+    fontSize: RFPercentage(1.9),
+  },
+  contactRow: {
+    width: '100%',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: RFPercentage(2.5),
+  },
+  contactInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  avatar: {
+    width: RFPercentage(6),
+    height: RFPercentage(6),
+    borderRadius: RFPercentage(100),
+    backgroundColor: COLORS.white2,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  avatarText: {
+    color: COLORS.PURPLE2,
+    fontFamily: FONTS.semiBold,
+    fontSize: RFPercentage(2),
+  },
+  nameSection: {
+    marginLeft: RFPercentage(1.6),
+  },
+  nameText: {
+    color: COLORS.primary,
+    fontFamily: FONTS.semiBold,
+    fontSize: RFPercentage(2),
+  },
+  phoneText: {
+    color: COLORS.lightGrey,
+    fontFamily: FONTS.regular,
+    fontSize: RFPercentage(1.7),
+    marginTop: RFPercentage(0.4),
+  },
+  checkIcon: {
+    width: RFPercentage(3.5),
+    height: RFPercentage(3.5),
+  },
+});
