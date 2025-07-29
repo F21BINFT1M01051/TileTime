@@ -22,7 +22,7 @@ export const COLORS = {
   radio: '#DCDCDC',
   radio2: '##F9F9F9',
   pink2: '#FF0069',
-  grey3 : "#696B74"
+  grey3: '#696B74',
 };
 
 export const IMAGES = {
@@ -30,6 +30,9 @@ export const IMAGES = {
   onBoarding: require('../assets/images/onBoarding.png'),
   headline: require('../assets/images/headline.png'),
   profile: require('../assets/images/profile.png'),
+  background: require('../assets/images/background.png'),
+  group: require('../assets/images/group.png'),
+  contacts: require('../assets/images/contacts.png'),
 };
 
 export const ICONS = {
@@ -45,6 +48,13 @@ export const ICONS = {
   phone: require('../assets/icons/phone.png'),
   insta: require('../assets/icons/insta.png'),
   tiktok: require('../assets/icons/tiktok.png'),
+  tab1: require('../assets/icons/tab1.png'),
+  tab2: require('../assets/icons/tab2.png'),
+  tab3: require('../assets/icons/tab3.png'),
+  tab4: require('../assets/icons/tab4.png'),
+  vector: require('../assets/icons/Vector.png'),
+  border: require('../assets/icons/border.png'),
+  group: require('../assets/icons/group.png'),
 };
 
 export const FONTS = {
@@ -57,4 +67,6 @@ export const FONTS = {
   medium2: 'PublicSans-Medium',
   semiBold2: 'PublicSans-SemiBold',
   bold2: 'PublicSans-Bold',
+  tab: 'SchibstedGrotesk-SemiBold',
+  stylish: 'ShadowsIntoLight-Regular',
 };

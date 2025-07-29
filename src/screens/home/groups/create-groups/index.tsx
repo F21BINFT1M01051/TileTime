@@ -9,17 +9,16 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import { COLORS, FONTS } from '../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import CustomButton from '../../../components/CustomButton';
+import CustomButton from '../../../../components/CustomButton';
+import Members from './members';
 import About from './about';
-import ProffessionalInfo from './proffessional';
-import Address from './address';
+import { COLORS, FONTS, ICONS } from '../../../../config/theme';
+import Nav from '../../../../components/Nav';
 
-const steps = ['about', 'professional', 'address'];
+const steps = ['about', 'members'];
 
-const ProfileSetup = ({ navigation }: any) => {
+const CreateGroup = ({ navigation }: any) => {
   const [stepIndex, setStepIndex] = useState(0);
   const [keyboardIsVisible, setKeyboardIsVisible] = useState(false);
 
@@ -46,7 +45,7 @@ const ProfileSetup = ({ navigation }: any) => {
   };
 
   const getBarColor = (index: any) => {
-    if (index < stepIndex) return COLORS.green;
+    if (index < stepIndex) return COLORS.pink;
     if (index === stepIndex) return COLORS.pink;
     return COLORS.fieldColor;
   };
@@ -56,9 +55,7 @@ const ProfileSetup = ({ navigation }: any) => {
       case 0:
         return <About />;
       case 1:
-        return <ProffessionalInfo />;
-      case 2:
-        return <Address />;
+        return <Members />;
       default:
         return null;
     }
@@ -74,24 +71,7 @@ const ProfileSetup = ({ navigation }: any) => {
         contentContainerStyle={{ flexGrow: 1, paddingBottom: RFPercentage(10) }}
         keyboardShouldPersistTaps="handled"
       >
-        {/* Header */}
-        <View style={styles.header}>
-          <TouchableOpacity
-            onPress={() => {
-              stepIndex === 0
-                ? navigation.goBack()
-                : setStepIndex(stepIndex - 1);
-            }}
-          >
-            <AntDesign
-              name="arrowleft"
-              size={RFPercentage(2.6)}
-              color={COLORS.grey}
-            />
-          </TouchableOpacity>
-
-          <Text style={styles.headerText}>Set Up Your Profile</Text>
-        </View>
+        <Nav title="Create Group" />
 
         {/* Step Bars */}
         <View style={styles.stepBarContainer}>
@@ -109,22 +89,11 @@ const ProfileSetup = ({ navigation }: any) => {
           ))}
         </View>
 
-        {/* Step Content */}
         <View style={styles.contentWrapper}>{renderStepContent()}</View>
       </ScrollView>
 
-      {/* Bottom Button (Hidden when keyboard is visible) */}
       {!keyboardIsVisible && (
         <>
-          <View>
-            {stepIndex !== 0 && (
-              <View style={{ width: '100%', backgroundColor: COLORS.white }}>
-                <TouchableOpacity style={styles.skip}>
-                  <Text style={styles.skipText}>Skip For Now</Text>
-                </TouchableOpacity>
-              </View>
-            )}
-          </View>
           <View style={styles.bottomWrapper}>
             <View style={styles.buttonContainer}>
               <CustomButton title="Save And Next" onPress={handleNext} />
@@ -136,7 +105,7 @@ const ProfileSetup = ({ navigation }: any) => {
   );
 };
 
-export default ProfileSetup;
+export default CreateGroup;
 
 const styles = StyleSheet.create({
   header: {

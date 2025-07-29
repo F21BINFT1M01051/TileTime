@@ -2,9 +2,6 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableWithoutFeedback,
-  Keyboard,
-  FlatList,
   TouchableOpacity,
 } from 'react-native';
 import React, { useState } from 'react';

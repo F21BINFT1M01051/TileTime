@@ -30,6 +30,26 @@
       "sha1": "659690336a8d357e706ac202158aa9bf6b39524b"
     },
     {
+      "path": "src/assets/fonts/SchibstedGrotesk-Bold.ttf",
+      "sha1": "ac7557cddb5a4884b271536a70e5d6f6693caba0"
+    },
+    {
+      "path": "src/assets/fonts/SchibstedGrotesk-ExtraBoldItalic.ttf",
+      "sha1": "f3b3f29df786442a478cf2ebc38925f0c8f425a5"
+    },
+    {
+      "path": "src/assets/fonts/SchibstedGrotesk-Medium.ttf",
+      "sha1": "5008b179417aeae890bbad64791180914fd5f766"
+    },
+    {
+      "path": "src/assets/fonts/SchibstedGrotesk-SemiBold.ttf",
+      "sha1": "c23943d4ec2319c926fdeb699f699e66d3a062cc"
+    },
+    {
+      "path": "src/assets/fonts/ShadowsIntoLight-Regular.ttf",
+      "sha1": "e512d65b44398e83907215402d477643751c1dfa"
+    },
+    {
       "path": "src/assets/fonts/SplineSans-Bold.ttf",
       "sha1": "fa6d06873b5a17b123b589be49962a888c67ede5"
     },
