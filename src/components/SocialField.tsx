@@ -9,6 +9,7 @@ interface Props {
   icon: any;
   navigation: string;
   color: string;
+  borderColor: string;
 }
 
 const SocialField = (props: Props) => {
@@ -18,7 +19,7 @@ const SocialField = (props: Props) => {
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={() => {}}
-      style={styles.container}
+      style={[styles.container]}
     >
       {props.icon && (
         <Image source={props.icon} resizeMode="contain" style={styles.icon} />

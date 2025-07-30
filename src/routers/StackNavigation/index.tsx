@@ -10,6 +10,7 @@ import ProfileSetup from '../../screens/auth/profile_setup';
 import BottomTabs from '../BottomTabs';
 import CreateGroup from '../../screens/home/groups/create-groups';
 import GroupCreated from '../../screens/home/groups/create-groups/group-created';
+import GroupDetails from '../../screens/home/groups/create-groups/group-details';
 
 export type RootStackParamList = {
   OnBoarding: undefined;
@@ -20,6 +21,7 @@ export type RootStackParamList = {
   BottomTabs: undefined;
   CreateGroup: undefined;
   GroupCreated: undefined;
+  GroupDetails : undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -32,14 +34,15 @@ const Navigator: React.FC = () => {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="OnBoarding" component={OnBoarding} />
+        {/* <Stack.Screen name="OnBoarding" component={OnBoarding} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="RoleSelection" component={RoleSelection} />
-        <Stack.Screen name="ProfileSetup" component={ProfileSetup} />
+        <Stack.Screen name="ProfileSetup" component={ProfileSetup} /> */}
         <Stack.Screen name="BottomTabs" component={BottomTabs} />
         <Stack.Screen name="CreateGroup" component={CreateGroup} />
         <Stack.Screen name="GroupCreated" component={GroupCreated} />
+        <Stack.Screen name="GroupDetails" component={GroupDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );

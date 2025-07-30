@@ -63,7 +63,6 @@ const players = [
   },
 ];
 
-
 const Players = () => {
   const [selectedContacts, setSelectedContacts] = useState<number[]>([]);
   const [quuery, setQuery] = useState('');
@@ -93,11 +92,13 @@ const Players = () => {
                   <View style={styles.avatarContainer}>
                     <View style={styles.avatarOuterLayer}>
                       <View style={styles.avatarMiddleLayer}>
+                        <View style={styles.avatarInnerLayer}>
                         <Image
                           source={item.profile}
                           resizeMode="contain"
                           style={styles.avatarImage}
                         />
+                        </View>
                       </View>
                     </View>
                   </View>
@@ -153,23 +154,17 @@ const styles = StyleSheet.create({
     height: RFPercentage(11),
     borderRadius: RFPercentage(4),
     backgroundColor: COLORS.purple,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   avatarMiddleLayer: {
     backgroundColor: COLORS.green2,
     borderRadius: RFPercentage(4),
-    right: RFPercentage(0.2),
     width: RFPercentage(10),
     height: RFPercentage(11),
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   avatarInnerLayer: {
     backgroundColor: COLORS.pink3,
     borderRadius: RFPercentage(4),
-    right: RFPercentage(0.2),
-    width: RFPercentage(9.5),
+    width: RFPercentage(9.6),
     height: RFPercentage(11),
     alignItems: 'center',
     justifyContent: 'center',
@@ -179,7 +174,7 @@ const styles = StyleSheet.create({
     height: RFPercentage(11),
     borderRadius: RFPercentage(4),
     bottom: RFPercentage(0.3),
-    right: RFPercentage(0.3),
+    right: RFPercentage(0.2),
   },
   nameSection: {
     marginLeft: RFPercentage(2),
@@ -200,4 +195,3 @@ const styles = StyleSheet.create({
     height: RFPercentage(3.5),
   },
 });
-
