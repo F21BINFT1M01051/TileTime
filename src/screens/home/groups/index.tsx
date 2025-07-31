@@ -1,6 +1,7 @@
 import {
   Image,
   ImageBackground,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -12,20 +13,26 @@ import TopNavigation from '../../../routers/TopBar';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import CustomButton from '../../../components/CustomButton';
-import Group from './group';
+import Group from './create-groups/group';
 import Chat from './chat';
 
 const Groups = ({ navigation }: any) => {
   const [activeTab, setActiveTab] = useState('groups');
-  const groups = ['1', '2'];
-  const chats = ['5', '6'];
+
+  const groups = [];
+  const chats = ['1'];
+
+  const isGroupsTab = activeTab === 'groups';
+  const isChatsTab = activeTab === 'chats';
+  const hasGroups = groups.length > 0;
+  const hasChats = chats.length > 0;
 
   return (
     <LinearGradient
-      colors={[COLORS.white, COLORS.offWhite2]}
+      colors={[COLORS.white, COLORS.white]}
       style={styles.gradientContainer}
     >
-      <View>
+      <ScrollView contentContainerStyle={{ paddingBottom: RFPercentage(8) }}>
         <ImageBackground
           source={IMAGES.background}
           resizeMode="cover"
@@ -40,13 +47,13 @@ const Groups = ({ navigation }: any) => {
                 onPress={() => setActiveTab('groups')}
                 style={[
                   styles.tabButton,
-                  activeTab === 'groups' && styles.activeTabButton,
+                  isGroupsTab && styles.activeTabButton,
                 ]}
               >
                 <Text
                   style={[
                     styles.tabButtonText,
-                    activeTab === 'groups' && styles.activeTabButtonText,
+                    isGroupsTab && styles.activeTabButtonText,
                   ]}
                 >
                   Groups
@@ -57,15 +64,12 @@ const Groups = ({ navigation }: any) => {
               <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={() => setActiveTab('chats')}
-                style={[
-                  styles.tabButton,
-                  activeTab === 'chats' && styles.activeTabButton,
-                ]}
+                style={[styles.tabButton, isChatsTab && styles.activeTabButton]}
               >
                 <Text
                   style={[
                     styles.tabButtonText,
-                    activeTab === 'chats' && styles.activeTabButtonText,
+                    isChatsTab && styles.activeTabButtonText,
                   ]}
                 >
                   Chats
@@ -78,27 +82,25 @@ const Groups = ({ navigation }: any) => {
         <View
           style={[
             styles.contentContainer,
-            {bottom: RFPercentage(9) },
+            { bottom: RFPercentage(9), width: '100%' },
           ]}
         >
-          {activeTab === 'groups' && groups.length > 0 ? (
-            <>
-              <Group />
-            </>
-          ) : activeTab === 'chat' && chats.length > 0 ? (
+          {isGroupsTab && hasGroups ? (
+            <Group />
+          ) : isChatsTab && hasChats ? (
             <Chat />
           ) : (
             <>
               <View style={styles.titleContainer}>
                 <Text style={styles.mainTitle}>
-                  {activeTab === 'groups'
+                  {isGroupsTab
                     ? `Start a Group and\nInvite Others`
                     : `Start a Chat and\nStay Connected`}
                 </Text>
               </View>
               <View style={styles.subtitleContainer}>
                 <Text style={styles.subtitleText}>
-                  {activeTab === 'groups'
+                  {isGroupsTab
                     ? `Groups are a great way to connect with others\nwho share your interests.`
                     : `Chats are a great way to keep in touch with your group, share updates, and enjoy the game together.`}
                 </Text>
@@ -117,19 +119,23 @@ const Groups = ({ navigation }: any) => {
               <View style={styles.buttonWrapper}>
                 <CustomButton
                   title={
-                    activeTab === 'groups'
+                    isGroupsTab
                       ? 'Create Your First Group'
                       : 'Start Your First Chat'
                   }
                   onPress={() => {
-                    navigation.navigate('CreateGroup');
+                    if (activeTab === 'chats') {
+                      console.log('chat');
+                    } else {
+                      navigation.navigate('CreateGroup');
+                    }
                   }}
                 />
               </View>
             </>
           )}
         </View>
-      </View>
+      </ScrollView>
     </LinearGradient>
   );
 };
@@ -187,9 +193,13 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.headline,
     fontSize: RFPercentage(3),
     textAlign: 'center',
+    width: '90%',
+    alignSelf: 'center',
   },
   subtitleContainer: {
     marginTop: RFPercentage(1),
+    width: '90%',
+    alignSelf: 'center',
   },
   subtitleText: {
     color: COLORS.primary,
@@ -203,18 +213,12 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     right: RFPercentage(7),
   },
-  bottomContainer: {
-    width: '90%',
-    alignSelf: 'center',
-    marginTop: RFPercentage(8),
-    alignItems: 'center',
-  },
   groupImage: {
     width: RFPercentage(50),
     height: RFPercentage(30),
   },
   buttonWrapper: {
-    width: '100%',
+    width: '90%',
     alignSelf: 'center',
     alignContent: 'center',
     marginTop: RFPercentage(5),

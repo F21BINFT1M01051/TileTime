@@ -8,11 +8,6 @@ import {
   TouchableWithoutFeedback,
   View,
   FlatList,
-  Modal,
-  Animated,
-  Easing,
-  Dimensions,
-  Platform,
 } from 'react-native';
 import React, { useState, useRef } from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../../config/theme';

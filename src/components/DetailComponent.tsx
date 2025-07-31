@@ -38,7 +38,6 @@ const media = [
 interface Props {
   media?: boolean;
   title: string;
-  subTitle: string;
 }
 
 const DetailComponent = (props: Props) => {
@@ -52,7 +51,9 @@ const DetailComponent = (props: Props) => {
       <View style={styles.innerWrapper}>
         <View>
           <Text style={styles.title}>{props.title}</Text>
-          <Text style={styles.subtitle}>{props.subTitle}</Text>
+          <Text style={styles.subtitle}>
+            {props.media ? `${media.length} files` : `${data.length} Members`}
+          </Text>
 
           <View
             style={{
@@ -140,7 +141,7 @@ const DetailComponent = (props: Props) => {
         </View>
         <View>
           <TouchableOpacity>
-            <AntDesign name="right" color={COLORS.grey} />
+            <AntDesign name="right" color={COLORS.icon} size={RFPercentage(2)} />
           </TouchableOpacity>
         </View>
       </View>
@@ -156,7 +157,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: COLORS.white,
     borderWidth: RFPercentage(0.1),
-    borderBottomWidth:RFPercentage(0.6),
+    borderBottomWidth: RFPercentage(0.6),
     borderColor: COLORS.lightWhite,
     borderRadius: RFPercentage(1.5),
     paddingVertical: RFPercentage(1.7),

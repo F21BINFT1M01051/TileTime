@@ -85,6 +85,14 @@ export const ICONS = {
   trash: require('../assets/icons/trash.png'),
   settings: require('../assets/icons/settings-2.png'),
   cross: require('../assets/icons/x.png'),
+  mute: require('../assets/icons/mute.png'),
+  mute2: require('../assets/icons/mute2.png'),
+  add: require('../assets/icons/user3.png'),
+  calender: require('../assets/icons/calender.png'),
+  user4: require('../assets/icons/user4.png'),
+  download: require('../assets/icons/download.png'),
+  user5: require('../assets/icons/user5.png'),
+  send2: require('../assets/icons/send2.png'),
 };
 
 export const FONTS = {

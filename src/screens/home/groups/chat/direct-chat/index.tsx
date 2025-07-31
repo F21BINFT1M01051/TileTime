@@ -30,8 +30,6 @@ import { COLORS, FONTS, ICONS, IMAGES } from '../../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import CustomButton from '../../../../../components/CustomButton';
 import moment from 'moment';
-import { useNavigation } from '@react-navigation/native';
-import { Tooltip } from 'react-native-paper';
 
 moment.updateLocale('en', {
   relativeTime: {
@@ -52,12 +50,9 @@ moment.updateLocale('en', {
   },
 });
 
-const GroupCreated = ({ route }: any) => {
+const DirectChat = ({ navigation }: any) => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
-
-  const { isNew } = route.params;
-  const navigation = useNavigation();
 
   const renderBubble = (props: any) => (
     <Bubble
@@ -167,7 +162,7 @@ const GroupCreated = ({ route }: any) => {
   const toolTip = [
     {
       id: 1,
-      name: 'Add Member',
+      name: 'Add to Group',
       navigation: '',
     },
     {
@@ -177,7 +172,7 @@ const GroupCreated = ({ route }: any) => {
     },
     {
       id: 3,
-      name: 'Copy Group Link',
+      name: 'View Profile',
       navigation: '',
     },
   ];
@@ -198,15 +193,18 @@ const GroupCreated = ({ route }: any) => {
               size={RFPercentage(3)}
             />
           </TouchableOpacity>
-
-          <View style={styles.groupIconContainer}>
-            <Image
-              source={IMAGES.customProfile}
-              resizeMode="cover"
-              style={styles.groupIcon}
-            />
+          <View style={styles.avatarOuterLayer}>
+            <View style={styles.avatarMiddleLayer}>
+              <View style={styles.avatarInnerLayer}>
+                <Image
+                  source={IMAGES.profile2}
+                  resizeMode="cover"
+                  style={styles.avatarImage}
+                />
+              </View>
+            </View>
           </View>
-          <Text style={styles.groupNameText}>Mahjong - Richie Rich Group</Text>
+          <Text style={styles.groupNameText}>Sophie Reynolds</Text>
           <TouchableOpacity
             activeOpacity={0.8}
             style={styles.dotsButton}
@@ -218,6 +216,7 @@ const GroupCreated = ({ route }: any) => {
               color={COLORS.grey}
             />
           </TouchableOpacity>
+
           {isToolTip && (
             <View
               style={{
@@ -243,7 +242,7 @@ const GroupCreated = ({ route }: any) => {
                   return (
                     <TouchableOpacity
                       activeOpacity={0.8}
-                      onPress={() => navigation.navigate('GroupDetails')}
+                      onPress={() => navigation.navigate('UserDetails')}
                       style={{
                         borderBottomWidth: last ? 0 : RFPercentage(0.1),
                         borderBottomColor: COLORS.lightWhite,
@@ -280,33 +279,6 @@ const GroupCreated = ({ route }: any) => {
             <View style={styles.todayBadge}>
               <Text style={styles.todayText}>Today</Text>
             </View>
-            {isNew && (
-              <View style={styles.groupInfoCard}>
-                <View style={styles.largeGroupIconContainer}>
-                  <Image
-                    source={IMAGES.customProfile}
-                    resizeMode="cover"
-                    style={styles.largeGroupIcon}
-                  />
-                </View>
-                <Text style={styles.createdText}>You created this group</Text>
-                <Text style={styles.membersText}>Group - 2 members</Text>
-                <View style={styles.buttonContainer}>
-                  <CustomButton
-                    title="Add members"
-                    onPress={() => {}}
-                    icon={ICONS.plus}
-                  />
-                </View>
-                <View style={styles.secondButtonContainer}>
-                  <CustomButton
-                    title="Share group Link"
-                    onPress={() => {}}
-                    icon={ICONS.link}
-                  />
-                </View>
-              </View>
-            )}
 
             <View style={styles.conversationPrompt}>
               <Text style={styles.conversationText}>
@@ -421,7 +393,7 @@ const GroupCreated = ({ route }: any) => {
   );
 };
 
-export default GroupCreated;
+export default DirectChat;
 
 const styles = StyleSheet.create({
   container: {
@@ -440,23 +412,39 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: RFPercentage(4),
   },
-  groupIconContainer: {
-    width: RFPercentage(5.5),
-    height: RFPercentage(5.5),
-    borderRadius: RFPercentage(100),
-    backgroundColor: COLORS.yellow,
+  avatarOuterLayer: {
+    width: RFPercentage(5),
+    height: RFPercentage(6),
+    borderRadius: RFPercentage(2),
+    backgroundColor: COLORS.purple,
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: RFPercentage(2),
+    marginLeft: RFPercentage(1.5),
   },
-  groupIcon: {
-    width: RFPercentage(5.5),
-    height: RFPercentage(5.5),
-    borderTopRightRadius: RFPercentage(100),
-    right: RFPercentage(0.5),
-    borderTopLeftRadius: RFPercentage(100),
-    borderBottomRightRadius: RFPercentage(100),
-    borderBottomLeftRadius: RFPercentage(1),
+  avatarMiddleLayer: {
+    backgroundColor: COLORS.green2,
+    width: RFPercentage(5),
+    height: RFPercentage(6),
+    borderRadius: RFPercentage(2),
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: RFPercentage(0.3),
+  },
+  avatarInnerLayer: {
+    backgroundColor: COLORS.pink3,
+    width: RFPercentage(5),
+    height: RFPercentage(6),
+    borderRadius: RFPercentage(2),
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: RFPercentage(0.3),
+  },
+  avatarImage: {
+    width: RFPercentage(5),
+    height: RFPercentage(6),
+    borderRadius: RFPercentage(2),
+    right: RFPercentage(0.3),
+    bottom: RFPercentage(0.2),
   },
   groupNameText: {
     color: COLORS.primary,

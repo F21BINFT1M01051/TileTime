@@ -39,11 +39,13 @@ const Contacts = () => {
     <ScrollView>
       {enable ? (
         <>
-          <SearchField
-            placeholder="Search by name"
-            value={quuery}
-            onChangeText={setQuery}
-          />
+          <View style={{marginTop:RFPercentage(2.5)}}>
+            <SearchField
+              placeholder="Search by name"
+              value={quuery}
+              onChangeText={setQuery}
+            />
+          </View>
           <Text style={styles.sectionTitle}>YOUR CONTACTS</Text>
           <View>
             <FlatList
@@ -106,8 +108,8 @@ export default Contacts;
 const styles = StyleSheet.create({
   sectionTitle: {
     color: COLORS.grey5,
-    fontFamily: FONTS.medium,
-    fontSize: RFPercentage(1.7),
+    fontFamily: FONTS.medium2,
+    fontSize: RFPercentage(1.6),
     letterSpacing: 2,
     marginTop: RFPercentage(2),
   },

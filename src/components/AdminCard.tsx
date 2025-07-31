@@ -1,9 +1,17 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { COLORS, FONTS, IMAGES } from '../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
-const AdminCard = () => {
+interface Props {
+  profile?: boolean;
+  icon?: boolean;
+  title: string;
+  subTitle: string;
+}
+
+const AdminCard = (props: Props) => {
   return (
     <View
       style={{
@@ -11,6 +19,7 @@ const AdminCard = () => {
         backgroundColor: COLORS.white,
         borderWidth: RFPercentage(0.1),
         borderColor: COLORS.lightWhite,
+        borderBottomWidth: RFPercentage(0.6),
         borderRadius: RFPercentage(2),
         padding: RFPercentage(2),
         alignItems: 'center',
@@ -22,50 +31,64 @@ const AdminCard = () => {
         elevation: 5,
       }}
     >
-      <View
-        style={{
-          width: RFPercentage(6),
-          height: RFPercentage(6),
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: COLORS.pink3,
-          borderTopRightRadius: RFPercentage(3),
-          borderTopLeftRadius: RFPercentage(3),
-        }}
-      >
-        <Image
-          source={IMAGES.chatProfile}
-          resizeMode="contain"
-          style={{
-            width: RFPercentage(6),
-            height: RFPercentage(6),
-            right: RFPercentage(0.2),
-            bottom: RFPercentage(0.1),
-          }}
-        />
-      </View>
+      {props.profile ? (
+        <>
+          <View
+            style={{
+              width: RFPercentage(6),
+              height: RFPercentage(6),
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: COLORS.pink3,
+              borderTopRightRadius: RFPercentage(3),
+              borderTopLeftRadius: RFPercentage(3),
+            }}
+          >
+            <Image
+              source={IMAGES.chatProfile}
+              resizeMode="contain"
+              style={{
+                width: RFPercentage(6),
+                height: RFPercentage(6),
+                right: RFPercentage(0.2),
+                bottom: RFPercentage(0.1),
+              }}
+            />
+          </View>
+        </>
+      ) : (
+        <></>
+      )}
 
-      <View style={{ marginLeft: RFPercentage(2) }}>
+      <View style={{ marginLeft: props.profile ? RFPercentage(2) : 0 }}>
         <Text
           style={{
             color: COLORS.primary,
             fontFamily: FONTS.bold,
-            fontSize: RFPercentage(2),
+            fontSize: RFPercentage(1.9),
           }}
         >
-          Samantha Lewis (You)
+          {props.title}
         </Text>
         <Text
           style={{
-            color: '#696969',
+            color: COLORS.grey4,
             fontFamily: FONTS.regular,
-            fontSize: RFPercentage(1.8),
-            marginTop: RFPercentage(0.4),
+            fontSize: RFPercentage(1.7),
+            marginTop: RFPercentage(0.5),
           }}
         >
-          Group Admin
+          {props.subTitle}
         </Text>
       </View>
+      {props.icon && (
+        <TouchableOpacity
+          activeOpacity={0.8}
+          style={{ position: 'absolute', right: RFPercentage(2) }}
+        >
+          <AntDesign name="right" color={COLORS.icon} size={RFPercentage(2)} />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

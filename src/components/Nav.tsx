@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 
 interface Props {
   title: string;
+  style?: object;
 }
 
 const Nav = (props: Props) => {
@@ -17,8 +18,8 @@ const Nav = (props: Props) => {
         width: '100%',
         height: RFPercentage(11),
         justifyContent: 'flex-end',
-         borderBottomWidth:RFPercentage(0.1),
-         borderBottomColor: '#DEDEDE'
+        borderBottomWidth: RFPercentage(0.1),
+        borderBottomColor: '#DEDEDE',
       }}
     >
       <View
@@ -28,7 +29,6 @@ const Nav = (props: Props) => {
           width: '90%',
           alignSelf: 'center',
           paddingBottom: RFPercentage(2),
-         
         }}
       >
         <TouchableOpacity
@@ -42,7 +42,7 @@ const Nav = (props: Props) => {
             color={COLORS.grey}
           />
         </TouchableOpacity>
-        <Text style={styles.headerText}>{props.title}</Text>
+        <Text style={[styles.headerText, props.style]}>{props.title}</Text>
       </View>
     </View>
   );

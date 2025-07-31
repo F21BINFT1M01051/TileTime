@@ -1,9 +1,9 @@
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
-import SearchField from '../../../../components/SearchField';
+import SearchField from '../../../../../components/SearchField';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import { COLORS, FONTS, IMAGES } from '../../../../config/theme';
-import ChatComponent from '../../../../components/ChatComponent';
+import { COLORS, FONTS, IMAGES } from '../../../../../config/theme';
+import ChatComponent from '../../../../../components/ChatComponent';
 import { useNavigation } from '@react-navigation/native';
 
 const Filters = [
@@ -13,7 +13,11 @@ const Filters = [
   },
   {
     id: 2,
-    name: 'Unread 2',
+    name: 'Unread 4',
+  },
+  {
+    id: 3,
+    name: 'Managed By Me',
   },
 ];
 
@@ -25,7 +29,7 @@ const chats = [
       'Michelle : Same here! Can’t wait to play. Also, feel free to share tips',
     unread: 0,
     mute: false,
-    profile: IMAGES.profile2,
+    profile: IMAGES.customProfile,
   },
   {
     id: 2,
@@ -34,7 +38,7 @@ const chats = [
       'Michelle : Same here! Can’t wait to play. Also, feel free to share tips',
     unread: 12,
     mute: false,
-    profile: IMAGES.profile1,
+    profile: IMAGES.customProfile,
   },
   {
     id: 3,
@@ -43,7 +47,7 @@ const chats = [
       'Michelle : Same here! Can’t wait to play. Also, feel free to share tips',
     unread: 0,
     mute: false,
-    profile: IMAGES.profile2,
+    profile: IMAGES.customProfile,
   },
   {
     id: 4,
@@ -51,8 +55,8 @@ const chats = [
     message:
       'Michelle : Same here! Can’t wait to play. Also, feel free to share tips',
     unread: 0,
-    mute: false,
-    profile: IMAGES.profile2,
+    mute: true,
+    profile: IMAGES.customProfile,
   },
   {
     id: 5,
@@ -61,7 +65,7 @@ const chats = [
       'Michelle : Same here! Can’t wait to play. Also, feel free to share tips',
     unread: 0,
     mute: false,
-    profile: IMAGES.profile1,
+    profile: IMAGES.customProfile,
   },
   {
     id: 6,
@@ -70,20 +74,19 @@ const chats = [
       'Michelle : Same here! Can’t wait to play. Also, feel free to share tips',
     unread: 2,
     mute: false,
-    profile: IMAGES.profile2,
+    profile: IMAGES.customProfile,
   },
 ];
 
-const Chat = () => {
+const Group = () => {
   const [activeFilter, setActiveFilter] = useState(1);
   const [query, setQuery] = useState('');
   const navigation = useNavigation();
-
   return (
     <View style={{ width: '100%' }}>
       <View style={{ width: '90%', alignSelf: 'center' }}>
         <SearchField
-          placeholder="Search chats"
+          placeholder="Search groups"
           value={query}
           onChangeText={setQuery}
         />
@@ -135,8 +138,9 @@ const Chat = () => {
               profile={item.profile}
               mute={item.mute}
               unread={item.unread}
-              single={true}
-              onPress={() => navigation.navigate('DirectChat')}
+              onPress={() =>
+                navigation.navigate('GroupCreated', { isNew: false })
+              }
             />
           );
         }}
@@ -145,4 +149,4 @@ const Chat = () => {
   );
 };
 
-export default Chat;
+export default Group;

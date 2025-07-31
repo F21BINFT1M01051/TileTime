@@ -15,11 +15,11 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import CustomButton from '../../../../../components/CustomButton';
 import DetailComponent from '../../../../../components/DetailComponent';
-import AdminCard from '../../../../../components/AdminCard';
 import SettingsButton from '../../../../../components/SettingsButton';
 import SocialField from '../../../../../components/SocialField';
+import CommonGroup from '../../../../../components/CommonGroups';
 
-const GroupDetails = ({ navigation }: any) => {
+const UserDetails = ({ navigation }: any) => {
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.white, flex: 1 }}>
       <View style={styles.headerBorder}>
@@ -76,12 +76,16 @@ const GroupDetails = ({ navigation }: any) => {
             bottom: RFPercentage(10),
           }}
         >
-          <View style={styles.largeGroupIconContainer}>
-            <Image
-              source={IMAGES.customProfile}
-              resizeMode="cover"
-              style={styles.largeGroupIcon}
-            />
+          <View style={styles.avatarOuterLayer}>
+            <View style={styles.avatarMiddleLayer}>
+              <View style={styles.avatarInnerLayer}>
+                <Image
+                  source={IMAGES.profile2}
+                  resizeMode="cover"
+                  style={styles.avatarImage}
+                />
+              </View>
+            </View>
           </View>
           <View>
             <Text
@@ -92,18 +96,7 @@ const GroupDetails = ({ navigation }: any) => {
                 marginTop: RFPercentage(3),
               }}
             >
-              Mahjong - Richie Rich Group
-            </Text>
-            <Text
-              style={{
-                fontFamily: FONTS.regular2,
-                color: COLORS.primary,
-                fontSize: RFPercentage(1.8),
-                marginTop: RFPercentage(1),
-              }}
-            >
-              Join Fellow Mahjong Enthusiasts For An Evening Of Friendly Matches
-              And Lively Conversa
+              Sophie Reynolds
             </Text>
           </View>
           <View
@@ -117,7 +110,7 @@ const GroupDetails = ({ navigation }: any) => {
           >
             <View style={{ width: '48%' }}>
               <CustomButton
-                title="Add Member"
+                title="Add to group"
                 icon={ICONS.add}
                 style={{ borderRadius: RFPercentage(1.6) }}
                 onPress={() => {}}
@@ -132,41 +125,40 @@ const GroupDetails = ({ navigation }: any) => {
               />
             </View>
           </View>
-          <View style={{ marginTop: RFPercentage(1) }}>
-            <DetailComponent title="Group Members" />
+          <View style={{ marginTop: RFPercentage(3) }}>
+            <SettingsButton title="View Profile" icon={ICONS.user4} />
           </View>
           <View>
             <DetailComponent title="Media and Documents" media={true} />
           </View>
           <View style={{ marginTop: RFPercentage(3) }}>
-            <AdminCard
-              title="Samantha Lewis (You)"
-              subTitle="Group Admin"
-              profile={true}
-            />
+            <CommonGroup />
           </View>
+
           <View style={{ marginTop: RFPercentage(3) }}>
             <SettingsButton
-              title="Permissions & Settings"
-              icon={ICONS.settings}
-              onPress={() => navigation.navigate('GroupSettings')}
+              title="Download to Gallery"
+              icon={ICONS.download}
+              switch={true}
             />
+            <Text
+              style={{
+                fontSize: RFPercentage(1.5),
+                color: COLORS.lightGrey,
+                fontFamily: FONTS.regular2,
+                marginTop: RFPercentage(0.3),
+              }}
+            >
+              Automatically save photos you receive to Gallery.
+            </Text>
           </View>
+
           <View style={{ marginTop: RFPercentage(3) }}>
             <SocialField
-              name="Mute Group"
+              name="Unmute Group"
               color={COLORS.primary}
               icon={ICONS.mute2}
               borderColor={COLORS.primary}
-              navigation=""
-            />
-          </View>
-          <View style={{ marginTop: RFPercentage(1) }}>
-            <SocialField
-              name="Delete Group"
-              color="#B5000C"
-              icon={ICONS.trash}
-              borderColor="#B5000C"
               navigation=""
             />
           </View>
@@ -176,7 +168,7 @@ const GroupDetails = ({ navigation }: any) => {
   );
 };
 
-export default GroupDetails;
+export default UserDetails;
 
 const styles = StyleSheet.create({
   headerBorder: {
@@ -216,5 +208,38 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: RFPercentage(100),
     borderBottomRightRadius: RFPercentage(100),
     borderBottomLeftRadius: RFPercentage(2),
+  },
+  avatarOuterLayer: {
+    width: RFPercentage(10),
+    height: RFPercentage(12),
+    borderRadius: RFPercentage(4.6),
+    backgroundColor: COLORS.purple,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  avatarMiddleLayer: {
+    backgroundColor: COLORS.green2,
+    width: RFPercentage(10),
+    height: RFPercentage(12),
+    borderRadius: RFPercentage(4.6),
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: RFPercentage(0.3),
+  },
+  avatarInnerLayer: {
+    backgroundColor: COLORS.pink3,
+    width: RFPercentage(10),
+    height: RFPercentage(12),
+    borderRadius: RFPercentage(4.6),
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: RFPercentage(0.3),
+  },
+  avatarImage: {
+    width: RFPercentage(10),
+    height: RFPercentage(12),
+    borderRadius: RFPercentage(4.6),
+    right: RFPercentage(0.3),
+    bottom: RFPercentage(0.2),
   },
 });

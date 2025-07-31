@@ -74,11 +74,13 @@ const Players = () => {
   };
   return (
     <ScrollView>
-      <SearchField
-        placeholder="Search by name"
-        value={quuery}
-        onChangeText={setQuery}
-      />
+      <View style={{ marginTop: RFPercentage(2.5) }}>
+        <SearchField
+          placeholder="Search by name"
+          value={quuery}
+          onChangeText={setQuery}
+        />
+      </View>
       <Text style={styles.sectionTitle}>ALL PLAYERS</Text>
       <View>
         <FlatList
@@ -93,11 +95,11 @@ const Players = () => {
                     <View style={styles.avatarOuterLayer}>
                       <View style={styles.avatarMiddleLayer}>
                         <View style={styles.avatarInnerLayer}>
-                        <Image
-                          source={item.profile}
-                          resizeMode="contain"
-                          style={styles.avatarImage}
-                        />
+                          <Image
+                            source={item.profile}
+                            resizeMode="contain"
+                            style={styles.avatarImage}
+                          />
                         </View>
                       </View>
                     </View>
@@ -128,8 +130,8 @@ export default Players;
 const styles = StyleSheet.create({
   sectionTitle: {
     color: COLORS.grey5,
-    fontFamily: FONTS.medium,
-    fontSize: RFPercentage(1.7),
+    fontFamily: FONTS.medium2,
+    fontSize: RFPercentage(1.6),
     letterSpacing: 2,
     marginTop: RFPercentage(2),
   },
@@ -147,34 +149,40 @@ const styles = StyleSheet.create({
   avatarContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    left: RFPercentage(0.2),
+    marginLeft: RFPercentage(1),
   },
   avatarOuterLayer: {
-    width: RFPercentage(10.5),
-    height: RFPercentage(11),
-    borderRadius: RFPercentage(4),
+    width: RFPercentage(7.6),
+    height: RFPercentage(9),
+    borderRadius: RFPercentage(3.5),
     backgroundColor: COLORS.purple,
-  },
-  avatarMiddleLayer: {
-    backgroundColor: COLORS.green2,
-    borderRadius: RFPercentage(4),
-    width: RFPercentage(10),
-    height: RFPercentage(11),
-  },
-  avatarInnerLayer: {
-    backgroundColor: COLORS.pink3,
-    borderRadius: RFPercentage(4),
-    width: RFPercentage(9.6),
-    height: RFPercentage(11),
     alignItems: 'center',
     justifyContent: 'center',
   },
+  avatarMiddleLayer: {
+    backgroundColor: COLORS.green2,
+    width: RFPercentage(7.6),
+    height: RFPercentage(9),
+    borderRadius: RFPercentage(3.5),
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: RFPercentage(0.3),
+  },
+  avatarInnerLayer: {
+    backgroundColor: COLORS.pink3,
+    width: RFPercentage(7.6),
+    height: RFPercentage(9),
+    borderRadius: RFPercentage(3.5),
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: RFPercentage(0.3),
+  },
   avatarImage: {
-    width: RFPercentage(10),
-    height: RFPercentage(11),
-    borderRadius: RFPercentage(4),
-    bottom: RFPercentage(0.3),
-    right: RFPercentage(0.2),
+    width: RFPercentage(7.6),
+    height: RFPercentage(9),
+    borderRadius: RFPercentage(3.5),
+    right: RFPercentage(0.3),
+    bottom: RFPercentage(0.2),
   },
   nameSection: {
     marginLeft: RFPercentage(2),

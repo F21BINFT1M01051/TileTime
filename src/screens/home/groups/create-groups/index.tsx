@@ -38,7 +38,7 @@ const CreateGroup = ({ navigation }: any) => {
     if (stepIndex < steps.length - 1) {
       setStepIndex(stepIndex + 1);
     } else {
-      navigation.navigate('GroupCreated');
+      navigation.navigate('GroupCreated', { isNew: true });
     }
   };
 
