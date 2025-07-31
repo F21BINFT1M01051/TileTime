@@ -34,7 +34,7 @@ moment.updateLocale('en', {
   relativeTime: {
     future: 'in %s',
     past: '%s ago',
-    s: 'a few sec',
+    s: '1 sec',
     ss: '%d sec',
     m: '1 min',
     mm: '%d min',
@@ -53,13 +53,7 @@ const GroupCreated = ({ navigation }: any) => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
 
-  const onSend = useCallback((newMessages = []) => {
-    setMessages(previousMessages =>
-      GiftedChat.append(previousMessages, newMessages),
-    );
-  }, []);
-
-  const renderBubble = props => (
+  const renderBubble = (props: any) => (
     <Bubble
       {...props}
       textStyle={{
@@ -83,7 +77,7 @@ const GroupCreated = ({ navigation }: any) => {
     />
   );
 
-  const renderMessage = props => {
+  const renderMessage = (props: any) => {
     const { currentMessage } = props;
     const isUser = currentMessage.user._id === 1;
 
@@ -143,7 +137,7 @@ const GroupCreated = ({ navigation }: any) => {
     );
   };
 
-  const renderDay = props => {
+  const renderDay = (props: any) => {
     const { currentMessage } = props;
 
     const messageDate = moment(currentMessage.createdAt);
@@ -204,42 +198,43 @@ const GroupCreated = ({ navigation }: any) => {
         style={{ flex: 1 }}
       >
         {messages.length === 0 && (
-          <View style={styles.todayBadge}>
-            <Text style={styles.todayText}>Today</Text>
-          </View>
-        )}
+          <>
+            <View style={styles.todayBadge}>
+              <Text style={styles.todayText}>Today</Text>
+            </View>
 
-        {messages.length === 0 && (
-          <View style={styles.groupInfoCard}>
-            <View style={styles.largeGroupIconContainer}>
-              <Image
-                source={IMAGES.customProfile}
-                resizeMode="cover"
-                style={styles.largeGroupIcon}
-              />
+            <View style={styles.groupInfoCard}>
+              <View style={styles.largeGroupIconContainer}>
+                <Image
+                  source={IMAGES.customProfile}
+                  resizeMode="cover"
+                  style={styles.largeGroupIcon}
+                />
+              </View>
+              <Text style={styles.createdText}>You created this group</Text>
+              <Text style={styles.membersText}>Group - 2 members</Text>
+              <View style={styles.buttonContainer}>
+                <CustomButton
+                  title="Add members"
+                  onPress={() => {}}
+                  icon={ICONS.plus}
+                />
+              </View>
+              <View style={styles.secondButtonContainer}>
+                <CustomButton
+                  title="Share group Link"
+                  onPress={() => {}}
+                  icon={ICONS.link}
+                />
+              </View>
             </View>
-            <Text style={styles.createdText}>You created this group</Text>
-            <Text style={styles.membersText}>Group - 2 members</Text>
-            <View style={styles.buttonContainer}>
-              <CustomButton
-                title="Add members"
-                onPress={() => {}}
-                icon={ICONS.plus}
-              />
-            </View>
-            <View style={styles.secondButtonContainer}>
-              <CustomButton
-                title="Share group Link"
-                onPress={() => {}}
-                icon={ICONS.link}
-              />
-            </View>
+
             <View style={styles.conversationPrompt}>
               <Text style={styles.conversationText}>
                 Start a conversation, ask a question, or just say hi.
               </Text>
             </View>
-          </View>
+          </>
         )}
         <GiftedChat
           messages={messages}
@@ -420,6 +415,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: RFPercentage(1.5),
     marginTop: RFPercentage(3),
+    paddingBottom:RFPercentage(4)
   },
   largeGroupIconContainer: {
     width: RFPercentage(8),

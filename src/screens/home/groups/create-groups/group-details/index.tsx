@@ -22,48 +22,53 @@ import SocialField from '../../../../../components/SocialField';
 const GroupDetails = ({ navigation }: any) => {
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.white, flex: 1 }}>
+      <View style={styles.headerBorder}>
+        <View style={styles.headerContainer}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigation.goBack()}
+          >
+            <AntDesign
+              name="arrowleft"
+              color={COLORS.grey}
+              size={RFPercentage(3)}
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.dotsButton}
+            onPress={() => {
+              navigation.navigate('GroupDetails');
+            }}
+          >
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <FontAwesome6
+                name="pen"
+                size={RFPercentage(2.4)}
+                color={COLORS.black}
+                style={{ marginRight: RFPercentage(0.6) }}
+              />
+              <Text
+                style={{
+                  color: COLORS.black,
+                  fontFamily: FONTS.medium,
+                  fontSize: RFPercentage(1.8),
+                }}
+              >
+                Edit
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
       <ScrollView>
         <ImageBackground
           source={IMAGES.groupDetail}
-          resizeMode="cover"
-          style={{ width: '100%', height: RFPercentage(29) }}
-        >
-          <View style={styles.headerBorder}>
-            <View style={styles.headerContainer}>
-              <AntDesign
-                name="arrowleft"
-                color={COLORS.grey}
-                size={RFPercentage(3)}
-              />
+          resizeMode="stretch"
+          style={{ width: RFPercentage(50), height: RFPercentage(18) }}
+        />
 
-              <TouchableOpacity
-                activeOpacity={0.8}
-                style={styles.dotsButton}
-                onPress={() => {
-                  navigation.navigate('GroupDetails');
-                }}
-              >
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <FontAwesome6
-                    name="pen"
-                    size={RFPercentage(2.4)}
-                    color={COLORS.black}
-                    style={{ marginRight: RFPercentage(0.6) }}
-                  />
-                  <Text
-                    style={{
-                      color: COLORS.black,
-                      fontFamily: FONTS.medium,
-                      fontSize: RFPercentage(1.8),
-                    }}
-                  >
-                    Edit
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </ImageBackground>
         <View
           style={{
             width: '90%',
@@ -151,6 +156,8 @@ const GroupDetails = ({ navigation }: any) => {
               name="Delete Group"
               color="#B5000C"
               icon={ICONS.trash}
+              borderColor="#B5000C"
+              navigation=""
             />
           </View>
         </View>

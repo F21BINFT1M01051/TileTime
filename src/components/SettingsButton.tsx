@@ -1,12 +1,13 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import { COLORS, FONTS } from '../config/theme';
+import { COLORS, FONTS, ICONS } from '../config/theme';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const SettingsButton = () => {
   return (
     <TouchableOpacity
+    activeOpacity={0.8}
       style={{
         width: '100%',
         height: RFPercentage(7),
@@ -24,12 +25,13 @@ const SettingsButton = () => {
         elevation: 5,
       }}
     >
-      <AntDesign name="right" color={COLORS.grey} size={RFPercentage(2)} />
+      <Image source={ICONS.settings} resizeMode='contain' style={{width:RFPercentage(2.5), height:RFPercentage(2.5)}} />
       <Text
         style={{
           fontFamily: FONTS.bold,
           color: COLORS.primary,
           fontSize: RFPercentage(1.8),
+          marginLeft:RFPercentage(1)
         }}
       >
         Permissions & Settings

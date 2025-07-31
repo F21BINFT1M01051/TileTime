@@ -82,6 +82,7 @@ export const ICONS = {
   corner: require('../assets/icons/corner.png'),
   corner2: require('../assets/icons/left.png'),
   trash: require('../assets/icons/trash.png'),
+  settings: require('../assets/icons/settings-2.png'),
 };
 
 export const FONTS = {

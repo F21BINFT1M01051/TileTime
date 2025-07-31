@@ -19,7 +19,7 @@ const SocialField = (props: Props) => {
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={() => {}}
-      style={[styles.container]}
+      style={[styles.container, {borderColor: props.borderColor ?  props.borderColor :  COLORS.borderColor}]}
     >
       {props.icon && (
         <Image source={props.icon} resizeMode="contain" style={styles.icon} />

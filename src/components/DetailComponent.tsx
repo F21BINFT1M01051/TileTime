@@ -48,7 +48,7 @@ const DetailComponent = (props: Props) => {
   const remainingCount2 = media.length - visibleProfiles2.length;
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity activeOpacity={0.8} style={styles.container}>
       <View style={styles.innerWrapper}>
         <View>
           <Text style={styles.title}>{props.title}</Text>
@@ -144,7 +144,7 @@ const DetailComponent = (props: Props) => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -156,10 +156,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: COLORS.white,
     borderWidth: RFPercentage(0.1),
+    borderBottomWidth:RFPercentage(0.6),
     borderColor: COLORS.lightWhite,
     borderRadius: RFPercentage(1.5),
     paddingVertical: RFPercentage(1.7),
-    shadowColor: 'rgba(203, 203, 203, 1)',
+    shadowColor: 'rgba(203, 203, 203, 0.5)',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
