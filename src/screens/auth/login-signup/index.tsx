@@ -16,9 +16,8 @@ import CustomButton from '../../../components/CustomButton';
 import InputField from '../../../components/InputField';
 import AuthHeader from '../../../components/AuthHeader';
 
-const Login = ({ navigation }: any) => {
+const LoginSignUp = ({ navigation }: any) => {
   const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -42,7 +41,9 @@ const Login = ({ navigation }: any) => {
 
           <View style={styles.whiteContainer}>
             <View style={styles.contentWrapper}>
-              <AuthHeader title="Log In" />
+              <View style={{}}>
+                <AuthHeader title="Log In/Sign up with Email" />
+              </View>
 
               <View style={styles.emailField}>
                 <InputField
@@ -53,44 +54,26 @@ const Login = ({ navigation }: any) => {
                 />
               </View>
 
-              <View style={styles.passwordField}>
-                <InputField
-                  placeholder="Enter Password"
-                  password={true}
-                  value={password}
-                  onChangeText={setPassword}
-                />
-              </View>
-
-              <TouchableOpacity style={styles.forgotPasswordButton}>
-                <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-              </TouchableOpacity>
-
               <View style={styles.buttonWrapper}>
                 <CustomButton
-                  title="Log Me In"
+                  title="Proceed"
                   onPress={() => {
-                    navigation.navigate('SignUp');
+                    navigation.navigate('Login');
                   }}
                 />
               </View>
 
               <View style={styles.signupContainer}>
-                <Text style={styles.noAccountText}>Don’t Have An Account?</Text>
                 <TouchableOpacity
                   onPress={() => {
-                    navigation.navigate('SignUp');
+                    navigation.navigate('OnBoarding');
                   }}
                 >
-                  <Text style={styles.signupText}>Sign Up</Text>
+                  <Text style={styles.signupText}>
+                    Continue with other options
+                  </Text>
                 </TouchableOpacity>
               </View>
-              <TouchableOpacity>
-                <Text style={styles.footerText}>Privacy & Terms</Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text style={styles.footerText}>Contact Us</Text>
-              </TouchableOpacity>
             </View>
           </View>
         </LinearGradient>
@@ -99,7 +82,7 @@ const Login = ({ navigation }: any) => {
   );
 };
 
-export default Login;
+export default LoginSignUp;
 
 const styles = StyleSheet.create({
   gradient: {
@@ -139,43 +122,21 @@ const styles = StyleSheet.create({
   emailField: {
     marginTop: RFPercentage(2),
   },
-  passwordField: {},
-  forgotPasswordButton: {
-    alignSelf: 'flex-end',
-  },
-  forgotPasswordText: {
-    fontFamily: FONTS.regular,
-    marginTop: RFPercentage(0.6),
-    color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.7),
-  },
+
   buttonWrapper: {
     width: '100%',
-    marginTop: RFPercentage(14),
+    marginTop: RFPercentage(8),
   },
   signupContainer: {
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row',
-    marginTop: RFPercentage(5),
+    marginTop: RFPercentage(4),
   },
-  noAccountText: {
-    fontFamily: FONTS.regular2,
-    color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.7),
-  },
+
   signupText: {
-    fontFamily: FONTS.semiBold2,
-    color: COLORS.primary,
-    left: RFPercentage(0.4),
-    fontSize: RFPercentage(1.7),
-  },
-  footerText: {
-    fontFamily: FONTS.regular2,
-    color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.7),
-    textAlign: 'center',
-    marginTop: RFPercentage(1.3),
+    fontFamily: FONTS.semiBold,
+    color: COLORS.black,
+    fontSize: RFPercentage(1.9),
   },
 });

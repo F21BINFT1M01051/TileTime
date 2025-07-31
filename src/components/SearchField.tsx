@@ -28,11 +28,7 @@ const SearchField = (props: Props) => {
           onChangeText={props.onChangeText}
         />
         <TouchableOpacity>
-          <Feather
-            name="search"
-            color={COLORS.placeholder}
-            size={RFPercentage(2.8)}
-          />
+          <Feather name="search" color={'#9C9EA6'} size={RFPercentage(2.8)} />
         </TouchableOpacity>
       </View>
     </View>
@@ -49,9 +45,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.fieldColor,
     borderColor: COLORS.fieldBorder,
     borderRadius: RFPercentage(1.3),
-    marginTop: RFPercentage(3),
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   inputContainer: {
     width: '90%',

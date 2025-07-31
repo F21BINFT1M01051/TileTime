@@ -13,6 +13,7 @@ import { COLORS, FONTS, IMAGES } from '../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import CustomButton from '../../../components/CustomButton';
 import InputField from '../../../components/InputField';
+import AuthHeader from '../../../components/AuthHeader';
 
 const SignUp = ({ navigation }: any) => {
   const [email, setEmail] = React.useState('');
@@ -40,7 +41,7 @@ const SignUp = ({ navigation }: any) => {
 
         <View style={styles.whiteContainer}>
           <View style={styles.contentWrapper}>
-            <Text style={styles.getStartedText}>Create Your Account</Text>
+            <AuthHeader title="Create Your Account" />
 
             <View style={styles.inputMarginTop}>
               <InputField
@@ -51,7 +52,7 @@ const SignUp = ({ navigation }: any) => {
               />
             </View>
 
-            <View style={styles.inputField}>
+            <View>
               <InputField
                 placeholder="Create Your Password"
                 password={true}
@@ -70,15 +71,13 @@ const SignUp = ({ navigation }: any) => {
             </View>
 
             <View style={styles.footerLinkContainer}>
-              <Text style={styles.footerTextGray}>
-                Already Have An Account?
-              </Text>
+              <Text style={styles.footerTextGray}>Have An Account?</Text>
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate('Login');
                 }}
               >
-                <Text style={styles.signInLink}>Sign in</Text>
+                <Text style={styles.signInLink}>Log In</Text>
               </TouchableOpacity>
             </View>
             <TouchableOpacity>
@@ -130,17 +129,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: RFPercentage(3.5),
   },
-  getStartedText: {
-    color: COLORS.primary,
-    fontFamily: FONTS.headline,
-    fontSize: RFPercentage(2.8),
-  },
+
   inputMarginTop: {
     marginTop: RFPercentage(2),
   },
-  inputField: {
-    // Placeholder for layout consistency
-  },
+
   buttonWrapper: {
     width: '100%',
     marginTop: RFPercentage(7),
@@ -150,7 +143,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    marginTop: RFPercentage(5),
+    marginTop: RFPercentage(3),
   },
   footerTextGray: {
     fontFamily: FONTS.regular2,

@@ -89,7 +89,7 @@ const OnBoarding = ({ navigation }: any) => {
 
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={() => navigation.navigate('Login')}
+              onPress={() => navigation.navigate('LoginSignUp')}
               style={styles.skipButton}
             >
               <Text style={styles.skipText}>Skip For Now</Text>

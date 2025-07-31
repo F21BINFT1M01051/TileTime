@@ -35,6 +35,7 @@ export const COLORS = {
   offWhite2: '#F7F0E1',
   tab: '#F6F6F6',
   tbText: '#151515',
+  search: '#9C9EA6',
 };
 
 export const IMAGES = {
@@ -83,6 +84,7 @@ export const ICONS = {
   corner2: require('../assets/icons/left.png'),
   trash: require('../assets/icons/trash.png'),
   settings: require('../assets/icons/settings-2.png'),
+  cross: require('../assets/icons/x.png'),
 };
 
 export const FONTS = {

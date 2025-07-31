@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,21 +7,58 @@ import {
   Keyboard,
   ScrollView,
   KeyboardAvoidingView,
+  Modal,
+  Animated,
+  Easing,
+  Dimensions,
   Platform,
+  TouchableWithoutFeedback,
+  FlatList,
+  Image,
 } from 'react-native';
-import { COLORS, FONTS } from '../../../config/theme';
+import { COLORS, FONTS, ICONS } from '../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import CustomButton from '../../../components/CustomButton';
 import About from './about';
 import ProffessionalInfo from './proffessional';
-import Address from './address';
+import InputField from '../../../components/InputField';
+import SocialField from '../../../components/SocialField';
 
-const steps = ['about', 'professional', 'address'];
+const steps = ['about', 'professional'];
+const data = [
+  {
+    id: 1,
+    name: 'Connect With Facebook',
+    navigationScreen: '',
+    color: COLORS.skyBlue,
+    icon: ICONS.facebook,
+  },
+  {
+    id: 2,
+    name: 'Connect With Instagram',
+    navigationScreen: '',
+    icon: ICONS.insta,
+    color: COLORS.pink2,
+  },
+  {
+    id: 3,
+    name: 'Connect With TikTok',
+    navigationScreen: '',
+    icon: ICONS.tiktok,
+    color: COLORS.black,
+  },
+];
 
 const ProfileSetup = ({ navigation }: any) => {
   const [stepIndex, setStepIndex] = useState(0);
   const [keyboardIsVisible, setKeyboardIsVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const slideAnim = useRef(
+    new Animated.Value(Dimensions.get('window').height),
+  ).current;
+  const [website, setWebsite] = React.useState('');
+  const [phoneNumber, setPhoneNumber] = React.useState('');
 
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -38,6 +75,13 @@ const ProfileSetup = ({ navigation }: any) => {
   }, []);
 
   const handleNext = () => {
+    if (stepIndex === 0) {
+      if (!phoneNumber.trim()) {
+        openModal();
+        return;
+      }
+    }
+
     if (stepIndex < steps.length - 1) {
       setStepIndex(stepIndex + 1);
     } else {
@@ -51,14 +95,38 @@ const ProfileSetup = ({ navigation }: any) => {
     return COLORS.fieldColor;
   };
 
+  const openModal = () => {
+    setIsModalVisible(true);
+    Animated.timing(slideAnim, {
+      toValue: 0,
+      duration: 600,
+      easing: Easing.out(Easing.ease),
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const closeModal = () => {
+    Animated.timing(slideAnim, {
+      toValue: Dimensions.get('window').height,
+      duration: 600,
+      easing: Easing.in(Easing.ease),
+      useNativeDriver: true,
+    }).start(() => {
+      setIsModalVisible(false);
+    });
+  };
+
   const renderStepContent = () => {
     switch (stepIndex) {
       case 0:
-        return <About />;
+        return (
+          <About
+            onPhoneNumberChange={setPhoneNumber}
+            onWebsiteChange={setWebsite}
+          />
+        );
       case 1:
         return <ProffessionalInfo />;
-      case 2:
-        return <Address />;
       default:
         return null;
     }
@@ -113,7 +181,6 @@ const ProfileSetup = ({ navigation }: any) => {
         <View style={styles.contentWrapper}>{renderStepContent()}</View>
       </ScrollView>
 
-      {/* Bottom Button (Hidden when keyboard is visible) */}
       {!keyboardIsVisible && (
         <>
           <View>
@@ -132,6 +199,87 @@ const ProfileSetup = ({ navigation }: any) => {
           </View>
         </>
       )}
+
+      <Modal
+        visible={isModalVisible}
+        transparent
+        animationType="none"
+        onRequestClose={closeModal}
+      >
+        <TouchableWithoutFeedback onPress={closeModal}>
+          <View style={styles.overLay}>
+            <Animated.View
+              style={[
+                styles.modalContent,
+                {
+                  transform: [{ translateY: slideAnim }],
+                },
+              ]}
+            >
+              <Text style={styles.modalText}>
+                We need atleast one way to reach you
+              </Text>
+              <Text style={styles.subTitle}>
+                {`Add at least one contact method so people can\nfind or connect with you.`}
+              </Text>
+              <View style={{ marginTop: RFPercentage(3) }}>
+                <InputField
+                  placeholder="Phone Number"
+                  value={phoneNumber}
+                  onChangeText={setPhoneNumber}
+                  password={false}
+                  type="phone-pad"
+                  icon={
+                    <Image
+                      source={ICONS.phone}
+                      resizeMode="contain"
+                      style={{
+                        width: RFPercentage(2.5),
+                        height: RFPercentage(2.5),
+                      }}
+                    />
+                  }
+                />
+                <InputField
+                  placeholder="Website URL"
+                  value={website}
+                  onChangeText={setWebsite}
+                  password={false}
+                  style={{ marginTop: RFPercentage(2) }}
+                  icon={
+                    <Image
+                      source={ICONS.globe}
+                      resizeMode="contain"
+                      style={{
+                        width: RFPercentage(3),
+                        height: RFPercentage(3),
+                      }}
+                    />
+                  }
+                />
+
+                <FlatList
+                  data={data}
+                  scrollEnabled={false}
+                  keyExtractor={item => item.id.toString()}
+                  style={{ marginTop: RFPercentage(1) }}
+                  renderItem={({ item }) => (
+                    <SocialField
+                      icon={item.icon}
+                      name={item.name}
+                      navigation={item.navigationScreen}
+                      color={item.color}
+                    />
+                  )}
+                />
+              </View>
+              <View style={{ marginTop: RFPercentage(4) }}>
+                <CustomButton title="Save" onPress={closeModal} />
+              </View>
+            </Animated.View>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
     </KeyboardAvoidingView>
   );
 };
@@ -148,6 +296,28 @@ const styles = StyleSheet.create({
     borderColor: COLORS.fieldBorder,
     paddingHorizontal: RFPercentage(2),
     marginTop: RFPercentage(7),
+  },
+  overLay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'flex-end',
+  },
+  modalContent: {
+    backgroundColor: COLORS.white,
+    padding: RFPercentage(3),
+    borderTopLeftRadius: RFPercentage(3),
+    borderTopRightRadius: RFPercentage(3),
+  },
+  modalText: {
+    fontSize: RFPercentage(2),
+    fontFamily: FONTS.medium,
+    color: COLORS.primary,
+    marginBottom: RFPercentage(1),
+  },
+  subTitle: {
+    fontFamily: FONTS.regular,
+    color: COLORS.lightGrey,
+    fontSize: RFPercentage(1.8),
   },
   headerText: {
     fontFamily: FONTS.headline,

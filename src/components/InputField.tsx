@@ -17,6 +17,8 @@ interface Props {
   onChangeText: (text: string) => void;
   password?: boolean;
   icon?: any;
+  style?: object;
+  type?: string;
 }
 
 const InputField = (props: Props) => {
@@ -55,7 +57,7 @@ const InputField = (props: Props) => {
 
   return (
     <TouchableWithoutFeedback onPress={() => inputRef.current?.focus()}>
-      <View style={styles.container}>
+      <View style={[styles.container, props.style]}>
         <View style={styles.wrap}>
           <Animated.Text style={labelStyle}>{props.placeholder}</Animated.Text>
 
@@ -65,6 +67,7 @@ const InputField = (props: Props) => {
             value={props.value}
             onChangeText={props.onChangeText}
             onFocus={() => setIsFocused(true)}
+            keyboardType={props.type}
             onBlur={() => {
               if (!props.value) {
                 setIsFocused(false);

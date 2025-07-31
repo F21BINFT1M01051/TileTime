@@ -9,7 +9,7 @@ interface Props {
   icon: any;
   navigation: string;
   color: string;
-  borderColor: string;
+  borderColor?: string;
 }
 
 const SocialField = (props: Props) => {
