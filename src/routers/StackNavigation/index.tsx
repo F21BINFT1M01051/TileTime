@@ -42,12 +42,12 @@ const Navigator: React.FC = () => {
           headerShown: false,
         }}
       >
-        {/* <Stack.Screen name="OnBoarding" component={OnBoarding} />
+        <Stack.Screen name="OnBoarding" component={OnBoarding} />
         <Stack.Screen name="LoginSignUp" component={LoginSignUp} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="RoleSelection" component={RoleSelection} />
-        <Stack.Screen name="ProfileSetup" component={ProfileSetup} /> */}
+        <Stack.Screen name="ProfileSetup" component={ProfileSetup} />
         <Stack.Screen name="BottomTabs" component={BottomTabs} />
         <Stack.Screen name="CreateGroup" component={CreateGroup} />
         <Stack.Screen name="DirectChat" component={DirectChat} />
