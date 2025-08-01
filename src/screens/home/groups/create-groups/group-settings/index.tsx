@@ -9,71 +9,31 @@ import AdminCard from '../../../../../components/AdminCard';
 
 const GroupSettings = () => {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <Nav
-        title="Permissions & Settings"
-        style={{ fontFamily: FONTS.semiBold, fontSize: RFPercentage(2.1) }}
-      />
-      <View
-        style={{
-          width: '90%',
-          alignSelf: 'center',
-          marginTop: RFPercentage(2),
-        }}
-      >
-        <Text
-          style={{
-            color: COLORS.primary,
-            fontFamily: FONTS.semiBold,
-            fontSize: RFPercentage(2),
-          }}
-        >
-          Members can
-        </Text>
-        <View style={{ marginTop: RFPercentage(1) }}>
+    <SafeAreaView style={styles.container}>
+      <Nav title="Permissions & Settings" style={styles.navTitle} />
+      <View style={styles.contentWrapper}>
+        <Text style={styles.sectionTitle}>Members can</Text>
+        <View style={styles.subSection}>
           <DoubleSwitch />
-          <Text
-            style={{
-              fontSize: RFPercentage(1.5),
-              color: COLORS.grey4,
-              fontFamily: FONTS.regular2,
-              marginTop: RFPercentage(0.3),
-            }}
-          >
-            Turning off these settings means that only group admins can perform
-            this action.
+          <Text style={styles.description}>
+            Turning off these settings means that only group admins can perform this action.
           </Text>
         </View>
-        <View style={{ marginTop: RFPercentage(3) }}>
-          <Text
-            style={{
-              color: COLORS.primary,
-              fontFamily: FONTS.semiBold,
-              fontSize: RFPercentage(2),
-            }}
-          >
-            Media and Documents
-          </Text>
-          <View style={{ marginTop: RFPercentage(1) }}>
+        <View style={styles.subSectionSpacing}>
+          <Text style={styles.sectionTitle}>Media and Documents</Text>
+          <View style={styles.subSection}>
             <SettingsButton
               title="Download to Gallery"
               icon={ICONS.settings}
               switch={true}
             />
-            <Text
-              style={{
-                fontSize: RFPercentage(1.5),
-                color: COLORS.lightGrey,
-                fontFamily: FONTS.regular2,
-                marginTop: RFPercentage(0.3),
-              }}
-            >
+            <Text style={styles.lightDescription}>
               Automatically save photos you receive to Gallery.
             </Text>
           </View>
         </View>
-        <View style={{ marginTop: RFPercentage(3) }}>
-          <AdminCard icon={true} title='Manage Group Admins' subTitle='You and Samantha' />
+        <View style={styles.subSectionSpacing}>
+          <AdminCard icon={true} title="Manage Group Admins" subTitle="You and Samantha" />
         </View>
       </View>
     </SafeAreaView>
@@ -82,4 +42,41 @@ const GroupSettings = () => {
 
 export default GroupSettings;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.white,
+  },
+  navTitle: {
+    fontFamily: FONTS.semiBold,
+    fontSize: RFPercentage(2.1),
+  },
+  contentWrapper: {
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: RFPercentage(2),
+  },
+  sectionTitle: {
+    color: COLORS.primary,
+    fontFamily: FONTS.semiBold,
+    fontSize: RFPercentage(2),
+  },
+  subSection: {
+    marginTop: RFPercentage(1),
+  },
+  description: {
+    fontSize: RFPercentage(1.5),
+    color: COLORS.grey4,
+    fontFamily: FONTS.regular2,
+    marginTop: RFPercentage(0.3),
+  },
+  lightDescription: {
+    fontSize: RFPercentage(1.5),
+    color: COLORS.lightGrey,
+    fontFamily: FONTS.regular2,
+    marginTop: RFPercentage(0.3),
+  },
+  subSectionSpacing: {
+    marginTop: RFPercentage(3),
+  },
+});

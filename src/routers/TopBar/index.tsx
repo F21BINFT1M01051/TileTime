@@ -1,20 +1,40 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS, ICONS } from '../../config/theme';
 
-const TopNavigation = () => {
+interface Props {
+  right?: boolean;
+  onPress: () => void;
+}
+
+const TopNavigation = (props: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
-        <Text style={styles.titleText}>
-          Groups & Chats
-        </Text>
+        <Text style={styles.titleText}>Groups & Chats</Text>
         <Image
           source={ICONS.vector}
           resizeMode="contain"
           style={styles.vectorIcon}
         />
+        {props.right && (
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={props.onPress}
+            style={{ position: 'absolute', right: 0 }}
+          >
+            <Text
+              style={{
+                color: COLORS.white,
+                fontFamily: FONTS.semiBold,
+                fontSize: RFPercentage(1.8),
+              }}
+            >
+              + New group
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );

@@ -31,7 +31,6 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 import CustomButton from '../../../../../components/CustomButton';
 import moment from 'moment';
 import { useNavigation } from '@react-navigation/native';
-import { Tooltip } from 'react-native-paper';
 
 moment.updateLocale('en', {
   relativeTime: {
@@ -55,7 +54,7 @@ moment.updateLocale('en', {
 const GroupCreated = ({ route }: any) => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
-
+  const [isToolTip, setToolTip] = useState(false);
   const { isNew } = route.params;
   const navigation = useNavigation();
 
@@ -68,16 +67,16 @@ const GroupCreated = ({ route }: any) => {
           fontFamily: FONTS.regular,
         },
         left: {
-          color: '#696969',
+          color: COLORS.grey4,
           fontFamily: FONTS.regular,
         },
       }}
       wrapperStyle={{
         right: {
-          backgroundColor: '#B14088',
+          backgroundColor: COLORS.pink,
         },
         left: {
-          backgroundColor: '#FFFFFF',
+          backgroundColor: COLORS.white,
         },
       }}
     />
@@ -89,12 +88,10 @@ const GroupCreated = ({ route }: any) => {
 
     return (
       <View
-        style={{
-          marginHorizontal: RFPercentage(2),
-          flexDirection: isUser ? 'row-reverse' : 'row',
-          alignItems: 'flex-end',
-          marginVertical: RFPercentage(1),
-        }}
+        style={[
+          styles.messageRow,
+          { flexDirection: isUser ? 'row-reverse' : 'row' },
+        ]}
       >
         <View style={{ position: 'relative' }}>
           <View
@@ -129,7 +126,6 @@ const GroupCreated = ({ route }: any) => {
             )}
           </View>
 
-          {/* Bubble Corner Tail */}
           <Image
             source={isUser ? ICONS.corner : ICONS.corner2}
             resizeMode="contain"
@@ -145,12 +141,8 @@ const GroupCreated = ({ route }: any) => {
 
   const renderDay = (props: any) => {
     const { currentMessage } = props;
-
     const messageDate = moment(currentMessage.createdAt);
-    const today = moment().startOf('day');
-    const yesterday = moment().subtract(1, 'days').startOf('day');
-
-    let label = messageDate.calendar(null, {
+    const label = messageDate.calendar(null, {
       sameDay: '[Today]',
       lastDay: '[Yesterday]',
       lastWeek: 'dddd',
@@ -165,27 +157,13 @@ const GroupCreated = ({ route }: any) => {
   };
 
   const toolTip = [
-    {
-      id: 1,
-      name: 'Add Member',
-      navigation: '',
-    },
-    {
-      id: 2,
-      name: 'Create Event',
-      navigation: '',
-    },
-    {
-      id: 3,
-      name: 'Copy Group Link',
-      navigation: '',
-    },
+    { id: 1, name: 'Add Member' },
+    { id: 2, name: 'Create Event' },
+    { id: 3, name: 'Copy Group Link' },
   ];
-  const [isToolTip, setToolTip] = useState(false);
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
       <View style={styles.headerBorder}>
         <View style={styles.headerContainer}>
           <TouchableOpacity
@@ -206,7 +184,9 @@ const GroupCreated = ({ route }: any) => {
               style={styles.groupIcon}
             />
           </View>
+
           <Text style={styles.groupNameText}>Mahjong - Richie Rich Group</Text>
+
           <TouchableOpacity
             activeOpacity={0.8}
             style={styles.dotsButton}
@@ -218,23 +198,9 @@ const GroupCreated = ({ route }: any) => {
               color={COLORS.grey}
             />
           </TouchableOpacity>
+
           {isToolTip && (
-            <View
-              style={{
-                width: RFPercentage(30),
-                height: RFPercentage(18),
-                paddingHorizontal: RFPercentage(2),
-                backgroundColor: COLORS.white,
-                borderWidth: RFPercentage(0.1),
-                borderColor: COLORS.lightWhite,
-                position: 'absolute',
-                right: 0,
-                zIndex: 999,
-                borderRadius: RFPercentage(2),
-                top: RFPercentage(5),
-                borderBottomWidth: RFPercentage(0.5),
-              }}
-            >
+            <View style={styles.tooltipContainer}>
               <FlatList
                 data={toolTip}
                 keyExtractor={item => item.id.toString()}
@@ -244,23 +210,12 @@ const GroupCreated = ({ route }: any) => {
                     <TouchableOpacity
                       activeOpacity={0.8}
                       onPress={() => navigation.navigate('GroupDetails')}
-                      style={{
-                        borderBottomWidth: last ? 0 : RFPercentage(0.1),
-                        borderBottomColor: COLORS.lightWhite,
-                        paddingBottom: RFPercentage(1),
-                        marginTop: RFPercentage(2),
-                      }}
+                      style={[
+                        styles.tooltipOption,
+                        !last && { borderBottomWidth: RFPercentage(0.1) },
+                      ]}
                     >
-                      <Text
-                        style={{
-                          color: COLORS.primary,
-                          fontSize: RFPercentage(1.7),
-                          fontFamily: FONTS.medium,
-                          left: RFPercentage(1),
-                        }}
-                      >
-                        {item.name}
-                      </Text>
+                      <Text style={styles.tooltipText}>{item.name}</Text>
                     </TouchableOpacity>
                   );
                 }}
@@ -315,9 +270,9 @@ const GroupCreated = ({ route }: any) => {
             </View>
           </>
         )}
+
         <GiftedChat
           messages={messages}
-          // onSend={messages => onSend(messages)}
           user={{
             _id: 1,
             name: 'You',
@@ -325,65 +280,29 @@ const GroupCreated = ({ route }: any) => {
           }}
           renderBubble={renderBubble}
           renderMessage={renderMessage}
+          renderDay={renderDay}
           renderInputToolbar={() => (
-            <View
-              style={{
-                backgroundColor: COLORS.white,
-                height: RFPercentage(12),
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  backgroundColor: '#f2f2f2',
-                  borderRadius: RFPercentage(100),
-                  paddingHorizontal: RFPercentage(2),
-                  height: RFPercentage(6),
-                  width: '90%',
-                  alignSelf: 'center',
-                }}
-              >
-                {/* Plus Icon */}
-                <TouchableOpacity
-                  onPress={() => {
-                    // Your action
-                    console.log('Plus tapped');
-                  }}
-                >
+            <View style={styles.customInputToolbar}>
+              <View style={styles.inputContainer}>
+                <TouchableOpacity onPress={() => {}}>
                   <Image
                     source={ICONS.plus}
-                    style={{
-                      width: RFPercentage(3),
-                      height: RFPercentage(3),
-                      tintColor: COLORS.pink,
-                    }}
+                    style={styles.plusIcon}
                     resizeMode="contain"
                   />
                 </TouchableOpacity>
-
-                {/* TextInput */}
                 <TextInput
-                  style={{
-                    flex: 1,
-                    marginHorizontal: RFPercentage(1),
-                    color: COLORS.inputColor,
-                  }}
+                  style={styles.inputText}
                   placeholder="Type your message here"
-                  placeholderTextColor="#9C9EA6"
+                  placeholderTextColor={COLORS.search}
                   value={message}
                   onChangeText={setMessage}
-                  // multiline
                 />
-
-                {/* Send Icon */}
                 <TouchableOpacity
                   onPress={() => {
                     if (message.trim()) {
                       const newMessage = {
-                        _id: Date.now(), // Generate unique ID
+                        _id: Date.now(),
                         text: message,
                         createdAt: new Date(),
                         user: {
@@ -402,19 +321,13 @@ const GroupCreated = ({ route }: any) => {
                 >
                   <Image
                     source={ICONS.send}
-                    style={{
-                      width: RFPercentage(3),
-                      height: RFPercentage(3),
-                      tintColor: COLORS.primary,
-                    }}
+                    style={styles.sendIconContainer}
                     resizeMode="contain"
                   />
                 </TouchableOpacity>
               </View>
             </View>
           )}
-          // alwaysShowSend
-          renderDay={renderDay}
         />
       </ImageBackground>
     </SafeAreaView>
@@ -639,5 +552,67 @@ const styles = StyleSheet.create({
 
   leftCorner: {
     left: -RFPercentage(0.5),
+  },
+  messageRow: {
+    marginHorizontal: RFPercentage(2),
+    alignItems: 'flex-end',
+    marginVertical: RFPercentage(1),
+  },
+  customInputToolbar: {
+    backgroundColor: COLORS.white,
+    height: RFPercentage(12),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.fieldColor,
+    borderRadius: RFPercentage(100),
+    paddingHorizontal: RFPercentage(2),
+    height: RFPercentage(6),
+    width: '90%',
+    alignSelf: 'center',
+  },
+  plusIcon: {
+    width: RFPercentage(3),
+    height: RFPercentage(3),
+    tintColor: COLORS.pink,
+  },
+  inputText: {
+    flex: 1,
+    marginHorizontal: RFPercentage(1),
+    color: COLORS.inputColor,
+  },
+  sendIconContainer: {
+    width: RFPercentage(3),
+    height: RFPercentage(3),
+    tintColor: COLORS.primary,
+  },
+  tooltipContainer: {
+    width: RFPercentage(30),
+    height: RFPercentage(20),
+    paddingHorizontal: RFPercentage(2),
+    backgroundColor: COLORS.white,
+    borderWidth: RFPercentage(0.1),
+    borderColor: COLORS.lightWhite,
+    position: 'absolute',
+    right: 0,
+    zIndex: 999,
+    borderRadius: RFPercentage(2),
+    top: RFPercentage(5),
+    borderBottomWidth: RFPercentage(0.5),
+    paddingVertical: RFPercentage(1),
+  },
+  tooltipOption: {
+    paddingBottom: RFPercentage(1),
+    marginTop: RFPercentage(2),
+    borderBottomColor: COLORS.lightWhite,
+  },
+  tooltipText: {
+    color: COLORS.primary,
+    fontSize: RFPercentage(1.7),
+    fontFamily: FONTS.medium,
+    left: RFPercentage(1),
   },
 });

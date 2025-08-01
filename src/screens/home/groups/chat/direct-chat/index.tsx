@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -7,7 +7,6 @@ import {
   Image,
   TouchableOpacity,
   Keyboard,
-  Platform,
   TextInput,
   ScrollView,
   SafeAreaView,
@@ -15,20 +14,15 @@ import {
 } from 'react-native';
 import {
   GiftedChat,
-  Send,
   Bubble,
-  MessageImage,
-  MessageText,
   Message,
   InputToolbar,
-  Composer,
   Day,
 } from 'react-native-gifted-chat';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import CustomButton from '../../../../../components/CustomButton';
 import moment from 'moment';
 
 moment.updateLocale('en', {
@@ -50,11 +44,12 @@ moment.updateLocale('en', {
   },
 });
 
-const DirectChat = ({ navigation }: any) => {
+const DirectChat = ({ navigation } : any) => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
+  const [isToolTip, setToolTip] = useState(false);
 
-  const renderBubble = (props: any) => (
+  const renderBubble = (props : any) => (
     <Bubble
       {...props}
       textStyle={{
@@ -63,22 +58,18 @@ const DirectChat = ({ navigation }: any) => {
           fontFamily: FONTS.regular,
         },
         left: {
-          color: '#696969',
+          color: COLORS.grey4,
           fontFamily: FONTS.regular,
         },
       }}
       wrapperStyle={{
-        right: {
-          backgroundColor: '#B14088',
-        },
-        left: {
-          backgroundColor: '#FFFFFF',
-        },
+        right: { backgroundColor: COLORS.pink },
+        left: { backgroundColor: COLORS.white },
       }}
     />
   );
 
-  const renderMessage = (props: any) => {
+  const renderMessage = (props : any) => {
     const { currentMessage } = props;
     const isUser = currentMessage.user._id === 1;
 
@@ -101,9 +92,7 @@ const DirectChat = ({ navigation }: any) => {
             <View style={styles.bubbleHeader}>
               <Image source={IMAGES.chatProfile} style={styles.bubbleAvatar} />
               <View style={styles.messageMeta}>
-                <Text
-                  style={isUser ? styles.usernameRight : styles.usernameLeft}
-                >
+                <Text style={isUser ? styles.usernameRight : styles.usernameLeft}>
                   {currentMessage.user.name}
                 </Text>
                 <Text style={styles.timeText}>
@@ -124,7 +113,6 @@ const DirectChat = ({ navigation }: any) => {
             )}
           </View>
 
-          {/* Bubble Corner Tail */}
           <Image
             source={isUser ? ICONS.corner : ICONS.corner2}
             resizeMode="contain"
@@ -138,12 +126,9 @@ const DirectChat = ({ navigation }: any) => {
     );
   };
 
-  const renderDay = (props: any) => {
+  const renderDay = (props : any) => {
     const { currentMessage } = props;
-
     const messageDate = moment(currentMessage.createdAt);
-    const today = moment().startOf('day');
-    const yesterday = moment().subtract(1, 'days').startOf('day');
 
     let label = messageDate.calendar(null, {
       sameDay: '[Today]',
@@ -160,39 +145,24 @@ const DirectChat = ({ navigation }: any) => {
   };
 
   const toolTip = [
-    {
-      id: 1,
-      name: 'Add to Group',
-      navigation: '',
-    },
-    {
-      id: 2,
-      name: 'Create Event',
-      navigation: '',
-    },
-    {
-      id: 3,
-      name: 'View Profile',
-      navigation: '',
-    },
+    { id: 1, name: 'Add to Group', navigation: '' },
+    { id: 2, name: 'Create Event', navigation: '' },
+    { id: 3, name: 'View Profile', navigation: '' },
   ];
-  const [isToolTip, setToolTip] = useState(false);
 
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <View style={styles.headerBorder}>
         <View style={styles.headerContainer}>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => navigation.goBack()}
-          >
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <AntDesign
               name="arrowleft"
               color={COLORS.grey}
               size={RFPercentage(3)}
             />
           </TouchableOpacity>
+
           <View style={styles.avatarOuterLayer}>
             <View style={styles.avatarMiddleLayer}>
               <View style={styles.avatarInnerLayer}>
@@ -204,9 +174,10 @@ const DirectChat = ({ navigation }: any) => {
               </View>
             </View>
           </View>
+
           <Text style={styles.groupNameText}>Sophie Reynolds</Text>
+
           <TouchableOpacity
-            activeOpacity={0.8}
             style={styles.dotsButton}
             onPress={() => setToolTip(!isToolTip)}
           >
@@ -218,22 +189,7 @@ const DirectChat = ({ navigation }: any) => {
           </TouchableOpacity>
 
           {isToolTip && (
-            <View
-              style={{
-                width: RFPercentage(30),
-                height: RFPercentage(18),
-                paddingHorizontal: RFPercentage(2),
-                backgroundColor: COLORS.white,
-                borderWidth: RFPercentage(0.1),
-                borderColor: COLORS.lightWhite,
-                position: 'absolute',
-                right: 0,
-                zIndex: 999,
-                borderRadius: RFPercentage(2),
-                top: RFPercentage(5),
-                borderBottomWidth: RFPercentage(0.5),
-              }}
-            >
+            <View style={styles.toolTipBox}>
               <FlatList
                 data={toolTip}
                 keyExtractor={item => item.id.toString()}
@@ -241,25 +197,10 @@ const DirectChat = ({ navigation }: any) => {
                   const last = index === toolTip.length - 1;
                   return (
                     <TouchableOpacity
-                      activeOpacity={0.8}
                       onPress={() => navigation.navigate('UserDetails')}
-                      style={{
-                        borderBottomWidth: last ? 0 : RFPercentage(0.1),
-                        borderBottomColor: COLORS.lightWhite,
-                        paddingBottom: RFPercentage(1),
-                        marginTop: RFPercentage(2),
-                      }}
+                      style={[styles.toolTipItem, last && styles.lastToolTipItem]}
                     >
-                      <Text
-                        style={{
-                          color: COLORS.primary,
-                          fontSize: RFPercentage(1.7),
-                          fontFamily: FONTS.medium,
-                          left: RFPercentage(1),
-                        }}
-                      >
-                        {item.name}
-                      </Text>
+                      <Text style={styles.toolTipText}>{item.name}</Text>
                     </TouchableOpacity>
                   );
                 }}
@@ -269,11 +210,7 @@ const DirectChat = ({ navigation }: any) => {
         </View>
       </View>
 
-      <ImageBackground
-        source={IMAGES.chat}
-        resizeMode="cover"
-        style={{ flex: 1 }}
-      >
+      <ImageBackground source={IMAGES.chat} resizeMode="cover" style={{ flex: 1 }}>
         {messages.length === 0 && (
           <>
             <View style={styles.todayBadge}>
@@ -287,9 +224,9 @@ const DirectChat = ({ navigation }: any) => {
             </View>
           </>
         )}
+
         <GiftedChat
           messages={messages}
-          // onSend={messages => onSend(messages)}
           user={{
             _id: 1,
             name: 'You',
@@ -297,65 +234,31 @@ const DirectChat = ({ navigation }: any) => {
           }}
           renderBubble={renderBubble}
           renderMessage={renderMessage}
+          renderDay={renderDay}
           renderInputToolbar={() => (
-            <View
-              style={{
-                backgroundColor: COLORS.white,
-                height: RFPercentage(12),
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  backgroundColor: '#f2f2f2',
-                  borderRadius: RFPercentage(100),
-                  paddingHorizontal: RFPercentage(2),
-                  height: RFPercentage(6),
-                  width: '90%',
-                  alignSelf: 'center',
-                }}
-              >
-                {/* Plus Icon */}
-                <TouchableOpacity
-                  onPress={() => {
-                    // Your action
-                    console.log('Plus tapped');
-                  }}
-                >
+            <View style={styles.inputToolbarContainer}>
+              <View style={styles.inputBar}>
+                <TouchableOpacity onPress={() => console.log('Plus tapped')}>
                   <Image
                     source={ICONS.plus}
-                    style={{
-                      width: RFPercentage(3),
-                      height: RFPercentage(3),
-                      tintColor: COLORS.pink,
-                    }}
+                    style={styles.plusIcon}
                     resizeMode="contain"
                   />
                 </TouchableOpacity>
 
-                {/* TextInput */}
                 <TextInput
-                  style={{
-                    flex: 1,
-                    marginHorizontal: RFPercentage(1),
-                    color: COLORS.inputColor,
-                  }}
+                  style={styles.messageInput}
                   placeholder="Type your message here"
-                  placeholderTextColor="#9C9EA6"
+                  placeholderTextColor={COLORS.search}
                   value={message}
                   onChangeText={setMessage}
-                  // multiline
                 />
 
-                {/* Send Icon */}
                 <TouchableOpacity
                   onPress={() => {
                     if (message.trim()) {
                       const newMessage = {
-                        _id: Date.now(), // Generate unique ID
+                        _id: Date.now(),
                         text: message,
                         createdAt: new Date(),
                         user: {
@@ -364,9 +267,7 @@ const DirectChat = ({ navigation }: any) => {
                           avatar: 'https://placeimg.com/140/140/any',
                         },
                       };
-                      setMessages(prev =>
-                        GiftedChat.append(prev, [newMessage]),
-                      );
+                      setMessages(prev => GiftedChat.append(prev, [newMessage]));
                       setMessage('');
                       Keyboard.dismiss();
                     }
@@ -374,19 +275,13 @@ const DirectChat = ({ navigation }: any) => {
                 >
                   <Image
                     source={ICONS.send}
-                    style={{
-                      width: RFPercentage(3),
-                      height: RFPercentage(3),
-                      tintColor: COLORS.primary,
-                    }}
+                    style={styles.sendButtonIcon}
                     resizeMode="contain"
                   />
                 </TouchableOpacity>
               </View>
             </View>
           )}
-          // alwaysShowSend
-          renderDay={renderDay}
         />
       </ImageBackground>
     </SafeAreaView>
@@ -394,6 +289,7 @@ const DirectChat = ({ navigation }: any) => {
 };
 
 export default DirectChat;
+
 
 const styles = StyleSheet.create({
   container: {
@@ -627,5 +523,65 @@ const styles = StyleSheet.create({
 
   leftCorner: {
     left: -RFPercentage(0.5),
+  },
+   toolTipBox: {
+    width: RFPercentage(30),
+    height: RFPercentage(18),
+    paddingHorizontal: RFPercentage(2),
+    backgroundColor: COLORS.white,
+    borderWidth: RFPercentage(0.1),
+    borderColor: COLORS.lightWhite,
+    position: 'absolute',
+    right: 0,
+    zIndex: 999,
+    borderRadius: RFPercentage(2),
+    top: RFPercentage(5),
+    borderBottomWidth: RFPercentage(0.5),
+  },
+  toolTipItem: {
+    borderBottomWidth: RFPercentage(0.1),
+    borderBottomColor: COLORS.lightWhite,
+    paddingBottom: RFPercentage(1),
+    marginTop: RFPercentage(2),
+  },
+  lastToolTipItem: {
+    borderBottomWidth: 0,
+  },
+  toolTipText: {
+    color: COLORS.primary,
+    fontSize: RFPercentage(1.7),
+    fontFamily: FONTS.medium,
+    left: RFPercentage(1),
+  },
+  inputToolbarContainer: {
+    backgroundColor: COLORS.white,
+    height: RFPercentage(12),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.fieldColor,
+    borderRadius: RFPercentage(100),
+    paddingHorizontal: RFPercentage(2),
+    height: RFPercentage(6),
+    width: '90%',
+    alignSelf: 'center',
+  },
+  plusIcon: {
+    width: RFPercentage(3),
+    height: RFPercentage(3),
+    tintColor: COLORS.pink,
+  },
+  messageInput: {
+    flex: 1,
+    marginHorizontal: RFPercentage(1),
+    color: COLORS.inputColor,
+  },
+  sendButtonIcon: {
+    width: RFPercentage(3),
+    height: RFPercentage(3),
+    tintColor: COLORS.primary,
   },
 });

@@ -63,9 +63,9 @@ const CommonGroup = () => {
                   style={{
                     flexDirection: 'row',
                     alignItems: 'center',
-                    borderBottomColor: COLORS.fieldBorder,
+                    borderBottomColor: COLORS.lightWhite,
                     borderBottomWidth: isLastItem ? 0 : RFPercentage(0.1),
-                    paddingBottom: RFPercentage(2),
+                    paddingBottom: RFPercentage(1.3),
                     marginTop:RFPercentage(3),
                   }}
                 >

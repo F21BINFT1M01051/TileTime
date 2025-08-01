@@ -19,7 +19,7 @@ import Chat from './chat';
 const Groups = ({ navigation }: any) => {
   const [activeTab, setActiveTab] = useState('groups');
 
-  const groups = [];
+  const groups = ['1'];
   const chats = ['1'];
 
   const isGroupsTab = activeTab === 'groups';
@@ -38,7 +38,10 @@ const Groups = ({ navigation }: any) => {
           resizeMode="cover"
           style={styles.imageBackground}
         >
-          <TopNavigation />
+          <TopNavigation
+            right={(activeTab === 'groups' && groups.length > 0) ? true : false}
+            onPress={() => navigation.navigate('CreateGroup')}
+          />
           <View style={styles.contentContainer}>
             <View style={styles.tabContainer}>
               {/* Groups Button */}

@@ -36,6 +36,7 @@ export const COLORS = {
   tab: '#F6F6F6',
   tbText: '#151515',
   search: '#9C9EA6',
+  red : "#B5000C"
 };
 
 export const IMAGES = {
@@ -52,6 +53,7 @@ export const IMAGES = {
   chatProfile: require('../assets/images/chatProfile.png'),
   customProfile: require('../assets/images/img3.jpg'),
   groupDetail: require('../assets/images/group-detail.png'),
+  single: require('../assets/images/signle.png'),
 };
 
 export const ICONS = {
@@ -93,6 +95,7 @@ export const ICONS = {
   download: require('../assets/icons/download.png'),
   user5: require('../assets/icons/user5.png'),
   send2: require('../assets/icons/send2.png'),
+  pen: require('../assets/icons/Pen.png'),
 };
 
 export const FONTS = {
