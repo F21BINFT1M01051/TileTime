@@ -12,6 +12,9 @@ import {
   ScrollView,
   SafeAreaView,
   FlatList,
+  TouchableWithoutFeedback,
+  Animated,
+  Easing,
 } from 'react-native';
 import {
   GiftedChat,
@@ -54,7 +57,6 @@ moment.updateLocale('en', {
 const GroupCreated = ({ route }: any) => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
-  const [isToolTip, setToolTip] = useState(false);
   const { isNew } = route.params;
   const navigation = useNavigation();
 
@@ -156,181 +158,174 @@ const GroupCreated = ({ route }: any) => {
     );
   };
 
-  const toolTip = [
-    { id: 1, name: 'Add Member' },
-    { id: 2, name: 'Create Event' },
-    { id: 3, name: 'Copy Group Link' },
-  ];
-
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.headerBorder}>
-        <View style={styles.headerContainer}>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => navigation.goBack()}
-          >
-            <AntDesign
-              name="arrowleft"
-              color={COLORS.grey}
-              size={RFPercentage(3)}
-            />
-          </TouchableOpacity>
+    <TouchableWithoutFeedback>
+      <View style={styles.container}>
+        <View style={styles.headerBorder}>
+          <View style={styles.headerContainer}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => navigation.goBack()}
+            >
+              <AntDesign
+                name="arrowleft"
+                color={COLORS.grey}
+                size={RFPercentage(3)}
+              />
+            </TouchableOpacity>
 
-          <View style={styles.groupIconContainer}>
-            <Image
-              source={IMAGES.customProfile}
-              resizeMode="cover"
-              style={styles.groupIcon}
-            />
-          </View>
-
-          <Text style={styles.groupNameText}>Mahjong - Richie Rich Group</Text>
-
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={styles.dotsButton}
-            onPress={() => setToolTip(!isToolTip)}
-          >
-            <Entypo
-              name="dots-three-vertical"
-              size={RFPercentage(3)}
-              color={COLORS.grey}
-            />
-          </TouchableOpacity>
-
-          {isToolTip && (
-            <View style={styles.tooltipContainer}>
-              <FlatList
-                data={toolTip}
-                keyExtractor={item => item.id.toString()}
-                renderItem={({ item, index }) => {
-                  const last = index === toolTip.length - 1;
-                  return (
-                    <TouchableOpacity
-                      activeOpacity={0.8}
-                      onPress={() => navigation.navigate('GroupDetails')}
-                      style={[
-                        styles.tooltipOption,
-                        !last && { borderBottomWidth: RFPercentage(0.1) },
-                      ]}
-                    >
-                      <Text style={styles.tooltipText}>{item.name}</Text>
-                    </TouchableOpacity>
-                  );
-                }}
+            <View style={styles.groupIconContainer}>
+              <Image
+                source={IMAGES.customProfile}
+                resizeMode="cover"
+                style={styles.groupIcon}
               />
             </View>
-          )}
-        </View>
-      </View>
 
-      <ImageBackground
-        source={IMAGES.chat}
-        resizeMode="cover"
-        style={{ flex: 1 }}
-      >
-        {messages.length === 0 && (
-          <>
-            <View style={styles.todayBadge}>
-              <Text style={styles.todayText}>Today</Text>
+            <Text style={styles.groupNameText}>Mahjong - Richie Rich Gr..</Text>
+
+            <View
+              style={{
+                flexDirection: 'row',
+                position: 'absolute',
+                right: 0,
+              }}
+            >
+              <TouchableOpacity activeOpacity={0.8}>
+                <Image
+                  source={ICONS.calender2}
+                  resizeMode="contain"
+                  style={{
+                    width: RFPercentage(2.6),
+                    height: RFPercentage(2.6),
+                    marginRight: RFPercentage(1.8),
+                  }}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => navigation.navigate('GroupDetails')}
+              >
+                <Image
+                  source={ICONS.userAdd}
+                  resizeMode="contain"
+                  style={{
+                    width: RFPercentage(2.6),
+                    height: RFPercentage(2.6),
+                  }}
+                />
+              </TouchableOpacity>
             </View>
-            {isNew && (
-              <View style={styles.groupInfoCard}>
-                <View style={styles.largeGroupIconContainer}>
-                  <Image
-                    source={IMAGES.customProfile}
-                    resizeMode="cover"
-                    style={styles.largeGroupIcon}
-                  />
+          </View>
+        </View>
+
+        <ImageBackground
+          source={IMAGES.chat}
+          resizeMode="cover"
+          style={{ flex: 1 }}
+        >
+          {messages.length === 0 && (
+            <>
+              <View style={styles.todayBadge}>
+                <Text style={styles.todayText}>Today</Text>
+              </View>
+              {isNew && (
+                <View style={styles.groupInfoCard}>
+                  <View style={styles.largeGroupIconContainer}>
+                    <Image
+                      source={IMAGES.customProfile}
+                      resizeMode="cover"
+                      style={styles.largeGroupIcon}
+                    />
+                  </View>
+                  <Text style={styles.createdText}>You created this group</Text>
+                  <Text style={styles.membersText}>Group - 2 Members</Text>
+                  <View style={styles.buttonContainer}>
+                    <CustomButton
+                      title="Add Members"
+                      onPress={() => navigation.navigate('GroupDetails')}
+                      icon={ICONS.plus}
+                    />
+                  </View>
+                  <View style={styles.secondButtonContainer}>
+                    <CustomButton
+                      title="Share Group Link"
+                      onPress={() => {}}
+                      icon={ICONS.link}
+                    />
+                  </View>
                 </View>
-                <Text style={styles.createdText}>You created this group</Text>
-                <Text style={styles.membersText}>Group - 2 members</Text>
-                <View style={styles.buttonContainer}>
-                  <CustomButton
-                    title="Add members"
-                    onPress={() => {}}
-                    icon={ICONS.plus}
+              )}
+
+              <View style={styles.conversationPrompt}>
+                <Text style={styles.conversationText}>
+                  Start a conversation, ask a question, or just say hi.
+                </Text>
+              </View>
+            </>
+          )}
+
+          <GiftedChat
+            messages={messages}
+            user={{
+              _id: 1,
+              name: 'You',
+              avatar: 'https://placeimg.com/140/140/any',
+            }}
+            renderBubble={renderBubble}
+            renderMessage={renderMessage}
+            renderDay={renderDay}
+            renderInputToolbar={() => (
+              <View style={styles.customInputToolbar}>
+                <View style={styles.inputContainer}>
+                  <TouchableOpacity onPress={() => {}}>
+                    <Image
+                      source={ICONS.plus6}
+                      style={styles.plusIcon}
+                      resizeMode="contain"
+                    />
+                  </TouchableOpacity>
+                  <TextInput
+                    style={styles.inputText}
+                    placeholder="Type your message here"
+                    placeholderTextColor={COLORS.search}
+                    value={message}
+                    onChangeText={setMessage}
                   />
-                </View>
-                <View style={styles.secondButtonContainer}>
-                  <CustomButton
-                    title="Share group Link"
-                    onPress={() => {}}
-                    icon={ICONS.link}
-                  />
+                  <TouchableOpacity
+                    onPress={() => {
+                      if (message.trim()) {
+                        const newMessage = {
+                          _id: Date.now(),
+                          text: message,
+                          createdAt: new Date(),
+                          user: {
+                            _id: 1,
+                            name: 'You',
+                            avatar: 'https://placeimg.com/140/140/any',
+                          },
+                        };
+                        setMessages(prev =>
+                          GiftedChat.append(prev, [newMessage]),
+                        );
+                        setMessage('');
+                        Keyboard.dismiss();
+                      }
+                    }}
+                  >
+                    <Image
+                      source={ICONS.send}
+                      style={styles.sendIconContainer}
+                      resizeMode="contain"
+                    />
+                  </TouchableOpacity>
                 </View>
               </View>
             )}
-
-            <View style={styles.conversationPrompt}>
-              <Text style={styles.conversationText}>
-                Start a conversation, ask a question, or just say hi.
-              </Text>
-            </View>
-          </>
-        )}
-
-        <GiftedChat
-          messages={messages}
-          user={{
-            _id: 1,
-            name: 'You',
-            avatar: 'https://placeimg.com/140/140/any',
-          }}
-          renderBubble={renderBubble}
-          renderMessage={renderMessage}
-          renderDay={renderDay}
-          renderInputToolbar={() => (
-            <View style={styles.customInputToolbar}>
-              <View style={styles.inputContainer}>
-                <TouchableOpacity onPress={() => {}}>
-                  <Image
-                    source={ICONS.plus}
-                    style={styles.plusIcon}
-                    resizeMode="contain"
-                  />
-                </TouchableOpacity>
-                <TextInput
-                  style={styles.inputText}
-                  placeholder="Type your message here"
-                  placeholderTextColor={COLORS.search}
-                  value={message}
-                  onChangeText={setMessage}
-                />
-                <TouchableOpacity
-                  onPress={() => {
-                    if (message.trim()) {
-                      const newMessage = {
-                        _id: Date.now(),
-                        text: message,
-                        createdAt: new Date(),
-                        user: {
-                          _id: 1,
-                          name: 'You',
-                          avatar: 'https://placeimg.com/140/140/any',
-                        },
-                      };
-                      setMessages(prev =>
-                        GiftedChat.append(prev, [newMessage]),
-                      );
-                      setMessage('');
-                      Keyboard.dismiss();
-                    }
-                  }}
-                >
-                  <Image
-                    source={ICONS.send}
-                    style={styles.sendIconContainer}
-                    resizeMode="contain"
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
-          )}
-        />
-      </ImageBackground>
-    </SafeAreaView>
+          />
+        </ImageBackground>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -344,7 +339,7 @@ const styles = StyleSheet.create({
   headerBorder: {
     borderBottomWidth: 1,
     borderBottomColor: COLORS.fieldBorder,
-    paddingBottom: RFPercentage(2.5),
+    paddingBottom: RFPercentage(2),
   },
   headerContainer: {
     flexDirection: 'row',
@@ -354,8 +349,8 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(4),
   },
   groupIconContainer: {
-    width: RFPercentage(5.5),
-    height: RFPercentage(5.5),
+    width: RFPercentage(5),
+    height: RFPercentage(5),
     borderRadius: RFPercentage(100),
     backgroundColor: COLORS.yellow,
     alignItems: 'center',
@@ -363,8 +358,8 @@ const styles = StyleSheet.create({
     marginLeft: RFPercentage(2),
   },
   groupIcon: {
-    width: RFPercentage(5.5),
-    height: RFPercentage(5.5),
+    width: RFPercentage(5),
+    height: RFPercentage(5),
     borderTopRightRadius: RFPercentage(100),
     right: RFPercentage(0.5),
     borderTopLeftRadius: RFPercentage(100),
@@ -374,7 +369,7 @@ const styles = StyleSheet.create({
   groupNameText: {
     color: COLORS.primary,
     fontFamily: FONTS.medium,
-    fontSize: RFPercentage(2),
+    fontSize: RFPercentage(1.8),
     marginLeft: RFPercentage(1),
   },
   dotsButton: {
@@ -399,15 +394,14 @@ const styles = StyleSheet.create({
   },
   groupInfoCard: {
     width: '90%',
-    padding: RFPercentage(3),
+    padding: RFPercentage(2.6),
     alignItems: 'center',
     backgroundColor: COLORS.white,
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.lightWhite,
     alignSelf: 'center',
     borderRadius: RFPercentage(1.5),
-    marginTop: RFPercentage(3),
-    paddingBottom: RFPercentage(4),
+    marginTop: RFPercentage(2.5),
   },
   largeGroupIconContainer: {
     width: RFPercentage(8),
@@ -560,7 +554,7 @@ const styles = StyleSheet.create({
   },
   customInputToolbar: {
     backgroundColor: COLORS.white,
-    height: RFPercentage(12),
+    height: RFPercentage(10),
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -21,63 +21,61 @@ const LoginSignUp = ({ navigation }: any) => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <ScrollView>
-        <LinearGradient
-          colors={[COLORS.gradient1, COLORS.gradient2]}
-          style={styles.gradient}
-        >
-          <View style={styles.logoContainer}>
-            <Image
-              source={IMAGES.logo}
-              resizeMode="contain"
-              style={styles.logo}
-            />
-            <Image
-              source={IMAGES.headline}
-              resizeMode="contain"
-              style={styles.headlineImage}
-            />
-          </View>
+      <LinearGradient
+        colors={[COLORS.gradient1, COLORS.gradient2]}
+        style={styles.gradient}
+      >
+        <View style={styles.logoContainer}>
+          <Image
+            source={IMAGES.logo}
+            resizeMode="contain"
+            style={styles.logo}
+          />
+          <Image
+            source={IMAGES.headline}
+            resizeMode="contain"
+            style={styles.headlineImage}
+          />
+        </View>
 
-          <View style={styles.whiteContainer}>
-            <View style={styles.contentWrapper}>
-              <View style={{}}>
-                <AuthHeader title="Log In/Sign up with Email" />
-              </View>
+        <View style={styles.whiteContainer}>
+          <View style={styles.contentWrapper}>
+            <View>
+              <AuthHeader title="Log In/Sign up with Email" />
+            </View>
 
-              <View style={styles.emailField}>
-                <InputField
-                  placeholder="Email Address"
-                  value={email}
-                  onChangeText={setEmail}
-                  password={false}
-                />
-              </View>
+            <View style={styles.emailField}>
+              <InputField
+                placeholder="Email Address"
+                value={email}
+                onChangeText={setEmail}
+                password={false}
+              />
+            </View>
 
-              <View style={styles.buttonWrapper}>
-                <CustomButton
-                  title="Proceed"
-                  onPress={() => {
-                    navigation.navigate('Login');
-                  }}
-                />
-              </View>
+            <View style={styles.buttonWrapper}>
+              <CustomButton
+                title="Proceed"
+                onPress={() => {
+                  navigation.navigate('Login');
+                }}
+              />
+            </View>
 
-              <View style={styles.signupContainer}>
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate('OnBoarding');
-                  }}
-                >
-                  <Text style={styles.signupText}>
-                    Continue with other options
-                  </Text>
-                </TouchableOpacity>
-              </View>
+            <View style={styles.signupContainer}>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('OnBoarding');
+                }}
+              >
+                <Text style={styles.signupText}>
+                  Continue With Other Options
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
-        </LinearGradient>
-      </ScrollView>
+        </View>
+      </LinearGradient>
     </TouchableWithoutFeedback>
   );
 };
@@ -111,7 +109,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: RFPercentage(4),
     paddingBottom: RFPercentage(5),
-    height: '100%',
+    flex: 1,
   },
   contentWrapper: {
     width: '90%',
@@ -120,7 +118,7 @@ const styles = StyleSheet.create({
   },
 
   emailField: {
-    marginTop: RFPercentage(2),
+    marginTop: RFPercentage(1.8),
   },
 
   buttonWrapper: {

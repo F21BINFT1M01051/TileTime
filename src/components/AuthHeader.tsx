@@ -1,8 +1,7 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
-import Feather from 'react-native-vector-icons/Feather';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import { COLORS, FONTS } from '../config/theme';
+import { COLORS, FONTS, ICONS } from '../config/theme';
 import { useNavigation } from '@react-navigation/native';
 
 interface Props {
@@ -20,11 +19,7 @@ const AuthHeader = (props: Props) => {
       }}
     >
       <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.goBack()}>
-        <Feather
-          name="arrow-left"
-          size={RFPercentage(2.5)}
-          color={COLORS.grey}
-        />
+       <Image source={ICONS.back} resizeMode='contain' style={{width:RFPercentage(2.8), height:RFPercentage(2.8)}} />
       </TouchableOpacity>
       <Text style={styles.getStartedText}>{props.title}</Text>
     </View>
@@ -38,6 +33,6 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontFamily: FONTS.headline,
     fontSize: RFPercentage(2.8),
-    marginLeft: RFPercentage(0.8),
+    marginLeft: RFPercentage(0.9),
   },
 });

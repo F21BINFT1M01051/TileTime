@@ -170,6 +170,7 @@ const styles = StyleSheet.create({
     color: COLORS.inputColor,
     fontFamily: FONTS.regular,
     width: '90%',
+    fontSize:RFPercentage(1.8)
   },
   dropdownContainer: {
     marginTop: RFPercentage(1),
@@ -206,7 +207,7 @@ const styles = StyleSheet.create({
     borderRadius: RFPercentage(100),
     paddingHorizontal: RFPercentage(2),
     marginRight: RFPercentage(1),
-    height: RFPercentage(5),
+    height: RFPercentage(4.5),
     justifyContent:'space-between'
   },
   selectedText: {

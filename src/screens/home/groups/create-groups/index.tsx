@@ -43,7 +43,7 @@ const CreateGroup = ({ navigation }: any) => {
   };
 
   const getBarColor = (index: any) => {
-    if (index < stepIndex) return COLORS.pink;
+    if (index < stepIndex) return COLORS.green;
     if (index === stepIndex) return COLORS.pink;
     return COLORS.fieldColor;
   };
@@ -66,7 +66,7 @@ const CreateGroup = ({ navigation }: any) => {
     >
       <ScrollView
         style={{ flex: 1, backgroundColor: COLORS.white }}
-        contentContainerStyle={{ flexGrow: 1, paddingBottom: RFPercentage(10) }}
+        contentContainerStyle={{ flexGrow: 1, paddingBottom: RFPercentage(2) }}
         keyboardShouldPersistTaps="handled"
       >
         <Nav title="Create Group" />
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
   contentWrapper: {
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(4.5),
+    marginTop: RFPercentage(3.5),
     flex: 1,
   },
   bottomWrapper: {

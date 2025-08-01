@@ -16,13 +16,13 @@ const players = [
   {
     id: 1,
     name: 'Jamie Anderson',
-    profile: IMAGES.profile1,
+    profile: IMAGES.profile3,
     common: '2 Groups Common • Montgom..',
   },
   {
     id: 2,
     name: 'Jamie Anderson',
-    profile: IMAGES.profile2,
+    profile: IMAGES.profile3,
     common: '2 Groups Common • Montgom..',
   },
   {
@@ -89,34 +89,36 @@ const Players = () => {
           renderItem={({ item }) => {
             const isSelected = selectedContacts.includes(item.id);
             return (
-              <View style={styles.contactRow}>
-                <View style={styles.contactInfo}>
-                  <View style={styles.avatarContainer}>
-                    <View style={styles.avatarOuterLayer}>
-                      <View style={styles.avatarMiddleLayer}>
-                        <View style={styles.avatarInnerLayer}>
-                          <Image
-                            source={item.profile}
-                            resizeMode="contain"
-                            style={styles.avatarImage}
-                          />
+              <TouchableOpacity activeOpacity={0.8} onPress={() => toggleContact(item.id)}>
+                <View style={styles.contactRow}>
+                  <View style={styles.contactInfo}>
+                    <View style={styles.avatarContainer}>
+                      <View style={styles.avatarOuterLayer}>
+                        <View style={styles.avatarMiddleLayer}>
+                          <View style={styles.avatarInnerLayer}>
+                            <Image
+                              source={item.profile}
+                              resizeMode="contain"
+                              style={styles.avatarImage}
+                            />
+                          </View>
                         </View>
                       </View>
                     </View>
+                    <View style={styles.nameSection}>
+                      <Text style={styles.nameText}>{item.name}</Text>
+                      <Text style={styles.phoneText}>{item.common}</Text>
+                    </View>
                   </View>
-                  <View style={styles.nameSection}>
-                    <Text style={styles.nameText}>{item.name}</Text>
-                    <Text style={styles.phoneText}>{item.common}</Text>
-                  </View>
+                  <TouchableOpacity onPress={() => toggleContact(item.id)}>
+                    <Image
+                      resizeMode="contain"
+                      source={isSelected ? ICONS.checked : ICONS.uncheck}
+                      style={styles.checkIcon}
+                    />
+                  </TouchableOpacity>
                 </View>
-                <TouchableOpacity onPress={() => toggleContact(item.id)}>
-                  <Image
-                    resizeMode="contain"
-                    source={isSelected ? ICONS.checked : ICONS.uncheck}
-                    style={styles.checkIcon}
-                  />
-                </TouchableOpacity>
-              </View>
+              </TouchableOpacity>
             );
           }}
         />

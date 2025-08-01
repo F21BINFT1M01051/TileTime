@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
 import React, { useState } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import { COLORS, FONTS, IMAGES } from '../../../config/theme';
+import { COLORS, FONTS, IMAGES,ICONS } from '../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import CustomButton from '../../../components/CustomButton';
 import Selection from '../../../components/Selection';
@@ -29,12 +29,14 @@ const RoleSelection = ({ navigation }: any) => {
               subTitle="Share your expertise, connect with players, and grow your teaching presence in the Tile Time community."
               isSelected={selected === 'option1'}
               onSelect={() => setSelected('option1')}
+              icon={ICONS.teacher}
             />
             <Selection
               title="As Player"
               subTitle="Join exciting games, improve your skills, and connect with instructors and fellow players."
               isSelected={selected === 'option2'}
               onSelect={() => setSelected('option2')}
+               icon={ICONS.user6}
             />
           </View>
         </View>

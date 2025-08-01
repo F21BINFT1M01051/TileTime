@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   },
 
   inputMarginTop: {
-    marginTop: RFPercentage(2),
+    marginTop: RFPercentage(1.5),
   },
 
   buttonWrapper: {
@@ -148,16 +148,19 @@ const styles = StyleSheet.create({
   footerTextGray: {
     fontFamily: FONTS.regular2,
     color: COLORS.lightGrey,
+    fontSize: RFPercentage(1.8),
   },
   signInLink: {
     fontFamily: FONTS.semiBold2,
     color: COLORS.primary,
     left: RFPercentage(0.4),
+    fontSize: RFPercentage(1.8),
   },
   footerText: {
     fontFamily: FONTS.regular2,
     color: COLORS.lightGrey,
     textAlign: 'center',
     marginTop: RFPercentage(1.3),
+    fontSize: RFPercentage(1.8),
   },
 });

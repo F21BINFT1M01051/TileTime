@@ -13,18 +13,11 @@ import TopNavigation from '../../../routers/TopBar';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import CustomButton from '../../../components/CustomButton';
-import Group from './create-groups/group';
-import Chat from './chat';
+
+import All from './all';
 
 const Groups = ({ navigation }: any) => {
-  const [activeTab, setActiveTab] = useState('groups');
-
-  const groups = ['1'];
-  const chats = ['1'];
-
-  const isGroupsTab = activeTab === 'groups';
-  const isChatsTab = activeTab === 'chats';
-  const hasGroups = groups.length > 0;
+  const chats = [];
   const hasChats = chats.length > 0;
 
   return (
@@ -32,85 +25,37 @@ const Groups = ({ navigation }: any) => {
       colors={[COLORS.white, COLORS.white]}
       style={styles.gradientContainer}
     >
-      <ScrollView contentContainerStyle={{ paddingBottom: RFPercentage(8) }}>
+      <ScrollView>
         <ImageBackground
           source={IMAGES.background}
           resizeMode="cover"
           style={styles.imageBackground}
         >
           <TopNavigation
-            right={(activeTab === 'groups' && groups.length > 0) ? true : false}
+            right={chats.length > 0 ? true : false}
             onPress={() => navigation.navigate('CreateGroup')}
           />
-          <View style={styles.contentContainer}>
-            <View style={styles.tabContainer}>
-              {/* Groups Button */}
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => setActiveTab('groups')}
-                style={[
-                  styles.tabButton,
-                  isGroupsTab && styles.activeTabButton,
-                ]}
-              >
-                <Text
-                  style={[
-                    styles.tabButtonText,
-                    isGroupsTab && styles.activeTabButtonText,
-                  ]}
-                >
-                  Groups
-                </Text>
-              </TouchableOpacity>
 
-              {/* Chats Button */}
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => setActiveTab('chats')}
-                style={[styles.tabButton, isChatsTab && styles.activeTabButton]}
-              >
-                <Text
-                  style={[
-                    styles.tabButtonText,
-                    isChatsTab && styles.activeTabButtonText,
-                  ]}
-                >
-                  Chats
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </ImageBackground>
-
-        <View
-          style={[
-            styles.contentContainer,
-            { bottom: RFPercentage(9), width: '100%' },
-          ]}
-        >
-          {isGroupsTab && hasGroups ? (
-            <Group />
-          ) : isChatsTab && hasChats ? (
-            <Chat />
-          ) : (
+          {chats.length === 0 && (
             <>
               <View style={styles.titleContainer}>
                 <Text style={styles.mainTitle}>
-                  {isGroupsTab
-                    ? `Start a Group and\nInvite Others`
-                    : `Start a Chat and\nStay Connected`}
+                  {`Start a Group and\nInvite Others`}
                 </Text>
               </View>
               <View style={styles.subtitleContainer}>
                 <Text style={styles.subtitleText}>
-                  {isGroupsTab
-                    ? `Groups are a great way to connect with others\nwho share your interests.`
-                    : `Chats are a great way to keep in touch with your group, share updates, and enjoy the game together.`}
+                  {`Groups are a great way to connect with others\nwho share your interests.`}
                 </Text>
                 <Image
                   source={ICONS.border}
                   resizeMode="contain"
-                  style={styles.borderIcon}
+                  style={[
+                    styles.borderIcon,
+                    {
+                      right: RFPercentage(10),
+                    },
+                  ]}
                 />
               </View>
 
@@ -121,22 +66,29 @@ const Groups = ({ navigation }: any) => {
               />
               <View style={styles.buttonWrapper}>
                 <CustomButton
-                  title={
-                    isGroupsTab
-                      ? 'Create Your First Group'
-                      : 'Start Your First Chat'
-                  }
+                  title={'Create Your First Group'}
                   onPress={() => {
-                    if (activeTab === 'chats') {
-                      console.log('chat');
-                    } else {
-                      navigation.navigate('CreateGroup');
-                    }
+                    navigation.navigate('CreateGroup');
                   }}
                 />
+                <View style={{ marginTop: RFPercentage(1.5) }}>
+                  <CustomButton
+                    title={'Start A Direct Message'}
+                    onPress={() => {}}
+                  />
+                </View>
               </View>
             </>
           )}
+        </ImageBackground>
+
+        <View
+          style={[
+            styles.contentContainer,
+            { width: '100%', marginTop: RFPercentage(-18) },
+          ]}
+        >
+          {hasChats ? <All /> : null}
         </View>
       </ScrollView>
     </LinearGradient>
@@ -164,7 +116,7 @@ const styles = StyleSheet.create({
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.lightWhite,
     borderRadius: RFPercentage(2.5),
-    height: RFPercentage(6.5),
+    height: RFPercentage(6),
     marginTop: RFPercentage(4),
     alignItems: 'center',
     flexDirection: 'row',
@@ -198,6 +150,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     width: '90%',
     alignSelf: 'center',
+    marginTop: RFPercentage(5),
   },
   subtitleContainer: {
     marginTop: RFPercentage(1),
@@ -214,11 +167,11 @@ const styles = StyleSheet.create({
     width: RFPercentage(10),
     height: RFPercentage(2),
     alignSelf: 'flex-end',
-    right: RFPercentage(7),
   },
   groupImage: {
     width: RFPercentage(50),
     height: RFPercentage(30),
+    marginTop: RFPercentage(4),
   },
   buttonWrapper: {
     width: '90%',
@@ -227,3 +180,4 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(5),
   },
 });
+

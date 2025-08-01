@@ -1,9 +1,11 @@
 import {
   Image,
+  Keyboard,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import React, { useState } from 'react';
@@ -30,67 +32,60 @@ const About = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tell us about your group</Text>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Tell us about your group</Text>
 
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={pickImage}
-        style={styles.profileContainer}
-      >
-        <Image
-          source={imageUri ? { uri: imageUri } : ICONS.group}
-          resizeMode="cover"
-          style={styles.profileImage}
-        />
-        <TouchableOpacity activeOpacity={0.8} onPress={pickImage}>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={pickImage}
+          style={styles.profileContainer}
+        >
           <Image
-            source={ICONS.edit}
-            resizeMode="contain"
-            style={styles.editIcon}
+            source={imageUri ? { uri: imageUri } : ICONS.group}
+            resizeMode="cover"
+            style={styles.profileImage}
           />
-        </TouchableOpacity>
-      </TouchableOpacity>
-
-      <View style={{ marginTop: RFPercentage(-1) }}>
-        <InputField
-          placeholder="Group Name"
-          value={name}
-          onChangeText={setName}
-          password={false}
-        />
-      </View>
-
-      <View style={styles.bioWrapper}>
-        <View style={styles.bioContainer}>
-          <View style={{ width: '90%', alignSelf: 'center' }}>
-            <TextInput
-              placeholder="Group Description"
-              placeholderTextColor={COLORS.placeholder}
-              style={styles.bioInput}
-              multiline={true}
-              maxLength={170}
-            />
-          </View>
-          <View
-            style={{
-              alignSelf: 'flex-end',
-              right: RFPercentage(0.5),
-              bottom: RFPercentage(0.5),
-            }}
-          >
+          <TouchableOpacity activeOpacity={0.8} onPress={pickImage}>
             <Image
-              source={ICONS.bars}
+              source={ICONS.edit}
               resizeMode="contain"
-              style={{
-                width: RFPercentage(1.5),
-                height: RFPercentage(1.5),
-              }}
+              style={styles.editIcon}
             />
+          </TouchableOpacity>
+        </TouchableOpacity>
+
+        <View style={styles.inputWrapper}>
+          <InputField
+            placeholder="Group Name"
+            value={name}
+            onChangeText={setName}
+            password={false}
+          />
+        </View>
+
+        <View style={styles.bioWrapper}>
+          <View style={styles.bioContainer}>
+            <View style={styles.bioInputWrapper}>
+              <TextInput
+                placeholder="Group Description"
+                placeholderTextColor={COLORS.placeholder}
+                style={styles.bioInput}
+                multiline={true}
+                maxLength={170}
+              />
+            </View>
+            <View style={styles.bioIconWrapper}>
+              <Image
+                source={ICONS.bars}
+                resizeMode="contain"
+                style={styles.bioIcon}
+              />
+            </View>
           </View>
         </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -122,6 +117,9 @@ const styles = StyleSheet.create({
     height: RFPercentage(3.8),
     bottom: RFPercentage(2),
   },
+  inputWrapper: {
+    marginTop: RFPercentage(-1),
+  },
   bioWrapper: {
     marginTop: RFPercentage(3),
   },
@@ -131,7 +129,11 @@ const styles = StyleSheet.create({
     borderColor: COLORS.fieldBorder,
     borderRadius: RFPercentage(1.5),
   },
-
+  bioInputWrapper: {
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: RFPercentage(1.5),
+  },
   bioInput: {
     width: '100%',
     alignSelf: 'center',
@@ -143,6 +145,14 @@ const styles = StyleSheet.create({
     height: RFPercentage(12),
     paddingHorizontal: 0,
     paddingVertical: 0,
-    top: RFPercentage(2),
+  },
+  bioIconWrapper: {
+    alignSelf: 'flex-end',
+    right: RFPercentage(0.5),
+    bottom: RFPercentage(0.5),
+  },
+  bioIcon: {
+    width: RFPercentage(1.5),
+    height: RFPercentage(1.5),
   },
 });

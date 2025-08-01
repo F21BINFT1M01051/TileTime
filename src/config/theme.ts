@@ -36,7 +36,7 @@ export const COLORS = {
   tab: '#F6F6F6',
   tbText: '#151515',
   search: '#9C9EA6',
-  red : "#B5000C"
+  red: '#B5000C',
 };
 
 export const IMAGES = {
@@ -54,6 +54,7 @@ export const IMAGES = {
   customProfile: require('../assets/images/img3.jpg'),
   groupDetail: require('../assets/images/group-detail.png'),
   single: require('../assets/images/signle.png'),
+  profile3: require('../assets/images/profile3.png'),
 };
 
 export const ICONS = {
@@ -96,6 +97,14 @@ export const ICONS = {
   user5: require('../assets/icons/user5.png'),
   send2: require('../assets/icons/send2.png'),
   pen: require('../assets/icons/Pen.png'),
+  back: require('../assets/icons/back.png'),
+  plus5: require('../assets/icons/plus5.png'),
+  plus6: require('../assets/icons/plus6.png'),
+  userAdd: require('../assets/icons/user-plus.png'),
+  calender2: require('../assets/icons/calendar2.png'),
+  teacher: require('../assets/icons/teacher.png'),
+  user6: require('../assets/icons/user6.png'),
+  message: require('../assets/icons/message.png'),
 };
 
 export const FONTS = {

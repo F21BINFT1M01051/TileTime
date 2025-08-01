@@ -7,25 +7,28 @@ import DoubleSwitch from '../../../../../components/DoubleSwitch';
 import SettingsButton from '../../../../../components/SettingsButton';
 import AdminCard from '../../../../../components/AdminCard';
 
-const GroupSettings = () => {
+const GroupSettings = ({ navigation }: any) => {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Nav title="Permissions & Settings" style={styles.navTitle} />
       <View style={styles.contentWrapper}>
         <Text style={styles.sectionTitle}>Members can</Text>
         <View style={styles.subSection}>
           <DoubleSwitch />
           <Text style={styles.description}>
-            Turning off these settings means that only group admins can perform this action.
+            Turning off these settings means that only group admins can perform
+            this action.
           </Text>
         </View>
         <View style={styles.subSectionSpacing}>
           <Text style={styles.sectionTitle}>Media and Documents</Text>
           <View style={styles.subSection}>
             <SettingsButton
-              title="Download to Gallery"
-              icon={ICONS.settings}
+              title="Download To Gallery"
+              icon={ICONS.download}
               switch={true}
+              style={{ borderBottomWidth: RFPercentage(0.1) }}
+              textStyle={{ fontFamily: FONTS.regular }}
             />
             <Text style={styles.lightDescription}>
               Automatically save photos you receive to Gallery.
@@ -33,10 +36,18 @@ const GroupSettings = () => {
           </View>
         </View>
         <View style={styles.subSectionSpacing}>
-          <AdminCard icon={true} title="Manage Group Admins" subTitle="You and Samantha" />
+          <AdminCard
+            icon={true}
+            title="Manage Group Admins"
+            subTitle="You and Samantha"
+            onPress={() => navigation.navigate('GroupAdmins')}
+            userId={1}
+            visibleTooltipId={null}
+            setVisibleTooltipId={() => {}}
+          />
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -68,13 +79,13 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(1.5),
     color: COLORS.grey4,
     fontFamily: FONTS.regular2,
-    marginTop: RFPercentage(0.3),
+    marginTop: RFPercentage(0.8),
   },
   lightDescription: {
     fontSize: RFPercentage(1.5),
     color: COLORS.lightGrey,
     fontFamily: FONTS.regular2,
-    marginTop: RFPercentage(0.3),
+    marginTop: RFPercentage(0.6),
   },
   subSectionSpacing: {
     marginTop: RFPercentage(3),

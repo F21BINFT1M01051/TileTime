@@ -12,55 +12,57 @@ import React from 'react';
 import { COLORS, IMAGES, FONTS, ICONS } from '../../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import CustomButton from '../../../../../components/CustomButton';
 import DetailComponent from '../../../../../components/DetailComponent';
 import AdminCard from '../../../../../components/AdminCard';
 import SettingsButton from '../../../../../components/SettingsButton';
 import SocialField from '../../../../../components/SocialField';
 
-const GroupDetails = ({ navigation } : any) => {
+const GroupDetails = ({ navigation }: any) => {
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.headerBorder}>
-        <View style={styles.headerContainer}>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => navigation.goBack()}
-          >
-            <AntDesign
-              name="arrowleft"
-              color={COLORS.grey}
-              size={RFPercentage(3)}
-            />
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={styles.dotsButton}
-            onPress={() => {
-              navigation.navigate('GroupDetails');
-            }}
-          >
-            <View style={styles.editButton}>
-              <FontAwesome6
-                name="pen"
-                size={RFPercentage(2.4)}
-                color={COLORS.black}
-                style={styles.editIcon}
-              />
-              <Text style={styles.editText}>Edit</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </View>
-
+    <View style={styles.safeArea}>
       <ScrollView>
         <ImageBackground
           source={IMAGES.groupDetail}
-          resizeMode="stretch"
+          resizeMode="repeat"
           style={styles.groupImage}
-        />
+        >
+          <View style={styles.headerBorder}>
+            <View style={styles.headerContainer}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => navigation.goBack()}
+              >
+                <AntDesign
+                  name="arrowleft"
+                  color={COLORS.grey}
+                  size={RFPercentage(3)}
+                />
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.dotsButton}
+                onPress={() => {
+                  navigation.navigate('GroupDetails');
+                }}
+              >
+                <View style={styles.editButton}>
+                  <Image
+                    source={ICONS.pen}
+                    resizeMode="contain"
+                    style={{
+                      width: RFPercentage(3),
+                      height: RFPercentage(3),
+                      marginRight: RFPercentage(0.5),
+                    }}
+                  />
+                  <Text style={styles.editText}>Edit</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </ImageBackground>
 
         <View style={styles.contentContainer}>
           <View style={styles.largeGroupIconContainer}>
@@ -99,26 +101,36 @@ const GroupDetails = ({ navigation } : any) => {
           </View>
 
           <View style={styles.sectionMarginTop1}>
-            <DetailComponent title="Group Members" />
+            <DetailComponent
+              title="Group Members"
+              onPress={() => navigation.navigate('GroupMembers')}
+            />
           </View>
-          <View>
-            <DetailComponent title="Media and Documents" media={true} />
+          <View style={{ marginTop: RFPercentage(0.5) }}>
+            <DetailComponent
+              title="Media and Documents"
+              media={true}
+              onPress={() => {}}
+            />
           </View>
           <View style={styles.sectionMarginTop3}>
             <AdminCard
               title="Samantha Lewis (You)"
               subTitle="Group Admin"
               profile={true}
+              userId={1}
+              visibleTooltipId={null}
+              setVisibleTooltipId={() => {}}
             />
           </View>
-          <View style={styles.sectionMarginTop3}>
+          <View style={{ marginTop: RFPercentage(1.5) }}>
             <SettingsButton
               title="Permissions & Settings"
               icon={ICONS.settings}
               onPress={() => navigation.navigate('GroupSettings')}
             />
           </View>
-          <View style={styles.sectionMarginTop3}>
+          <View style={{ marginTop: RFPercentage(2) }}>
             <SocialField
               name="Mute Group"
               color={COLORS.primary}
@@ -127,18 +139,16 @@ const GroupDetails = ({ navigation } : any) => {
               navigation=""
             />
           </View>
-          <View style={styles.sectionMarginTop1}>
-            <SocialField
-              name="Delete Group"
-              color={COLORS.red}
-              icon={ICONS.trash}
-              borderColor={COLORS.red}
-              navigation=""
-            />
-          </View>
+          <SocialField
+            name="Delete Group"
+            color={COLORS.red}
+            icon={ICONS.trash}
+            borderColor={COLORS.red}
+            navigation=""
+          />
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -176,17 +186,17 @@ const styles = StyleSheet.create({
   },
   editText: {
     color: COLORS.black,
-    fontFamily: FONTS.medium,
+    fontFamily: FONTS.semiBold,
     fontSize: RFPercentage(1.8),
   },
   groupImage: {
-    width: RFPercentage(50),
-    height: RFPercentage(18),
+    width: '100%',
+    height: RFPercentage(20),
   },
   contentContainer: {
     width: '90%',
     alignSelf: 'center',
-    bottom: RFPercentage(10),
+    bottom: RFPercentage(6),
   },
   largeGroupIconContainer: {
     width: RFPercentage(13),
@@ -230,12 +240,13 @@ const styles = StyleSheet.create({
     width: '48%',
   },
   customButton: {
-    borderRadius: RFPercentage(1.6),
+    borderRadius: RFPercentage(1.4),
+    height: RFPercentage(5.6),
   },
   sectionMarginTop1: {
     marginTop: RFPercentage(1),
   },
   sectionMarginTop3: {
-    marginTop: RFPercentage(3),
+    marginTop: RFPercentage(3.5),
   },
 });

@@ -13,12 +13,9 @@ import { COLORS, IMAGES, FONTS, ICONS } from '../../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import CustomButton from '../../../../../components/CustomButton';
-import DetailComponent from '../../../../../components/DetailComponent';
-import SettingsButton from '../../../../../components/SettingsButton';
-import SocialField from '../../../../../components/SocialField';
 import CommonGroup from '../../../../../components/CommonGroups';
 
-const UserDetails = ({ navigation }: any) => {
+const PlayerProfile = ({ navigation }: any) => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView>
@@ -40,27 +37,6 @@ const UserDetails = ({ navigation }: any) => {
                     size={RFPercentage(3)}
                   />
                 </TouchableOpacity>
-
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  style={styles.dotsButton}
-                  onPress={() => {
-                    navigation.navigate('GroupDetails');
-                  }}
-                >
-                  <View style={styles.editButton}>
-                    <Image
-                      source={ICONS.pen}
-                      resizeMode="contain"
-                      style={{
-                        width: RFPercentage(3),
-                        height: RFPercentage(3),
-                        marginRight: RFPercentage(0.5),
-                      }}
-                    />
-                    <Text style={styles.editText}>Edit</Text>
-                  </View>
-                </TouchableOpacity>
               </View>
             </View>
           </ImageBackground>
@@ -79,6 +55,10 @@ const UserDetails = ({ navigation }: any) => {
           </View>
 
           <Text style={styles.userName}>Sophie Reynolds</Text>
+          <Text style={styles.groupDesc}>
+            Passionate mahjong player who loves a good challenge and friendly
+            matches. Always up for a game!
+          </Text>
 
           <View style={styles.buttonRow}>
             <View style={styles.buttonHalf}>
@@ -91,24 +71,12 @@ const UserDetails = ({ navigation }: any) => {
             </View>
             <View style={styles.buttonHalf}>
               <CustomButton
-                title="Create Event"
-                icon={ICONS.calender}
+                title="Send Message"
+                icon={ICONS.message}
                 style={styles.buttonRounded}
-                onPress={() => {}}
+                onPress={() => {navigation.navigate("DirectChat")}}
               />
             </View>
-          </View>
-
-          <View style={styles.viewProfile}>
-            <SettingsButton
-              title="View Profile"
-              icon={ICONS.user4}
-              onPress={() => navigation.navigate('PlayerProfile')}
-            />
-          </View>
-
-          <View>
-            <DetailComponent title="Media and Documents" media={true} onPress={()=> {}} />
           </View>
 
           <View style={styles.sectionMargin}>
@@ -116,24 +84,10 @@ const UserDetails = ({ navigation }: any) => {
           </View>
 
           <View style={styles.sectionMargin}>
-            <SettingsButton
-              title="Download to Gallery"
-              icon={ICONS.download}
-              switch={true}
-            />
-            <Text style={styles.galleryText}>
-              Automatically save photos you receive to Gallery.
-            </Text>
+            <CommonGroup futureEvents />
           </View>
-
           <View style={styles.sectionMargin}>
-            <SocialField
-              name="Unmute Group"
-              color={COLORS.primary}
-              icon={ICONS.mute2}
-              borderColor={COLORS.primary}
-              navigation=""
-            />
+            <CommonGroup pastEvents />
           </View>
         </View>
       </ScrollView>
@@ -141,7 +95,7 @@ const UserDetails = ({ navigation }: any) => {
   );
 };
 
-export default UserDetails;
+export default PlayerProfile;
 
 const styles = StyleSheet.create({
   safeArea: {
@@ -160,6 +114,12 @@ const styles = StyleSheet.create({
     width: '90%',
     alignSelf: 'center',
     marginTop: RFPercentage(5),
+  },
+  groupDesc: {
+    fontFamily: FONTS.regular2,
+    color: COLORS.primary,
+    fontSize: RFPercentage(1.8),
+    marginTop: RFPercentage(1),
   },
   dotsButton: {
     position: 'absolute',
@@ -238,7 +198,6 @@ const styles = StyleSheet.create({
   },
   buttonRounded: {
     borderRadius: RFPercentage(1.6),
-    height: RFPercentage(5.6),
   },
   viewProfile: {
     marginTop: RFPercentage(4),
@@ -250,6 +209,6 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(1.5),
     color: COLORS.lightGrey,
     fontFamily: FONTS.regular2,
-    marginTop: RFPercentage(0.6),
+    marginTop: RFPercentage(0.3),
   },
 });

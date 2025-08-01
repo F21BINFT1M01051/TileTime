@@ -59,5 +59,6 @@ const styles = StyleSheet.create({
     color: COLORS.inputColor,
     fontFamily: FONTS.regular,
     width: '90%',
+    fontSize:RFPercentage(1.8)
   },
 });

@@ -16,7 +16,7 @@ const ProffessionalInfo = () => {
 
       <View style={styles.inputContainer}>
         <Text style={styles.sectionLabel}>Your Experience</Text>
-        <View style={{ marginTop: RFPercentage(1.7) }}>
+        <View style={{ marginTop: RFPercentage(1.5) }}>
           <Search
             placeholder="Search And Add Experience"
             value={Experience}
@@ -28,9 +28,9 @@ const ProffessionalInfo = () => {
         <Text style={[styles.sectionLabel, { marginTop: RFPercentage(3) }]}>
           Credentials
         </Text>
-        <View style={{ marginTop: RFPercentage(1.7) }}>
+        <View style={{ marginTop: RFPercentage(1.5) }}>
           <Search
-            placeholder="Search And Add Credential"
+            placeholder="Search And Add Credentials"
             value={Credential}
             onChangeText={setCredential}
             data={[
@@ -61,9 +61,9 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(4),
   },
   sectionLabel: {
-    fontFamily: FONTS.semiBold2,
+    fontFamily: FONTS.regular,
     color: COLORS.primary,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.6),
   },
   tagWrapper: {
     flexDirection: 'row',

@@ -8,9 +8,10 @@ interface Props {
   subTitle: string;
   isSelected: boolean;
   onSelect: () => void;
+  icon : any
 }
 
-const Selection = ({ title, subTitle, isSelected, onSelect }: Props) => {
+const Selection = ({ title, subTitle, isSelected, onSelect, icon }: Props) => {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
@@ -22,7 +23,7 @@ const Selection = ({ title, subTitle, isSelected, onSelect }: Props) => {
     >
       <View style={styles.innerWrapper}>
         <View style={styles.header}>
-          <Image source={ICONS.user} resizeMode="contain" style={styles.icon} />
+          <Image source={icon} resizeMode="contain" style={styles.icon} />
           <TouchableOpacity
             onPress={onSelect}
             style={[

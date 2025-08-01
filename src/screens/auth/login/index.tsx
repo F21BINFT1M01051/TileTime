@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   },
 
   emailField: {
-    marginTop: RFPercentage(2),
+    marginTop: RFPercentage(1.5),
   },
   passwordField: {},
   forgotPasswordButton: {
@@ -163,18 +163,18 @@ const styles = StyleSheet.create({
   noAccountText: {
     fontFamily: FONTS.regular2,
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
   },
   signupText: {
     fontFamily: FONTS.semiBold2,
     color: COLORS.primary,
     left: RFPercentage(0.4),
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
   },
   footerText: {
     fontFamily: FONTS.regular2,
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
     textAlign: 'center',
     marginTop: RFPercentage(1.3),
   },

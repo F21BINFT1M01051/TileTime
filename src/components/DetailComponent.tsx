@@ -38,6 +38,7 @@ const media = [
 interface Props {
   media?: boolean;
   title: string;
+  onPress: () => void;
 }
 
 const DetailComponent = (props: Props) => {
@@ -47,7 +48,7 @@ const DetailComponent = (props: Props) => {
   const remainingCount2 = media.length - visibleProfiles2.length;
 
   return (
-    <TouchableOpacity activeOpacity={0.8} style={styles.container}>
+    <TouchableOpacity activeOpacity={0.8} onPress={props.onPress} style={styles.container}>
       <View style={styles.innerWrapper}>
         <View>
           <Text style={styles.title}>{props.title}</Text>
@@ -55,51 +56,21 @@ const DetailComponent = (props: Props) => {
             {props.media ? `${media.length} files` : `${data.length} Members`}
           </Text>
 
-          <View
-            style={{
-              flexDirection: 'row',
-              paddingVertical: RFPercentage(1),
-              alignItems: 'center',
-            }}
-          >
+          <View style={styles.profileRow}>
             {props.media ? (
               <>
                 {visibleProfiles2.map((item, index) => (
-                  <View
-                    key={index.toString()}
-                    style={{
-                      width: RFPercentage(6.5),
-                      height: RFPercentage(6.5),
-                      borderRadius: RFPercentage(1.4),
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      marginRight: RFPercentage(1),
-                      marginTop: RFPercentage(0.5),
-                    }}
-                  >
+                  <View key={index.toString()} style={styles.mediaItem}>
                     <Image
                       source={item.profile}
                       resizeMode="cover"
-                      style={{
-                        width: RFPercentage(6.5),
-                        height: RFPercentage(6.5),
-                        borderRadius: RFPercentage(1.4),
-                      }}
+                      style={styles.mediaImage}
                     />
                   </View>
                 ))}
 
                 {remainingCount2 > 0 && (
-                  <View
-                    style={{
-                      backgroundColor: '#FFE5F6',
-                      width: RFPercentage(6.5),
-                      height: RFPercentage(6.5),
-                      borderRadius: RFPercentage(1),
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
+                  <View style={styles.moreMediaContainer}>
                     <Text style={styles.moreText}>+{remainingCount}</Text>
                   </View>
                 )}
@@ -122,16 +93,7 @@ const DetailComponent = (props: Props) => {
                   </View>
                 ))}
                 {remainingCount > 0 && (
-                  <View
-                    style={{
-                      backgroundColor: '#FFE5F6',
-                      width: RFPercentage(5),
-                      height: RFPercentage(6),
-                      borderRadius: RFPercentage(2),
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
+                  <View style={styles.moreAvatarContainer}>
                     <Text style={styles.moreText}>+{remainingCount}</Text>
                   </View>
                 )}
@@ -141,7 +103,11 @@ const DetailComponent = (props: Props) => {
         </View>
         <View>
           <TouchableOpacity>
-            <AntDesign name="right" color={COLORS.icon} size={RFPercentage(2)} />
+            <AntDesign
+              name="right"
+              color={COLORS.icon}
+              size={RFPercentage(2)}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -160,16 +126,16 @@ const styles = StyleSheet.create({
     borderBottomWidth: RFPercentage(0.6),
     borderColor: COLORS.lightWhite,
     borderRadius: RFPercentage(1.5),
-    paddingVertical: RFPercentage(1.7),
     shadowColor: 'rgba(203, 203, 203, 0.5)',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 5,
     marginTop: RFPercentage(3),
+    paddingVertical: RFPercentage(1),
   },
   innerWrapper: {
-    width: '90%',
+    width: '92%',
     alignSelf: 'center',
     flexDirection: 'row',
     alignItems: 'center',
@@ -178,7 +144,7 @@ const styles = StyleSheet.create({
   title: {
     color: COLORS.primary,
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(2),
+    fontSize: RFPercentage(1.9),
   },
   subtitle: {
     color: '#8C8C8C',
@@ -186,18 +152,43 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(1.7),
     marginTop: RFPercentage(0.5),
   },
-  avatarContainer: {
+  profileRow: {
+    flexDirection: 'row',
+    paddingVertical: RFPercentage(1),
+    alignItems: 'center',
+  },
+  mediaItem: {
+    width: RFPercentage(5),
+    height: RFPercentage(5),
+    borderRadius: RFPercentage(1.4),
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: RFPercentage(1),
     marginTop: RFPercentage(0.5),
   },
-  moreContainer: {
+  mediaImage: {
+    width: RFPercentage(5),
+    height: RFPercentage(5),
+    borderRadius: RFPercentage(1.4),
+  },
+  moreMediaContainer: {
     backgroundColor: '#FFE5F6',
+    width: RFPercentage(5),
+    height: RFPercentage(5),
+    borderRadius: RFPercentage(1),
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: RFPercentage(0.2),
+  },
+  avatarContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: RFPercentage(0.5),
+    marginRight: RFPercentage(1),
   },
   avatarOuterLayer: {
-    width: RFPercentage(5),
-    height: RFPercentage(6),
+    width: RFPercentage(4),
+    height: RFPercentage(5),
     borderRadius: RFPercentage(2),
     backgroundColor: COLORS.purple,
     alignItems: 'center',
@@ -205,8 +196,8 @@ const styles = StyleSheet.create({
   },
   avatarMiddleLayer: {
     backgroundColor: COLORS.green2,
-    width: RFPercentage(5),
-    height: RFPercentage(6),
+    width: RFPercentage(4),
+    height: RFPercentage(5),
     borderRadius: RFPercentage(2),
     alignItems: 'center',
     justifyContent: 'center',
@@ -214,22 +205,31 @@ const styles = StyleSheet.create({
   },
   avatarInnerLayer: {
     backgroundColor: COLORS.pink3,
-    width: RFPercentage(5),
-    height: RFPercentage(6),
+    width: RFPercentage(4),
+    height: RFPercentage(5),
     borderRadius: RFPercentage(2),
     alignItems: 'center',
     justifyContent: 'center',
     right: RFPercentage(0.1),
   },
   avatarImage: {
-    width: RFPercentage(5),
-    height: RFPercentage(6),
+    width: RFPercentage(4),
+    height: RFPercentage(5),
     borderRadius: RFPercentage(2),
     right: RFPercentage(0.1),
   },
+  moreAvatarContainer: {
+    backgroundColor: '#FFE5F6',
+    width: RFPercentage(4),
+    height: RFPercentage(5),
+    borderRadius: RFPercentage(2),
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: RFPercentage(0.2),
+  },
   moreText: {
     color: '#B14088',
-    fontSize: RFPercentage(2),
+    fontSize: RFPercentage(1.7),
     fontFamily: FONTS.medium,
   },
 });

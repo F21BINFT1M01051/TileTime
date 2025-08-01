@@ -24,6 +24,7 @@ import About from './about';
 import ProffessionalInfo from './proffessional';
 import InputField from '../../../components/InputField';
 import SocialField from '../../../components/SocialField';
+import { BlurView } from '@react-native-community/blur';
 
 const steps = ['about', 'professional'];
 const data = [
@@ -139,7 +140,7 @@ const ProfileSetup = ({ navigation }: any) => {
     >
       <ScrollView
         style={{ flex: 1, backgroundColor: COLORS.white }}
-        contentContainerStyle={{ flexGrow: 1, paddingBottom: RFPercentage(10) }}
+        contentContainerStyle={{ flexGrow: 1, paddingBottom: RFPercentage(2) }}
         keyboardShouldPersistTaps="handled"
       >
         {/* Header */}
@@ -207,7 +208,12 @@ const ProfileSetup = ({ navigation }: any) => {
         onRequestClose={closeModal}
       >
         <TouchableWithoutFeedback onPress={closeModal}>
-          <View style={styles.overLay}>
+          <BlurView
+            style={styles.overLay}
+            blurType="dark"
+            blurAmount={8}
+            reducedTransparencyFallbackColor="rgba(0,0,0,0.2)"
+          >
             <Animated.View
               style={[
                 styles.modalContent,
@@ -234,8 +240,8 @@ const ProfileSetup = ({ navigation }: any) => {
                       source={ICONS.phone}
                       resizeMode="contain"
                       style={{
-                        width: RFPercentage(2.5),
-                        height: RFPercentage(2.5),
+                        width: RFPercentage(2.2),
+                        height: RFPercentage(2.2),
                       }}
                     />
                   }
@@ -251,8 +257,8 @@ const ProfileSetup = ({ navigation }: any) => {
                       source={ICONS.globe}
                       resizeMode="contain"
                       style={{
-                        width: RFPercentage(3),
-                        height: RFPercentage(3),
+                        width: RFPercentage(2.3),
+                        height: RFPercentage(2.3),
                       }}
                     />
                   }
@@ -262,7 +268,6 @@ const ProfileSetup = ({ navigation }: any) => {
                   data={data}
                   scrollEnabled={false}
                   keyExtractor={item => item.id.toString()}
-                  style={{ marginTop: RFPercentage(1) }}
                   renderItem={({ item }) => (
                     <SocialField
                       icon={item.icon}
@@ -274,10 +279,21 @@ const ProfileSetup = ({ navigation }: any) => {
                 />
               </View>
               <View style={{ marginTop: RFPercentage(4) }}>
-                <CustomButton title="Save" onPress={closeModal} />
+                <CustomButton
+                  title="Save"
+                  onPress={() => {
+                    if (!phoneNumber.trim()) {
+                      return;
+                    }
+                    closeModal();
+                    setTimeout(() => {
+                      handleNext();
+                    }, 300);
+                  }}
+                />
               </View>
             </Animated.View>
-          </View>
+          </BlurView>
         </TouchableWithoutFeedback>
       </Modal>
     </KeyboardAvoidingView>
@@ -297,11 +313,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: RFPercentage(2),
     marginTop: RFPercentage(7),
   },
-  overLay: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    justifyContent: 'flex-end',
-  },
+ overLay: {
+  ...StyleSheet.absoluteFillObject,
+  justifyContent: 'flex-end',
+},
   modalContent: {
     backgroundColor: COLORS.white,
     padding: RFPercentage(3),
@@ -340,7 +355,7 @@ const styles = StyleSheet.create({
   contentWrapper: {
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(4.5),
+    marginTop: RFPercentage(4),
     flex: 1,
   },
   bottomWrapper: {

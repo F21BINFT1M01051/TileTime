@@ -32,18 +32,65 @@ const data = [
   },
 ];
 
-const CommonGroup = () => {
+const future = [
+  {
+    id: 1,
+    profile: IMAGES.customProfile,
+    name: 'Four Winds: Community Mahjong Session',
+    members: 'August 12, 2025 (in 14 days)',
+  },
+  {
+    id: 2,
+    profile: IMAGES.customProfile,
+    name: 'Four Winds: Community Mahjong Session',
+    members: 'August 12, 2025 (in 14 days)',
+  },
+  {
+    id: 3,
+    profile: IMAGES.customProfile,
+    name: 'Four Winds: Community Mahjong Session',
+    members: 'August 12, 2025 (in 14 days)',
+  },
+];
+
+const past = [
+  {
+    id: 1,
+    profile: IMAGES.customProfile,
+    name: 'Four Winds: Community Mahjong Session',
+    members: 'June 10, 2025',
+  },
+  {
+    id: 2,
+    profile: IMAGES.customProfile,
+    name: 'Four Winds: Community Mahjong Session',
+    members: 'June 10, 2025',
+  },
+  {
+    id: 3,
+    profile: IMAGES.customProfile,
+    name: 'Four Winds: Community Mahjong Session',
+    members: 'June 10, 2025',
+  },
+];
+
+interface Props {
+  pastEvents?: boolean;
+  futureEvents?: boolean;
+}
+
+const CommonGroup = (props: Props) => {
   return (
     <TouchableOpacity activeOpacity={0.8} style={styles.container}>
       <View style={styles.innerWrapper}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Text style={styles.title}>3 Groups in Common</Text>
+        <View style={styles.headerRow}>
+          <Text style={styles.title}>
+            {props.futureEvents
+              ? `Attending Next`
+              : props.pastEvents
+              ? `Past Events Attended`
+              : `3 Groups in Common`}
+          </Text>
           <TouchableOpacity>
             <AntDesign
               name="right"
@@ -52,23 +99,25 @@ const CommonGroup = () => {
             />
           </TouchableOpacity>
         </View>
-        <View>
-          <FlatList
-            data={data}
-            keyExtractor={item => item.id.toString()}
-            renderItem={({ item, index }) => {
-              const isLastItem = index === data.length - 1;
-              return (
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    borderBottomColor: COLORS.lightWhite,
-                    borderBottomWidth: isLastItem ? 0 : RFPercentage(0.1),
-                    paddingBottom: RFPercentage(1.3),
-                    marginTop:RFPercentage(3),
-                  }}
-                >
+        <FlatList
+          data={props.futureEvents ? future : props.pastEvents ? past : data}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({ item, index }) => {
+            const isLastItem = index === data.length - 1;
+            return (
+              <View
+                style={[
+                  styles.listItem,
+                  !isLastItem && styles.listItemBorder,
+                ]}
+              >
+                {props.futureEvents || props.pastEvents ? (
+                  <Image
+                    source={item.profile}
+                    resizeMode="cover"
+                    style={styles.smallProfileImage}
+                  />
+                ) : (
                   <View style={styles.largeGroupIconContainer}>
                     <Image
                       source={item.profile}
@@ -76,32 +125,16 @@ const CommonGroup = () => {
                       style={styles.largeGroupIcon}
                     />
                   </View>
-                  <View style={{ marginLeft: RFPercentage(1.5) }}>
-                    <Text
-                      style={{
-                        color: COLORS.primary,
-                        fontFamily: FONTS.semiBold,
-                        fontSize: RFPercentage(1.8),
-                      }}
-                    >
-                      {item.name}
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: RFPercentage(1.7),
-                        color: COLORS.lightGrey,
-                        fontFamily: FONTS.regular,
-                        marginTop: RFPercentage(0.5),
-                      }}
-                    >
-                      {item.members}
-                    </Text>
-                  </View>
+                )}
+
+                <View style={styles.listItemTextWrapper}>
+                  <Text style={styles.groupName}>{item.name}</Text>
+                  <Text style={styles.groupMembers}>{item.members}</Text>
                 </View>
-              );
-            }}
-          />
-        </View>
+              </View>
+            );
+          }}
+        />
       </View>
     </TouchableOpacity>
   );
@@ -130,10 +163,30 @@ const styles = StyleSheet.create({
     width: '90%',
     alignSelf: 'center',
   },
+  headerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   title: {
     color: COLORS.primary,
     fontFamily: FONTS.bold,
     fontSize: RFPercentage(2),
+  },
+  listItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingBottom: RFPercentage(1.3),
+    marginTop: RFPercentage(3),
+  },
+  listItemBorder: {
+    borderBottomColor: COLORS.lightWhite,
+    borderBottomWidth: RFPercentage(0.1),
+  },
+  smallProfileImage: {
+    width: RFPercentage(5),
+    height: RFPercentage(5),
+    borderRadius: RFPercentage(2),
   },
   largeGroupIconContainer: {
     width: RFPercentage(5),
@@ -142,7 +195,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.yellow,
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft:RFPercentage(1)
+    marginLeft: RFPercentage(1),
   },
   largeGroupIcon: {
     width: RFPercentage(5),
@@ -152,5 +205,20 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: RFPercentage(100),
     borderBottomRightRadius: RFPercentage(100),
     borderBottomLeftRadius: RFPercentage(1),
+  },
+  listItemTextWrapper: {
+    marginLeft: RFPercentage(1.5),
+    width: '80%',
+  },
+  groupName: {
+    color: COLORS.primary,
+    fontFamily: FONTS.medium,
+    fontSize: RFPercentage(1.8),
+  },
+  groupMembers: {
+    fontSize: RFPercentage(1.7),
+    color: COLORS.lightGrey,
+    fontFamily: FONTS.regular,
+    marginTop: RFPercentage(0.5),
   },
 });

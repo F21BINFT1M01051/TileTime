@@ -39,7 +39,7 @@ const Contacts = () => {
     <ScrollView>
       {enable ? (
         <>
-          <View style={{marginTop:RFPercentage(2.5)}}>
+          <View style={{ marginTop: RFPercentage(2.5) }}>
             <SearchField
               placeholder="Search by name"
               value={quuery}
@@ -54,24 +54,26 @@ const Contacts = () => {
               renderItem={({ item }) => {
                 const isSelected = selectedContacts.includes(item.id);
                 return (
-                  <View style={styles.contactRow}>
-                    <View style={styles.contactInfo}>
-                      <View style={styles.avatar}>
-                        <Text style={styles.avatarText}>{item.profile}</Text>
+                  <TouchableOpacity activeOpacity={0.8} onPress={() => toggleContact(item.id)}>
+                    <View style={styles.contactRow}>
+                      <View style={styles.contactInfo}>
+                        <View style={styles.avatar}>
+                          <Text style={styles.avatarText}>{item.profile}</Text>
+                        </View>
+                        <View style={styles.nameSection}>
+                          <Text style={styles.nameText}>{item.name}</Text>
+                          <Text style={styles.phoneText}>{item.phone}</Text>
+                        </View>
                       </View>
-                      <View style={styles.nameSection}>
-                        <Text style={styles.nameText}>{item.name}</Text>
-                        <Text style={styles.phoneText}>{item.phone}</Text>
-                      </View>
+                      <TouchableOpacity onPress={() => toggleContact(item.id)}>
+                        <Image
+                          resizeMode="contain"
+                          source={isSelected ? ICONS.checked : ICONS.uncheck}
+                          style={styles.checkIcon}
+                        />
+                      </TouchableOpacity>
                     </View>
-                    <TouchableOpacity onPress={() => toggleContact(item.id)}>
-                      <Image
-                        resizeMode="contain"
-                        source={isSelected ? ICONS.checked : ICONS.uncheck}
-                        style={styles.checkIcon}
-                      />
-                    </TouchableOpacity>
-                  </View>
+                  </TouchableOpacity>
                 );
               }}
             />
@@ -86,8 +88,7 @@ const Contacts = () => {
             style={styles.imageBackground}
           >
             <Text style={styles.accessText}>
-              Enable Access To Your Contacts So You Can Easily Connect, Share
-              Invites, And Message Your Friends.
+              {` Enable Access To Your Contacts So You Can Easily Connect, Share Invites, And Message\nYour Friends.`}
             </Text>
           </ImageBackground>
           <TouchableOpacity
@@ -116,9 +117,9 @@ const styles = StyleSheet.create({
   sectionTitleDisabled: {
     color: COLORS.grey5,
     fontFamily: FONTS.medium,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.6),
     letterSpacing: 2,
-    marginTop: RFPercentage(5),
+    marginTop: RFPercentage(4),
   },
   imageBackground: {
     width: '100%',
@@ -131,12 +132,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: COLORS.grey5,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.9),
-    bottom: RFPercentage(2),
-    marginHorizontal: RFPercentage(1),
+    fontSize: RFPercentage(1.8),
+    bottom: RFPercentage(1),
+    lineHeight:RFPercentage(2.7),
   },
   enableButton: {
-    height: RFPercentage(5.6),
+    height: RFPercentage(5.4),
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: RFPercentage(0.2),
@@ -144,7 +145,7 @@ const styles = StyleSheet.create({
     borderRadius: RFPercentage(2.6),
     alignSelf: 'center',
     paddingHorizontal: RFPercentage(2.5),
-    marginTop: RFPercentage(2),
+    marginTop: RFPercentage(3),
   },
   enableButtonText: {
     color: COLORS.primary,

@@ -179,34 +179,12 @@ const DirectChat = ({ navigation } : any) => {
 
           <TouchableOpacity
             style={styles.dotsButton}
-            onPress={() => setToolTip(!isToolTip)}
+            onPress={() => navigation.navigate("UserDetails")}
           >
-            <Entypo
-              name="dots-three-vertical"
-              size={RFPercentage(3)}
-              color={COLORS.grey}
-            />
+            <Image source={ICONS.calender2} resizeMode='contain' style={{width:RFPercentage(3), height:RFPercentage(3)}} />
           </TouchableOpacity>
 
-          {isToolTip && (
-            <View style={styles.toolTipBox}>
-              <FlatList
-                data={toolTip}
-                keyExtractor={item => item.id.toString()}
-                renderItem={({ item, index }) => {
-                  const last = index === toolTip.length - 1;
-                  return (
-                    <TouchableOpacity
-                      onPress={() => navigation.navigate('UserDetails')}
-                      style={[styles.toolTipItem, last && styles.lastToolTipItem]}
-                    >
-                      <Text style={styles.toolTipText}>{item.name}</Text>
-                    </TouchableOpacity>
-                  );
-                }}
-              />
-            </View>
-          )}
+          
         </View>
       </View>
 
@@ -299,7 +277,7 @@ const styles = StyleSheet.create({
   headerBorder: {
     borderBottomWidth: 1,
     borderBottomColor: COLORS.fieldBorder,
-    paddingBottom: RFPercentage(2.5),
+    paddingBottom: RFPercentage(2),
   },
   headerContainer: {
     flexDirection: 'row',
@@ -346,7 +324,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontFamily: FONTS.medium,
     fontSize: RFPercentage(2),
-    marginLeft: RFPercentage(1),
+    marginLeft: RFPercentage(1.5),
   },
   dotsButton: {
     position: 'absolute',

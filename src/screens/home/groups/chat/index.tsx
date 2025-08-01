@@ -1,15 +1,11 @@
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
-import SearchField from '../../../../components/SearchField';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS, IMAGES } from '../../../../config/theme';
 import ChatComponent from '../../../../components/ChatComponent';
 import { useNavigation } from '@react-navigation/native';
 
-const Filters = [
-  { id: 1, name: 'All' },
-  { id: 2, name: 'Unread 2' },
-];
+
 
 const chats = [
   {
@@ -63,52 +59,10 @@ const chats = [
 ];
 
 const Chat = () => {
-  const [activeFilter, setActiveFilter] = useState(1);
-  const [query, setQuery] = useState('');
   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
-      <View style={styles.searchContainer}>
-        <SearchField
-          placeholder="Search chats"
-          value={query}
-          onChangeText={setQuery}
-        />
-      </View>
-
-      <View style={styles.filterContainer}>
-        <FlatList
-          data={Filters}
-          keyExtractor={item => item.id.toString()}
-          horizontal
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => setActiveFilter(item.id)}
-              style={[
-                styles.filterButton,
-                {
-                  backgroundColor:
-                    activeFilter === item.id ? COLORS.inputColor : COLORS.fieldColor,
-                },
-              ]}
-            >
-              <Text
-                style={[
-                  styles.filterText,
-                  {
-                    color: activeFilter === item.id ? COLORS.white : COLORS.grey4,
-                  },
-                ]}
-              >
-                {item.name}
-              </Text>
-            </TouchableOpacity>
-          )}
-        />
-      </View>
-
       <FlatList
         data={chats}
         keyExtractor={item => item.id.toString()}

@@ -20,7 +20,7 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({
   return (
     <LinearGradient
       colors={['rgba(255, 255, 255, 1)', 'rgba(206, 206, 206, 0)']}
-      style={{ height: RFPercentage(15) }}
+      style={{ height: RFPercentage(13) }}
     >
       <View style={styles.tabContainer}>
         <View
@@ -62,8 +62,8 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({
                   resizeMode="contain"
                   tintColor={isFocused ? COLORS.primary : COLORS.grey5}
                   style={{
-                    width: RFPercentage(3.5),
-                    height: RFPercentage(3.5),
+                    width: RFPercentage(3),
+                    height: RFPercentage(3),
                   }}
                 />
                 {isFocused && (
@@ -117,14 +117,14 @@ const styles = StyleSheet.create({
   tabContainer: {
     position: 'absolute',
     backgroundColor: COLORS.white,
-    borderRadius: RFPercentage(3.2),
+    borderRadius: RFPercentage(3),
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 6,
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.lightWhite,
     shadowColor: 'rgba(173, 171, 171, 1)',
-    height: RFPercentage(11),
+    height: RFPercentage(10),
     width: '90%',
     alignSelf: 'center',
     bottom: RFPercentage(2),
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   },
   activeTab: {
     backgroundColor: COLORS.tab,
-    paddingVertical: RFPercentage(1.3),
+    paddingVertical: RFPercentage(1.2),
     paddingHorizontal: RFPercentage(1.8),
     borderRadius: RFPercentage(100),
   },

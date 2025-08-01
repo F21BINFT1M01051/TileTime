@@ -9,7 +9,9 @@ interface Props {
   title: string;
   icon: any;
   switch?: boolean;
-  onPress? : ()=> void
+  onPress?: () => void;
+  style?: object;
+  textStyle?: object;
 }
 
 const SettingsButton = (props: Props) => {
@@ -19,62 +21,25 @@ const SettingsButton = (props: Props) => {
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={props.onPress}
-      style={{
-        width: '100%',
-        height: RFPercentage(7),
-        backgroundColor: COLORS.white,
-        borderRadius: RFPercentage(2.6),
-        borderWidth: RFPercentage(0.1),
-        borderBottomWidth: RFPercentage(0.6),
-        borderColor: COLORS.lightWhite,
-        alignItems: 'center',
-        flexDirection: 'row',
-        paddingHorizontal: RFPercentage(2),
-        shadowColor: 'rgba(203, 203, 203, 1)',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-        shadowRadius: 4,
-        elevation: 5,
-      }}
+      style={[styles.container, props.style]}
     >
-      <Image
-        source={props.icon}
-        resizeMode="contain"
-        style={{ width: RFPercentage(2.5), height: RFPercentage(2.5) }}
-      />
-      <Text
-        style={{
-          fontFamily: FONTS.bold,
-          color: COLORS.primary,
-          fontSize: RFPercentage(1.8),
-          marginLeft: RFPercentage(1.5),
-        }}
-      >
+      <Image source={props.icon} resizeMode="contain" style={styles.icon} />
+      <Text style={[styles.titleText, props.textStyle]}>
         {props.title}
       </Text>
       {props.switch ? (
-        <>
-          <ToggleSwitch
-            isOn={isOn}
-            onColor={COLORS.pink}
-            offColor={COLORS.switch}
-            size="small"
-            onToggle={() => setIsOn(!isOn)}
-            style={{ position: 'absolute', right: RFPercentage(2) }}
-          />
-        </>
+        <ToggleSwitch
+          isOn={isOn}
+          onColor={COLORS.pink}
+          offColor={COLORS.switch}
+          size="small"
+          onToggle={() => setIsOn(!isOn)}
+          style={styles.toggleSwitch}
+        />
       ) : (
-        <>
-          <TouchableOpacity
-            style={{ position: 'absolute', right: RFPercentage(2) }}
-          >
-            <AntDesign
-              name="right"
-              color={COLORS.grey}
-              size={RFPercentage(2)}
-            />
-          </TouchableOpacity>
-        </>
+        <TouchableOpacity style={styles.arrowButton}>
+          <AntDesign name="right" color={COLORS.grey} size={RFPercentage(2)} />
+        </TouchableOpacity>
       )}
     </TouchableOpacity>
   );
@@ -82,4 +47,40 @@ const SettingsButton = (props: Props) => {
 
 export default SettingsButton;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    height: RFPercentage(7),
+    backgroundColor: COLORS.white,
+    borderRadius: RFPercentage(2.6),
+    borderWidth: RFPercentage(0.1),
+    borderBottomWidth: RFPercentage(0.6),
+    borderColor: COLORS.lightWhite,
+    alignItems: 'center',
+    flexDirection: 'row',
+    paddingHorizontal: RFPercentage(2),
+    shadowColor: 'rgba(203, 203, 203, 1)',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  icon: {
+    width: RFPercentage(2.5),
+    height: RFPercentage(2.5),
+  },
+  titleText: {
+    fontFamily: FONTS.bold,
+    color: COLORS.primary,
+    fontSize: RFPercentage(1.8),
+    marginLeft: RFPercentage(1.5),
+  },
+  toggleSwitch: {
+    position: 'absolute',
+    right: RFPercentage(2),
+  },
+  arrowButton: {
+    position: 'absolute',
+    right: RFPercentage(2),
+  },
+});

@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: RFPercentage(4),
+    marginTop: RFPercentage(3.5),
   },
   toggleLabel: {
     textAlign: 'center',
@@ -107,8 +107,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.lightWhite,
-    borderRadius: RFPercentage(2.5),
-    height: RFPercentage(6.5),
+    borderRadius: RFPercentage(2.3),
+    height: RFPercentage(6),
     marginTop: RFPercentage(4),
     alignItems: 'center',
     flexDirection: 'row',
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: '100%',
-    borderRadius: RFPercentage(2),
+    borderRadius: RFPercentage(1.8),
   },
   activeTabButton: {
     backgroundColor: COLORS.pink,
@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
   tabButtonText: {
     color: COLORS.grey5,
     fontFamily: FONTS.regular,
+    fontSize:RFPercentage(1.8)
   },
   activeTabButtonText: {
     color: COLORS.white,

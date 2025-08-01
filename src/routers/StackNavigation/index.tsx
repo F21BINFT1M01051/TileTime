@@ -15,6 +15,9 @@ import LoginSignUp from '../../screens/auth/login-signup';
 import DirectChat from '../../screens/home/groups/chat/direct-chat';
 import UserDetails from '../../screens/home/groups/chat/user-details';
 import GroupSettings from '../../screens/home/groups/create-groups/group-settings';
+import GroupAdmins from '../../screens/home/groups/create-groups/group-admins';
+import GroupMembers from '../../screens/home/groups/create-groups/group-members';
+import PlayerProfile from '../../screens/home/groups/create-groups/player-profile';
 
 export type RootStackParamList = {
   OnBoarding: undefined;
@@ -29,7 +32,10 @@ export type RootStackParamList = {
   LoginSignUp: undefined;
   DirectChat: undefined;
   UserDetails: undefined;
-  GroupSettings : undefined
+  GroupSettings: undefined;
+  GroupAdmins: undefined;
+  GroupMembers: undefined;
+  PlayerProfile:undefined
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -55,6 +61,9 @@ const Navigator: React.FC = () => {
         <Stack.Screen name="GroupDetails" component={GroupDetails} />
         <Stack.Screen name="UserDetails" component={UserDetails} />
         <Stack.Screen name="GroupSettings" component={GroupSettings} />
+        <Stack.Screen name="GroupAdmins" component={GroupAdmins} />
+        <Stack.Screen name="GroupMembers" component={GroupMembers} />
+        <Stack.Screen name="PlayerProfile" component={PlayerProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   );
