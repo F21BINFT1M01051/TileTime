@@ -40,7 +40,7 @@ export default CustomButton;
 const styles = StyleSheet.create({
   button: {
     width: '100%',
-    height: RFPercentage(6.4),
+    height: RFPercentage(6.3),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: COLORS.primary,

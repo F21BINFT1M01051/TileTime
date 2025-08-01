@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   contentWrapper: {
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(4),
+    marginTop: RFPercentage(2.5),
     flex: 1,
   },
   sectionTitle: {
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(0.6),
   },
   subSectionSpacing: {
-    marginTop: RFPercentage(2),
+    marginTop: RFPercentage(1),
   },
   bottomWrapper: {
     width: '100%',

@@ -24,7 +24,7 @@ import About from './about';
 import ProffessionalInfo from './proffessional';
 import InputField from '../../../components/InputField';
 import SocialField from '../../../components/SocialField';
-import { BlurView } from '@react-native-community/blur';
+// import { BlurView } from '@react-native-community/blur';
 
 const steps = ['about', 'professional'];
 const data = [
@@ -208,12 +208,7 @@ const ProfileSetup = ({ navigation }: any) => {
         onRequestClose={closeModal}
       >
         <TouchableWithoutFeedback onPress={closeModal}>
-          <BlurView
-            style={styles.overLay}
-            blurType="dark"
-            blurAmount={8}
-            reducedTransparencyFallbackColor="rgba(0,0,0,0.2)"
-          >
+          <View style={styles.overLay}>
             <Animated.View
               style={[
                 styles.modalContent,
@@ -257,8 +252,8 @@ const ProfileSetup = ({ navigation }: any) => {
                       source={ICONS.globe}
                       resizeMode="contain"
                       style={{
-                        width: RFPercentage(2.3),
-                        height: RFPercentage(2.3),
+                        width: RFPercentage(2.5),
+                        height: RFPercentage(2.5),
                       }}
                     />
                   }
@@ -268,6 +263,7 @@ const ProfileSetup = ({ navigation }: any) => {
                   data={data}
                   scrollEnabled={false}
                   keyExtractor={item => item.id.toString()}
+                  style={{ marginTop: RFPercentage(1) }}
                   renderItem={({ item }) => (
                     <SocialField
                       icon={item.icon}
@@ -279,21 +275,10 @@ const ProfileSetup = ({ navigation }: any) => {
                 />
               </View>
               <View style={{ marginTop: RFPercentage(4) }}>
-                <CustomButton
-                  title="Save"
-                  onPress={() => {
-                    if (!phoneNumber.trim()) {
-                      return;
-                    }
-                    closeModal();
-                    setTimeout(() => {
-                      handleNext();
-                    }, 300);
-                  }}
-                />
+                <CustomButton title="Save" onPress={closeModal} />
               </View>
             </Animated.View>
-          </BlurView>
+          </View>
         </TouchableWithoutFeedback>
       </Modal>
     </KeyboardAvoidingView>
@@ -313,10 +298,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: RFPercentage(2),
     marginTop: RFPercentage(7),
   },
- overLay: {
-  ...StyleSheet.absoluteFillObject,
-  justifyContent: 'flex-end',
-},
+  overLay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'flex-end',
+  },
   modalContent: {
     backgroundColor: COLORS.white,
     padding: RFPercentage(3),

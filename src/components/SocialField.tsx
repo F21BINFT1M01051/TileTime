@@ -26,7 +26,7 @@ const SocialField = (props: Props) => {
           borderColor: props.borderColor
             ? props.borderColor
             : COLORS.borderColor,
-            height : props.connected ? RFPercentage(8.5) : RFPercentage(6.5)
+          height: props.connected ? RFPercentage(8.5) : RFPercentage(6.5),
         },
       ]}
     >
@@ -42,7 +42,11 @@ const SocialField = (props: Props) => {
           <Image
             source={IMAGES.profile}
             resizeMode="contain"
-            style={{width:RFPercentage(5.2), height:RFPercentage(5.2), borderRadius:RFPercentage(100)}}
+            style={{
+              width: RFPercentage(5.2),
+              height: RFPercentage(5.2),
+              borderRadius: RFPercentage(100),
+            }}
           />
 
           <View style={{ marginLeft: RFPercentage(1.3) }}>
@@ -62,7 +66,7 @@ const SocialField = (props: Props) => {
                   color: '#919191',
                   fontSize: RFPercentage(1.5),
                   fontFamily: FONTS.regular,
-                  marginTop:RFPercentage(1)
+                  marginTop: RFPercentage(1),
                 },
               ]}
             >
@@ -132,6 +136,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(2),
+    fontSize: RFPercentage(1.9),
   },
 });

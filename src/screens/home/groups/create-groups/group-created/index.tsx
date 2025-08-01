@@ -335,6 +335,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.white,
+    marginTop: Platform.OS == 'ios' ? RFPercentage(4) : 0,
   },
   headerBorder: {
     borderBottomWidth: 1,
@@ -554,7 +555,7 @@ const styles = StyleSheet.create({
   },
   customInputToolbar: {
     backgroundColor: COLORS.white,
-    height: RFPercentage(10),
+    height: RFPercentage(12),
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -569,14 +570,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   plusIcon: {
-    width: RFPercentage(3),
-    height: RFPercentage(3),
+    width: RFPercentage(2.8),
+    height: RFPercentage(2.8),
     tintColor: COLORS.pink,
   },
   inputText: {
     flex: 1,
     marginHorizontal: RFPercentage(1),
     color: COLORS.inputColor,
+    fontSize: RFPercentage(1.8),
   },
   sendIconContainer: {
     width: RFPercentage(3),

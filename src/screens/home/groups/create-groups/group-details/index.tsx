@@ -52,9 +52,9 @@ const GroupDetails = ({ navigation }: any) => {
                     source={ICONS.pen}
                     resizeMode="contain"
                     style={{
-                      width: RFPercentage(3),
-                      height: RFPercentage(3),
-                      marginRight: RFPercentage(0.5),
+                      width: RFPercentage(2.5),
+                      height: RFPercentage(2.5),
+                      marginRight: RFPercentage(0.7),
                     }}
                   />
                   <Text style={styles.editText}>Edit</Text>
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(5),
+    marginTop: RFPercentage(7),
   },
   dotsButton: {
     position: 'absolute',
@@ -199,8 +199,8 @@ const styles = StyleSheet.create({
     bottom: RFPercentage(6),
   },
   largeGroupIconContainer: {
-    width: RFPercentage(13),
-    height: RFPercentage(13),
+    width: RFPercentage(12),
+    height: RFPercentage(12),
     backgroundColor: COLORS.yellow,
     alignItems: 'center',
     justifyContent: 'center',
@@ -209,8 +209,8 @@ const styles = StyleSheet.create({
     borderTopRightRadius: RFPercentage(100),
   },
   largeGroupIcon: {
-    width: RFPercentage(13),
-    height: RFPercentage(13),
+    width: RFPercentage(11.9),
+    height: RFPercentage(11.9),
     borderTopRightRadius: RFPercentage(100),
     right: RFPercentage(0.6),
     borderTopLeftRadius: RFPercentage(100),
@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
   },
   customButton: {
     borderRadius: RFPercentage(1.4),
-    height: RFPercentage(5.6),
+    height: RFPercentage(5.3),
   },
   sectionMarginTop1: {
     marginTop: RFPercentage(1),

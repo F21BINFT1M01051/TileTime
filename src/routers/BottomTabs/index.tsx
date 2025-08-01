@@ -62,8 +62,8 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({
                   resizeMode="contain"
                   tintColor={isFocused ? COLORS.primary : COLORS.grey5}
                   style={{
-                    width: RFPercentage(3),
-                    height: RFPercentage(3),
+                    width: RFPercentage(2.7),
+                    height: RFPercentage(2.7),
                   }}
                 />
                 {isFocused && (
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.lightWhite,
     shadowColor: 'rgba(173, 171, 171, 1)',
     height: RFPercentage(10),
-    width: '90%',
+    width: '91%',
     alignSelf: 'center',
     bottom: RFPercentage(2),
   },
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   activeText: {
     color: COLORS.tbText,
     fontFamily: FONTS.semiBold2,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.6),
     marginLeft: RFPercentage(0.5),
   },
 });

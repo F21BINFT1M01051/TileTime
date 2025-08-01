@@ -71,7 +71,7 @@ const Groups = ({ navigation }: any) => {
                     navigation.navigate('CreateGroup');
                   }}
                 />
-                <View style={{ marginTop: RFPercentage(1.5) }}>
+                <View style={{ marginTop: RFPercentage(1.3) }}>
                   <CustomButton
                     title={'Start A Direct Message'}
                     onPress={() => {}}
@@ -177,7 +177,6 @@ const styles = StyleSheet.create({
     width: '90%',
     alignSelf: 'center',
     alignContent: 'center',
-    marginTop: RFPercentage(5),
+    marginTop: RFPercentage(5.8),
   },
 });
-

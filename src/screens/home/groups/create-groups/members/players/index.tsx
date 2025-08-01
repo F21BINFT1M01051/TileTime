@@ -89,7 +89,10 @@ const Players = () => {
           renderItem={({ item }) => {
             const isSelected = selectedContacts.includes(item.id);
             return (
-              <TouchableOpacity activeOpacity={0.8} onPress={() => toggleContact(item.id)}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => toggleContact(item.id)}
+              >
                 <View style={styles.contactRow}>
                   <View style={styles.contactInfo}>
                     <View style={styles.avatarContainer}>
@@ -154,8 +157,8 @@ const styles = StyleSheet.create({
     marginLeft: RFPercentage(1),
   },
   avatarOuterLayer: {
-    width: RFPercentage(7.6),
-    height: RFPercentage(9),
+    width: RFPercentage(7.1),
+    height: RFPercentage(8.4),
     borderRadius: RFPercentage(3.5),
     backgroundColor: COLORS.purple,
     alignItems: 'center',
@@ -163,8 +166,8 @@ const styles = StyleSheet.create({
   },
   avatarMiddleLayer: {
     backgroundColor: COLORS.green2,
-    width: RFPercentage(7.6),
-    height: RFPercentage(9),
+    width: RFPercentage(7.1),
+    height: RFPercentage(8.4),
     borderRadius: RFPercentage(3.5),
     alignItems: 'center',
     justifyContent: 'center',
@@ -172,16 +175,16 @@ const styles = StyleSheet.create({
   },
   avatarInnerLayer: {
     backgroundColor: COLORS.pink3,
-    width: RFPercentage(7.6),
-    height: RFPercentage(9),
+    width: RFPercentage(7.1),
+    height: RFPercentage(8.4),
     borderRadius: RFPercentage(3.5),
     alignItems: 'center',
     justifyContent: 'center',
     right: RFPercentage(0.3),
   },
   avatarImage: {
-    width: RFPercentage(7.6),
-    height: RFPercentage(9),
+    width: RFPercentage(7.8),
+    height: RFPercentage(8.6),
     borderRadius: RFPercentage(3.5),
     right: RFPercentage(0.3),
     bottom: RFPercentage(0.2),

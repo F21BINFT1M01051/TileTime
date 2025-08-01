@@ -20,6 +20,7 @@ const Nav = (props: Props) => {
         justifyContent: 'flex-end',
         borderBottomWidth: RFPercentage(0.1),
         borderBottomColor: '#DEDEDE',
+        marginTop: RFPercentage(2),
       }}
     >
       <View

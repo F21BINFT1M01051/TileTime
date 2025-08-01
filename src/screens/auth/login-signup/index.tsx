@@ -55,7 +55,7 @@ const LoginSignUp = ({ navigation }: any) => {
 
             <View style={styles.buttonWrapper}>
               <CustomButton
-                title="Proceed"
+                title="Continue"
                 onPress={() => {
                   navigation.navigate('Login');
                 }}
