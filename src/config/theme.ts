@@ -37,6 +37,9 @@ export const COLORS = {
   tbText: '#151515',
   search: '#9C9EA6',
   red: '#B5000C',
+  pink4 : "#FFE5F6",
+  white3 : "#EBEBEB",
+  pink5 : "#FFD9F2"
 };
 
 export const IMAGES = {

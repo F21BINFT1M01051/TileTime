@@ -28,7 +28,7 @@ const SearchField = (props: Props) => {
           onChangeText={props.onChangeText}
         />
         <TouchableOpacity>
-          <Feather name="search" color={'#9C9EA6'} size={RFPercentage(2.8)} />
+          <Feather name="search" color={COLORS.search} size={RFPercentage(2.8)} />
         </TouchableOpacity>
       </View>
     </View>

@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(1.9),
   },
   subtitle: {
-    color: '#8C8C8C',
+    color: COLORS.lightGrey,
     fontFamily: FONTS.regular,
     fontSize: RFPercentage(1.7),
     marginTop: RFPercentage(0.5),
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     borderRadius: RFPercentage(1.4),
   },
   moreMediaContainer: {
-    backgroundColor: '#FFE5F6',
+    backgroundColor: COLORS.pink4,
     width: RFPercentage(5),
     height: RFPercentage(5),
     borderRadius: RFPercentage(1),
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     right: RFPercentage(0.1),
   },
   moreAvatarContainer: {
-    backgroundColor: '#FFE5F6',
+    backgroundColor: COLORS.pink4,
     width: RFPercentage(4),
     height: RFPercentage(5),
     borderRadius: RFPercentage(2),
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
     top: RFPercentage(0.2),
   },
   moreText: {
-    color: '#B14088',
+    color: COLORS.pink,
     fontSize: RFPercentage(1.7),
     fontFamily: FONTS.medium,
   },

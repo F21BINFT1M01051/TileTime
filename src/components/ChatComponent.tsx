@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   unreadBadge: {
     width: RFPercentage(3.5),
     height: RFPercentage(3.5),
-    backgroundColor: '#FFD9F2',
+    backgroundColor: COLORS.pink5,
     borderRadius: RFPercentage(100),
     alignItems: 'center',
     justifyContent: 'center',
