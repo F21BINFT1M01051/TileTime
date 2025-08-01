@@ -44,12 +44,12 @@ moment.updateLocale('en', {
   },
 });
 
-const DirectChat = ({ navigation } : any) => {
+const DirectChat = ({ navigation }: any) => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
   const [isToolTip, setToolTip] = useState(false);
 
-  const renderBubble = (props : any) => (
+  const renderBubble = (props: any) => (
     <Bubble
       {...props}
       textStyle={{
@@ -69,7 +69,7 @@ const DirectChat = ({ navigation } : any) => {
     />
   );
 
-  const renderMessage = (props : any) => {
+  const renderMessage = (props: any) => {
     const { currentMessage } = props;
     const isUser = currentMessage.user._id === 1;
 
@@ -92,7 +92,9 @@ const DirectChat = ({ navigation } : any) => {
             <View style={styles.bubbleHeader}>
               <Image source={IMAGES.chatProfile} style={styles.bubbleAvatar} />
               <View style={styles.messageMeta}>
-                <Text style={isUser ? styles.usernameRight : styles.usernameLeft}>
+                <Text
+                  style={isUser ? styles.usernameRight : styles.usernameLeft}
+                >
                   {currentMessage.user.name}
                 </Text>
                 <Text style={styles.timeText}>
@@ -126,7 +128,7 @@ const DirectChat = ({ navigation } : any) => {
     );
   };
 
-  const renderDay = (props : any) => {
+  const renderDay = (props: any) => {
     const { currentMessage } = props;
     const messageDate = moment(currentMessage.createdAt);
 
@@ -179,16 +181,22 @@ const DirectChat = ({ navigation } : any) => {
 
           <TouchableOpacity
             style={styles.dotsButton}
-            onPress={() => navigation.navigate("UserDetails")}
+            onPress={() => navigation.navigate('UserDetails')}
           >
-            <Image source={ICONS.calender2} resizeMode='contain' style={{width:RFPercentage(3), height:RFPercentage(3)}} />
+            <Image
+              source={ICONS.calender2}
+              resizeMode="contain"
+              style={{ width: RFPercentage(3), height: RFPercentage(3) }}
+            />
           </TouchableOpacity>
-
-          
         </View>
       </View>
 
-      <ImageBackground source={IMAGES.chat} resizeMode="cover" style={{ flex: 1 }}>
+      <ImageBackground
+        source={IMAGES.chat}
+        resizeMode="cover"
+        style={{ flex: 1 }}
+      >
         {messages.length === 0 && (
           <>
             <View style={styles.todayBadge}>
@@ -216,9 +224,9 @@ const DirectChat = ({ navigation } : any) => {
           renderInputToolbar={() => (
             <View style={styles.inputToolbarContainer}>
               <View style={styles.inputBar}>
-                <TouchableOpacity onPress={() => console.log('Plus tapped')}>
+                <TouchableOpacity onPress={() => {}}>
                   <Image
-                    source={ICONS.plus}
+                    source={ICONS.plus6}
                     style={styles.plusIcon}
                     resizeMode="contain"
                   />
@@ -245,7 +253,9 @@ const DirectChat = ({ navigation } : any) => {
                           avatar: 'https://placeimg.com/140/140/any',
                         },
                       };
-                      setMessages(prev => GiftedChat.append(prev, [newMessage]));
+                      setMessages(prev =>
+                        GiftedChat.append(prev, [newMessage]),
+                      );
                       setMessage('');
                       Keyboard.dismiss();
                     }
@@ -267,7 +277,6 @@ const DirectChat = ({ navigation } : any) => {
 };
 
 export default DirectChat;
-
 
 const styles = StyleSheet.create({
   container: {
@@ -502,7 +511,7 @@ const styles = StyleSheet.create({
   leftCorner: {
     left: -RFPercentage(0.5),
   },
-   toolTipBox: {
+  toolTipBox: {
     width: RFPercentage(30),
     height: RFPercentage(18),
     paddingHorizontal: RFPercentage(2),
