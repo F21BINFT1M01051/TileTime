@@ -11,18 +11,16 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS, IMAGES } from '../../../../config/theme';
 import ChatComponent from '../../../../components/ChatComponent';
 import { useNavigation } from '@react-navigation/native';
-import Chat from '../chat';
-import Group from '../create-groups/group';
 
 const Filters = [
   { id: 1, name: 'All' },
-  { id: 2, name: 'Unread 3' },
+  { id: 2, name: 'Unread' },
   { id: 3, name: 'Groups' },
   { id: 4, name: 'Chats' },
   { id: 5, name: 'Managed by Me' },
 ];
 
-const chats = [
+const all = [
   {
     id: 1,
     name: 'Mahjong - Richie Rich Group',
@@ -112,8 +110,122 @@ const unreads = [
   },
 ];
 
+const groups = [
+  {
+    id: 1,
+    name: 'Mahjong - Richie Rich Group',
+    message:
+      'Michelle : Same here! Can’t wait to play. Also, feel free to share tips',
+    unread: 0,
+    mute: false,
+    profile: IMAGES.customProfile,
+  },
+  {
+    id: 2,
+    name: 'Mahjong - Richie Rich Group',
+    message:
+      'Michelle : Same here! Can’t wait to play. Also, feel free to share tips',
+    unread: 12,
+    mute: false,
+    profile: IMAGES.customProfile,
+  },
+  {
+    id: 3,
+    name: 'Mahjong - Richie Rich Group',
+    message:
+      'Michelle : Same here! Can’t wait to play. Also, feel free to share tips',
+    unread: 0,
+    mute: false,
+    profile: IMAGES.customProfile,
+  },
+  {
+    id: 4,
+    name: 'Mahjong - Richie Rich Group',
+    message:
+      'Michelle : Same here! Can’t wait to play. Also, feel free to share tips',
+    unread: 0,
+    mute: true,
+    profile: IMAGES.customProfile,
+  },
+  {
+    id: 5,
+    name: 'Mahjong - Richie Rich Group',
+    message:
+      'Michelle : Same here! Can’t wait to play. Also, feel free to share tips',
+    unread: 0,
+    mute: false,
+    profile: IMAGES.customProfile,
+  },
+  {
+    id: 6,
+    name: 'Mahjong - Richie Rich Group',
+    message:
+      'Michelle : Same here! Can’t wait to play. Also, feel free to share tips',
+    unread: 2,
+    mute: false,
+    profile: IMAGES.customProfile,
+  },
+];
+
+const chats = [
+  {
+    id: 1,
+    name: 'Mahjong - Richie Rich Group',
+    message:
+      'Michelle : Same here! Can’t wait to play. Also, feel free to share tips',
+    unread: 0,
+    mute: false,
+    profile: IMAGES.profile2,
+  },
+  {
+    id: 2,
+    name: 'Mahjong - Richie Rich Group',
+    message:
+      'Michelle : Same here! Can’t wait to play. Also, feel free to share tips',
+    unread: 12,
+    mute: false,
+    profile: IMAGES.profile1,
+  },
+  {
+    id: 3,
+    name: 'Mahjong - Richie Rich Group',
+    message:
+      'Michelle : Same here! Can’t wait to play. Also, feel free to share tips',
+    unread: 0,
+    mute: false,
+    profile: IMAGES.profile2,
+  },
+  {
+    id: 4,
+    name: 'Mahjong - Richie Rich Group',
+    message:
+      'Michelle : Same here! Can’t wait to play. Also, feel free to share tips',
+    unread: 0,
+    mute: false,
+    profile: IMAGES.profile2,
+  },
+  {
+    id: 5,
+    name: 'Mahjong - Richie Rich Group',
+    message:
+      'Michelle : Same here! Can’t wait to play. Also, feel free to share tips',
+    unread: 0,
+    mute: false,
+    profile: IMAGES.profile1,
+  },
+  {
+    id: 6,
+    name: 'Mahjong - Richie Rich Group',
+    message:
+      'Michelle : Same here! Can’t wait to play. Also, feel free to share tips',
+    unread: 2,
+    mute: false,
+    profile: IMAGES.profile2,
+  },
+];
+
 const All = () => {
-  const [activeFilter, setActiveFilter] = useState(1);
+  const [activeFilter, setActiveFilter] = useState('All');
   const [query, setQuery] = useState('');
   const navigation = useNavigation();
 
@@ -137,12 +249,12 @@ const All = () => {
           renderItem={({ item }) => (
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={() => setActiveFilter(item.id)}
+              onPress={() => setActiveFilter(item.name)}
               style={[
                 styles.filterButton,
                 {
                   backgroundColor:
-                    activeFilter === item.id
+                    activeFilter === item.name
                       ? COLORS.inputColor
                       : COLORS.fieldColor,
                 },
@@ -153,7 +265,7 @@ const All = () => {
                   styles.filterText,
                   {
                     color:
-                      activeFilter === item.id ? COLORS.white : COLORS.grey4,
+                      activeFilter === item.name ? COLORS.white : COLORS.grey4,
                   },
                 ]}
               >
@@ -163,10 +275,10 @@ const All = () => {
           )}
         />
       </View>
-      {activeFilter === 1 ? (
+      {activeFilter === 'All' ? (
         <>
           <FlatList
-            data={chats}
+            data={all}
             keyExtractor={item => item.id.toString()}
             renderItem={({ item }) => (
               <ChatComponent
@@ -177,15 +289,16 @@ const All = () => {
                 unread={item.unread}
                 single={item.single}
                 onPress={() =>
-                  item.single
-                    ? navigation.navigate('DirectChat')
-                    : navigation.navigate('GroupCreated', { isNew: false })
+                  navigation.navigate('ChatScreen', {
+                    isGroup: item.single ? false : true,
+                    isNew : false
+                  })
                 }
               />
             )}
           />
         </>
-      ) : activeFilter === 2 ? (
+      ) : activeFilter === 'Unread' ? (
         <>
           <FlatList
             data={unreads}
@@ -199,21 +312,53 @@ const All = () => {
                 unread={item.unread}
                 single={item.single}
                 onPress={() =>
-                  item.single
-                    ? navigation.navigate('DirectChat')
-                    : navigation.navigate('GroupCreated', { isNew: false })
+                  navigation.navigate('ChatScreen', {
+                    isGroup: item.single ? false : true,
+                    isNew : false
+                  })
                 }
               />
             )}
           />
         </>
-      ) : activeFilter === 4 ? (
+      ) : activeFilter === 'Chats' ? (
         <>
-          <Chat />
+          <FlatList
+            data={chats}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({ item }) => (
+              <ChatComponent
+                name={item.name}
+                message={item.message}
+                profile={item.profile}
+                mute={item.mute}
+                unread={item.unread}
+                single
+                onPress={() =>
+                  navigation.navigate('ChatScreen', { isGroup: false ,isNew : false})
+                }
+              />
+            )}
+          />
         </>
       ) : (
         <>
-          <Group />
+          <FlatList
+            data={groups}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({ item }) => (
+              <ChatComponent
+                name={item.name}
+                message={item.message}
+                profile={item.profile}
+                mute={item.mute}
+                unread={item.unread}
+                onPress={() =>
+                  navigation.navigate('ChatScreen', { isGroup: true, isNew : false })
+                }
+              />
+            )}
+          />
         </>
       )}
     </View>

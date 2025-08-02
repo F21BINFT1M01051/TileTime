@@ -17,7 +17,7 @@ import CustomButton from '../../../components/CustomButton';
 import All from './all';
 
 const Groups = ({ navigation }: any) => {
-  const chats = [];
+  const chats = ['9'];
   const hasChats = chats.length > 0;
 
   return (

@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import { COLORS, FONTS, ICONS, IMAGES } from '../config/theme';
+import { COLORS, FONTS, IMAGES } from '../config/theme';
 import { useNavigation } from '@react-navigation/native';
 
 interface Props {
@@ -23,57 +23,25 @@ const SocialField = (props: Props) => {
       style={[
         styles.container,
         {
-          borderColor: props.borderColor
-            ? props.borderColor
-            : COLORS.borderColor,
+          borderColor: props.borderColor || COLORS.borderColor,
           height: props.connected ? RFPercentage(8.5) : RFPercentage(6.5),
         },
       ]}
     >
       {props.connected ? (
-        <View
-          style={{
-            width: '90%',
-            alignSelf: 'center',
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
+        <View style={styles.connectedContainer}>
           <Image
             source={IMAGES.profile}
             resizeMode="contain"
-            style={{
-              width: RFPercentage(5.2),
-              height: RFPercentage(5.2),
-              borderRadius: RFPercentage(100),
-            }}
+            style={styles.connectedProfileImage}
           />
 
-          <View style={{ marginLeft: RFPercentage(1.3) }}>
-            <Text
-              style={{
-                color: '#1F1F1F',
-                fontSize: RFPercentage(1.7),
-                fontFamily: FONTS.semiBold,
-              }}
-            >
-              Nikita Maheshwari
-            </Text>
-            <Text
-              style={[
-                styles.text,
-                {
-                  color: '#919191',
-                  fontSize: RFPercentage(1.5),
-                  fontFamily: FONTS.regular,
-                  marginTop: RFPercentage(1),
-                },
-              ]}
-            >
-              1.1k Followers
-            </Text>
+          <View style={styles.connectedTextWrapper}>
+            <Text style={styles.connectedName}>Nikita Maheshwari</Text>
+            <Text style={styles.connectedFollowers}>1.1k Followers</Text>
           </View>
-          <View style={{ position: 'absolute', right: 0 }}>
+
+          <View style={styles.connectedIconWrapper}>
             {props.icon && (
               <Image
                 source={props.icon}
@@ -84,15 +52,7 @@ const SocialField = (props: Props) => {
           </View>
         </View>
       ) : (
-        <View
-          style={{
-            width: '90%',
-            alignSelf: 'center',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
+        <View style={styles.disconnectedContainer}>
           {props.icon && (
             <Image
               source={props.icon}
@@ -101,12 +61,7 @@ const SocialField = (props: Props) => {
             />
           )}
 
-          <Text
-            style={[
-              styles.text,
-              { color: props.color ? props.color : COLORS.black },
-            ]}
-          >
+          <Text style={[styles.text, { color: props.color || COLORS.black }]}>
             {props.name}
           </Text>
         </View>
@@ -137,5 +92,41 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: FONTS.bold,
     fontSize: RFPercentage(1.9),
+  },
+  connectedContainer: {
+    width: '90%',
+    alignSelf: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  connectedProfileImage: {
+    width: RFPercentage(5.2),
+    height: RFPercentage(5.2),
+    borderRadius: RFPercentage(100),
+  },
+  connectedTextWrapper: {
+    marginLeft: RFPercentage(1.3),
+  },
+  connectedName: {
+    color: COLORS.icon,
+    fontSize: RFPercentage(1.7),
+    fontFamily: FONTS.semiBold,
+  },
+  connectedFollowers: {
+    color: COLORS.grey6,
+    fontSize: RFPercentage(1.5),
+    fontFamily: FONTS.regular,
+    marginTop: RFPercentage(1),
+  },
+  connectedIconWrapper: {
+    position: 'absolute',
+    right: 0,
+  },
+  disconnectedContainer: {
+    width: '90%',
+    alignSelf: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

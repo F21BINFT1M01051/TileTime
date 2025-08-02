@@ -92,15 +92,9 @@ const AdminCard = (props: Props) => {
 
           {props.admin ? (
             <>
-              <Text
-                style={{
-                  color: COLORS.grey4,
-                  fontFamily: FONTS.regular,
-                  fontSize: RFPercentage(1.6),
-                  marginTop: RFPercentage(0.8),
-                }}
-              >
-                {props.self ? `Member since` : `Admin since`}{` `}
+              <Text style={styles.admin}>
+                {props.self ? `Member since` : `Admin since`}
+                {` `}
                 <Text style={{ fontFamily: FONTS.medium }}>
                   {props.subTitle}
                 </Text>
@@ -108,31 +102,16 @@ const AdminCard = (props: Props) => {
             </>
           ) : props.member ? (
             <>
-              <Text
-                style={{
-                  color: COLORS.grey4,
-                  fontFamily: FONTS.regular,
-                  fontSize: RFPercentage(1.6),
-                  marginTop: RFPercentage(0.8),
-                }}
-              >
-                {`Member since`}{` `}
+              <Text style={styles.member}>
+                {`Member since`}
+                {` `}
                 <Text style={{ fontFamily: FONTS.medium }}>
                   {props.subTitle}
                 </Text>
               </Text>
             </>
           ) : (
-            <Text
-              style={{
-                color: COLORS.grey4,
-                fontFamily: FONTS.regular,
-                fontSize: RFPercentage(1.6),
-                marginTop: RFPercentage(0.5),
-              }}
-            >
-              {props.subTitle}
-            </Text>
+            <Text style={styles.subTitle}>{props.subTitle}</Text>
           )}
         </View>
 
@@ -147,13 +126,11 @@ const AdminCard = (props: Props) => {
         )}
 
         {/* Admin or Member Icon */}
-        {(props.member && props.self) ? (
+        {props.member && props.self ? (
           <View style={styles.adminBadge}>
             <Text style={styles.adminBadgeText}>Admin</Text>
           </View>
-        ) :
-        props.admin ?
-         (
+        ) : props.admin ? (
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={toggleTooltip}
@@ -165,7 +142,9 @@ const AdminCard = (props: Props) => {
               size={RFPercentage(2)}
             />
           </TouchableOpacity>
-        ) : <></>}
+        ) : (
+          <></>
+        )}
 
         {/* Tooltip */}
         {isToolTip && (
@@ -174,36 +153,11 @@ const AdminCard = (props: Props) => {
               activeOpacity={0.8}
               onPress={() => navigation.navigate('PlayerProfile')}
             >
-              <Text
-                style={{
-                  fontFamily: FONTS.medium,
-                  color: COLORS.primary,
-                  fontSize: RFPercentage(1.8),
-                  left: RFPercentage(1),
-                }}
-              >
-                View Profile
-              </Text>
+              <Text style={styles.view}>View Profile</Text>
             </TouchableOpacity>
-            <View
-              style={{
-                width: '100%',
-                height: RFPercentage(0.1),
-                backgroundColor: COLORS.lightWhite,
-                marginVertical: RFPercentage(1.5),
-              }}
-            ></View>
+            <View style={styles.divider}></View>
             <TouchableOpacity>
-              <Text
-                style={{
-                  fontFamily: FONTS.medium,
-                  color: COLORS.red,
-                  fontSize: RFPercentage(1.8),
-                  left: RFPercentage(1),
-                }}
-              >
-                Remove from Group
-              </Text>
+              <Text style={styles.remove}>Remove from Group</Text>
             </TouchableOpacity>
           </View>
         )}
@@ -239,6 +193,12 @@ const styles = StyleSheet.create({
   titleText: {
     color: COLORS.primary,
     fontSize: RFPercentage(1.9),
+  },
+  admin: {
+    color: COLORS.grey4,
+    fontFamily: FONTS.regular,
+    fontSize: RFPercentage(1.6),
+    marginTop: RFPercentage(0.8),
   },
   subTitleText: {
     color: COLORS.grey4,
@@ -344,6 +304,36 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontSize: RFPercentage(1.7),
     fontFamily: FONTS.medium,
+    left: RFPercentage(1),
+  },
+  member: {
+    color: COLORS.grey4,
+    fontFamily: FONTS.regular,
+    fontSize: RFPercentage(1.6),
+    marginTop: RFPercentage(0.8),
+  },
+  subTitle: {
+    color: COLORS.grey4,
+    fontFamily: FONTS.regular,
+    fontSize: RFPercentage(1.6),
+    marginTop: RFPercentage(0.5),
+  },
+  view: {
+    fontFamily: FONTS.medium,
+    color: COLORS.primary,
+    fontSize: RFPercentage(1.8),
+    left: RFPercentage(1),
+  },
+  divider: {
+    width: '100%',
+    height: RFPercentage(0.1),
+    backgroundColor: COLORS.lightWhite,
+    marginVertical: RFPercentage(1.5),
+  },
+  remove: {
+    fontFamily: FONTS.medium,
+    color: COLORS.red,
+    fontSize: RFPercentage(1.8),
     left: RFPercentage(1),
   },
 });

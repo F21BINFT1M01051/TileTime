@@ -2,7 +2,6 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS, ICONS, IMAGES } from '../config/theme';
-import { useNavigation } from '@react-navigation/native';
 
 interface Props {
   name: string;

@@ -19,15 +19,7 @@ const CustomButton = (props: Props) => {
     >
       {props.icon ? (
         <>
-          <Image
-            source={props.icon}
-            resizeMode="contain"
-            style={{
-              width: RFPercentage(2.5),
-              height: RFPercentage(2.5),
-              marginRight: RFPercentage(1),
-            }}
-          />
+          <Image source={props.icon} resizeMode="contain" style={styles.img} />
         </>
       ) : null}
       <Text style={styles.text}>{props.title}</Text>
@@ -51,5 +43,10 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontFamily: FONTS.bold,
     fontSize: RFPercentage(2),
+  },
+  img: {
+    width: RFPercentage(2.5),
+    height: RFPercentage(2.5),
+    marginRight: RFPercentage(1),
   },
 });

@@ -11,15 +11,13 @@ interface Props {
 const AuthHeader = (props: Props) => {
   const navigation = useNavigation();
   return (
-    <View
-      style={{
-        width: '100%',
-        flexDirection: 'row',
-        alignItems: 'center',
-      }}
-    >
+    <View style={styles.auth}>
       <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.goBack()}>
-       <Image source={ICONS.back} resizeMode='contain' style={{width:RFPercentage(2.8), height:RFPercentage(2.8)}} />
+        <Image
+          source={ICONS.back}
+          resizeMode="contain"
+          style={{ width: RFPercentage(2.8), height: RFPercentage(2.8) }}
+        />
       </TouchableOpacity>
       <Text style={styles.getStartedText}>{props.title}</Text>
     </View>
@@ -34,5 +32,10 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.headline,
     fontSize: RFPercentage(2.8),
     marginLeft: RFPercentage(0.9),
+  },
+  auth: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });

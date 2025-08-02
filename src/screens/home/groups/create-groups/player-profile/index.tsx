@@ -74,7 +74,12 @@ const PlayerProfile = ({ navigation }: any) => {
                 title="Send Message"
                 icon={ICONS.message}
                 style={styles.buttonRounded}
-                onPress={() => {navigation.navigate("DirectChat")}}
+                onPress={() => {
+                  navigation.navigate('ChatScreen', {
+                    isGroup: false,
+                    isNew: false,
+                  });
+                }}
               />
             </View>
           </View>

@@ -13,25 +13,8 @@ interface Props {
 const Nav = (props: Props) => {
   const navigation = useNavigation();
   return (
-    <View
-      style={{
-        width: '100%',
-        height: RFPercentage(11),
-        justifyContent: 'flex-end',
-        borderBottomWidth: RFPercentage(0.1),
-        borderBottomColor: '#DEDEDE',
-        marginTop: RFPercentage(2),
-      }}
-    >
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          width: '90%',
-          alignSelf: 'center',
-          paddingBottom: RFPercentage(2),
-        }}
-      >
+    <View style={styles.auth}>
+      <View style={styles.content}>
         <TouchableOpacity
           onPress={() => {
             navigation.goBack();
@@ -57,5 +40,20 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontSize: RFPercentage(2.7),
     marginLeft: RFPercentage(1.2),
+  },
+  auth: {
+    width: '100%',
+    height: RFPercentage(11),
+    justifyContent: 'flex-end',
+    borderBottomWidth: RFPercentage(0.1),
+    borderBottomColor: COLORS.fieldBorder,
+    marginTop: RFPercentage(2),
+  },
+  content: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '90%',
+    alignSelf: 'center',
+    paddingBottom: RFPercentage(2),
   },
 });

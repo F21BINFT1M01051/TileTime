@@ -38,7 +38,7 @@ const CreateGroup = ({ navigation }: any) => {
     if (stepIndex < steps.length - 1) {
       setStepIndex(stepIndex + 1);
     } else {
-      navigation.navigate('GroupCreated', { isNew: true });
+      navigation.navigate('ChatScreen', { isGroup: true, isNew : true });
     }
   };
 

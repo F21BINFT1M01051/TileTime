@@ -39,7 +39,8 @@ export const COLORS = {
   red: '#B5000C',
   pink4 : "#FFE5F6",
   white3 : "#EBEBEB",
-  pink5 : "#FFD9F2"
+  pink5 : "#FFD9F2",
+  grey6 : "3919191"
 };
 
 export const IMAGES = {
