@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imageContainer: {
-    width: RFPercentage(18),
+    width: RFPercentage(17),
     height: RFPercentage(21),
     borderRadius: RFPercentage(8),
     overflow: 'hidden',

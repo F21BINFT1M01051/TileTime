@@ -88,7 +88,6 @@ const Cards2 = [
 
 const Home = ({ navigation }: any) => {
   const actions = ['1'];
-
   return (
     <LinearGradient
       colors={[COLORS.offWhite2, COLORS.white]}
@@ -166,7 +165,6 @@ const Home = ({ navigation }: any) => {
           <ImageBackground
             source={IMAGES.home_bottom}
             resizeMode="repeat"
-            resizeMethod="scale"
             style={styles.homeBottomBackground}
           >
             <View style={styles.cardsWrapper}>
@@ -174,6 +172,7 @@ const Home = ({ navigation }: any) => {
                 data={Cards}
                 keyExtractor={item => item.id.toString()}
                 contentContainerStyle={{ paddingBottom: RFPercentage(2) }}
+                scrollEnabled={false}
                 renderItem={({ item }) => {
                   return (
                     <View style={{ marginTop: RFPercentage(3) }}>
@@ -205,10 +204,17 @@ const Home = ({ navigation }: any) => {
               Events you may want to join as an Instructor
             </Text>
 
-            <View style={{width:"100%",alignSelf:"center",marginTop:RFPercentage(0.6)}}>
+            <View
+              style={{
+                width: '100%',
+                alignSelf: 'center',
+                marginTop: RFPercentage(0.6),
+              }}
+            >
               <FlatList
                 data={Cards2}
                 keyExtractor={item => item.id.toString()}
+                scrollEnabled={false}
                 renderItem={({ item }) => {
                   return (
                     <View style={{ marginTop: RFPercentage(3) }}>
@@ -241,6 +247,7 @@ const Home = ({ navigation }: any) => {
             <FlatList
               data={Groups}
               keyExtractor={item => item.id.toString()}
+              scrollEnabled={false}
               renderItem={({ item }) => {
                 return (
                   <View style={styles.cardMargin}>
@@ -337,7 +344,7 @@ const styles = StyleSheet.create({
   cardsWrapper: {
     width: '90%',
     alignSelf: 'center',
-    bottom: RFPercentage(8),
+    bottom: RFPercentage(7),
   },
   cardMargin: {
     marginTop: RFPercentage(3.5),

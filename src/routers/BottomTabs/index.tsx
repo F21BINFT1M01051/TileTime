@@ -97,7 +97,7 @@ export default function BottomTabs() {
       <Tab.Screen
         name="Events"
         component={Events}
-        options={{ title: 'Events' }}
+        options={{ title: 'My Events' }}
       />
       <Tab.Screen
         name="Dashboard"

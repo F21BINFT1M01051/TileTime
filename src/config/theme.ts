@@ -123,6 +123,8 @@ export const ICONS = {
   map2: require('../assets/icons/map-pin.png'),
   calender3: require('../assets/icons/calendar-clock.png'),
   star: require('../assets/icons/star.png'),
+  avatar: require('../assets/icons/avatar.png'),
+  event: require('../assets/icons/event.png'),
 };
 
 export const FONTS = {
