@@ -6,19 +6,24 @@ import { COLORS, FONTS, ICONS } from '../../config/theme';
 interface Props {
   right?: boolean;
   onPress: () => void;
+  title: string;
+  text?: string;
+  home?: boolean;
+  onPress2?: () => void;
+  onPress3?: () => void;
 }
 
 const TopNavigation = (props: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
-        <Text style={styles.titleText}>Groups & Chats</Text>
+        <Text style={styles.titleText}>{props.title}</Text>
         <Image
           source={ICONS.vector}
           resizeMode="contain"
           style={styles.vectorIcon}
         />
-        {props.right && (
+        {props.right && props.text && (
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={props.onPress}
@@ -31,9 +36,39 @@ const TopNavigation = (props: Props) => {
                 fontSize: RFPercentage(1.8),
               }}
             >
-              + New group
+              {props.text}
             </Text>
           </TouchableOpacity>
+        )}
+        {props.right && props.home && (
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'absolute',
+              right: 0,
+            }}
+          >
+            <TouchableOpacity activeOpacity={0.8} onPress={props.onPress2}>
+              <Image
+                source={ICONS.search}
+                resizeMode="contain"
+                style={{
+                  width: RFPercentage(3.8),
+                  height: RFPercentage(3.8),
+                  marginRight: RFPercentage(1.4),
+                }}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity activeOpacity={0.8} onPress={props.onPress3}>
+              <Image
+                source={ICONS.homeUser}
+                resizeMode="contain"
+                style={{ width: RFPercentage(3.8), height: RFPercentage(3.8) }}
+              />
+            </TouchableOpacity>
+          </View>
         )}
       </View>
     </View>

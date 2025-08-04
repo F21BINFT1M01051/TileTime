@@ -37,10 +37,10 @@ export const COLORS = {
   tbText: '#151515',
   search: '#9C9EA6',
   red: '#B5000C',
-  pink4 : "#FFE5F6",
-  white3 : "#EBEBEB",
-  pink5 : "#FFD9F2",
-  grey6 : "3919191"
+  pink4: '#FFE5F6',
+  white3: '#EBEBEB',
+  pink5: '#FFD9F2',
+  grey6: '3919191',
 };
 
 export const IMAGES = {
@@ -59,6 +59,8 @@ export const IMAGES = {
   groupDetail: require('../assets/images/group-detail.png'),
   single: require('../assets/images/signle.png'),
   profile3: require('../assets/images/profile3.png'),
+  home_top: require('../assets/images/home-top.png'),
+  home_bottom: require('../assets/images/home-bottom.png'),
 };
 
 export const ICONS = {
@@ -109,6 +111,12 @@ export const ICONS = {
   teacher: require('../assets/icons/teacher.png'),
   user6: require('../assets/icons/user6.png'),
   message: require('../assets/icons/message.png'),
+  search: require('../assets/icons/search-2.png'),
+  homeUser: require('../assets/icons/home2.png'),
+  hm1: require('../assets/icons/hm1.png'),
+  hm2: require('../assets/icons/hm2.png'),
+  hm3: require('../assets/icons/hm3.png'),
+  hm4: require('../assets/icons/hm4.png'),
 };
 
 export const FONTS = {

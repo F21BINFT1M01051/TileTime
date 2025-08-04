@@ -32,8 +32,10 @@ const Groups = ({ navigation }: any) => {
           style={styles.imageBackground}
         >
           <TopNavigation
+            title="Groups & Chats"
             right={chats.length > 0 ? true : false}
             onPress={() => navigation.navigate('CreateGroup')}
+            text="+ New group"
           />
 
           {chats.length === 0 && (
