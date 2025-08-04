@@ -205,13 +205,13 @@ const Home = ({ navigation }: any) => {
               Events you may want to join as an Instructor
             </Text>
 
-            <View style={{width:"100%",alignSelf:"center", marginTop:RFPercentage(1)}}>
+            <View style={{width:"100%",alignSelf:"center",marginTop:RFPercentage(0.6)}}>
               <FlatList
                 data={Cards2}
                 keyExtractor={item => item.id.toString()}
                 renderItem={({ item }) => {
                   return (
-                    <View style={{ marginTop: RFPercentage(3.5) }}>
+                    <View style={{ marginTop: RFPercentage(3) }}>
                       <HomeCard
                         title={item.title}
                         profile={item.profile}
