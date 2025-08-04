@@ -332,12 +332,12 @@ const styles = StyleSheet.create({
   },
   homeBottomBackground: {
     width: '100%',
-    height: RFPercentage(49),
+    height: RFPercentage(48),
   },
   cardsWrapper: {
     width: '90%',
     alignSelf: 'center',
-    bottom: RFPercentage(7),
+    bottom: RFPercentage(8),
   },
   cardMargin: {
     marginTop: RFPercentage(3.5),
