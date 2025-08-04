@@ -1,4 +1,5 @@
 import {
+  FlatList,
   Image,
   ImageBackground,
   ScrollView,
@@ -16,6 +17,74 @@ import CustomButton from '../../../components/CustomButton';
 import ActionsCard from '../../../components/ActionsCard';
 import HomeCard from '../../../components/HomeCard';
 import HomeGroupCard from '../../../components/HomeGroupCard';
+
+const Groups = [
+  {
+    id: 1,
+    title: 'Mahjong - Richie Rich Group',
+    attendees: 6,
+    status: 'High Engagement',
+    profile: IMAGES.customProfile,
+  },
+  {
+    id: 2,
+    title: 'Mahjong - Power Rangers',
+    attendees: 2,
+    status: 'Rapidly Growing',
+    profile: IMAGES.customProfile,
+  },
+];
+
+const Cards = [
+  {
+    id: 1,
+    title: 'Harmony Hands:',
+    bannerText: 'Beginner-Friendly',
+    subTitle: 'Community Mahjong Meetup',
+    profile: IMAGES.customProfile,
+    date: 'April 30, 2025',
+    distance: '32 mi away',
+  },
+  {
+    id: 2,
+    title: 'Harmony Hands:',
+    bannerText: 'Open Table',
+    subTitle: 'Community Mahjong Meetup',
+    profile: IMAGES.customProfile,
+    date: 'April 30, 2025',
+    distance: '32 mi away',
+  },
+];
+
+const Cards2 = [
+  {
+    id: 1,
+    title: 'Harmony Hands:',
+    bannerText: 'Co-Host',
+    subTitle: 'Community Mahjong Meetup',
+    profile: IMAGES.customProfile,
+    date: 'April 30, 2025',
+    distance: '32 mi away',
+  },
+  {
+    id: 2,
+    title: 'Harmony Hands:',
+    bannerText: 'Assist',
+    subTitle: 'Community Mahjong Meetup',
+    profile: IMAGES.customProfile,
+    date: 'April 30, 2025',
+    distance: '32 mi away',
+  },
+  {
+    id: 3,
+    title: 'Harmony Hands:',
+    bannerText: 'Assist',
+    subTitle: 'Community Mahjong Meetup',
+    profile: IMAGES.customProfile,
+    date: 'April 30, 2025',
+    distance: '32 mi away',
+  },
+];
 
 const Home = ({ navigation }: any) => {
   const actions = ['1'];
@@ -65,7 +134,10 @@ const Home = ({ navigation }: any) => {
           <ImageBackground
             source={IMAGES.home_top}
             resizeMode="repeat"
-            style={[styles.homeTopBackground, {marginTop: actions.length> 0 ? RFPercentage(5) : 0,}]}
+            style={[
+              styles.homeTopBackground,
+              { marginTop: actions.length > 0 ? RFPercentage(5) : 0 },
+            ]}
           >
             <View style={styles.homeTopContent}>
               <View style={styles.rowCenter}>
@@ -85,6 +157,7 @@ const Home = ({ navigation }: any) => {
                   title="Create Event"
                   icon={ICONS.calender}
                   style={styles.createEventButton}
+                  onPress={() => {}}
                 />
               </View>
             </View>
@@ -97,12 +170,25 @@ const Home = ({ navigation }: any) => {
             style={styles.homeBottomBackground}
           >
             <View style={styles.cardsWrapper}>
-              <View style={styles.cardMargin}>
-                <HomeCard />
-              </View>
-              <View style={styles.cardMargin}>
-                <HomeCard />
-              </View>
+              <FlatList
+                data={Cards}
+                keyExtractor={item => item.id.toString()}
+                contentContainerStyle={{ paddingBottom: RFPercentage(2) }}
+                renderItem={({ item }) => {
+                  return (
+                    <View style={{ marginTop: RFPercentage(3) }}>
+                      <HomeCard
+                        title={item.title}
+                        profile={item.profile}
+                        subTitle={item.subTitle}
+                        bannerText={item.bannerText}
+                        date={item.date}
+                        distance={item.distance}
+                      />
+                    </View>
+                  );
+                }}
+              />
             </View>
           </ImageBackground>
 
@@ -119,14 +205,25 @@ const Home = ({ navigation }: any) => {
               Events you may want to join as an Instructor
             </Text>
 
-            <View style={styles.cardMargin}>
-              <HomeCard />
-            </View>
-            <View style={styles.cardMargin}>
-              <HomeCard />
-            </View>
-            <View style={styles.cardMargin}>
-              <HomeCard />
+            <View style={{width:"100%",alignSelf:"center", marginTop:RFPercentage(1)}}>
+              <FlatList
+                data={Cards2}
+                keyExtractor={item => item.id.toString()}
+                renderItem={({ item }) => {
+                  return (
+                    <View style={{ marginTop: RFPercentage(3.5) }}>
+                      <HomeCard
+                        title={item.title}
+                        profile={item.profile}
+                        subTitle={item.subTitle}
+                        bannerText={item.bannerText}
+                        date={item.date}
+                        distance={item.distance}
+                      />
+                    </View>
+                  );
+                }}
+              />
             </View>
 
             <TouchableOpacity style={styles.viewAllButton}>
@@ -141,12 +238,22 @@ const Home = ({ navigation }: any) => {
               instructors, or co-hosts.
             </Text>
 
-            <View style={styles.cardMargin}>
-              <HomeGroupCard />
-            </View>
-            <View style={styles.cardMargin}>
-              <HomeGroupCard />
-            </View>
+            <FlatList
+              data={Groups}
+              keyExtractor={item => item.id.toString()}
+              renderItem={({ item }) => {
+                return (
+                  <View style={styles.cardMargin}>
+                    <HomeGroupCard
+                      title={item.title}
+                      profile={item.profile}
+                      status={item.status}
+                      attendees={item.attendees}
+                    />
+                  </View>
+                );
+              }}
+            />
           </View>
         </View>
       </ScrollView>
@@ -225,20 +332,21 @@ const styles = StyleSheet.create({
   },
   homeBottomBackground: {
     width: '100%',
-    height: RFPercentage(47),
+    height: RFPercentage(49),
   },
   cardsWrapper: {
     width: '90%',
     alignSelf: 'center',
-    bottom: RFPercentage(8),
+    bottom: RFPercentage(7),
   },
   cardMargin: {
     marginTop: RFPercentage(3.5),
+    paddingLeft: RFPercentage(1),
   },
   groupSection: {
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(4),
+    marginTop: RFPercentage(4.5),
   },
   iconStar: {
     width: RFPercentage(3),

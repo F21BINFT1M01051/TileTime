@@ -5,13 +5,22 @@ import { COLORS, FONTS, ICONS, IMAGES } from '../config/theme';
 
 const { width } = Dimensions.get('window');
 
-const HomeCard = () => {
+interface Props {
+  title: string;
+  subTitle: string;
+  bannerText: string;
+  date: string;
+  distance: string;
+  profile: any;
+}
+
+const HomeCard = (props: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <View style={styles.borderWrapper}>
           <Image
-            source={IMAGES.customProfile}
+            source={props.profile}
             style={styles.image}
             resizeMode="cover"
           />
@@ -22,15 +31,15 @@ const HomeCard = () => {
               resizeMode="cover"
               style={styles.bannerImage}
             />
-            <Text style={styles.bannerText}>Beginner-Friendly</Text>
+            <Text style={styles.bannerText}>{props.bannerText}</Text>
           </View>
         </View>
       </View>
 
       <View style={styles.contentContainer}>
-        <Text style={styles.title}>Harmony Hands:</Text>
-        <Text style={styles.subtitle}>Community Mahjong Meetup</Text>
-        <View style={{ marginTop: RFPercentage(1.5) }}>
+        <Text style={styles.title}>{props.title}</Text>
+        <Text style={styles.subtitle}>{props.subTitle}</Text>
+        <View style={{ marginTop: RFPercentage(0.8) }}>
           <View style={styles.chipRow}>
             <View style={styles.dateChip}>
               <Image
@@ -38,7 +47,7 @@ const HomeCard = () => {
                 resizeMode="contain"
                 style={{ width: RFPercentage(2), height: RFPercentage(2) }}
               />
-              <Text style={styles.chipText}>April 30, 2025</Text>
+              <Text style={styles.chipText}>{props.date}</Text>
             </View>
           </View>
 
@@ -49,7 +58,7 @@ const HomeCard = () => {
                 resizeMode="contain"
                 style={{ width: RFPercentage(2), height: RFPercentage(2) }}
               />
-              <Text style={styles.chipText}>32 mi away</Text>
+              <Text style={styles.chipText}>{props.distance}</Text>
             </View>
           </View>
         </View>
@@ -126,7 +135,7 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(1),
   },
   dateChip: {
-    backgroundColor: '#E8FCFC',
+    backgroundColor: '#E4F7F6',
     flexDirection: 'row',
     alignItems: 'center',
     height: RFPercentage(4),

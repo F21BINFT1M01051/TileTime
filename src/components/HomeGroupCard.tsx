@@ -3,21 +3,28 @@ import React from 'react';
 import { IMAGES, COLORS, FONTS, ICONS } from '../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 
-export default function HomeGroupCard() {
+interface Props {
+  title: string;
+  attendees: number;
+  status: string;
+  profile : any
+}
+
+export default function HomeGroupCard(props: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.largeGroupIconContainer}>
         <Image
-          source={IMAGES.customProfile}
+          source={props.profile}
           resizeMode="cover"
           style={styles.largeGroupIcon}
         />
       </View>
       <View style={styles.contentWrapper}>
-        <Text style={styles.title}>Mahjong - Richie Rich Group</Text>
-        <Text style={styles.attendees}>6 attendees</Text>
+        <Text style={styles.title}>{props.title}</Text>
+        <Text style={styles.attendees}>{props.attendees} attendees</Text>
         <View style={styles.tagContainer}>
-          <Text style={styles.tagText}>High Engagement</Text>
+          <Text style={styles.tagText}>{props.status}</Text>
         </View>
       </View>
     </View>
