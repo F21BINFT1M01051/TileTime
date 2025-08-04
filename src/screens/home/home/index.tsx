@@ -7,16 +7,18 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, { useState } from 'react';
+import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import TopNavigation from '../../../routers/TopBar';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import CustomButton from '../../../components/CustomButton';
+import ActionsCard from '../../../components/ActionsCard';
+import HomeCard from '../../../components/HomeCard';
+import HomeGroupCard from '../../../components/HomeGroupCard';
 
 const Home = ({ navigation }: any) => {
-  const chats = [];
-  const hasChats = chats.length > 0;
+  const actions = ['1'];
 
   return (
     <LinearGradient
@@ -36,16 +38,117 @@ const Home = ({ navigation }: any) => {
             onPress={() => navigation.navigate('CreateGroup')}
           />
 
-          {chats.length === 0 && (
+          {actions.length > 0 ? (
+            <View style={styles.titleContainer}>
+              <Text style={styles.mainTitle}>
+                {`Let’s get your Mahjong\njourney started`}
+              </Text>
+            </View>
+          ) : (
+            <View style={styles.titleContainer}>
+              <Text style={styles.mainTitle}>
+                {`You're Ready to Join,\nTeach, or Play`}
+              </Text>
+            </View>
+          )}
+        </ImageBackground>
+
+        <View style={styles.actionsWrapper}>
+          {actions.length > 0 && (
             <>
-              <View style={styles.titleContainer}>
-                <Text style={styles.mainTitle}>
-                  {`Let’s get your Mahjong\njourney started`}
-                </Text>
+              <View style={styles.actionsCardWrapper}>
+                <ActionsCard />
               </View>
             </>
           )}
-        </ImageBackground>
+
+          <ImageBackground
+            source={IMAGES.home_top}
+            resizeMode="repeat"
+            style={[styles.homeTopBackground, {marginTop: actions.length> 0 ? RFPercentage(5) : 0,}]}
+          >
+            <View style={styles.homeTopContent}>
+              <View style={styles.rowCenter}>
+                <Text style={styles.sectionTitle}>Explore Events Near You</Text>
+                <Image
+                  source={ICONS.bars2}
+                  resizeMode="contain"
+                  style={styles.iconBars}
+                />
+              </View>
+              <Text style={styles.descriptionText}>
+                A curated list of Mahjong sessions happening around you. Join as
+                a player or instructor to engage with the community.
+              </Text>
+              <View style={styles.buttonMargin}>
+                <CustomButton
+                  title="Create Event"
+                  icon={ICONS.calender}
+                  style={styles.createEventButton}
+                />
+              </View>
+            </View>
+          </ImageBackground>
+
+          <ImageBackground
+            source={IMAGES.home_bottom}
+            resizeMode="repeat"
+            resizeMethod="scale"
+            style={styles.homeBottomBackground}
+          >
+            <View style={styles.cardsWrapper}>
+              <View style={styles.cardMargin}>
+                <HomeCard />
+              </View>
+              <View style={styles.cardMargin}>
+                <HomeCard />
+              </View>
+            </View>
+          </ImageBackground>
+
+          <View style={styles.groupSection}>
+            <View style={styles.rowCenter}>
+              <Text style={styles.sectionTitle}>Instructor Recommended</Text>
+              <Image
+                source={ICONS.star}
+                resizeMode="contain"
+                style={styles.iconStar}
+              />
+            </View>
+            <Text style={styles.descriptionText}>
+              Events you may want to join as an Instructor
+            </Text>
+
+            <View style={styles.cardMargin}>
+              <HomeCard />
+            </View>
+            <View style={styles.cardMargin}>
+              <HomeCard />
+            </View>
+            <View style={styles.cardMargin}>
+              <HomeCard />
+            </View>
+
+            <TouchableOpacity style={styles.viewAllButton}>
+              <Text style={styles.viewAllText}>View All</Text>
+            </TouchableOpacity>
+
+            <View style={styles.sectionMargin}>
+              <Text style={styles.sectionTitle}>Open Groups You Can Join</Text>
+            </View>
+            <Text style={styles.groupText}>
+              Discover active Mahjong groups looking for new members,
+              instructors, or co-hosts.
+            </Text>
+
+            <View style={styles.cardMargin}>
+              <HomeGroupCard />
+            </View>
+            <View style={styles.cardMargin}>
+              <HomeGroupCard />
+            </View>
+          </View>
+        </View>
       </ScrollView>
     </LinearGradient>
   );
@@ -61,43 +164,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: RFPercentage(35),
   },
-  contentContainer: {
-    width: '90%',
-    alignSelf: 'center',
-    alignItems: 'center',
-  },
-  tabContainer: {
-    width: '100%',
-    backgroundColor: COLORS.white,
-    borderWidth: RFPercentage(0.1),
-    borderColor: COLORS.lightWhite,
-    borderRadius: RFPercentage(2.5),
-    height: RFPercentage(6),
-    marginTop: RFPercentage(4),
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: RFPercentage(0.5),
-  },
-  tabButton: {
-    width: '50%',
-    backgroundColor: 'transparent',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100%',
-    borderRadius: RFPercentage(2),
-  },
-  activeTabButton: {
-    backgroundColor: COLORS.pink,
-  },
-  tabButtonText: {
-    color: COLORS.grey5,
-    fontFamily: FONTS.regular,
-  },
-  activeTabButtonText: {
-    color: COLORS.white,
-    fontFamily: FONTS.medium,
-  },
   titleContainer: {},
   mainTitle: {
     color: COLORS.primary,
@@ -108,31 +174,101 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: RFPercentage(5),
   },
-  subtitleContainer: {
-    marginTop: RFPercentage(1),
+  actionsWrapper: {
+    width: '100%',
+    bottom: RFPercentage(7),
+  },
+  actionsCardWrapper: {
     width: '90%',
     alignSelf: 'center',
   },
-  subtitleText: {
+  homeTopBackground: {
+    width: '100%',
+    height: RFPercentage(35),
+    marginTop: RFPercentage(5),
+    paddingBottom: RFPercentage(2),
+  },
+  homeTopContent: {
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: RFPercentage(5),
+  },
+  rowCenter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  sectionTitle: {
+    fontFamily: FONTS.headline,
+    fontSize: RFPercentage(2.4),
     color: COLORS.primary,
+  },
+  iconBars: {
+    width: RFPercentage(4),
+    height: RFPercentage(4),
+    bottom: RFPercentage(1),
+    right: RFPercentage(0.7),
+  },
+  descriptionText: {
     fontFamily: FONTS.stylish,
-    fontSize: RFPercentage(2),
-    textAlign: 'center',
+    color: COLORS.primary,
+    fontSize: RFPercentage(2.3),
+    lineHeight: RFPercentage(2.8),
+    marginTop: RFPercentage(0.5),
   },
-  borderIcon: {
-    width: RFPercentage(10),
-    height: RFPercentage(2),
-    alignSelf: 'flex-end',
+  buttonMargin: {
+    marginTop: RFPercentage(3),
   },
-  groupImage: {
-    width: RFPercentage(50),
-    height: RFPercentage(30),
+  createEventButton: {
+    width: RFPercentage(23),
+    height: RFPercentage(5.5),
+    borderRadius: RFPercentage(1.4),
+  },
+  homeBottomBackground: {
+    width: '100%',
+    height: RFPercentage(47),
+  },
+  cardsWrapper: {
+    width: '90%',
+    alignSelf: 'center',
+    bottom: RFPercentage(8),
+  },
+  cardMargin: {
+    marginTop: RFPercentage(3.5),
+  },
+  groupSection: {
+    width: '90%',
+    alignSelf: 'center',
     marginTop: RFPercentage(4),
   },
-  buttonWrapper: {
-    width: '90%',
-    alignSelf: 'center',
-    alignContent: 'center',
-    marginTop: RFPercentage(5.8),
+  iconStar: {
+    width: RFPercentage(3),
+    height: RFPercentage(3),
+    left: RFPercentage(0.6),
+  },
+  viewAllButton: {
+    width: '100%',
+    height: RFPercentage(5.5),
+    backgroundColor: 'transparent',
+    borderWidth: RFPercentage(0.2),
+    borderColor: COLORS.primary,
+    borderRadius: RFPercentage(100),
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: RFPercentage(4.5),
+  },
+  viewAllText: {
+    color: COLORS.primary,
+    fontSize: RFPercentage(2),
+    fontFamily: FONTS.semiBold,
+  },
+  sectionMargin: {
+    marginTop: RFPercentage(4),
+  },
+  groupText: {
+    fontFamily: FONTS.stylish,
+    color: COLORS.primary,
+    fontSize: RFPercentage(2.2),
+    lineHeight: RFPercentage(2.9),
+    marginTop: RFPercentage(0.6),
   },
 });

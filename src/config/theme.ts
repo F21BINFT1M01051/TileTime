@@ -117,6 +117,12 @@ export const ICONS = {
   hm2: require('../assets/icons/hm2.png'),
   hm3: require('../assets/icons/hm3.png'),
   hm4: require('../assets/icons/hm4.png'),
+  greenCheck: require('../assets/icons/green-check.png'),
+  bars2: require('../assets/icons/bars2.png'),
+  border2: require('../assets/icons/border2.png'),
+  map2: require('../assets/icons/map-pin.png'),
+  calender3: require('../assets/icons/calendar-clock.png'),
+  star: require('../assets/icons/star.png'),
 };
 
 export const FONTS = {
