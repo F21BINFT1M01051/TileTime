@@ -135,7 +135,7 @@ const Home = ({ navigation }: any) => {
             resizeMode="contain"
             style={[
               styles.homeTopBackground,
-              { marginTop: actions.length > 0 ? RFPercentage(5) : 0 },
+              { marginTop: actions.length > 0 ? RFPercentage(2) : 0 },
             ]}
           >
             <View style={styles.homeTopContent}>
@@ -303,6 +303,7 @@ const styles = StyleSheet.create({
   rowCenter: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: RFPercentage(2),
   },
   sectionTitle: {
     fontFamily: FONTS.headline,
@@ -337,7 +338,7 @@ const styles = StyleSheet.create({
   cardsWrapper: {
     width: '90%',
     alignSelf: 'center',
-    marginTop:RFPercentage(1.5)
+    marginTop: RFPercentage(0.5),
   },
   cardMargin: {
     marginTop: RFPercentage(3.5),
@@ -346,7 +347,7 @@ const styles = StyleSheet.create({
   groupSection: {
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(4.5),
+    marginTop: RFPercentage(-1),
   },
   iconStar: {
     width: RFPercentage(3),

@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     paddingBottom: RFPercentage(2.3),
     borderColor: COLORS.fieldBorder,
     paddingHorizontal: RFPercentage(2),
-    marginTop: RFPercentage(7),
+    marginTop: RFPercentage(8),
   },
   overLay: {
     flex: 1,

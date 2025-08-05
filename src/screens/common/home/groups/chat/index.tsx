@@ -423,7 +423,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.white,
-    paddingTop: Platform.OS === 'ios' ? RFPercentage(1) : 0,
+    paddingTop: Platform.OS === 'ios' ? RFPercentage(4) : 0,
   },
   headerBorder: {
     borderBottomWidth: 1,

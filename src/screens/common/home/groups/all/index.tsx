@@ -291,7 +291,7 @@ const All = () => {
                 onPress={() =>
                   navigation.navigate('ChatScreen', {
                     isGroup: item.single ? false : true,
-                    isNew : false
+                    isNew: false,
                   })
                 }
               />
@@ -314,7 +314,7 @@ const All = () => {
                 onPress={() =>
                   navigation.navigate('ChatScreen', {
                     isGroup: item.single ? false : true,
-                    isNew : false
+                    isNew: false,
                   })
                 }
               />
@@ -335,7 +335,10 @@ const All = () => {
                 unread={item.unread}
                 single
                 onPress={() =>
-                  navigation.navigate('ChatScreen', { isGroup: false ,isNew : false})
+                  navigation.navigate('ChatScreen', {
+                    isGroup: false,
+                    isNew: false,
+                  })
                 }
               />
             )}
@@ -354,7 +357,10 @@ const All = () => {
                 mute={item.mute}
                 unread={item.unread}
                 onPress={() =>
-                  navigation.navigate('ChatScreen', { isGroup: true, isNew : false })
+                  navigation.navigate('ChatScreen', {
+                    isGroup: true,
+                    isNew: false,
+                  })
                 }
               />
             )}
@@ -374,6 +380,7 @@ const styles = StyleSheet.create({
   searchContainer: {
     width: '90%',
     alignSelf: 'center',
+    marginTop: RFPercentage(1),
   },
   filterContainer: {
     width: '100%',

@@ -615,7 +615,7 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(2.3),
   },
   profileContainer: {
-    marginTop: RFPercentage(4),
+    marginTop: RFPercentage(3),
     width: RFPercentage(16),
     alignItems: 'center',
   },
