@@ -3,12 +3,12 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS, ICONS } from '../../config/theme';
-import Dashboard from '../../screens/home/dashboard';
-import Events from '../../screens/home/events';
-import Groups from '../../screens/home/groups';
-import Home from '../../screens/home/home';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import LinearGradient from 'react-native-linear-gradient';
+import Home from '../../screens/common/home/home';
+import Events from '../../screens/common/home/events';
+import Dashboard from '../../screens/common/home/dashboard';
+import Groups from '../../screens/common/home/groups';
 
 const Tab = createBottomTabNavigator();
 

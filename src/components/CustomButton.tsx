@@ -8,6 +8,7 @@ interface Props {
   onPress: () => void;
   icon?: any;
   style?: object;
+  disabled? : boolean
 }
 
 const CustomButton = (props: Props) => {
@@ -15,6 +16,7 @@ const CustomButton = (props: Props) => {
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={props.onPress}
+      disabled={props.disabled}
       style={[styles.button, props.style]}
     >
       {props.icon ? (

@@ -42,7 +42,7 @@ const Search = ({ placeholder, value, onChangeText, data }: Props) => {
   };
 
   return (
-    <View style={{ width: '100%' }}>
+    <View style={{ width: '100%', position: 'relative' }}>
       <TouchableOpacity
         activeOpacity={1}
         style={[
@@ -73,20 +73,7 @@ const Search = ({ placeholder, value, onChangeText, data }: Props) => {
         </View>
       </TouchableOpacity>
 
-      {/** Selected Items */}
-      {selectedItems.length > 0 && (
-        <View style={styles.selectedItemsContainer}>
-          {selectedItems.map((item, index) => (
-            <View key={index} style={styles.selectedItem}>
-              <Text style={styles.selectedText}>{item}</Text>
-              <TouchableOpacity onPress={() => removeItem(item)}>
-               <Image source={ICONS.cross} resizeMode='contain' style={{width:RFPercentage(2.5), height:RFPercentage(2.5)}} />
-              </TouchableOpacity>
-            </View>
-          ))}
-        </View>
-      )}
-
+      {/* 🆕 Dropdown Shown ABOVE selected items */}
       {showDropdown && value.length > 0 && (
         <View style={styles.dropdownContainer}>
           <FlatList
@@ -144,6 +131,27 @@ const Search = ({ placeholder, value, onChangeText, data }: Props) => {
           />
         </View>
       )}
+
+      {/* Selected Items shown BELOW dropdown */}
+      {selectedItems.length > 0 && (
+        <View style={styles.selectedItemsContainer}>
+          {selectedItems.map((item, index) => (
+            <View key={index} style={styles.selectedItem}>
+              <Text style={styles.selectedText}>{item}</Text>
+              <TouchableOpacity onPress={() => removeItem(item)}>
+                <Image
+                  source={ICONS.cross}
+                  resizeMode="contain"
+                  style={{
+                    width: RFPercentage(2.5),
+                    height: RFPercentage(2.5),
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
+          ))}
+        </View>
+      )}
     </View>
   );
 };
@@ -170,18 +178,22 @@ const styles = StyleSheet.create({
     color: COLORS.inputColor,
     fontFamily: FONTS.regular,
     width: '90%',
-    fontSize:RFPercentage(1.8)
+    fontSize: RFPercentage(1.8),
   },
   dropdownContainer: {
-    marginTop: RFPercentage(1),
+    position: 'absolute',
+    top: RFPercentage(6.6) + RFPercentage(1), // input height + margin
+    left: 0,
+    width: '100%',
     backgroundColor: COLORS.white,
     borderRadius: RFPercentage(1.7),
     borderColor: COLORS.fieldBorder,
     borderWidth: RFPercentage(0.1),
     maxHeight: RFPercentage(25),
-    zIndex: 2,
+    zIndex: 999, // Ensure it appears above selected items
     paddingVertical: RFPercentage(1),
   },
+
   dropdownItem: {
     borderBottomWidth: RFPercentage(0.1),
     borderBottomColor: COLORS.fieldBorder,
@@ -208,12 +220,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: RFPercentage(2),
     marginRight: RFPercentage(1),
     height: RFPercentage(4.5),
-    justifyContent:'space-between'
+    justifyContent: 'space-between',
   },
   selectedText: {
     fontFamily: FONTS.medium,
     color: COLORS.white,
     fontSize: RFPercentage(1.7),
-    marginRight:RFPercentage(0.8)
+    marginRight: RFPercentage(0.8),
   },
 });

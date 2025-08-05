@@ -1,0 +1,294 @@
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from 'react-native';
+import React, { useState } from 'react';
+import LinearGradient from 'react-native-linear-gradient';
+import { COLORS, FONTS, IMAGES } from '../../../../config/theme';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+import CustomButton from '../../../../components/CustomButton';
+import InputField from '../../../../components/InputField';
+import AuthHeader from '../../../../components/AuthHeader';
+import * as yup from 'yup';
+import { Formik } from 'formik';
+import Toast from 'react-native-toast-message';
+
+let validationSchema = yup.object({
+  email: yup.string().email('Invalid email').required('Email is required'),
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(8, 'Password must be at least 8 characters long')
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&._-])[A-Za-z\d@$!%*?&._-]{8,}$/,
+      'Password must include uppercase, lowercase, number, and special character',
+    ),
+});
+
+const Login = ({ navigation }: any) => {
+  const handleSignIn = async (values: any) => {
+    if (!values.email || !values.password) {
+      Toast.show({
+        type: 'info',
+        text1: 'Email/Password',
+        text2: 'Email and Password is required',
+      });
+      return;
+    } else {
+      navigation.navigate('BottomTabs');
+    }
+  };
+
+  return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <ScrollView>
+        <LinearGradient
+          colors={[COLORS.gradient1, COLORS.gradient2]}
+          style={styles.gradient}
+        >
+          <View style={styles.logoContainer}>
+            <Image
+              source={IMAGES.logo}
+              resizeMode="contain"
+              style={styles.logo}
+            />
+            <Image
+              source={IMAGES.headline}
+              resizeMode="contain"
+              style={styles.headlineImage}
+            />
+          </View>
+
+          <View style={styles.whiteContainer}>
+            <View style={styles.contentWrapper}>
+              <AuthHeader title="Log In" />
+
+              <Formik
+                initialValues={{
+                  email: '',
+                  password: '',
+                }}
+                validationSchema={validationSchema}
+                onSubmit={values => handleSignIn(values)}
+              >
+                {({
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  values,
+                  errors,
+                  touched,
+                  setFieldTouched,
+                }) => (
+                  <>
+                    <View style={styles.emailField}>
+                      <InputField
+                        placeholder="Email Address"
+                        onChangeText={handleChange('email')}
+                        handleBlur={handleBlur('email')}
+                        value={values.email}
+                        password={false}
+                        hasError={touched.email && errors.email ? true : false}
+                        defaultColor={COLORS.placeholder}
+                        focusedColor={COLORS.focused}
+                        errorColor={COLORS.red}
+                        style={{
+                          borderColor:
+                            touched.email && errors.email
+                              ? COLORS.red
+                              : COLORS.fieldBorder,
+                        }}
+                      />
+                      {touched.email && errors.email && (
+                        <View style={{ marginTop: RFPercentage(0.6) }}>
+                          <Text
+                            style={{
+                              color: COLORS.red,
+                              fontFamily: FONTS.regular,
+                              fontSize: RFPercentage(1.7),
+                            }}
+                          >
+                            {errors?.email}
+                          </Text>
+                        </View>
+                      )}
+                    </View>
+
+                    <View style={styles.passwordField}>
+                      <InputField
+                        placeholder="Enter Password"
+                        onChangeText={text => {
+                          setFieldTouched('password', true);
+                          handleChange('password')(text);
+                        }}
+                        handleBlur={handleBlur('password')}
+                        value={values.password}
+                        password={true}
+                        hasError={
+                          touched.password && errors.password ? true : false
+                        }
+                        defaultColor={COLORS.placeholder}
+                        focusedColor={COLORS.focused}
+                        errorColor={COLORS.red}
+                        style={{
+                          borderColor:
+                            touched.password && errors.password
+                              ? COLORS.red
+                              : COLORS.fieldBorder,
+                        }}
+                      />
+                      {touched.password && errors.password && (
+                        <View style={{ marginTop: RFPercentage(0.6) }}>
+                          <Text
+                            style={{
+                              color: COLORS.red,
+                              fontFamily: FONTS.regular,
+                              fontSize: RFPercentage(1.7),
+                            }}
+                          >
+                            {errors?.password}
+                          </Text>
+                        </View>
+                      )}
+                    </View>
+
+                    <TouchableOpacity style={styles.forgotPasswordButton}>
+                      <Text style={styles.forgotPasswordText}>
+                        Forgot Password?
+                      </Text>
+                    </TouchableOpacity>
+
+                    <View style={styles.buttonWrapper}>
+                      <CustomButton
+                        title="Continue"
+                        onPress={handleSubmit}
+                        disabled={
+                          !values.email ||
+                          !!errors.email ||
+                          !values.password ||
+                          !!errors.password
+                        }
+                        style={{
+                          backgroundColor:
+                            !values.email ||
+                            !!errors.email ||
+                            !values.password ||
+                            !!errors.password
+                              ? COLORS.disabled
+                              : COLORS.primary,
+                        }}
+                      />
+                    </View>
+                  </>
+                )}
+              </Formik>
+              <View style={styles.signupContainer}>
+                <Text style={styles.noAccountText}>Don’t Have An Account?</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate('SignUp');
+                  }}
+                >
+                  <Text style={styles.signupText}>Sign Up</Text>
+                </TouchableOpacity>
+              </View>
+              <TouchableOpacity>
+                <Text style={styles.footerText}>Privacy & Terms</Text>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Text style={styles.footerText}>Contact Us</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </LinearGradient>
+      </ScrollView>
+    </TouchableWithoutFeedback>
+  );
+};
+
+export default Login;
+
+const styles = StyleSheet.create({
+  gradient: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  logoContainer: {
+    width: '100%',
+    alignItems: 'center',
+    paddingTop: RFPercentage(6),
+  },
+  logo: {
+    width: RFPercentage(10),
+    height: RFPercentage(10),
+  },
+  headlineImage: {
+    width: RFPercentage(50),
+    height: RFPercentage(10),
+    marginTop: RFPercentage(1),
+  },
+  whiteContainer: {
+    width: '100%',
+    backgroundColor: COLORS.white,
+    borderTopRightRadius: RFPercentage(2.5),
+    borderTopLeftRadius: RFPercentage(2.5),
+    alignItems: 'center',
+    marginTop: RFPercentage(4),
+    paddingBottom: RFPercentage(5),
+    height: '100%',
+  },
+  contentWrapper: {
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: RFPercentage(3.5),
+  },
+
+  emailField: {
+    marginTop: RFPercentage(1.5),
+  },
+  passwordField: {},
+  forgotPasswordButton: {
+    alignSelf: 'flex-end',
+  },
+  forgotPasswordText: {
+    fontFamily: FONTS.regular,
+    marginTop: RFPercentage(0.6),
+    color: COLORS.lightGrey,
+    fontSize: RFPercentage(1.7),
+  },
+  buttonWrapper: {
+    width: '100%',
+    marginTop: RFPercentage(7),
+  },
+  signupContainer: {
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginTop: RFPercentage(5),
+  },
+  noAccountText: {
+    fontFamily: FONTS.regular2,
+    color: COLORS.lightGrey,
+    fontSize: RFPercentage(1.8),
+  },
+  signupText: {
+    fontFamily: FONTS.semiBold2,
+    color: COLORS.primary,
+    left: RFPercentage(0.4),
+    fontSize: RFPercentage(1.8),
+  },
+  footerText: {
+    fontFamily: FONTS.regular2,
+    color: COLORS.lightGrey,
+    fontSize: RFPercentage(1.8),
+    textAlign: 'center',
+    marginTop: RFPercentage(1.3),
+  },
+});

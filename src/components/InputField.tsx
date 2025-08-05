@@ -19,24 +19,49 @@ interface Props {
   icon?: any;
   style?: object;
   type?: string;
+  autoFocus?: boolean;
+  handleBlur?: (event: any) => void;
+
+  defaultColor?: string;
+  focusedColor?: string;
+  errorColor?: string;
+  hasError?: boolean;
 }
 
-const InputField = (props: Props) => {
+const InputField: React.FC<Props> = ({
+  placeholder,
+  value,
+  onChangeText,
+  password = false,
+  icon,
+  style,
+  type,
+  autoFocus,
+  handleBlur,
+  defaultColor = COLORS.placeholder,
+  focusedColor = COLORS.focused,
+  errorColor = COLORS.red,
+  hasError = false,
+}) => {
   const [isFocused, setIsFocused] = useState(false);
-  const [secureText, setSecureText] = useState(props.password);
-  const inputRef = useRef<TextInput>(null); // Reference for focusing
+  const [secureText, setSecureText] = useState(password);
+  const inputRef = useRef<TextInput>(null);
 
-  const animatedIsFocused = useRef(
-    new Animated.Value(props.value ? 1 : 0),
-  ).current;
+  const getPlaceholderColor = () => {
+    if (hasError) return errorColor || COLORS.red;
+    if (isFocused) return focusedColor || COLORS.focused;
+    return defaultColor || COLORS.fieldBorder;
+  };
+
+  const animatedIsFocused = useRef(new Animated.Value(value ? 1 : 0)).current;
 
   useEffect(() => {
     Animated.timing(animatedIsFocused, {
-      toValue: isFocused || props.value ? 1 : 0,
+      toValue: isFocused || value ? 1 : 0,
       duration: 150,
       useNativeDriver: false,
     }).start();
-  }, [isFocused, props.value]);
+  }, [isFocused, value]);
 
   const labelStyle = {
     ...styles.label,
@@ -48,36 +73,35 @@ const InputField = (props: Props) => {
       inputRange: [0, 1],
       outputRange: [RFPercentage(1.8), RFPercentage(1.5)],
     }),
-    color: animatedIsFocused.interpolate({
-      inputRange: [0, 1],
-      outputRange: [COLORS.placeholder, COLORS.focused],
-    }),
-    fontFamily: isFocused || props.value ? FONTS.medium2 : FONTS.regular,
+    color: getPlaceholderColor(),
+    fontFamily: isFocused || value ? FONTS.medium2 : FONTS.regular,
   };
 
   return (
     <TouchableWithoutFeedback onPress={() => inputRef.current?.focus()}>
-      <View style={[styles.container, props.style]}>
+      <View style={[styles.container, style]}>
         <View style={styles.wrap}>
-          <Animated.Text style={labelStyle}>{props.placeholder}</Animated.Text>
+          <Animated.Text style={[labelStyle]}>{placeholder}</Animated.Text>
 
           <TextInput
             ref={inputRef}
             style={styles.input}
-            value={props.value}
-            onChangeText={props.onChangeText}
+            value={value}
+            onChangeText={onChangeText}
             onFocus={() => setIsFocused(true)}
-            keyboardType={props.type}
-            onBlur={() => {
-              if (!props.value) {
+            keyboardType={type}
+            onBlur={event => {
+              if (!value) {
                 setIsFocused(false);
               }
+              handleBlur?.(event);
             }}
             blurOnSubmit
-            secureTextEntry={props.password ? secureText : false}
+            secureTextEntry={password ? secureText : false}
+            autoFocus={autoFocus}
           />
 
-          {props.password && (
+          {password && (
             <TouchableOpacity
               style={styles.eyeIcon}
               onPress={() => setSecureText(prev => !prev)}
@@ -90,7 +114,7 @@ const InputField = (props: Props) => {
             </TouchableOpacity>
           )}
 
-          {props.icon && <View style={styles.iconContainer}>{props.icon}</View>}
+          {icon && <View style={styles.iconContainer}>{icon}</View>}
         </View>
       </View>
     </TouchableWithoutFeedback>

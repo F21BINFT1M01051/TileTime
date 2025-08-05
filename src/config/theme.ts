@@ -41,6 +41,7 @@ export const COLORS = {
   white3: '#EBEBEB',
   pink5: '#FFD9F2',
   grey6: '3919191',
+  disabled: "#B8B8BE"
 };
 
 export const IMAGES = {
@@ -125,6 +126,7 @@ export const ICONS = {
   star: require('../assets/icons/star.png'),
   avatar: require('../assets/icons/avatar.png'),
   event: require('../assets/icons/event.png'),
+  gallery: require('../assets/icons/Gallery.png'),
 };
 
 export const FONTS = {
