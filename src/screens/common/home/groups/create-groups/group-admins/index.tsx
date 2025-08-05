@@ -1,11 +1,11 @@
 import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { COLORS, FONTS, ICONS, IMAGES } from '../../../../../config/theme';
-import Nav from '../../../../../components/Nav';
+import { COLORS, FONTS, ICONS, IMAGES } from '../../../../../../config/theme';
+import Nav from '../../../../../../components/Nav';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import AdminCard from '../../../../../components/AdminCard';
-import SearchField from '../../../../../components/SearchField';
-import CustomButton from '../../../../../components/CustomButton';
+import AdminCard from '../../../../../../components/AdminCard';
+import SearchField from '../../../../../../components/SearchField';
+import CustomButton from '../../../../../../components/CustomButton';
 
 const admins = [
   {

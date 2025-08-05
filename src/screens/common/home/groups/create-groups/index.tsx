@@ -8,11 +8,11 @@ import {
   Platform,
 } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import CustomButton from '../../../../components/CustomButton';
+import CustomButton from '../../../../../components/CustomButton';
 import Members from './members';
 import About from './about';
-import { COLORS, FONTS } from '../../../../config/theme';
-import Nav from '../../../../components/Nav';
+import { COLORS, FONTS } from '../../../../../config/theme';
+import Nav from '../../../../../components/Nav';
 
 const steps = ['about', 'members'];
 

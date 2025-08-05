@@ -1,11 +1,11 @@
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { COLORS, FONTS, ICONS } from '../../../../../config/theme';
-import Nav from '../../../../../components/Nav';
+import { COLORS, FONTS, ICONS } from '../../../../../../config/theme';
+import Nav from '../../../../../../components/Nav';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import DoubleSwitch from '../../../../../components/DoubleSwitch';
-import SettingsButton from '../../../../../components/SettingsButton';
-import AdminCard from '../../../../../components/AdminCard';
+import DoubleSwitch from '../../../../../../components/DoubleSwitch';
+import SettingsButton from '../../../../../../components/SettingsButton';
+import AdminCard from '../../../../../../components/AdminCard';
 
 const GroupSettings = ({ navigation }: any) => {
   return (

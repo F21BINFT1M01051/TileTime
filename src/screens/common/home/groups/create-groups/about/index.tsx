@@ -9,10 +9,10 @@ import {
   View,
 } from 'react-native';
 import React, { useState } from 'react';
-import { COLORS, FONTS, ICONS } from '../../../../../config/theme';
+import { COLORS, FONTS, ICONS } from '../../../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { launchImageLibrary } from 'react-native-image-picker';
-import InputField from '../../../../../components/InputField';
+import InputField from '../../../../../../components/InputField';
 
 const About = () => {
   const [imageUri, setImageUri] = useState(null);

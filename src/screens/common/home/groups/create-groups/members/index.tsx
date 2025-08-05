@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { useState } from 'react';
-import { COLORS, FONTS } from '../../../../../config/theme';
+import { COLORS, FONTS } from '../../../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import ToggleSwitch from 'toggle-switch-react-native';
 import Contacts from './contacts';

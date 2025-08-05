@@ -54,14 +54,14 @@ const Navigator: React.FC = () => {
         <Stack.Screen name="RoleSelection" component={RoleSelection} />
         <Stack.Screen name="ProfileSetup" component={ProfileSetup} />
         <Stack.Screen name="BottomTabs" component={BottomTabs} />
-        {/* <Stack.Screen name="CreateGroup" component={CreateGroup} />
+        <Stack.Screen name="CreateGroup" component={CreateGroup} />
         <Stack.Screen name="GroupDetails" component={GroupDetails} />
         <Stack.Screen name="UserDetails" component={UserDetails} />
         <Stack.Screen name="GroupSettings" component={GroupSettings} />
         <Stack.Screen name="GroupAdmins" component={GroupAdmins} />
         <Stack.Screen name="GroupMembers" component={GroupMembers} />
         <Stack.Screen name="PlayerProfile" component={PlayerProfile} />
-        <Stack.Screen name="ChatScreen" component={ChatScreen} /> */}
+        <Stack.Screen name="ChatScreen" component={ChatScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

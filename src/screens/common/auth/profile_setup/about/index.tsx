@@ -9,7 +9,13 @@ import {
   View,
   FlatList,
 } from 'react-native';
-import React, { useState, useRef, useEffect } from 'react';
+import React, {
+  useState,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+  useEffect,
+} from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import DropdownField from '../../../../../components/DropDown';
@@ -19,14 +25,23 @@ import ToggleSwitch from 'toggle-switch-react-native';
 import SocialField from '../../../../../components/SocialField';
 import * as yup from 'yup';
 import { Formik } from 'formik';
-import CustomButton from '../../../../../components/CustomButton';
+
+export interface AboutFormRef {
+  validateForm: () => Promise<any>;
+  submitForm: () => void;
+}
+
+interface AboutProps {
+  setFormValid?: (valid: boolean) => void;
+}
 
 const validationSchema = yup.object().shape({
   name: yup.string().required('Full Name is required'),
-  businessName: yup.string().when('checked', {
-    is: true,
-    then: yup.string().required('Business Name is required'),
-    otherwise: yup.string().notRequired(),
+  checked: yup.boolean(),
+  businessName: yup.string().when('checked', (checked: boolean, schema) => {
+    return checked
+      ? schema.required('Business Name is required')
+      : schema.notRequired();
   }),
   city: yup.string().required('City is required'),
   phoneNumber: yup
@@ -63,7 +78,7 @@ const data = [
 ];
 
 const MAX_LENGTH = 200;
-const About = () => {
+const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
   const [state, setState] = useState(null);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [isDropdownVisible2, setIsDropdownVisible2] = useState(false);
@@ -71,6 +86,35 @@ const About = () => {
   const [bio, setBio] = useState('');
   const [isOn, setIsOn] = useState(false);
   const [website, setWebsite] = React.useState('');
+  const formikRef = useRef<any>(null);
+
+  useImperativeHandle(ref, () => ({
+    validateForm: () => {
+      if (formikRef.current) {
+        formikRef.current.setTouched({
+          name: true,
+          businessName: true,
+          city: true,
+          phoneNumber: true,
+          checked: formikRef.current.values.checked,
+        });
+        return formikRef.current.validateForm();
+      }
+      return Promise.resolve();
+    },
+    submitForm: () => {
+      if (formikRef.current) {
+        formikRef.current.handleSubmit();
+      }
+    },
+  }));
+
+  //  useEffect(() => {
+  //   if (formikRef.current && setFormValid) {
+  //     const isValid = Object.keys(formikRef.current.errors).length === 0;
+  //     setFormValid(isValid);
+  //   }
+  // }, [formikRef.current?.errors]);
 
   const pickImage = () => {
     const options = {
@@ -84,6 +128,24 @@ const About = () => {
       }
     });
   };
+
+  useEffect(() => {
+    if (formikRef.current && setFormValid) {
+      const { errors, touched, values } = formikRef.current;
+      const isNameValid = !errors.name && touched.name;
+      const isCityValid = !errors.city && touched.city;
+      const isPhoneValid = !errors.phoneNumber && touched.phoneNumber;
+      const isBusinessValid =
+        !values.checked || (touched.businessName && !errors.businessName);
+      const isValid =
+        isNameValid && isCityValid && isPhoneValid && isBusinessValid;
+      setFormValid(isValid);
+    }
+  }, [
+    formikRef.current?.errors,
+    formikRef.current?.touched,
+    formikRef.current?.values,
+  ]);
 
   return (
     <TouchableWithoutFeedback
@@ -163,6 +225,7 @@ const About = () => {
         </TouchableOpacity>
 
         <Formik
+          innerRef={formikRef}
           initialValues={{
             name: '',
             businessName: '',
@@ -171,7 +234,11 @@ const About = () => {
             checked: false,
           }}
           validationSchema={validationSchema}
-          onSubmit={values => {}}
+          onSubmit={values => {
+            console.log('Form submitted:', values);
+          }}
+          validateOnBlur={true}
+          validateOnChange={true}
         >
           {({
             handleChange,
@@ -437,7 +504,7 @@ const About = () => {
                 </Text>
                 <View>
                   <InputField
-                    placeholder="Phone Number"
+                    placeholder="Phone Number (Required)"
                     value={values.phoneNumber}
                     onChangeText={handleChange('phoneNumber')}
                     handleBlur={handleBlur('phoneNumber')}
@@ -534,7 +601,7 @@ const About = () => {
       </View>
     </TouchableWithoutFeedback>
   );
-};
+});
 
 export default About;
 

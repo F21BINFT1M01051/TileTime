@@ -8,9 +8,9 @@ import {
   View,
 } from 'react-native';
 import React, { useState } from 'react';
-import { COLORS, FONTS, ICONS, IMAGES } from '../../../../../../config/theme';
+import { COLORS, FONTS, ICONS, IMAGES } from '../../../../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import SearchField from '../../../../../../components/SearchField';
+import SearchField from '../../../../../../../components/SearchField';
 
 const players = [
   {

@@ -9,14 +9,14 @@ import {
   ScrollView,
 } from 'react-native';
 import React from 'react';
-import { COLORS, IMAGES, FONTS, ICONS } from '../../../../../config/theme';
+import { COLORS, IMAGES, FONTS, ICONS } from '../../../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import CustomButton from '../../../../../components/CustomButton';
-import DetailComponent from '../../../../../components/DetailComponent';
-import AdminCard from '../../../../../components/AdminCard';
-import SettingsButton from '../../../../../components/SettingsButton';
-import SocialField from '../../../../../components/SocialField';
+import CustomButton from '../../../../../../components/CustomButton';
+import DetailComponent from '../../../../../../components/DetailComponent';
+import AdminCard from '../../../../../../components/AdminCard';
+import SettingsButton from '../../../../../../components/SettingsButton';
+import SocialField from '../../../../../../components/SocialField';
 
 const GroupDetails = ({ navigation }: any) => {
   return (
