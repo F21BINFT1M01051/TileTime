@@ -8,17 +8,9 @@ import {
   TouchableOpacity,
   Keyboard,
   TextInput,
-  ScrollView,
-  SafeAreaView,
-  FlatList,
+  Platform,
 } from 'react-native';
-import {
-  GiftedChat,
-  Bubble,
-  Message,
-  InputToolbar,
-  Day,
-} from 'react-native-gifted-chat';
+import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
@@ -138,37 +130,25 @@ const ChatScreen = ({ route }: any) => {
     );
   };
 
-  const renderMessageImage = props => {
+  const renderMessageImage = (props: any) => {
     const { currentMessage, containerStyle, imageStyle } = props;
 
     return (
       <View style={[containerStyle, { marginTop: RFPercentage(2) }]}>
         <Image
           resizeMode="cover"
-          style={[
-            {
-              borderWidth: 1,
-              borderColor: '#ccc',
-              width: RFPercentage(32),
-              height: RFPercentage(35),
-              borderRadius: RFPercentage(1),
-            },
-            imageStyle,
-          ]}
+          style={[styles.img, imageStyle]}
           source={{ uri: currentMessage.image }}
         />
       </View>
     );
   };
 
-  const renderMessage = props => {
+  const renderMessage = (props: any) => {
     const { currentMessage } = props;
     const isUser = currentMessage.user._id === 1;
-
-    // Find current message index in state
     const index = messages.findIndex(msg => msg._id === currentMessage._id);
-    const previousMessage = messages[index + 1]; // Next one in array (because GiftedChat is descending)
-
+    const previousMessage = messages[index + 1];
     const showHeader =
       !previousMessage || previousMessage.user._id !== currentMessage.user._id;
 
@@ -191,38 +171,31 @@ const ChatScreen = ({ route }: any) => {
               isUser ? styles.rightBubble : styles.leftBubble,
             ]}
           >
-            {showHeader && (
-              <View style={styles.bubbleHeader}>
-                <Image
-                  source={isUser ? IMAGES.chatProfile : IMAGES.profile2}
-                  style={
-                    isUser ? styles.bubbleAvatarRight : styles.bubbleAvatarLeft
-                  }
-                />
-                <View style={styles.messageMeta}>
-                  <Text
-                    style={isUser ? styles.usernameRight : styles.usernameLeft}
-                  >
-                    {currentMessage.user.name}
-                  </Text>
-                  <Text
-                    style={isUser ? styles.timeTextRight : styles.timeTextLeft}
-                  >
-                    {moment(currentMessage.createdAt).fromNow()}
-                  </Text>
-                </View>
+            <View style={styles.bubbleHeader}>
+              <Image
+                source={isUser ? IMAGES.chatProfile : IMAGES.profile2}
+                style={
+                  isUser ? styles.bubbleAvatarRight : styles.bubbleAvatarLeft
+                }
+              />
+              <View style={styles.messageMeta}>
+                <Text
+                  style={isUser ? styles.usernameRight : styles.usernameLeft}
+                >
+                  {currentMessage.user.name}
+                </Text>
+                <Text
+                  style={isUser ? styles.timeTextRight : styles.timeTextLeft}
+                >
+                  {moment(currentMessage.createdAt).fromNow()}
+                </Text>
               </View>
-            )}
+            </View>
 
             {currentMessage.image ? (
               renderMessageImage(props)
             ) : (
-              <Text
-                style={[
-                  isUser ? styles.textRight : styles.textLeft,
-                  { marginTop: showHeader ? RFPercentage(2) : 0 },
-                ]}
-              >
+              <Text style={[isUser ? styles.textRight : styles.textLeft]}>
                 {currentMessage.text}
               </Text>
             )}
@@ -242,7 +215,7 @@ const ChatScreen = ({ route }: any) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       {/* Header */}
       <View style={styles.headerBorder}>
         <View style={styles.headerContainer}>
@@ -296,11 +269,7 @@ const ChatScreen = ({ route }: any) => {
                   <Image
                     source={ICONS.calender2}
                     resizeMode="contain"
-                    style={{
-                      width: RFPercentage(2.6),
-                      height: RFPercentage(2.6),
-                      marginRight: RFPercentage(1.8),
-                    }}
+                    style={styles.cal}
                   />
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -444,7 +413,7 @@ const ChatScreen = ({ route }: any) => {
           )}
         />
       </ImageBackground>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -454,6 +423,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.white,
+    paddingTop: Platform.OS === 'ios' ? RFPercentage(1) : 0,
   },
   headerBorder: {
     borderBottomWidth: 1,
@@ -477,6 +447,11 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: RFPercentage(100),
     borderBottomRightRadius: RFPercentage(100),
     borderBottomLeftRadius: RFPercentage(1),
+  },
+  cal: {
+    width: RFPercentage(2.6),
+    height: RFPercentage(2.6),
+    marginRight: RFPercentage(1.8),
   },
   headerContainer: {
     flexDirection: 'row',
@@ -521,9 +496,9 @@ const styles = StyleSheet.create({
   },
   groupNameText: {
     color: COLORS.primary,
-    fontFamily: FONTS.medium,
-    fontSize: RFPercentage(2),
-    marginLeft: RFPercentage(1.5),
+    fontFamily: FONTS.semiBold,
+    fontSize: RFPercentage(1.8),
+    marginLeft: RFPercentage(1),
   },
   dotsButton: {
     position: 'absolute',
@@ -716,35 +691,7 @@ const styles = StyleSheet.create({
   leftCorner: {
     left: -RFPercentage(0.5),
   },
-  toolTipBox: {
-    width: RFPercentage(30),
-    height: RFPercentage(18),
-    paddingHorizontal: RFPercentage(2),
-    backgroundColor: COLORS.white,
-    borderWidth: RFPercentage(0.1),
-    borderColor: COLORS.lightWhite,
-    position: 'absolute',
-    right: 0,
-    zIndex: 999,
-    borderRadius: RFPercentage(2),
-    top: RFPercentage(5),
-    borderBottomWidth: RFPercentage(0.5),
-  },
-  toolTipItem: {
-    borderBottomWidth: RFPercentage(0.1),
-    borderBottomColor: COLORS.lightWhite,
-    paddingBottom: RFPercentage(1),
-    marginTop: RFPercentage(2),
-  },
-  lastToolTipItem: {
-    borderBottomWidth: 0,
-  },
-  toolTipText: {
-    color: COLORS.primary,
-    fontSize: RFPercentage(1.7),
-    fontFamily: FONTS.medium,
-    left: RFPercentage(1),
-  },
+
   inputToolbarContainer: {
     backgroundColor: COLORS.white,
     height: RFPercentage(12),
@@ -770,10 +717,19 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: RFPercentage(1),
     color: COLORS.inputColor,
+    fontSize: RFPercentage(1.8),
+    fontFamily: FONTS.regular,
   },
   sendButtonIcon: {
     width: RFPercentage(3),
     height: RFPercentage(3),
     tintColor: COLORS.primary,
+  },
+  img: {
+    borderWidth: 1,
+    borderColor: COLORS.lightWhite,
+    width: RFPercentage(32),
+    height: RFPercentage(35),
+    borderRadius: RFPercentage(1),
   },
 });

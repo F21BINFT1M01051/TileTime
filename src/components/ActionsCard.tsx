@@ -90,24 +90,22 @@ const ActionsCard = () => {
         </TouchableOpacity>
       </TouchableOpacity>
 
-      {expanded && (
-        <View style={styles.progressBar}>
-          {steps.map((step, index) => (
-            <View
-              key={index}
-              style={[
-                styles.progressStep,
-                {
-                  backgroundColor: step.completed
-                    ? COLORS.pink
-                    : COLORS.fieldColor,
-                  marginRight: index !== steps.length - 1 ? RFPercentage(0.3) : 0,
-                },
-              ]}
-            />
-          ))}
-        </View>
-      )}
+      <View style={styles.progressBar}>
+        {steps.map((step, index) => (
+          <View
+            key={index}
+            style={[
+              styles.progressStep,
+              {
+                backgroundColor: step.completed
+                  ? COLORS.pink
+                  : COLORS.fieldColor,
+                marginRight: index !== steps.length - 1 ? RFPercentage(0.3) : 0,
+              },
+            ]}
+          />
+        ))}
+      </View>
 
       <Animated.View
         style={[
@@ -117,7 +115,7 @@ const ActionsCard = () => {
       >
         <FlatList
           data={steps}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={item => item.id.toString()}
           scrollEnabled={false}
           renderItem={({ item }) => (
             <View style={styles.stepRow}>
@@ -163,7 +161,7 @@ const styles = StyleSheet.create({
     borderWidth: RFPercentage(0.1),
     borderBottomWidth: RFPercentage(0.5),
     borderColor: COLORS.lightWhite,
-    paddingBottom: RFPercentage(1),
+    paddingBottom: RFPercentage(2),
   },
   header: {
     width: '90%',

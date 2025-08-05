@@ -131,8 +131,8 @@ const Home = ({ navigation }: any) => {
           )}
 
           <ImageBackground
-            source={IMAGES.home_top}
-            resizeMode="repeat"
+            source={IMAGES.home_pic}
+            resizeMode="contain"
             style={[
               styles.homeTopBackground,
               { marginTop: actions.length > 0 ? RFPercentage(5) : 0 },
@@ -160,18 +160,11 @@ const Home = ({ navigation }: any) => {
                 />
               </View>
             </View>
-          </ImageBackground>
 
-          <ImageBackground
-            source={IMAGES.home_bottom}
-            resizeMode="repeat"
-            style={styles.homeBottomBackground}
-          >
             <View style={styles.cardsWrapper}>
               <FlatList
                 data={Cards}
                 keyExtractor={item => item.id.toString()}
-                contentContainerStyle={{ paddingBottom: RFPercentage(2) }}
                 scrollEnabled={false}
                 renderItem={({ item }) => {
                   return (
@@ -298,7 +291,7 @@ const styles = StyleSheet.create({
   },
   homeTopBackground: {
     width: '100%',
-    height: RFPercentage(35),
+    height: RFPercentage(85),
     marginTop: RFPercentage(5),
     paddingBottom: RFPercentage(2),
   },
@@ -344,7 +337,7 @@ const styles = StyleSheet.create({
   cardsWrapper: {
     width: '90%',
     alignSelf: 'center',
-    bottom: RFPercentage(7),
+    marginTop:RFPercentage(1.5)
   },
   cardMargin: {
     marginTop: RFPercentage(3.5),

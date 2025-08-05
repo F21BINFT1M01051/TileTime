@@ -1,6 +1,6 @@
-import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import React from 'react';
-import { COLORS, FONTS, ICONS, IMAGES } from '../../../../../../config/theme';
+import { COLORS, FONTS, IMAGES } from '../../../../../../config/theme';
 import Nav from '../../../../../../components/Nav';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import AdminCard from '../../../../../../components/AdminCard';

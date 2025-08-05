@@ -17,7 +17,7 @@ import CommonGroup from '../../../../../../components/CommonGroups';
 
 const PlayerProfile = ({ navigation }: any) => {
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <View style={styles.safeArea}>
       <ScrollView>
         <View style={{ width: '100%' }}>
           <ImageBackground
@@ -96,7 +96,7 @@ const PlayerProfile = ({ navigation }: any) => {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

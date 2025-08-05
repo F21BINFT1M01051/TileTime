@@ -87,7 +87,7 @@ const Groups = ({ navigation }: any) => {
         <View
           style={[
             styles.contentContainer,
-            { width: '100%', marginTop: RFPercentage(-18) },
+            { width: '100%', marginTop: RFPercentage(-19) },
           ]}
         >
           {hasChats ? <All /> : null}

@@ -41,7 +41,7 @@ export const COLORS = {
   white3: '#EBEBEB',
   pink5: '#FFD9F2',
   grey6: '3919191',
-  disabled: "#B8B8BE"
+  disabled: '#B8B8BE',
 };
 
 export const IMAGES = {
@@ -62,6 +62,7 @@ export const IMAGES = {
   profile3: require('../assets/images/profile3.png'),
   home_top: require('../assets/images/home-top.png'),
   home_bottom: require('../assets/images/home-bottom.png'),
+  home_pic: require('../assets/images/home11.png'),
 };
 
 export const ICONS = {

@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   bottomWrapper: {
     width: '100%',
     paddingVertical: RFPercentage(3),
-    borderTopWidth: 1,
+    borderTopWidth: RFPercentage(0.1),
     borderTopColor: COLORS.lightWhite,
     backgroundColor: COLORS.white,
   },

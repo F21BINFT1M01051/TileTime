@@ -41,7 +41,7 @@ const Login = ({ navigation }: any) => {
       });
       return;
     } else {
-      navigation.navigate('BottomTabs');
+      navigation.navigate('SignUp');
     }
   };
 

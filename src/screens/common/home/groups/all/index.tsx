@@ -380,7 +380,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   filterButton: {
-    height: RFPercentage(5),
+    height: RFPercentage(4.5),
     paddingHorizontal: RFPercentage(2),
     alignItems: 'center',
     justifyContent: 'center',
