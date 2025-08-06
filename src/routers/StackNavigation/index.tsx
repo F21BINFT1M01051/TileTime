@@ -15,9 +15,12 @@ import UserDetails from '../../screens/common/home/groups/chat/user-details';
 import GroupSettings from '../../screens/common/home/groups/create-groups/group-settings';
 import GroupAdmins from '../../screens/common/home/groups/create-groups/group-admins';
 import GroupMembers from '../../screens/common/home/groups/create-groups/group-members';
-import PlayerProfile from '../../screens/common/home/groups/create-groups/player-profile';
 import ChatScreen from '../../screens/common/home/groups/chat';
-
+import PlayerSearch from '../../screens/player/search';
+import PlayerProfile from '../../screens/player/search/profiles/player-profile';
+import InstructorProfile from '../../screens/player/search/profiles/instructor-profile';
+import MyProfile from '../../screens/player/my-profile';
+import EditProfile from '../../screens/player/my-profile/edit-profile';
 
 export type RootStackParamList = {
   OnBoarding: undefined;
@@ -34,7 +37,11 @@ export type RootStackParamList = {
   GroupAdmins: undefined;
   GroupMembers: undefined;
   PlayerProfile: undefined;
-  ChatScreen:undefined
+  ChatScreen: undefined;
+  PlayerSearch: undefined;
+  InstructorProfile: undefined;
+  MyProfile: undefined;
+  EditProfile:undefined
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -47,12 +54,12 @@ const Navigator: React.FC = () => {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="OnBoarding" component={OnBoarding} />
+        {/* <Stack.Screen name="OnBoarding" component={OnBoarding} />
         <Stack.Screen name="LoginSignUp" component={LoginSignUp} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="RoleSelection" component={RoleSelection} />
-        <Stack.Screen name="ProfileSetup" component={ProfileSetup} />
+        <Stack.Screen name="ProfileSetup" component={ProfileSetup} /> */}
         <Stack.Screen name="BottomTabs" component={BottomTabs} />
         <Stack.Screen name="CreateGroup" component={CreateGroup} />
         <Stack.Screen name="GroupDetails" component={GroupDetails} />
@@ -62,6 +69,10 @@ const Navigator: React.FC = () => {
         <Stack.Screen name="GroupMembers" component={GroupMembers} />
         <Stack.Screen name="PlayerProfile" component={PlayerProfile} />
         <Stack.Screen name="ChatScreen" component={ChatScreen} />
+        <Stack.Screen name="PlayerSearch" component={PlayerSearch} />
+        <Stack.Screen name="InstructorProfile" component={InstructorProfile} />
+        <Stack.Screen name="MyProfile" component={MyProfile} />
+        <Stack.Screen name="EditProfile" component={EditProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   );

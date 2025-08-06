@@ -43,8 +43,7 @@ const Search = ({ placeholder, value, onChangeText, data }: Props) => {
 
   return (
     <View style={{ width: '100%', position: 'relative' }}>
-      <TouchableOpacity
-        activeOpacity={1}
+      <View
         style={[
           styles.container,
           {
@@ -52,7 +51,6 @@ const Search = ({ placeholder, value, onChangeText, data }: Props) => {
             borderColor: showDropdown ? COLORS.pink : COLORS.fieldBorder,
           },
         ]}
-        onPress={() => setShowDropdown(true)}
       >
         <View style={styles.inputContainer}>
           <TextInput
@@ -71,13 +69,14 @@ const Search = ({ placeholder, value, onChangeText, data }: Props) => {
             size={RFPercentage(2.8)}
           />
         </View>
-      </TouchableOpacity>
+      </View>
 
-      {/* 🆕 Dropdown Shown ABOVE selected items */}
+      {/*  Dropdown Shown ABOVE selected items */}
       {showDropdown && value.length > 0 && (
         <View style={styles.dropdownContainer}>
           <FlatList
             data={filteredData}
+            keyboardShouldPersistTaps="handled"
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => {
               const isLastItem =

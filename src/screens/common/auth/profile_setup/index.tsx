@@ -7,14 +7,7 @@ import {
   Keyboard,
   ScrollView,
   KeyboardAvoidingView,
-  Modal,
-  Animated,
-  Easing,
-  Dimensions,
   Platform,
-  TouchableWithoutFeedback,
-  FlatList,
-  Image,
 } from 'react-native';
 import { COLORS, FONTS, ICONS } from '../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
@@ -153,7 +146,7 @@ const ProfileSetup = ({ navigation }: any) => {
               <CustomButton
                 title="Save And Next"
                 onPress={handleNext}
-                disabled={stepIndex === 0 && !isAboutValid}
+                // disabled={stepIndex === 0 && !isAboutValid}
                 style={{
                   backgroundColor:
                     stepIndex === 0 && !isAboutValid

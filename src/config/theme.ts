@@ -128,6 +128,16 @@ export const ICONS = {
   avatar: require('../assets/icons/avatar.png'),
   event: require('../assets/icons/event.png'),
   gallery: require('../assets/icons/Gallery.png'),
+  qoutes: require('../assets/icons/quote.png'),
+  group22: require('../assets/icons/group22.png'),
+  eye: require('../assets/icons/Eye-Closed.png'),
+  premium: require('../assets/icons/premium.png'),
+  stars2: require('../assets/icons/stars2.png'),
+  phone2: require('../assets/icons/phone2.png'),
+  pinkArrow: require('../assets/icons/arrow-pink.png'),
+  blueTick: require('../assets/icons/tick-blue.png'),
+  premium22: require('../assets/icons/premium22.png'),
+  pen22: require('../assets/icons/Pen22.png'),
 };
 
 export const FONTS = {

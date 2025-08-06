@@ -17,6 +17,7 @@ import CustomButton from '../../../../components/CustomButton';
 import ActionsCard from '../../../../components/ActionsCard';
 import HomeCard from '../../../../components/HomeCard';
 import HomeGroupCard from '../../../../components/HomeGroupCard';
+import EventCalendar from '../../../../components/EventCalendar';
 
 const Groups = [
   {
@@ -88,6 +89,7 @@ const Cards2 = [
 
 const Home = ({ navigation }: any) => {
   const actions = ['1'];
+
   return (
     <LinearGradient
       colors={[COLORS.offWhite2, COLORS.white]}
@@ -103,7 +105,8 @@ const Home = ({ navigation }: any) => {
             title="Home"
             right={true}
             home={true}
-            onPress={() => navigation.navigate('CreateGroup')}
+            onPress2={() => navigation.navigate('PlayerSearch')}
+            onPress3={() => navigation.navigate('MyProfile')}
           />
 
           {actions.length > 0 ? (
@@ -130,6 +133,7 @@ const Home = ({ navigation }: any) => {
             </>
           )}
 
+          <EventCalendar />
           <ImageBackground
             source={IMAGES.home_pic}
             resizeMode="contain"
@@ -266,6 +270,17 @@ export default Home;
 const styles = StyleSheet.create({
   gradientContainer: {
     flex: 1,
+  },
+  timeLabel: {
+    color: COLORS.lightGrey,
+    fontSize: RFPercentage(1.5),
+    fontFamily: FONTS.regular,
+  },
+  timeBlock: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: RFPercentage(2),
   },
   imageBackground: {
     width: '100%',

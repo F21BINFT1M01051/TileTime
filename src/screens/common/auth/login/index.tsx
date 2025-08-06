@@ -168,12 +168,12 @@ const Login = ({ navigation }: any) => {
                       <CustomButton
                         title="Continue"
                         onPress={handleSubmit}
-                        disabled={
-                          !values.email ||
-                          !!errors.email ||
-                          !values.password ||
-                          !!errors.password
-                        }
+                        // disabled={
+                        //   !values.email ||
+                        //   !!errors.email ||
+                        //   !values.password ||
+                        //   !!errors.password
+                        // }
                         style={{
                           backgroundColor:
                             !values.email ||

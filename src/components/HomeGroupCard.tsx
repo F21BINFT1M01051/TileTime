@@ -7,7 +7,7 @@ interface Props {
   title: string;
   attendees: number;
   status: string;
-  profile : any
+  profile: any;
 }
 
 export default function HomeGroupCard(props: Props) {
@@ -70,13 +70,12 @@ const styles = StyleSheet.create({
   },
   tagContainer: {
     height: RFPercentage(4),
-    paddingHorizontal: RFPercentage(2),
     backgroundColor: '#FFE9F6',
     borderRadius: RFPercentage(100),
-    maxWidth: RFPercentage(19),
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: RFPercentage(1),
+    width: RFPercentage(19),
   },
   tagText: {
     color: COLORS.pink,

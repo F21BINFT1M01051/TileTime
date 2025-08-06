@@ -14,16 +14,9 @@ import Search from '../../../../../components/SearchExperience';
 const ProffessionalInfo = () => {
   const [Experience, setExperience] = useState('');
   const [Credential, setCredential] = useState('');
-  const [expDropdownOpen, setExpDropdownOpen] = useState(false);
-  const [credDropdownOpen, setCredDropdownOpen] = useState(false);
 
   return (
-    <TouchableWithoutFeedback
-      onPress={() => {
-        setExpDropdownOpen(false);
-        setCredDropdownOpen(false);
-      }}
-    >
+    <TouchableWithoutFeedback>
       <View style={styles.container}>
         <Text style={styles.headerText}>
           Share your coaching style and experience

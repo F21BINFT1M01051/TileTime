@@ -12,7 +12,7 @@ import { COLORS, FONTS, ICONS } from '../../config/theme';
 
 interface Props {
   right?: boolean;
-  onPress: () => void;
+  onPress? : () => void;
   title: string;
   text?: string;
   home?: boolean;

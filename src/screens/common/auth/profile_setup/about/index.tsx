@@ -109,12 +109,6 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
     },
   }));
 
-  //  useEffect(() => {
-  //   if (formikRef.current && setFormValid) {
-  //     const isValid = Object.keys(formikRef.current.errors).length === 0;
-  //     setFormValid(isValid);
-  //   }
-  // }, [formikRef.current?.errors]);
 
   const pickImage = () => {
     const options = {
