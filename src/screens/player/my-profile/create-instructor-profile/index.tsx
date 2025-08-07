@@ -1,4 +1,3 @@
-// Imports remain unchanged
 import {
   Image,
   Keyboard,
@@ -467,6 +466,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.headline,
     color: COLORS.primary,
     textAlign: 'center',
+    marginTop:RFPercentage(5)
   },
   subTitle: {
     fontFamily: FONTS.regular,
