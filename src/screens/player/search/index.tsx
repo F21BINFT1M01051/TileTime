@@ -23,7 +23,6 @@ const searchData = [
     location: 'Seattle, WA',
     player: true,
   },
-
   {
     id: 2,
     name: 'Emily Carter',
@@ -39,9 +38,9 @@ const searchData = [
 ];
 
 const PlayerSearch = ({ navigation }: any) => {
-  const [modalVisible, setModalVisible] = useState(false); // First modal
-  const [modalVisible2, setModalVisible2] = useState(false); // Second (bottom sheet)
-  const [selectedGroup, setSelectedGroup] = useState(null); // For dynamic modal content
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible2, setModalVisible2] = useState(false);
+  const [selectedGroup, setSelectedGroup] = useState(null);
 
   const handleCardPress = (item: any) => {
     if (item.group) {
@@ -55,56 +54,28 @@ const PlayerSearch = ({ navigation }: any) => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <View
-        style={{
-          marginTop: Platform.OS == 'ios' ? RFPercentage(6) : RFPercentage(5),
-          paddingBottom: RFPercentage(1.5),
-          borderBottomWidth: RFPercentage(0.1),
-          borderBottomColor: '#D8D8D8',
-        }}
-      >
-        <View
-          style={{
-            width: '90%',
-            alignSelf: 'center',
-            alignItems: 'center',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Text
-            style={{
-              color: COLORS.primary,
-              fontFamily: FONTS.semiBold,
-              fontSize: RFPercentage(1.9),
-            }}
-          >
-            Search Players and Groups
-          </Text>
-          <TouchableOpacity>
+    <View style={styles.container}>
+      <View style={styles.headerContainer}>
+        <View style={styles.headerRow}>
+          <Text style={styles.headerText}>Search Players and Groups</Text>
+          <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.goBack()}>
             <Image
               source={ICONS.cross}
               tintColor={'#8C8C8C'}
               resizeMode="contain"
-              style={{ width: RFPercentage(2.8), height: RFPercentage(2.8) }}
+              style={styles.crossIcon}
             />
           </TouchableOpacity>
         </View>
       </View>
-      <View
-        style={{
-          width: '90%',
-          alignSelf: 'center',
-          marginTop: RFPercentage(3),
-        }}
-      >
+
+      <View style={styles.searchWrapper}>
         <SearchField placeholder="Search by name" />
 
         <FlatList
           data={searchData}
           keyExtractor={item => item.id.toString()}
-          contentContainerStyle={{ paddingVertical: RFPercentage(2) }}
+          contentContainerStyle={styles.flatListContent}
           renderItem={({ item }) => (
             <SearchCard
               name={item.name}
@@ -119,6 +90,7 @@ const PlayerSearch = ({ navigation }: any) => {
         />
       </View>
 
+      {/* First Modal */}
       <Modal
         visible={modalVisible}
         transparent
@@ -129,18 +101,12 @@ const PlayerSearch = ({ navigation }: any) => {
           <View style={styles.overLay}>
             <TouchableWithoutFeedback>
               <View style={styles.modalContent}>
-                <TouchableOpacity
-                  onPress={() => setModalVisible(false)}
-                  style={styles.closeButton}
-                >
+                <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.closeButton}>
                   <Image source={ICONS.cross} style={styles.closeIcon} />
                 </TouchableOpacity>
 
                 <View style={styles.largeGroupIconContainer}>
-                  <Image
-                    source={IMAGES.customProfile}
-                    style={styles.largeGroupIcon}
-                  />
+                  <Image source={IMAGES.customProfile} style={styles.largeGroupIcon} />
                 </View>
 
                 <Text style={styles.modalText}>Join {selectedGroup?.name}</Text>
@@ -148,7 +114,7 @@ const PlayerSearch = ({ navigation }: any) => {
                   Group - {selectedGroup?.member} Members
                 </Text>
 
-                <View style={{ marginTop: RFPercentage(3.5), width: '100%' }}>
+                <View style={styles.modalButtonWrapper}>
                   <CustomButton
                     title="Join Group Now"
                     onPress={() => {
@@ -163,6 +129,7 @@ const PlayerSearch = ({ navigation }: any) => {
         </TouchableWithoutFeedback>
       </Modal>
 
+      {/* Bottom Sheet Modal */}
       <Modal
         visible={modalVisible2}
         transparent
@@ -170,68 +137,25 @@ const PlayerSearch = ({ navigation }: any) => {
         onRequestClose={() => setModalVisible2(false)}
       >
         <TouchableWithoutFeedback onPress={() => setModalVisible2(false)}>
-          <View style={[styles.overLay, { justifyContent: 'flex-end' }]}>
+          <View style={[styles.overLay, styles.bottomSheetOverlay]}>
             <TouchableWithoutFeedback>
               <View style={styles.bottomSheet}>
-                <TouchableOpacity
-                  onPress={() => setModalVisible2(false)}
-                  style={styles.closeButton}
-                >
+                <TouchableOpacity onPress={() => setModalVisible2(false)} style={styles.closeButton}>
                   <Image source={ICONS.cross} style={styles.closeIcon} />
                 </TouchableOpacity>
-                <Image
-                  source={ICONS.group22}
-                  resizeMode="contain"
-                  style={{ width: RFPercentage(40), height: RFPercentage(10) }}
-                />
-                <View style={{ marginTop: RFPercentage(4) }}>
-                  <Text
-                    style={{
-                      fontFamily: FONTS.headline,
-                      fontSize: RFPercentage(3),
-                      color: COLORS.primary,
-                      textAlign: 'center',
-                    }}
-                  >
-                    Emily Girls Group
-                  </Text>
 
-                  <Text
-                    style={{
-                      color: COLORS.primary,
-                      fontSize: RFPercentage(1.7),
-                      fontFamily: FONTS.medium,
-                      textAlign: 'center',
-                      marginTop: RFPercentage(1),
-                    }}
-                  >
-                    This Group Is Invite-only
-                  </Text>
+                <Image source={ICONS.group22} resizeMode="contain" style={styles.groupImage} />
 
-                  <Image
-                    source={ICONS.qoutes}
-                    resizeMode="contain"
-                    style={{
-                      width: RFPercentage(8),
-                      height: RFPercentage(4),
-                      position: 'absolute',
-                      right: RFPercentage(-6.5),
-                      top: RFPercentage(1),
-                    }}
-                  />
+                <View style={styles.groupInfoWrapper}>
+                  <Text style={styles.groupName}>Emily Girls Group</Text>
+                  <Text style={styles.groupInviteNote}>This Group Is Invite-only</Text>
+
+                  <Image source={ICONS.qoutes} resizeMode="contain" style={styles.qouteIcon} />
                 </View>
 
-                <View style={{ marginTop: RFPercentage(3), width: '70%' }}>
-                  <Text
-                    style={{
-                      textAlign: 'center',
-                      color: COLORS.lightGrey,
-                      fontSize: RFPercentage(1.8),
-                      fontFamily: FONTS.regular,
-                    }}
-                  >
-                    Reach out to a member you know for an invite or the group
-                    link.
+                <View style={styles.groupDescriptionWrapper}>
+                  <Text style={styles.groupDescription}>
+                    Reach out to a member you know for an invite or the group link.
                   </Text>
                 </View>
               </View>
@@ -246,11 +170,49 @@ const PlayerSearch = ({ navigation }: any) => {
 export default PlayerSearch;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.white,
+  },
+  headerContainer: {
+    paddingBottom: RFPercentage(1.5),
+    borderBottomWidth: RFPercentage(0.1),
+    borderBottomColor: '#D8D8D8',
+    height:RFPercentage(10),
+    justifyContent:"flex-end"
+  },
+  headerRow: {
+    width: '90%',
+    alignSelf: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  headerText: {
+    color: COLORS.primary,
+    fontFamily: FONTS.semiBold,
+    fontSize: RFPercentage(1.9),
+  },
+  crossIcon: {
+    width: RFPercentage(2.8),
+    height: RFPercentage(2.8),
+  },
+  searchWrapper: {
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: RFPercentage(3),
+  },
+  flatListContent: {
+    paddingVertical: RFPercentage(1.5),
+  },
   overLay: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  bottomSheetOverlay: {
+    justifyContent: 'flex-end',
   },
   modalContent: {
     backgroundColor: COLORS.white,
@@ -259,11 +221,15 @@ const styles = StyleSheet.create({
     width: '90%',
     alignItems: 'center',
   },
-  modalText: {
-    fontSize: RFPercentage(1.8),
-    fontFamily: FONTS.semiBold,
-    color: COLORS.primary,
-    marginTop: RFPercentage(2.3),
+  closeButton: {
+    position: 'absolute',
+    right: RFPercentage(2),
+    top: RFPercentage(2),
+  },
+  closeIcon: {
+    width: RFPercentage(3),
+    height: RFPercentage(3),
+    tintColor: COLORS.lightGrey,
   },
   largeGroupIconContainer: {
     width: RFPercentage(7.8),
@@ -282,21 +248,21 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: RFPercentage(100),
     borderBottomLeftRadius: RFPercentage(1),
   },
-  closeButton: {
-    position: 'absolute',
-    right: RFPercentage(2),
-    top: RFPercentage(2),
-  },
-  closeIcon: {
-    width: RFPercentage(3),
-    height: RFPercentage(3),
-    tintColor: COLORS.lightGrey,
+  modalText: {
+    fontSize: RFPercentage(1.8),
+    fontFamily: FONTS.semiBold,
+    color: COLORS.primary,
+    marginTop: RFPercentage(2.3),
   },
   modalSubText: {
     color: COLORS.lightGrey,
     fontSize: RFPercentage(1.7),
     fontFamily: FONTS.regular,
     marginTop: RFPercentage(0.6),
+  },
+  modalButtonWrapper: {
+    marginTop: RFPercentage(3.5),
+    width: '100%',
   },
   bottomSheet: {
     backgroundColor: COLORS.white,
@@ -306,5 +272,42 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     paddingVertical: RFPercentage(5),
+  },
+  groupImage: {
+    width: RFPercentage(40),
+    height: RFPercentage(10),
+  },
+  groupInfoWrapper: {
+    marginTop: RFPercentage(4),
+  },
+  groupName: {
+    fontFamily: FONTS.headline,
+    fontSize: RFPercentage(3),
+    color: COLORS.primary,
+    textAlign: 'center',
+  },
+  groupInviteNote: {
+    color: COLORS.primary,
+    fontSize: RFPercentage(1.7),
+    fontFamily: FONTS.medium,
+    textAlign: 'center',
+    marginTop: RFPercentage(1),
+  },
+  qouteIcon: {
+    width: RFPercentage(8),
+    height: RFPercentage(4),
+    position: 'absolute',
+    right: RFPercentage(-6.5),
+    top: RFPercentage(1),
+  },
+  groupDescriptionWrapper: {
+    marginTop: RFPercentage(3),
+    width: '70%',
+  },
+  groupDescription: {
+    textAlign: 'center',
+    color: COLORS.lightGrey,
+    fontSize: RFPercentage(1.8),
+    fontFamily: FONTS.regular,
   },
 });

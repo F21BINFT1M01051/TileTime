@@ -70,9 +70,9 @@ const TopNavigation = (props: Props) => {
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={0.8} onPress={props.onPress3}>
               <Image
-                source={ICONS.homeUser}
+                source={ICONS.bell}
                 resizeMode="contain"
-                style={{ width: RFPercentage(3.8), height: RFPercentage(3.8) }}
+                style={{ width: RFPercentage(2.8), height: RFPercentage(2.8) }}
               />
             </TouchableOpacity>
           </View>

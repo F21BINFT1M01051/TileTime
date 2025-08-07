@@ -19,6 +19,7 @@ import { COLORS, FONTS, ICONS, IMAGES } from '../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import CustomButton from '../../../components/CustomButton';
 import ToggleSwitch from 'toggle-switch-react-native';
+import TopNavigation from '../../../routers/TopBar';
 
 const connects = [
   {
@@ -67,7 +68,7 @@ const premiumDetails = [
   },
 ];
 
-const MyProfile = ({ navigation }: any) => {
+const MyProfilePlayer = ({ navigation }: any) => {
   const [isOn, setIsOn] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const slideAnim = useRef(
@@ -96,188 +97,63 @@ const MyProfile = ({ navigation }: any) => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <ScrollView contentContainerStyle={{ paddingBottom: RFPercentage(2) }} >
-        <View
-          style={{
-            marginTop: Platform.OS == 'ios' ? RFPercentage(6) : RFPercentage(5),
-            paddingBottom: RFPercentage(1.5),
-            borderBottomWidth: RFPercentage(0.1),
-            borderBottomColor: '#D8D8D8',
-          }}
-        >
-          <View
-            style={{
-              width: '90%',
-              alignSelf: 'center',
-              alignItems: 'center',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Text
-              style={{
-                color: COLORS.primary,
-                fontFamily: FONTS.semiBold,
-                fontSize: RFPercentage(1.9),
-              }}
-            >
-              My Profile
-            </Text>
-            <TouchableOpacity>
-              <Image
-                source={ICONS.cross}
-                tintColor={'#8C8C8C'}
-                resizeMode="contain"
-                style={{ width: RFPercentage(2.8), height: RFPercentage(2.8) }}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View
-          style={{
-            width: '90%',
-            alignSelf: 'center',
-            marginTop: RFPercentage(2.6),
-          }}
-        >
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}
-          >
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <TopNavigation title="My Profile" />
+
+        <View style={styles.profileContainer}>
+          <View style={styles.profileHeader}>
             <Image
               source={IMAGES.customProfile}
               resizeMode="cover"
-              style={{
-                width: RFPercentage(15),
-                height: RFPercentage(15),
-                borderRadius: RFPercentage(100),
-              }}
+              style={styles.profileImage}
             />
-            <View style={{ marginLeft: RFPercentage(2.5) }}>
-              <Text
-                style={{
-                  fontFamily: FONTS.headline,
-                  color: COLORS.primary,
-                  fontSize: RFPercentage(2.5),
-                }}
-              >
-                Samantha Lewis
-              </Text>
-              <Text
-                style={{
-                  fontFamily: FONTS.regular,
-                  color: COLORS.black,
-                  fontSize: RFPercentage(1.8),
-                  marginTop: RFPercentage(0.5),
-                }}
-              >
-                Seattle, WA
-              </Text>
+            <View style={styles.profileInfo}>
+              <Text style={styles.nameText}>Samantha Lewis</Text>
+              <Text style={styles.locationText}>Seattle, WA</Text>
               <CustomButton
                 title="Edit Profile"
                 icon={ICONS.pen22}
-                onPress={()=> navigation.navigate("EditProfile")}
-                style={{
-                  borderRadius: RFPercentage(1.6),
-                  marginTop: RFPercentage(1.8),
-                  height: RFPercentage(5.8),
-                }}
+                onPress={() => navigation.navigate('EditProfile')}
+                style={styles.editButton}
               />
             </View>
           </View>
-          <Text
-            style={{
-              color: COLORS.primary,
-              fontFamily: FONTS.regular,
-              fontSize: RFPercentage(1.8),
-              marginTop: RFPercentage(3),
-            }}
-          >
+
+          <Text style={styles.bioText}>
             Mahjong instructor focused on strategy, community, and fun. Open to
             all skill levels - join the table and play your way.
           </Text>
 
-          <View style={{ marginTop: RFPercentage(0.5) }}>
-            <FlatList
-              data={connects}
-              scrollEnabled={false}
-              keyExtractor={item => item.id.toString()}
-              contentContainerStyle={{ paddingBottom: RFPercentage(2) }}
-              renderItem={({ item }) => {
-                return (
-                  <View
-                    style={{
-                      width: '100%',
-                      alignItems: 'center',
-                      flexDirection: 'row',
-                      marginTop: RFPercentage(2.8),
-                    }}
-                  >
-                    <Image
-                      source={item.icon}
-                      resizeMode="contain"
-                      style={{
-                        width: RFPercentage(3),
-                        height: RFPercentage(3),
-                      }}
-                    />
-                    {item.connected ? (
-                      <>
-                        <Text
-                          style={{
-                            color: COLORS.primary,
-                            fontSize: RFPercentage(1.8),
-                            fontFamily: FONTS.regular,
-                            marginLeft: RFPercentage(1.6),
-                          }}
-                        >
-                          {item.connection}
-                        </Text>
-                      </>
-                    ) : (
-                      <>
-                        <Text
-                          style={{
-                            color: COLORS.lightGrey,
-                            fontSize: RFPercentage(1.8),
-                            fontFamily: FONTS.regular,
-                            marginLeft: RFPercentage(1.6),
-                          }}
-                        >
-                          Not Connected
-                        </Text>
-                        <TouchableOpacity
-                          style={{
-                            width: RFPercentage(13),
-                            height: RFPercentage(3.5),
-                            borderRadius: RFPercentage(100),
-                            backgroundColor: COLORS.primary,
-                            position: 'absolute',
-                            right: 0,
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          <Text
-                            style={{
-                              color: COLORS.white,
-                              fontSize: RFPercentage(1.6),
-                              fontFamily: FONTS.medium,
-                            }}
-                          >
-                            Connect Now
-                          </Text>
-                        </TouchableOpacity>
-                      </>
-                    )}
-                  </View>
-                );
-              }}
-            />
-          </View>
+          <FlatList
+            data={connects}
+            scrollEnabled={false}
+            keyExtractor={item => item.id.toString()}
+            contentContainerStyle={styles.connectList}
+            renderItem={({ item }) => (
+              <View style={styles.connectItem}>
+                <Image
+                  source={item.icon}
+                  resizeMode="contain"
+                  style={styles.connectIcon}
+                />
+                {item.connected ? (
+                  <Text style={styles.connectedText}>{item.connection}</Text>
+                ) : (
+                  <>
+                    <Text style={styles.notConnectedText}>Not Connected</Text>
+                    <TouchableOpacity
+                      style={styles.connectButton}
+                      activeOpacity={0.8}
+                    >
+                      <Text style={styles.connectButtonText}>Connect Now</Text>
+                    </TouchableOpacity>
+                  </>
+                )}
+              </View>
+            )}
+          />
+
           <View style={styles.toggleRow}>
             <Text style={styles.toggleLabel}>Keep My Profile Private</Text>
             <ToggleSwitch
@@ -289,25 +165,11 @@ const MyProfile = ({ navigation }: any) => {
             />
           </View>
 
-          <View
-            style={{
-              width: '100%',
-              borderRadius: RFPercentage(3),
-              height: RFPercentage(36.5),
-              borderWidth: RFPercentage(0.1),
-              borderColor: COLORS.lightWhite,
-              marginTop: RFPercentage(2),
-            }}
-          >
+          <View style={styles.premiumBox}>
             <ImageBackground
               source={IMAGES.background}
               resizeMode="cover"
-              style={{
-                width: '100%',
-                height: '100%',
-                alignItems: 'center',
-                padding: RFPercentage(2.5),
-              }}
+              style={styles.premiumBackground}
             >
               <View>
                 <View style={styles.nonMemberAvatarWrapper}>
@@ -319,71 +181,33 @@ const MyProfile = ({ navigation }: any) => {
                   <Image
                     source={ICONS.premium}
                     resizeMode="contain"
-                    style={{
-                      width: RFPercentage(2),
-                      height: RFPercentage(2),
-                      position: 'absolute',
-                      bottom: RFPercentage(0.5),
-                      right: RFPercentage(-0.8),
-                    }}
+                    style={styles.premiumBadge}
                   />
                 </View>
               </View>
-              <View
-                style={{
-                  marginTop: RFPercentage(2),
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}
-              >
+
+              <View style={styles.upgradeHeader}>
                 <Image
                   source={ICONS.stars2}
                   resizeMode="contain"
-                  style={{
-                    width: RFPercentage(4.5),
-                    height: RFPercentage(4.5),
-                    position: 'absolute',
-                    left: RFPercentage(-4.5),
-                  }}
+                  style={styles.starsIcon}
                 />
-                <Text
-                  style={{
-                    color: COLORS.primary,
-                    fontFamily: FONTS.semiBold,
-                    fontSize: RFPercentage(1.8),
-                  }}
-                >
-                  Upgrade to Instructor
-                </Text>
-
+                <Text style={styles.upgradeText}>Upgrade to Instructor</Text>
                 <Image
                   source={ICONS.border}
                   resizeMode="contain"
-                  style={{
-                    width: RFPercentage(8),
-                    height: RFPercentage(5),
-                    position: 'absolute',
-                    right: 0,
-                    top: RFPercentage(0.5),
-                  }}
+                  style={styles.borderIcon}
                 />
               </View>
-              <Text
-                style={{
-                  textAlign: 'center',
-                  fontSize: RFPercentage(1.8),
-                  color: COLORS.lightGrey,
-                  fontFamily: FONTS.regular,
-                  marginTop: RFPercentage(3.4),
-                  marginHorizontal: RFPercentage(4),
-                }}
-              >
+
+              <Text style={styles.upgradeDescription}>
                 Host games, grow your audience, and get discovered by players
                 near you.
               </Text>
+
               <CustomButton
                 title="Upgrade Now"
-                style={{ marginTop: RFPercentage(3.5) }}
+                style={styles.upgradeBtn}
                 onPress={openModal}
               />
             </ImageBackground>
@@ -402,99 +226,59 @@ const MyProfile = ({ navigation }: any) => {
             <Animated.View
               style={[
                 styles.modalContent,
-                {
-                  transform: [{ translateY: slideAnim }],
-                },
+                { transform: [{ translateY: slideAnim }] },
               ]}
             >
               <Image
                 source={ICONS.premium22}
                 resizeMode="contain"
-                style={{ width: RFPercentage(40), height: RFPercentage(14), alignSelf:"center" }}
+                style={styles.modalBanner}
               />
-              <View style={{ width: '90%', alignSelf: 'center' , marginTop:RFPercentage(2)}}>
+
+              <View style={styles.modalInnerContent}>
                 <Text style={styles.modalText}>
                   Join Our Instructor Network
                 </Text>
                 <Image
                   source={ICONS.qoutes}
                   resizeMode="contain"
-                  style={{
-                    width: RFPercentage(4),
-                    height: RFPercentage(4),
-                    position: 'absolute',
-                    right: 0,
-                    top:RFPercentage(-1)
-                  }}
+                  style={styles.modalQuote}
                 />
 
                 <Text style={styles.subTitle}>
                   {`Become an Instructor to unlock exclusive\ntools and grow your Mahjong presence.`}
                 </Text>
-                <View style={{ marginTop: RFPercentage(1) }}>
-                  <FlatList
-                    data={premiumDetails}
-                    keyExtractor={item => item.id.toString()}
-                    renderItem={({ item }) => {
-                      return (
-                        <View style={{ marginTop: RFPercentage(3) }}>
-                          <View style={{ flexDirection: 'row' }}>
-                            <Image
-                              source={item.icon}
-                              resizeMode="contain"
-                              style={{
-                                width: RFPercentage(3),
-                                height: RFPercentage(3),
-                              }}
-                            />
-                            <View
-                              style={{
-                                marginLeft: RFPercentage(1),
-                                width: '90%',
-                              }}
-                            >
-                              <Text
-                                style={{
-                                  color: COLORS.primary,
-                                  fontSize: RFPercentage(2),
-                                  fontFamily: FONTS.bold,
-                                }}
-                              >
-                                {item.title}
-                              </Text>
-                              <Text
-                                style={{
-                                  color: COLORS.lightGrey,
-                                  fontSize: RFPercentage(1.9),
-                                  fontFamily: FONTS.regular,
-                                  marginTop: RFPercentage(0.5),
-                                }}
-                              >
-                                {item.subTile}
-                              </Text>
-                            </View>
-                          </View>
+
+                <FlatList
+                  data={premiumDetails}
+                  keyExtractor={item => item.id.toString()}
+                  renderItem={({ item }) => (
+                    <View style={styles.premiumFeature}>
+                      <View style={styles.premiumFeatureRow}>
+                        <Image
+                          source={item.icon}
+                          resizeMode="contain"
+                          style={styles.featureIcon}
+                        />
+                        <View style={styles.featureTextWrapper}>
+                          <Text style={styles.featureTitle}>{item.title}</Text>
+                          <Text style={styles.featureSub}>{item.subTile}</Text>
                         </View>
-                      );
+                      </View>
+                    </View>
+                  )}
+                />
+              </View>
+
+              <View style={styles.modalFooter}>
+                <View style={styles.modalFooterInner}>
+                  <CustomButton
+                    title="Understood"
+                    onPress={() => {
+                      closeModal();
+                      navigation.navigate('CreateInstructorProfile');
                     }}
                   />
-                </View>
-              </View>
-              <View
-                style={{
-                  marginTop: RFPercentage(5),
-                  borderTopWidth: RFPercentage(0.1),
-                  borderTopColor: COLORS.lightWhite,
-                }}
-              >
-                <View
-                  style={{
-                    width: '90%',
-                    alignSelf: 'center',
-                    marginTop: RFPercentage(2),
-                  }}
-                >
-                  <CustomButton title="Understood" onPress={closeModal} />
                 </View>
               </View>
             </Animated.View>
@@ -505,9 +289,96 @@ const MyProfile = ({ navigation }: any) => {
   );
 };
 
-export default MyProfile;
+export default MyProfilePlayer;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.white,
+  },
+  scrollViewContent: {
+    paddingBottom: RFPercentage(2),
+  },
+  profileContainer: {
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: RFPercentage(3),
+  },
+  profileHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  profileImage: {
+    width: RFPercentage(15),
+    height: RFPercentage(15),
+    borderRadius: RFPercentage(100),
+  },
+  profileInfo: {
+    marginLeft: RFPercentage(2),
+    width: '60%',
+  },
+  nameText: {
+    fontFamily: FONTS.headline,
+    color: COLORS.primary,
+    fontSize: RFPercentage(2.5),
+  },
+  locationText: {
+    fontFamily: FONTS.regular,
+    color: COLORS.black,
+    fontSize: RFPercentage(1.8),
+    marginTop: RFPercentage(0.5),
+  },
+  editButton: {
+    borderRadius: RFPercentage(1.6),
+    marginTop: RFPercentage(1.8),
+    height: RFPercentage(5.8),
+  },
+  bioText: {
+    color: COLORS.primary,
+    fontFamily: FONTS.regular,
+    fontSize: RFPercentage(1.8),
+    marginTop: RFPercentage(3),
+  },
+  connectList: {
+    paddingBottom: RFPercentage(2),
+  },
+  connectItem: {
+    width: '100%',
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginTop: RFPercentage(2.8),
+  },
+  connectIcon: {
+    width: RFPercentage(3),
+    height: RFPercentage(3),
+  },
+  connectedText: {
+    color: COLORS.primary,
+    fontSize: RFPercentage(1.8),
+    fontFamily: FONTS.regular,
+    marginLeft: RFPercentage(1.6),
+  },
+  notConnectedText: {
+    color: COLORS.lightGrey,
+    fontSize: RFPercentage(1.8),
+    fontFamily: FONTS.regular,
+    marginLeft: RFPercentage(1.6),
+  },
+  connectButton: {
+    width: RFPercentage(13),
+    height: RFPercentage(3.5),
+    borderRadius: RFPercentage(100),
+    backgroundColor: COLORS.primary,
+    position: 'absolute',
+    right: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  connectButtonText: {
+    color: COLORS.white,
+    fontSize: RFPercentage(1.6),
+    fontFamily: FONTS.medium,
+  },
   toggleRow: {
     width: '100%',
     alignSelf: 'center',
@@ -521,6 +392,20 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.medium,
     color: COLORS.inputColor,
     fontSize: RFPercentage(1.9),
+  },
+  premiumBox: {
+    width: '100%',
+    borderRadius: RFPercentage(3),
+    height: RFPercentage(36.5),
+    borderWidth: RFPercentage(0.1),
+    borderColor: COLORS.lightWhite,
+    marginTop: RFPercentage(2),
+  },
+  premiumBackground: {
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    padding: RFPercentage(2.5),
   },
   nonMemberAvatarWrapper: {
     width: RFPercentage(9),
@@ -539,6 +424,47 @@ const styles = StyleSheet.create({
     borderTopRightRadius: RFPercentage(5),
     borderTopLeftRadius: RFPercentage(5),
   },
+  premiumBadge: {
+    width: RFPercentage(2),
+    height: RFPercentage(2),
+    position: 'absolute',
+    bottom: RFPercentage(0.5),
+    right: RFPercentage(-0.8),
+  },
+  upgradeHeader: {
+    marginTop: RFPercentage(2),
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  starsIcon: {
+    width: RFPercentage(4.5),
+    height: RFPercentage(4.5),
+    position: 'absolute',
+    left: RFPercentage(-4.5),
+  },
+  upgradeText: {
+    color: COLORS.primary,
+    fontFamily: FONTS.semiBold,
+    fontSize: RFPercentage(1.8),
+  },
+  borderIcon: {
+    width: RFPercentage(8),
+    height: RFPercentage(5),
+    position: 'absolute',
+    right: 0,
+    top: RFPercentage(0.5),
+  },
+  upgradeDescription: {
+    textAlign: 'center',
+    fontSize: RFPercentage(1.8),
+    color: COLORS.lightGrey,
+    fontFamily: FONTS.regular,
+    marginTop: RFPercentage(3.4),
+    marginHorizontal: RFPercentage(4),
+  },
+  upgradeBtn: {
+    marginTop: RFPercentage(3.5),
+  },
   overLay: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.7)',
@@ -550,11 +476,28 @@ const styles = StyleSheet.create({
     borderTopRightRadius: RFPercentage(3),
     paddingVertical: RFPercentage(4),
   },
+  modalBanner: {
+    width: RFPercentage(40),
+    height: RFPercentage(14),
+    alignSelf: 'center',
+  },
+  modalInnerContent: {
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: RFPercentage(2),
+  },
   modalText: {
     fontSize: RFPercentage(2.3),
     fontFamily: FONTS.headline,
     color: COLORS.primary,
     textAlign: 'center',
+  },
+  modalQuote: {
+    width: RFPercentage(4),
+    height: RFPercentage(4),
+    position: 'absolute',
+    right: 0,
+    top: RFPercentage(-1),
   },
   subTitle: {
     fontFamily: FONTS.regular,
@@ -562,5 +505,40 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(1.8),
     marginTop: RFPercentage(1.3),
     textAlign: 'center',
+  },
+  premiumFeature: {
+    marginTop: RFPercentage(3),
+  },
+  premiumFeatureRow: {
+    flexDirection: 'row',
+  },
+  featureIcon: {
+    width: RFPercentage(3),
+    height: RFPercentage(3),
+  },
+  featureTextWrapper: {
+    marginLeft: RFPercentage(1),
+    width: '90%',
+  },
+  featureTitle: {
+    color: COLORS.primary,
+    fontSize: RFPercentage(2),
+    fontFamily: FONTS.bold,
+  },
+  featureSub: {
+    color: COLORS.lightGrey,
+    fontSize: RFPercentage(1.9),
+    fontFamily: FONTS.regular,
+    marginTop: RFPercentage(0.5),
+  },
+  modalFooter: {
+    marginTop: RFPercentage(5),
+    borderTopWidth: RFPercentage(0.1),
+    borderTopColor: COLORS.lightWhite,
+  },
+  modalFooterInner: {
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: RFPercentage(2),
   },
 });

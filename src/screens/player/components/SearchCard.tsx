@@ -18,126 +18,59 @@ const SearchCard = (props: Props) => {
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={props.onPress}
-      style={{
-        width: '100%',
-        backgroundColor: COLORS.white,
-        height: RFPercentage(11),
-        borderRadius: RFPercentage(3.5),
-        borderWidth: RFPercentage(0.1),
-        borderColor: COLORS.lightWhite,
-        borderBottomWidth: RFPercentage(0.6),
-        justifyContent: 'center',
-        marginTop: RFPercentage(2),
-      }}
+      style={styles.cardContainer}
     >
-      <View
-        style={{
-          width: '88%',
-          alignSelf: 'center',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-      >
+      <View style={styles.contentContainer}>
         {props.isPlayer ? (
-          <>
-            <View style={styles.avatarOuterLayer}>
-              <View style={styles.avatarMiddleLayer}>
-                <View style={styles.avatarInnerLayer}>
-                  <Image
-                    source={IMAGES.customProfile}
-                    resizeMode="cover"
-                    style={styles.avatarImage}
-                  />
-                </View>
+          <View style={styles.avatarOuterLayer}>
+            <View style={styles.avatarMiddleLayer}>
+              <View style={styles.avatarInnerLayer}>
+                <Image
+                  source={IMAGES.customProfile}
+                  resizeMode="cover"
+                  style={styles.avatarImage}
+                />
               </View>
             </View>
-          </>
+          </View>
         ) : props.isInstructor ? (
-          <>
-            <View style={styles.nonMemberAvatarWrapper}>
-              <Image
-                source={IMAGES.chatProfile}
-                resizeMode="contain"
-                style={styles.nonMemberAvatarImage}
-              />
-            </View>
-          </>
+          <View style={styles.nonMemberAvatarWrapper}>
+            <Image
+              source={IMAGES.chatProfile}
+              resizeMode="contain"
+              style={styles.nonMemberAvatarImage}
+            />
+          </View>
         ) : (
-          <>
-            <View style={styles.largeGroupIconContainer}>
-              <Image
-                source={IMAGES.customProfile}
-                resizeMode="cover"
-                style={styles.largeGroupIcon}
-              />
-            </View>
-          </>
+          <View style={styles.largeGroupIconContainer}>
+            <Image
+              source={IMAGES.customProfile}
+              resizeMode="cover"
+              style={styles.largeGroupIcon}
+            />
+          </View>
         )}
-        <View style={{ marginLeft: RFPercentage(2) }}>
-          <Text
-            style={{
-              fontFamily: FONTS.semiBold,
-              color: COLORS.primary,
-              fontSize: RFPercentage(1.8),
-            }}
-          >
+
+        <View style={styles.textContainer}>
+          <Text style={styles.nameText}>
             {props.name}
           </Text>
 
           {props.members ? (
-            <>
-              <Text
-                style={{
-                  fontFamily: FONTS.regular,
-                  color: COLORS.lightGrey,
-                  fontSize: RFPercentage(1.6),
-                  marginTop: RFPercentage(0.8),
-                }}
-              >
-                {props.members} Members
-              </Text>
-            </>
+            <Text style={styles.subText}>
+              {props.members} Members
+            </Text>
           ) : (
-            <>
-              <Text
-                style={{
-                  fontFamily: FONTS.regular,
-                  color: COLORS.lightGrey,
-                  fontSize: RFPercentage(1.6),
-                  marginTop: RFPercentage(0.8),
-                }}
-              >
-                {props.location}
-              </Text>
-            </>
+            <Text style={styles.subText}>
+              {props.location}
+            </Text>
           )}
         </View>
 
         {props.isInstructor && (
-          <>
-            <View
-              style={{
-                width: RFPercentage(10),
-                height: RFPercentage(3.5),
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: COLORS.pink5,
-                borderRadius: RFPercentage(100),
-                position: 'absolute',
-                right: 0,
-              }}
-            >
-              <Text
-                style={{
-                  color: COLORS.primary,
-                  fontSize: RFPercentage(1.5),
-                  fontFamily: FONTS.medium,
-                }}
-              >
-                Instructor
-              </Text>
-            </View>
-          </>
+          <View style={styles.instructorBadge}>
+            <Text style={styles.instructorText}>Instructor</Text>
+          </View>
         )}
       </View>
     </TouchableOpacity>
@@ -147,6 +80,52 @@ const SearchCard = (props: Props) => {
 export default SearchCard;
 
 const styles = StyleSheet.create({
+  cardContainer: {
+    width: '100%',
+    backgroundColor: COLORS.white,
+    height: RFPercentage(11),
+    borderRadius: RFPercentage(3.5),
+    borderWidth: RFPercentage(0.1),
+    borderColor: COLORS.lightWhite,
+    borderBottomWidth: RFPercentage(0.6),
+    justifyContent: 'center',
+    marginTop: RFPercentage(2),
+  },
+  contentContainer: {
+    width: '88%',
+    alignSelf: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  textContainer: {
+    marginLeft: RFPercentage(2),
+  },
+  nameText: {
+    fontFamily: FONTS.semiBold,
+    color: COLORS.primary,
+    fontSize: RFPercentage(1.8),
+  },
+  subText: {
+    fontFamily: FONTS.regular,
+    color: COLORS.lightGrey,
+    fontSize: RFPercentage(1.6),
+    marginTop: RFPercentage(0.8),
+  },
+  instructorBadge: {
+    width: RFPercentage(10),
+    height: RFPercentage(3.5),
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: COLORS.pink5,
+    borderRadius: RFPercentage(100),
+    position: 'absolute',
+    right: 0,
+  },
+  instructorText: {
+    color: COLORS.primary,
+    fontSize: RFPercentage(1.5),
+    fontFamily: FONTS.medium,
+  },
   avatarOuterLayer: {
     width: RFPercentage(6),
     height: RFPercentage(7),

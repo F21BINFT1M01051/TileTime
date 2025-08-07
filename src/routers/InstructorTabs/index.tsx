@@ -5,10 +5,10 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS, ICONS } from '../../config/theme';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import LinearGradient from 'react-native-linear-gradient';
-import Home from '../../screens/common/home/home';
 import Events from '../../screens/common/home/events';
-import Dashboard from '../../screens/common/home/dashboard';
 import Groups from '../../screens/common/home/groups';
+import InstructorHome from '../../screens/instructor/home';
+import MyProfileInstructor from '../../screens/instructor/my-profile';
 
 const Tab = createBottomTabNavigator();
 
@@ -48,7 +48,7 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({
             };
 
             // Map icons for each screen
-            const icons = [ICONS.tab1, ICONS.tab2, ICONS.tab3, ICONS.tab4];
+            const icons = [ICONS.tab1, ICONS.tab2, ICONS.tab4, ICONS.tab6];
             const iconName = icons[index];
 
             return (
@@ -78,7 +78,7 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({
   );
 };
 
-export default function BottomTabs() {
+export default function InstructorTabs() {
   return (
     <Tab.Navigator
       tabBar={props => <CustomTabBar {...props} />}
@@ -91,23 +91,28 @@ export default function BottomTabs() {
           elevation: 0,
         },
       }}
-      initialRouteName="Groups"
+      initialRouteName="Home"
     >
-      <Tab.Screen name="Home" component={Home} options={{ title: 'Home' }} />
+      <Tab.Screen
+        name="Home"
+        component={InstructorHome}
+        options={{ title: 'Home' }}
+      />
       <Tab.Screen
         name="Events"
         component={Events}
         options={{ title: 'My Events' }}
       />
-      <Tab.Screen
-        name="Dashboard"
-        component={Dashboard}
-        options={{ title: 'Dashboard' }}
-      />
+
       <Tab.Screen
         name="Groups"
         component={Groups}
         options={{ title: 'Groups & Chats' }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={MyProfileInstructor}
+        options={{ title: 'My Profile' }}
       />
     </Tab.Navigator>
   );

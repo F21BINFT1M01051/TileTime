@@ -9,17 +9,17 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import { COLORS, FONTS, ICONS } from '../../../../config/theme';
+import { COLORS, FONTS, ICONS } from '../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import CustomButton from '../../../../components/CustomButton';
+import CustomButton from '../../../components/CustomButton';
 import About from './about';
 import ProffessionalInfo from './proffessional';
 import { AboutFormRef } from './about';
 
 const steps = ['about', 'professional'];
 
-const ProfileSetup = ({ navigation }: any) => {
+const InstructorProfileSetup = ({ navigation }: any) => {
   const [stepIndex, setStepIndex] = useState(0);
   const [keyboardIsVisible, setKeyboardIsVisible] = useState(false);
   const aboutFormRef = useRef<AboutFormRef>(null);
@@ -50,7 +50,7 @@ const ProfileSetup = ({ navigation }: any) => {
       } else if (stepIndex < steps.length - 1) {
         setStepIndex(stepIndex + 1);
       } else {
-        navigation.navigate('BottomTabs');
+        navigation.navigate('InstructorTabs');
       }
     } catch (error) {
       console.log('Validation error:', error);
@@ -162,7 +162,7 @@ const ProfileSetup = ({ navigation }: any) => {
   );
 };
 
-export default ProfileSetup;
+export default InstructorProfileSetup;
 
 const styles = StyleSheet.create({
   header: {
@@ -245,105 +245,3 @@ const styles = StyleSheet.create({
   },
 });
 
-//  const openModal = () => {
-//     setIsModalVisible(true);
-//     Animated.timing(slideAnim, {
-//       toValue: 0,
-//       duration: 600,
-//       easing: Easing.out(Easing.ease),
-//       useNativeDriver: true,
-//     }).start();
-//   };
-
-//   const closeModal = () => {
-//     Animated.timing(slideAnim, {
-//       toValue: Dimensions.get('window').height,
-//       duration: 600,
-//       easing: Easing.in(Easing.ease),
-//       useNativeDriver: true,
-//     }).start(() => {
-//       setIsModalVisible(false);
-//     });
-//   };
-{
-  /* <Modal
-        visible={isModalVisible}
-        transparent
-        animationType="none"
-        onRequestClose={closeModal}
-      >
-        <TouchableWithoutFeedback onPress={closeModal}>
-          <View style={styles.overLay}>
-            <Animated.View
-              style={[
-                styles.modalContent,
-                {
-                  transform: [{ translateY: slideAnim }],
-                },
-              ]}
-            >
-              <Text style={styles.modalText}>
-                We need atleast one way to reach you
-              </Text>
-              <Text style={styles.subTitle}>
-                {`Add at least one contact method so people can\nfind or connect with you.`}
-              </Text>
-              <View style={{ marginTop: RFPercentage(3) }}>
-                <InputField
-                  placeholder="Phone Number"
-                  value={phoneNumber}
-                  onChangeText={setPhoneNumber}
-                  password={false}
-                  type="phone-pad"
-                  icon={
-                    <Image
-                      source={ICONS.phone}
-                      resizeMode="contain"
-                      style={{
-                        width: RFPercentage(2.2),
-                        height: RFPercentage(2.2),
-                      }}
-                    />
-                  }
-                />
-                <InputField
-                  placeholder="Website URL"
-                  value={website}
-                  onChangeText={setWebsite}
-                  password={false}
-                  style={{ marginTop: RFPercentage(2) }}
-                  icon={
-                    <Image
-                      source={ICONS.globe}
-                      resizeMode="contain"
-                      style={{
-                        width: RFPercentage(2.5),
-                        height: RFPercentage(2.5),
-                      }}
-                    />
-                  }
-                />
-
-                <FlatList
-                  data={data}
-                  scrollEnabled={false}
-                  keyExtractor={item => item.id.toString()}
-                  style={{ marginTop: RFPercentage(1) }}
-                  renderItem={({ item }) => (
-                    <SocialField
-                      icon={item.icon}
-                      name={item.name}
-                      navigation={item.navigationScreen}
-                      color={item.color}
-                    />
-                  )}
-                />
-              </View>
-              <View style={{ marginTop: RFPercentage(4) }}>
-                <CustomButton title="Save" onPress={closeModal} />
-              </View>
-            </Animated.View>
-          </View>
-        </TouchableWithoutFeedback>
-      </Modal> */
-}

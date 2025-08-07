@@ -16,13 +16,13 @@ import React, {
   useImperativeHandle,
   useEffect,
 } from 'react';
-import { COLORS, FONTS, ICONS, IMAGES } from '../../../../../config/theme';
+import { COLORS, FONTS, ICONS, IMAGES } from '../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import DropdownField from '../../../../../components/DropDown';
+import DropdownField from '../../../../components/DropDown';
 import { launchImageLibrary } from 'react-native-image-picker';
-import InputField from '../../../../../components/InputField';
+import InputField from '../../../../components/InputField';
 import ToggleSwitch from 'toggle-switch-react-native';
-import SocialField from '../../../../../components/SocialField';
+import SocialField from '../../../../components/SocialField';
 import * as yup from 'yup';
 import { Formik } from 'formik';
 
@@ -93,10 +93,10 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
       if (formikRef.current) {
         formikRef.current.setTouched({
           name: true,
-          businessName: true,
+          // businessName: true,
           city: true,
           phoneNumber: true,
-          checked: formikRef.current.values.checked,
+          // checked: formikRef.current.values.checked,
         });
         return formikRef.current.validateForm();
       }
@@ -129,10 +129,11 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
       const isNameValid = !errors.name && touched.name;
       const isCityValid = !errors.city && touched.city;
       const isPhoneValid = !errors.phoneNumber && touched.phoneNumber;
-      const isBusinessValid =
-        !values.checked || (touched.businessName && !errors.businessName);
+      // const isBusinessValid =
+      //   !values.checked || (touched.businessName && !errors.businessName);
       const isValid =
-        isNameValid && isCityValid && isPhoneValid && isBusinessValid;
+        isNameValid && isCityValid && isPhoneValid 
+        // && isBusinessValid;
       setFormValid(isValid);
     }
   }, [

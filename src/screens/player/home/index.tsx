@@ -10,14 +10,13 @@ import {
 } from 'react-native';
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import TopNavigation from '../../../../routers/TopBar';
-import { COLORS, FONTS, ICONS, IMAGES } from '../../../../config/theme';
+import TopNavigation from '../../../routers/TopBar';
+import { COLORS, FONTS, ICONS, IMAGES } from '../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import CustomButton from '../../../../components/CustomButton';
-import ActionsCard from '../../../../components/ActionsCard';
-import HomeCard from '../../../../components/HomeCard';
-import HomeGroupCard from '../../../../components/HomeGroupCard';
-import EventCalendar from '../../../../components/EventCalendar';
+import CustomButton from '../../../components/CustomButton';
+import ActionsCard from '../../../components/ActionsCard';
+import HomeCard from '../../../components/HomeCard';
+import HomeGroupCard from '../../../components/HomeGroupCard';
 
 const Groups = [
   {
@@ -87,7 +86,7 @@ const Cards2 = [
   },
 ];
 
-const Home = ({ navigation }: any) => {
+const PlayerHome = ({ navigation }: any) => {
   const actions = ['1'];
 
   return (
@@ -106,7 +105,7 @@ const Home = ({ navigation }: any) => {
             right={true}
             home={true}
             onPress2={() => navigation.navigate('PlayerSearch')}
-            onPress3={() => navigation.navigate('MyProfile')}
+            onPress3={() => navigation.navigate('Notifications')}
           />
 
           {actions.length > 0 ? (
@@ -133,7 +132,6 @@ const Home = ({ navigation }: any) => {
             </>
           )}
 
-          <EventCalendar />
           <ImageBackground
             source={IMAGES.home_pic}
             resizeMode="contain"
@@ -265,7 +263,7 @@ const Home = ({ navigation }: any) => {
   );
 };
 
-export default Home;
+export default PlayerHome;
 
 const styles = StyleSheet.create({
   gradientContainer: {

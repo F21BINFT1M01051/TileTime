@@ -138,6 +138,11 @@ export const ICONS = {
   blueTick: require('../assets/icons/tick-blue.png'),
   premium22: require('../assets/icons/premium22.png'),
   pen22: require('../assets/icons/Pen22.png'),
+  group33: require('../assets/icons/group33.png'),
+  tab6: require('../assets/icons/tab6.png'),
+  bell: require('../assets/icons/Bell.png'),
+  premiumBorder: require('../assets/icons/premiumBorder.png'),
+  web: require('../assets/icons/web.png'),
 };
 
 export const FONTS = {

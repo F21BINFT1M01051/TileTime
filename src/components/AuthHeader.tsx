@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 
 interface Props {
   title: string;
+  style? : object
 }
 
 const AuthHeader = (props: Props) => {
@@ -19,7 +20,7 @@ const AuthHeader = (props: Props) => {
           style={{ width: RFPercentage(2.8), height: RFPercentage(2.8) }}
         />
       </TouchableOpacity>
-      <Text style={styles.getStartedText}>{props.title}</Text>
+      <Text style={[styles.getStartedText, props.style]}>{props.title}</Text>
     </View>
   );
 };
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontFamily: FONTS.headline,
     fontSize: RFPercentage(2.8),
-    marginLeft: RFPercentage(0.9),
+    marginLeft: RFPercentage(1),
   },
   auth: {
     width: '100%',

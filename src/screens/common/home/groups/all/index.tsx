@@ -397,5 +397,6 @@ const styles = StyleSheet.create({
   },
   filterText: {
     fontFamily: FONTS.medium,
+    fontSize:RFPercentage(1.8)
   },
 });

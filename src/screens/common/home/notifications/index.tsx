@@ -1,0 +1,212 @@
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import React, { useState } from 'react';
+import { COLORS, FONTS, ICONS, IMAGES } from '../../../../config/theme';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+import NotificationCard from '../../../../components/NotificationCard';
+
+const notificationData = [
+  {
+    id: 1,
+    notification: 'You’ve got 3 new signups for Intro to Mahjong - Aug 3rd',
+    time: '12h',
+    profile: IMAGES.customProfile,
+    unread: false,
+    admin: true,
+  },
+  {
+    id: 2,
+    notification:
+      'Heads up! Your session Advanced Tactics starts in 30 minutes.',
+    time: '12h',
+    profile: IMAGES.customProfile,
+    unread: true,
+    player: true,
+  },
+  {
+    id: 3,
+    notification: 'Mahjong Crash Course has been cancelled',
+    time: '12h',
+    profile: IMAGES.customProfile,
+    unread: false,
+    group: true,
+  },
+  {
+    id: 4,
+    notification: 'Group sessions are now live - try creating one today.',
+    time: '12h',
+    profile: IMAGES.customProfile,
+    unread: false,
+    player: true,
+  },
+];
+
+const Filters = [
+  { id: 1, name: 'All' },
+  { id: 2, name: 'Unread 1' },
+];
+
+const unread = [
+  {
+    id: 1,
+    notification:
+      'Heads up! Your session Advanced Tactics starts in 30 minutes.',
+    time: '12h',
+    profile: IMAGES.customProfile,
+    unread: true,
+    player: true,
+  },
+];
+
+const Notifications = ({ navigation }: any) => {
+  const [activeFilter, setActiveFilter] = useState('All');
+  const displayData = activeFilter === 'All' ? notificationData : unread;
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.topBar}>
+        <View style={styles.topBarContent}>
+          <Text style={styles.title}>Notifications</Text>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigation.goBack()}
+          >
+            <Image
+              source={ICONS.cross}
+              tintColor={'#8C8C8C'}
+              resizeMode="contain"
+              style={styles.crossIcon}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <View style={styles.filterContainer}>
+        <FlatList
+          data={Filters}
+          keyExtractor={item => item.id.toString()}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.filterList}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => setActiveFilter(item.name)}
+              style={[
+                styles.filterButton,
+                {
+                  backgroundColor:
+                    activeFilter === item.name
+                      ? COLORS.inputColor
+                      : COLORS.fieldColor,
+                },
+              ]}
+            >
+              <Text
+                style={[
+                  styles.filterText,
+                  {
+                    color:
+                      activeFilter === item.name ? COLORS.white : COLORS.grey4,
+                  },
+                ]}
+              >
+                {item.name}
+              </Text>
+            </TouchableOpacity>
+          )}
+        />
+      </View>
+
+      <View style={styles.notificationListContainer}>
+        <FlatList
+          data={displayData}
+          keyExtractor={item => item.id.toString()}
+          contentContainerStyle={styles.notificationList}
+          renderItem={({ item, index }) => {
+            const isLastItem = index === notificationData.length - 1;
+            return (
+              <NotificationCard
+                notification={item.notification}
+                player={item.player}
+                admin={item.admin}
+                group={item.group}
+                unread={item.unread}
+                time={item.time}
+                profile={item.profile}
+                style={{
+                  borderBottomWidth: isLastItem ? 0 : RFPercentage(0.1),
+                }}
+              />
+            );
+          }}
+        />
+      </View>
+    </View>
+  );
+};
+
+export default Notifications;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.white,
+  },
+  topBar: {
+    paddingBottom: RFPercentage(1.5),
+    borderBottomWidth: RFPercentage(0.1),
+    borderBottomColor: '#D8D8D8',
+    height: RFPercentage(10),
+    justifyContent: 'flex-end',
+  },
+  topBarContent: {
+    width: '90%',
+    alignSelf: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  title: {
+    color: COLORS.primary,
+    fontFamily: FONTS.semiBold,
+    fontSize: RFPercentage(1.9),
+  },
+  crossIcon: {
+    width: RFPercentage(2.8),
+    height: RFPercentage(2.8),
+  },
+  filterContainer: {
+    width: '100%',
+    alignSelf: 'center',
+  },
+  filterList: {
+    paddingHorizontal: RFPercentage(2),
+  },
+  filterButton: {
+    height: RFPercentage(4.5),
+    paddingHorizontal: RFPercentage(2),
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: RFPercentage(2.9),
+    marginTop: RFPercentage(3),
+    marginRight: RFPercentage(1),
+  },
+  filterText: {
+    fontFamily: FONTS.medium,
+    fontSize: RFPercentage(1.8),
+  },
+  notificationListContainer: {
+    width: '90%',
+    alignSelf: 'center',
+  },
+  notificationList: {
+    paddingVertical: RFPercentage(1),
+  },
+});

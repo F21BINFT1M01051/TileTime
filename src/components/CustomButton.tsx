@@ -8,7 +8,8 @@ interface Props {
   onPress: () => void;
   icon?: any;
   style?: object;
-  disabled? : boolean
+  disabled?: boolean;
+  textStyle?: object;
 }
 
 const CustomButton = (props: Props) => {
@@ -24,7 +25,7 @@ const CustomButton = (props: Props) => {
           <Image source={props.icon} resizeMode="contain" style={styles.img} />
         </>
       ) : null}
-      <Text style={styles.text}>{props.title}</Text>
+      <Text style={[styles.text, props.textStyle]}>{props.title}</Text>
     </TouchableOpacity>
   );
 };

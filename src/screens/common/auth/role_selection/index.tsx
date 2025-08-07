@@ -51,7 +51,11 @@ const RoleSelection = ({ navigation }: any) => {
             <CustomButton
               title={`Proceed As ${role}`}
               onPress={() => {
-                navigation.navigate('ProfileSetup');
+                if (selected === 'Player') {
+                  navigation.navigate('PlayerProfileSetup');
+                } else {
+                  navigation.navigate('InstructorProfileSetup');
+                }
               }}
               disabled={selected === '' ? true : false}
               style={{

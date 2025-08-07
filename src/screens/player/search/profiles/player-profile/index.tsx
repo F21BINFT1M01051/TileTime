@@ -6,9 +6,6 @@ import {
   View,
   TouchableOpacity,
   Image,
-  ScrollView,
-  Modal,
-  TouchableWithoutFeedback,
 } from 'react-native';
 import React, { useState } from 'react';
 import { COLORS, IMAGES, FONTS, ICONS } from '../../../../../config/theme';
@@ -19,121 +16,125 @@ import CommonGroup from '../../../../../components/CommonGroups';
 import { BlurView } from '@react-native-community/blur';
 
 const PlayerProfile = ({ navigation }: any) => {
-  const [modalVisible, setModalVisible] = useState(true);
   return (
     <View style={styles.safeArea}>
-      <ScrollView>
-        <View style={{ width: '100%' }}>
-          <ImageBackground
-            source={IMAGES.single}
-            resizeMode="repeat"
-            style={styles.backgroundImage}
-          >
-            <View style={styles.headerBorder}>
-              <View style={styles.headerContainer}>
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  onPress={() => navigation.goBack()}
-                  style={{ zIndex: 999999 }}
-                >
-                  <AntDesign
-                    name="arrowleft"
-                    color={COLORS.grey}
-                    size={RFPercentage(3)}
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
-          </ImageBackground>
-        </View>
-        <View style={styles.mainContent}>
-          <View style={styles.avatarOuterLayer}>
-            <View style={styles.avatarMiddleLayer}>
-              <View style={styles.avatarInnerLayer}>
-                <Image
-                  source={IMAGES.profile2}
-                  resizeMode="cover"
-                  style={styles.avatarImage}
+      {/* <ScrollView> */}
+      <View style={{ width: '100%' }}>
+        <ImageBackground
+          source={IMAGES.single}
+          resizeMode="repeat"
+          style={styles.backgroundImage}
+        >
+          <View style={styles.headerBorder}>
+            <View style={styles.headerContainer}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => navigation.goBack()}
+                style={{ zIndex: 999999 }}
+              >
+                <AntDesign
+                  name="arrowleft"
+                  color={COLORS.grey}
+                  size={RFPercentage(3)}
                 />
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
+        </ImageBackground>
+      </View>
+      <View style={styles.mainContent}>
+        <View style={styles.avatarOuterLayer}>
+          <View style={styles.avatarMiddleLayer}>
+            <View style={styles.avatarInnerLayer}>
+              <Image
+                source={IMAGES.profile2}
+                resizeMode="cover"
+                style={styles.avatarImage}
+              />
+            </View>
+          </View>
+        </View>
 
-          <Text style={styles.userName}>Sophie Reynolds</Text>
+        <Text style={styles.userName}>Sophie Reynolds</Text>
+        <Text
+          style={{
+            color: COLORS.lightGrey,
+            fontSize: RFPercentage(1.7),
+            fontFamily: FONTS.regular,
+            marginTop: RFPercentage(1),
+          }}
+        >
+          Seattle, WA
+        </Text>
+        <Text style={styles.groupDesc}>
+          Mahjong lover always up for a good game! Here to learn, have fun, and
+          meet fellow tile-heads along the way.
+        </Text>
+
+        <View style={styles.buttonRow}>
+          <View style={styles.buttonHalf}>
+            <CustomButton
+              title="Add to group"
+              icon={ICONS.add}
+              style={styles.buttonRounded}
+              onPress={() => {}}
+            />
+          </View>
+          <View style={styles.buttonHalf}>
+            <CustomButton
+              title="Send Message"
+              icon={ICONS.message}
+              style={styles.buttonRounded}
+              onPress={() => {
+                navigation.navigate('ChatScreen', {
+                  isGroup: false,
+                  isNew: false,
+                });
+              }}
+            />
+          </View>
+        </View>
+
+        <View style={styles.sectionMargin}>
+          <CommonGroup />
+        </View>
+
+        <View style={styles.sectionMargin}>
+          <CommonGroup futureEvents />
+        </View>
+        <View style={styles.sectionMargin}>
+          <CommonGroup pastEvents />
+        </View>
+      </View>
+      <View
+        style={{
+          backgroundColor: 'rgba(245, 245, 245, 0.8)',
+          width: '100%',
+          zIndex: 999,
+          height: '100%',
+          position: 'absolute',
+          top: RFPercentage(55),
+          alignItems: 'center',
+        }}
+      >
+        <View style={styles.overLayContent}>
+          <Image
+            source={ICONS.eye}
+            resizeMode="contain"
+            style={{ width: RFPercentage(7), height: RFPercentage(7) }}
+          />
           <Text
             style={{
-              color: COLORS.lightGrey,
-              fontSize: RFPercentage(1.7),
-              fontFamily: FONTS.regular,
-              marginTop: RFPercentage(1),
+              color: COLORS.primary,
+              fontFamily: FONTS.semiBold,
+              fontSize: RFPercentage(1.8),
             }}
           >
-            Seattle, WA
+            This Profile is Private
           </Text>
-          <Text style={styles.groupDesc}>
-            Mahjong lover always up for a good game! Here to learn, have fun,
-            and meet fellow tile-heads along the way.
-          </Text>
-
-          <View style={styles.buttonRow}>
-            <View style={styles.buttonHalf}>
-              <CustomButton
-                title="Add to group"
-                icon={ICONS.add}
-                style={styles.buttonRounded}
-                onPress={() => {}}
-              />
-            </View>
-            <View style={styles.buttonHalf}>
-              <CustomButton
-                title="Send Message"
-                icon={ICONS.message}
-                style={styles.buttonRounded}
-                onPress={() => {
-                  navigation.navigate('ChatScreen', {
-                    isGroup: false,
-                    isNew: false,
-                  });
-                }}
-              />
-            </View>
-          </View>
-
-          <View style={styles.sectionMargin}>
-            <CommonGroup />
-          </View>
-
-          <View style={styles.sectionMargin}>
-            <CommonGroup futureEvents />
-          </View>
-          <View style={styles.sectionMargin}>
-            <CommonGroup pastEvents />
-          </View>
         </View>
-      </ScrollView>
-
-      <Modal visible={modalVisible} transparent animationType="fade">
-        <TouchableWithoutFeedback>
-          <View style={styles.modalWrapper}>
-            <View style={styles.overLayContent}>
-              <Image
-                source={ICONS.eye}
-                resizeMode="contain"
-                style={{ width: RFPercentage(7), height: RFPercentage(7) }}
-              />
-              <Text
-                style={{
-                  color: COLORS.primary,
-                  fontFamily: FONTS.semiBold,
-                  fontSize: RFPercentage(1.8),
-                }}
-              >
-                This Profile is Private
-              </Text>
-            </View>
-          </View>
-        </TouchableWithoutFeedback>
-      </Modal>
+      </View>
+      {/* </ScrollView> */}
     </View>
   );
 };
@@ -277,5 +278,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 1000,
+    marginTop: RFPercentage(15),
   },
 });

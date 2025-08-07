@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.semiBold,
   },
   connectedFollowers: {
-    color: COLORS.grey6,
+    color: COLORS.lightGrey,
     fontSize: RFPercentage(1.5),
     fontFamily: FONTS.regular,
     marginTop: RFPercentage(1),

@@ -10,13 +10,15 @@ import {
   FlatList,
   ScrollView,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import DropdownField from '../../../../components/DropDown';
 import { launchImageLibrary } from 'react-native-image-picker';
 import InputField from '../../../../components/InputField';
 import SocialField from '../../../../components/SocialField';
+import AuthHeader from '../../../../components/AuthHeader';
+import CustomButton from '../../../../components/CustomButton';
 
 const data = [
   {
@@ -25,7 +27,7 @@ const data = [
     navigationScreen: '',
     color: COLORS.skyBlue,
     icon: ICONS.facebook,
-    connected: false,
+    connected: true,
   },
   {
     id: 2,
@@ -46,25 +48,42 @@ const data = [
 ];
 
 const MAX_LENGTH = 200;
+
 const EditProfile = () => {
   const [state, setState] = useState(null);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [isDropdownVisible2, setIsDropdownVisible2] = useState(false);
   const [imageUri, setImageUri] = useState(null);
-  const [bio, setBio] = useState('');
+  const [bio, setBio] = useState(
+    'Passionate coach with a love for helping players unlock their full potential. Let’s grow your game,  one step at a time.',
+  );
+  const [keyboardIsVisible, setKeyboardIsVisible] = useState(false);
+  const [name, setName] = useState('Alexender');
+  const [city, setCity] = useState('Paris');
+  const [phone, setPhone] = useState('0309-8454-670');
 
   const pickImage = () => {
-    const options = {
-      mediaType: 'photo',
-      quality: 1,
-    };
-
+    const options = { mediaType: 'photo', quality: 1 };
     launchImageLibrary(options, response => {
       if (response.assets && response.assets.length > 0) {
-        setImageUri(response?.assets[0].uri);
+        setImageUri(response.assets[0].uri);
       }
     });
   };
+
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
+      setKeyboardIsVisible(true);
+    });
+    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardIsVisible(false);
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, []);
 
   return (
     <TouchableWithoutFeedback
@@ -76,37 +95,37 @@ const EditProfile = () => {
         }
       }}
     >
-      <ScrollView style={{flex:1, backgroundColor:COLORS.white}} contentContainerStyle={{paddingBottom:RFPercentage(5)}}>
-        <View style={styles.container}>
-          <Text style={styles.title}>Basic Details</Text>
+      <>
+        <ScrollView
+          style={styles.scrollContainer}
+          contentContainerStyle={styles.scrollContent}
+        >
+          <View style={styles.headerWrapper}>
+            <View style={styles.headerInner}>
+              <AuthHeader title="Edit Profile" style={styles.headerTitle} />
+            </View>
+          </View>
 
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={pickImage}
-            style={styles.profileContainer}
-          >
-            <View
-              style={{
-                width: RFPercentage(15),
-                height: RFPercentage(15),
-                borderRadius: RFPercentage(100),
-                backgroundColor: '#ECECEC',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
+          <View style={styles.container}>
+            <Text style={styles.title}>Basic Details</Text>
+
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={pickImage}
+              style={styles.profileContainer}
             >
-              <Image
-                source={imageUri ? { uri: imageUri } : ICONS.gallery}
-                resizeMode="cover"
-                style={imageUri ? styles.profileImage : styles.defaultImg}
-              />
+              <View style={styles.profileCircle}>
+                <Image
+                  source={imageUri ? { uri: imageUri } : ICONS.gallery}
+                  resizeMode="cover"
+                  style={imageUri ? styles.profileImage : styles.defaultImg}
+                />
 
-              {imageUri ? (
-                <>
+                {imageUri ? (
                   <TouchableOpacity
                     activeOpacity={0.8}
                     onPress={pickImage}
-                    style={{ position: 'absolute', bottom: RFPercentage(-1.5) }}
+                    style={styles.editIconWrapper}
                   >
                     <Image
                       source={ICONS.edit}
@@ -114,208 +133,141 @@ const EditProfile = () => {
                       style={styles.editIcon}
                     />
                   </TouchableOpacity>
-                </>
-              ) : (
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  onPress={pickImage}
-                  style={{
-                    position: 'absolute',
-                    bottom: RFPercentage(-1),
-                    width: RFPercentage(16),
-                    height: RFPercentage(4),
-                    borderRadius: RFPercentage(100),
-                    backgroundColor: COLORS.primary,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: COLORS.white,
-                      fontFamily: FONTS.medium,
-                      fontSize: RFPercentage(1.4),
-                    }}
+                ) : (
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={pickImage}
+                    style={styles.addPicBtn}
                   >
-                    Add your Picture
-                  </Text>
-                </TouchableOpacity>
-              )}
+                    <Text style={styles.addPicText}>Add your Picture</Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+            </TouchableOpacity>
+
+            <View style={styles.fullNameWrapper}>
+              <InputField
+                placeholder="Full Name"
+                value={name}
+                onChangeText={setName}
+                password={false}
+                defaultColor={COLORS.focused}
+                focusedColor={COLORS.focused}
+                errorColor={COLORS.red}
+              />
             </View>
-          </TouchableOpacity>
 
-          <View style={{ marginTop: RFPercentage(2.5) }}>
-            <InputField
-              placeholder="Full Name"
-              // value={values.name}
-              password={false}
-              defaultColor={COLORS.placeholder}
-              focusedColor={COLORS.focused}
-              errorColor={COLORS.red}
-            />
-          </View>
-
-          <View style={styles.bioWrapper}>
-            <View style={styles.bioContainer}>
-              <View style={{ width: '90%', alignSelf: 'center' }}>
-                <View style={styles.bioHeader}>
-                  <Text style={styles.bioLabel}>Add Bio</Text>
-                  <Image
-                    source={ICONS.user2}
-                    resizeMode="contain"
-                    style={{
-                      width: RFPercentage(2),
-                      height: RFPercentage(2),
-                    }}
+            <View style={styles.bioWrapper}>
+              <View style={styles.bioContainer}>
+                <View style={styles.bioInner}>
+                  <View style={styles.bioHeader}>
+                    <Text style={styles.bioLabel}>Add Bio</Text>
+                    <Image
+                      source={ICONS.user2}
+                      resizeMode="contain"
+                      style={styles.bioIcon}
+                    />
+                  </View>
+                  <TextInput
+                    placeholder="Tell us about yourself..."
+                    placeholderTextColor={COLORS.placeholder}
+                    style={styles.bioInput}
+                    multiline={true}
+                    maxLength={MAX_LENGTH}
+                    value={bio}
+                    onChangeText={setBio}
                   />
-                </View>
-                <TextInput
-                  placeholder="Tell us about yourself..."
-                  placeholderTextColor={COLORS.placeholder}
-                  style={styles.bioInput}
-                  multiline={true}
-                  maxLength={MAX_LENGTH}
-                  value={bio}
-                  onChangeText={setBio}
-                />
-                <View
-                  style={{
-                    alignSelf: 'flex-end',
-                    right: RFPercentage(-1),
-                    bottom: RFPercentage(2),
-                  }}
-                >
-                  <Image
-                    source={ICONS.bars}
-                    resizeMode="contain"
-                    style={{
-                      width: RFPercentage(1.5),
-                      height: RFPercentage(1.5),
-                    }}
-                  />
+                  <View style={styles.bioBars}>
+                    <Image
+                      source={ICONS.bars}
+                      resizeMode="contain"
+                      style={styles.barsIcon}
+                    />
+                  </View>
                 </View>
               </View>
             </View>
-          </View>
-          <Text
-            style={{
-              alignSelf: 'flex-end',
-              marginTop: RFPercentage(0.5),
-              color: COLORS.grey4,
-              fontSize: RFPercentage(1.5),
-              fontFamily: FONTS.regular2,
-            }}
-          >
-            {MAX_LENGTH - bio.length} characters left
-          </Text>
 
-          <View style={styles.dropdowns}>
-            <View style={{ width: '48%' }}>
-              <InputField
-                placeholder="City"
-                //   value={values.city}
-
-                defaultColor={COLORS.placeholder}
-                focusedColor={COLORS.focused}
-                errorColor={COLORS.red}
-                password={false}
-              />
-
-              <TouchableOpacity
-                activeOpacity={0.8}
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginTop: RFPercentage(1.3),
-                }}
-              >
-                <Image
-                  source={ICONS.plus5}
-                  tintColor={COLORS.primary}
-                  resizeMode="contain"
-                  style={{
-                    width: RFPercentage(2),
-                    height: RFPercentage(2),
-                  }}
-                />
-                <Text
-                  style={{
-                    color: COLORS.primary,
-                    fontFamily: FONTS.bold,
-                    marginLeft: RFPercentage(0.8),
-                    fontSize: RFPercentage(1.8),
-                  }}
-                >
-                  Add Another Location
-                </Text>
-              </TouchableOpacity>
-            </View>
-
-            <View style={{ width: '48%' }}>
-              <DropdownField
-                placeholder="State"
-                data={['Beijing', 'Shanghai', 'Guangdong', 'Sichuan']}
-                selectedValue={state}
-                onValueChange={(val: any) => setState(val)}
-                isDropdownVisible={isDropdownVisible2}
-                setIsDropdownVisible={setIsDropdownVisible2}
-                style={{ paddingHorizontal: RFPercentage(1) }}
-              />
-            </View>
-          </View>
-
-          <View style={{ marginTop: RFPercentage(4) }}>
-            <Text
-              style={{
-                color: COLORS.primary,
-                fontFamily: FONTS.bold,
-                fontSize: RFPercentage(1.9),
-              }}
-            >
-              Where can people find you
+            <Text style={styles.charCount}>
+              {MAX_LENGTH - bio.length} characters left
             </Text>
-            <View>
-              <InputField
-                placeholder="Phone Number (Required)"
-                //   value={values.phoneNumber}
 
-                defaultColor={COLORS.placeholder}
+            <View style={styles.dropdowns}>
+              <View style={styles.halfWidth}>
+                <InputField
+                  placeholder="City"
+                  value={city}
+                  onChangeText={setCity}
+                  defaultColor={COLORS.focused}
+                  focusedColor={COLORS.focused}
+                  errorColor={COLORS.red}
+                  password={false}
+                />
+              </View>
+
+              <View style={styles.halfWidth}>
+                <DropdownField
+                  placeholder="State"
+                  data={['Beijing', 'Shanghai', 'Guangdong', 'Sichuan']}
+                  selectedValue={state}
+                  onValueChange={(val: any) => setState(val)}
+                  isDropdownVisible={isDropdownVisible2}
+                  setIsDropdownVisible={setIsDropdownVisible2}
+                  style={styles.dropdownInner}
+                />
+              </View>
+            </View>
+
+            <View style={styles.socialHandlesWrapper}>
+              <Text style={styles.socialHandlesTitle}>Social Handles</Text>
+              <InputField
+                placeholder="Phone Number"
+                password={false}
+                defaultColor={COLORS.focused}
                 focusedColor={COLORS.focused}
                 errorColor={COLORS.red}
-                password={false}
+                value={phone}
+                onChangeText={setPhone}
                 type="phone-pad"
                 icon={
                   <Image
                     source={ICONS.phone}
                     resizeMode="contain"
-                    style={{
-                      width: RFPercentage(2.2),
-                      height: RFPercentage(2.2),
-                    }}
+                    style={styles.phoneIcon}
                   />
                 }
               />
             </View>
-          </View>
 
-          <View style={styles.inputContainer}>
-            <FlatList
-              data={data}
-              scrollEnabled={false}
-              keyExtractor={item => item.id.toString()}
-              renderItem={({ item }) => (
-                <SocialField
-                  icon={item.icon}
-                  name={item.name}
-                  navigation={item.navigationScreen}
-                  color={item.color}
-                  connected={item.connected}
-                />
-              )}
+            <View style={styles.inputContainer}>
+              <FlatList
+                data={data}
+                scrollEnabled={false}
+                keyExtractor={item => item.id.toString()}
+                renderItem={({ item }) => (
+                  <SocialField
+                    icon={item.icon}
+                    name={item.name}
+                    navigation={item.navigationScreen}
+                    color={item.color}
+                    connected={item.connected}
+                  />
+                )}
+              />
+            </View>
+          </View>
+        </ScrollView>
+
+        {!keyboardIsVisible && (
+          <View style={styles.bottomWrapper}>
+            <CustomButton
+              title="Save"
+              style={styles.buttonContainer}
+              onPress={() => {}}
             />
           </View>
-        </View>
-      </ScrollView>
+        )}
+      </>
     </TouchableWithoutFeedback>
   );
 };
@@ -323,10 +275,33 @@ const EditProfile = () => {
 export default EditProfile;
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    flex: 1,
+    backgroundColor: COLORS.white,
+  },
+  scrollContent: {
+    paddingBottom: RFPercentage(5),
+  },
+  headerWrapper: {
+    borderBottomWidth: RFPercentage(0.1),
+    borderBottomColor: COLORS.lightWhite,
+    height: RFPercentage(10),
+    justifyContent: 'flex-end',
+    paddingBottom: RFPercentage(1),
+  },
+  headerInner: {
+    width: '90%',
+    alignSelf: 'center',
+  },
+  headerTitle: {
+    fontFamily: FONTS.semiBold,
+    fontSize: RFPercentage(2),
+  },
   container: {
     backgroundColor: COLORS.white,
     width: '90%',
     alignSelf: 'center',
+    marginTop: RFPercentage(2),
   },
   title: {
     fontFamily: FONTS.bold,
@@ -338,6 +313,14 @@ const styles = StyleSheet.create({
     width: RFPercentage(16),
     alignItems: 'center',
   },
+  profileCircle: {
+    width: RFPercentage(15),
+    height: RFPercentage(15),
+    borderRadius: RFPercentage(100),
+    backgroundColor: '#ECECEC',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   profileImage: {
     width: RFPercentage(14.8),
     height: RFPercentage(14.8),
@@ -347,15 +330,31 @@ const styles = StyleSheet.create({
     width: RFPercentage(5),
     height: RFPercentage(5),
   },
-  dropdowns: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: RFPercentage(0.8),
+  editIconWrapper: {
+    position: 'absolute',
+    bottom: RFPercentage(-1.5),
   },
   editIcon: {
     width: RFPercentage(3.8),
     height: RFPercentage(3.8),
-    // bottom: RFPercentage(2),
+  },
+  addPicBtn: {
+    position: 'absolute',
+    bottom: RFPercentage(-1),
+    width: RFPercentage(16),
+    height: RFPercentage(4),
+    borderRadius: RFPercentage(100),
+    backgroundColor: COLORS.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  addPicText: {
+    color: COLORS.white,
+    fontFamily: FONTS.medium,
+    fontSize: RFPercentage(1.4),
+  },
+  fullNameWrapper: {
+    marginTop: RFPercentage(2.5),
   },
   bioWrapper: {
     marginTop: RFPercentage(3),
@@ -366,6 +365,10 @@ const styles = StyleSheet.create({
     borderColor: COLORS.fieldBorder,
     borderRadius: RFPercentage(1.5),
     paddingVertical: RFPercentage(0.5),
+  },
+  bioInner: {
+    width: '90%',
+    alignSelf: 'center',
   },
   bioHeader: {
     flexDirection: 'row',
@@ -380,6 +383,10 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontSize: RFPercentage(1.7),
   },
+  bioIcon: {
+    width: RFPercentage(2),
+    height: RFPercentage(2),
+  },
   bioInput: {
     width: '100%',
     alignSelf: 'center',
@@ -393,41 +400,57 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     marginTop: RFPercentage(1.5),
   },
-  toggleRow: {
-    width: '100%',
-    alignSelf: 'center',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginVertical: RFPercentage(2),
+  bioBars: {
+    alignSelf: 'flex-end',
+    right: RFPercentage(-1),
+    bottom: RFPercentage(2),
   },
-  toggleLabel: {
-    textAlign: 'center',
-    fontFamily: FONTS.medium,
-    color: COLORS.inputColor,
+  barsIcon: {
+    width: RFPercentage(1.5),
+    height: RFPercentage(1.5),
+  },
+  charCount: {
+    alignSelf: 'flex-end',
+    marginTop: RFPercentage(0.5),
+    color: COLORS.grey4,
+    fontSize: RFPercentage(1.5),
+    fontFamily: FONTS.regular2,
+  },
+  dropdowns: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: RFPercentage(0.8),
+  },
+  halfWidth: {
+    width: '48%',
+  },
+  dropdownInner: {
+    paddingHorizontal: RFPercentage(1),
+  },
+  socialHandlesWrapper: {
+    marginTop: RFPercentage(3),
+  },
+  socialHandlesTitle: {
+    color: COLORS.primary,
+    fontFamily: FONTS.bold,
     fontSize: RFPercentage(1.9),
+  },
+  phoneIcon: {
+    width: RFPercentage(2.2),
+    height: RFPercentage(2.2),
   },
   inputContainer: {},
   bottomWrapper: {
     width: '100%',
-    paddingVertical: RFPercentage(3),
-    borderTopWidth: 1,
+    borderTopWidth: RFPercentage(0.1),
     borderTopColor: COLORS.lightWhite,
+    height: RFPercentage(10),
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: COLORS.white,
   },
   buttonContainer: {
     width: '90%',
     alignSelf: 'center',
-  },
-  skipText: {
-    textAlign: 'center',
-    fontFamily: FONTS.semiBold,
-    color: COLORS.black,
-    fontSize: RFPercentage(1.9),
-  },
-  skip: {
-    alignSelf: 'center',
-    paddingVertical: RFPercentage(1.5),
-    backgroundColor: COLORS.white,
   },
 });
