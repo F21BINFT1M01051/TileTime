@@ -35,6 +35,9 @@ const CreateInstructorProfile = ({ navigation }: any) => {
   const [Credential, setCredential] = useState('');
   const [keyboardIsVisible, setKeyboardIsVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [name, setName] = useState('');
+  const [city, setCity] = useState('');
+  const [business, setBusiness] = useState('');
 
   const slideAnim = useRef(
     new Animated.Value(Dimensions.get('window').height),
@@ -100,7 +103,12 @@ const CreateInstructorProfile = ({ navigation }: any) => {
             <Text style={styles.title}>Build Your Instructor Profile</Text>
 
             <View style={styles.marginTop1}>
-              <InputField placeholder="Full Name" password={false} />
+              <InputField
+                placeholder="Full Name"
+                password={false}
+                value={name}
+                onChangeText={setName}
+              />
             </View>
 
             <TouchableOpacity
@@ -124,7 +132,12 @@ const CreateInstructorProfile = ({ navigation }: any) => {
             </TouchableOpacity>
 
             {checked && (
-              <InputField placeholder="Enter Business Name" password={false} />
+              <InputField
+                placeholder="Enter Business Name"
+                password={false}
+                value={business}
+                onChangeText={setBusiness}
+              />
             )}
 
             <View style={styles.marginTop3}>
@@ -140,6 +153,8 @@ const CreateInstructorProfile = ({ navigation }: any) => {
                   defaultColor={COLORS.placeholder}
                   focusedColor={COLORS.focused}
                   password={false}
+                  value={city}
+                  onChangeText={setCity}
                 />
 
                 <TouchableOpacity
