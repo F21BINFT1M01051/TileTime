@@ -11,11 +11,11 @@ import {
 } from 'react-native';
 import { COLORS, FONTS, ICONS } from '../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import CustomButton from '../../../components/CustomButton';
 import About from './about';
 import ProffessionalInfo from './proffessional';
 import { AboutFormRef } from './about';
+import AuthHeader from '../../../components/AuthHeader';
 
 const steps = ['about', 'professional'];
 
@@ -87,21 +87,16 @@ const InstructorProfileSetup = ({ navigation }: any) => {
       >
         {/* Header */}
         <View style={styles.header}>
-          <TouchableOpacity
-            onPress={() => {
-              stepIndex === 0
-                ? navigation.goBack()
-                : setStepIndex(stepIndex - 1);
-            }}
-          >
-            <AntDesign
-              name="arrowleft"
-              size={RFPercentage(2.6)}
-              color={COLORS.grey}
+          <View style={{ width: '90%', alignSelf: 'center' }}>
+            <AuthHeader
+              title="Set Up Your Profile"
+              onPress={() => {
+                stepIndex === 0
+                  ? navigation.goBack()
+                  : setStepIndex(stepIndex - 1);
+              }}
             />
-          </TouchableOpacity>
-
-          <Text style={styles.headerText}>Set Up Your Profile</Text>
+          </View>
         </View>
 
         {/* Step Bars */}
@@ -167,41 +162,11 @@ export default InstructorProfileSetup;
 const styles = StyleSheet.create({
   header: {
     width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderBottomWidth: 1,
-    paddingBottom: RFPercentage(2.3),
+    borderBottomWidth: RFPercentage(0.1),
+    paddingBottom: RFPercentage(1.5),
     borderColor: COLORS.fieldBorder,
-    paddingHorizontal: RFPercentage(2),
-    marginTop: RFPercentage(8),
-  },
-  overLay: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    height: RFPercentage(10),
     justifyContent: 'flex-end',
-  },
-  modalContent: {
-    backgroundColor: COLORS.white,
-    padding: RFPercentage(3),
-    borderTopLeftRadius: RFPercentage(3),
-    borderTopRightRadius: RFPercentage(3),
-  },
-  modalText: {
-    fontSize: RFPercentage(2),
-    fontFamily: FONTS.medium,
-    color: COLORS.primary,
-    marginBottom: RFPercentage(1),
-  },
-  subTitle: {
-    fontFamily: FONTS.regular,
-    color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.8),
-  },
-  headerText: {
-    fontFamily: FONTS.headline,
-    color: COLORS.primary,
-    fontSize: RFPercentage(2.7),
-    marginLeft: RFPercentage(1.2),
   },
   stepBarContainer: {
     flexDirection: 'row',
@@ -244,4 +209,3 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
   },
 });
-

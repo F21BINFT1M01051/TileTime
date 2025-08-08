@@ -87,11 +87,8 @@ const CreateInstructorProfile = ({ navigation }: any) => {
         }
       }}
     >
-      <>
-        <ScrollView
-          style={styles.scrollView}
-          contentContainerStyle={styles.scrollViewContent}
-        >
+      <View style={styles.scrollView}>
+        <ScrollView contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.headerWrapper}>
             <View style={styles.authHeaderContainer}>
               <AuthHeader title="Additional Details" />
@@ -323,7 +320,7 @@ const CreateInstructorProfile = ({ navigation }: any) => {
             </View>
           </TouchableWithoutFeedback>
         </Modal>
-      </>
+      </View>
     </TouchableWithoutFeedback>
   );
 };
@@ -466,7 +463,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.headline,
     color: COLORS.primary,
     textAlign: 'center',
-    marginTop:RFPercentage(5)
+    marginTop: RFPercentage(5),
   },
   subTitle: {
     fontFamily: FONTS.regular,
@@ -578,7 +575,7 @@ const styles = StyleSheet.create({
   modalProfileImageWrapper: {
     width: RFPercentage(14),
     height: RFPercentage(14),
-    backgroundColor: '#E594C4',
+    backgroundColor: COLORS.pink6,
     borderTopLeftRadius: RFPercentage(100),
     borderTopRightRadius: RFPercentage(100),
     alignItems: 'center',
@@ -603,7 +600,7 @@ const styles = StyleSheet.create({
   instructorTag: {
     width: RFPercentage(8),
     height: RFPercentage(2.5),
-    backgroundColor: '#E1E5FF',
+    backgroundColor: COLORS.light,
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',

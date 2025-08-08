@@ -104,7 +104,7 @@ const PlayerHome = ({ navigation }: any) => {
             title="Home"
             right={true}
             home={true}
-            onPress2={() => navigation.navigate('PlayerSearch')}
+            onPress2={() => navigation.navigate('SearchScreen')}
             onPress3={() => navigation.navigate('Notifications')}
           />
 

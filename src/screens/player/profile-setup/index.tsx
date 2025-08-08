@@ -10,13 +10,7 @@ import {
   FlatList,
   ScrollView,
 } from 'react-native';
-import React, {
-  useState,
-  useRef,
-  forwardRef,
-  useImperativeHandle,
-  useEffect,
-} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import DropdownField from '../../../components/DropDown';
@@ -144,16 +138,7 @@ const PlayerProfileSetup = ({ navigation }: any) => {
           }) => (
             <>
               <ScrollView>
-                <View
-                  style={{
-                    width: '100%',
-                    borderBottomWidth: RFPercentage(0.1),
-                    borderBottomColor: COLORS.lightWhite,
-                    paddingBottom: RFPercentage(1),
-                    height: RFPercentage(10),
-                    justifyContent: 'flex-end',
-                  }}
-                >
+                <View style={styles.header}>
                   <View style={{ width: '90%', alignSelf: 'center' }}>
                     <AuthHeader title="Set Up Your Profile" />
                   </View>
@@ -165,16 +150,7 @@ const PlayerProfileSetup = ({ navigation }: any) => {
                     onPress={pickImage}
                     style={styles.profileContainer}
                   >
-                    <View
-                      style={{
-                        width: RFPercentage(15),
-                        height: RFPercentage(15),
-                        borderRadius: RFPercentage(100),
-                        backgroundColor: '#ECECEC',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                    >
+                    <View style={styles.imgInner}>
                       <Image
                         source={imageUri ? { uri: imageUri } : ICONS.gallery}
                         resizeMode="cover"
@@ -188,10 +164,7 @@ const PlayerProfileSetup = ({ navigation }: any) => {
                           <TouchableOpacity
                             activeOpacity={0.8}
                             onPress={pickImage}
-                            style={{
-                              position: 'absolute',
-                              bottom: RFPercentage(-1.5),
-                            }}
+                            style={styles.imgPicker}
                           >
                             <Image
                               source={ICONS.edit}
@@ -204,26 +177,9 @@ const PlayerProfileSetup = ({ navigation }: any) => {
                         <TouchableOpacity
                           activeOpacity={0.8}
                           onPress={pickImage}
-                          style={{
-                            position: 'absolute',
-                            bottom: RFPercentage(-1),
-                            width: RFPercentage(16),
-                            height: RFPercentage(4),
-                            borderRadius: RFPercentage(100),
-                            backgroundColor: COLORS.primary,
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                          }}
+                          style={styles.imgButton}
                         >
-                          <Text
-                            style={{
-                              color: COLORS.white,
-                              fontFamily: FONTS.medium,
-                              fontSize: RFPercentage(1.4),
-                            }}
-                          >
-                            Add your Picture
-                          </Text>
+                          <Text style={styles.imgText}>Add your Picture</Text>
                         </TouchableOpacity>
                       )}
                     </View>
@@ -249,15 +205,7 @@ const PlayerProfileSetup = ({ navigation }: any) => {
                     />
                     {touched.name && errors.name && (
                       <View style={{ marginTop: RFPercentage(0.6) }}>
-                        <Text
-                          style={{
-                            color: COLORS.red,
-                            fontFamily: FONTS.regular,
-                            fontSize: RFPercentage(1.7),
-                          }}
-                        >
-                          {errors?.name}
-                        </Text>
+                        <Text style={styles.error}>{errors?.name}</Text>
                       </View>
                     )}
                   </View>
@@ -270,10 +218,7 @@ const PlayerProfileSetup = ({ navigation }: any) => {
                           <Image
                             source={ICONS.user2}
                             resizeMode="contain"
-                            style={{
-                              width: RFPercentage(2),
-                              height: RFPercentage(2),
-                            }}
+                            style={styles.user}
                           />
                         </View>
                         <TextInput
@@ -285,46 +230,22 @@ const PlayerProfileSetup = ({ navigation }: any) => {
                           value={bio}
                           onChangeText={setBio}
                         />
-                        <View
-                          style={{
-                            alignSelf: 'flex-end',
-                            right: RFPercentage(-1),
-                            bottom: RFPercentage(2),
-                          }}
-                        >
+                        <View style={styles.bars}>
                           <Image
                             source={ICONS.bars}
                             resizeMode="contain"
-                            style={{
-                              width: RFPercentage(1.5),
-                              height: RFPercentage(1.5),
-                            }}
+                            style={styles.imgBars}
                           />
                         </View>
                       </View>
                     </View>
                   </View>
-                  <Text
-                    style={{
-                      alignSelf: 'flex-end',
-                      marginTop: RFPercentage(0.5),
-                      color: COLORS.grey4,
-                      fontSize: RFPercentage(1.5),
-                      fontFamily: FONTS.regular2,
-                    }}
-                  >
+                  <Text style={styles.bottom}>
                     {MAX_LENGTH - bio.length} characters left
                   </Text>
+
                   <View style={{ marginTop: RFPercentage(3) }}>
-                    <Text
-                      style={{
-                        color: COLORS.primary,
-                        fontFamily: FONTS.bold,
-                        fontSize: RFPercentage(1.9),
-                      }}
-                    >
-                      Which city do you live in
-                    </Text>
+                    <Text style={styles.city}>Which city do you live in</Text>
                   </View>
                   <View style={styles.dropdowns}>
                     <View style={{ width: '48%' }}>
@@ -348,15 +269,7 @@ const PlayerProfileSetup = ({ navigation }: any) => {
                       />
                       {touched.city && errors.city && (
                         <View style={{ marginTop: RFPercentage(0.6) }}>
-                          <Text
-                            style={{
-                              color: COLORS.red,
-                              fontFamily: FONTS.regular,
-                              fontSize: RFPercentage(1.7),
-                            }}
-                          >
-                            {errors?.city}
-                          </Text>
+                          <Text style={styles.error}>{errors?.city}</Text>
                         </View>
                       )}
                     </View>
@@ -375,15 +288,7 @@ const PlayerProfileSetup = ({ navigation }: any) => {
                   </View>
 
                   <View style={{ marginTop: RFPercentage(4) }}>
-                    <Text
-                      style={{
-                        color: COLORS.primary,
-                        fontFamily: FONTS.bold,
-                        fontSize: RFPercentage(1.9),
-                      }}
-                    >
-                      Where can people find you
-                    </Text>
+                    <Text style={styles.place}>Where can people find you</Text>
                     <View>
                       <InputField
                         placeholder="Phone Number (Required)"
@@ -417,16 +322,9 @@ const PlayerProfileSetup = ({ navigation }: any) => {
                           />
                         }
                       />
-
                       {touched.phoneNumber && errors.phoneNumber && (
                         <View style={{ marginTop: RFPercentage(0.6) }}>
-                          <Text
-                            style={{
-                              color: COLORS.red,
-                              fontFamily: FONTS.regular,
-                              fontSize: RFPercentage(1.7),
-                            }}
-                          >
+                          <Text style={styles.error}>
                             {errors?.phoneNumber}
                           </Text>
                         </View>
@@ -467,17 +365,7 @@ const PlayerProfileSetup = ({ navigation }: any) => {
               </ScrollView>
 
               {!keyboardIsVisible && (
-                <View
-                  style={{
-                    width: '100%',
-                    borderTopWidth: RFPercentage(0.1),
-                    borderTopColor: COLORS.lightWhite,
-                    height: RFPercentage(10),
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    backgroundColor: COLORS.white,
-                  }}
-                >
+                <View style={styles.button}>
                   <CustomButton
                     title="Save"
                     style={{ width: '90%', alignSelf: 'center' }}
@@ -513,14 +401,76 @@ const styles = StyleSheet.create({
     width: RFPercentage(16),
     alignItems: 'center',
   },
+  imgButton: {
+    position: 'absolute',
+    bottom: RFPercentage(-1),
+    width: RFPercentage(16),
+    height: RFPercentage(4),
+    borderRadius: RFPercentage(100),
+    backgroundColor: COLORS.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   profileImage: {
     width: RFPercentage(14.8),
     height: RFPercentage(14.8),
     borderRadius: RFPercentage(100),
   },
+  imgText: {
+    color: COLORS.white,
+    fontFamily: FONTS.medium,
+    fontSize: RFPercentage(1.4),
+  },
+  user: {
+    width: RFPercentage(2),
+    height: RFPercentage(2),
+  },
+  bars: {
+    alignSelf: 'flex-end',
+    right: RFPercentage(-1),
+    bottom: RFPercentage(2),
+  },
+  imgBars: {
+    width: RFPercentage(1.5),
+    height: RFPercentage(1.5),
+  },
+  city: {
+    color: COLORS.primary,
+    fontFamily: FONTS.bold,
+    fontSize: RFPercentage(1.9),
+  },
+  place: {
+    color: COLORS.primary,
+    fontFamily: FONTS.bold,
+    fontSize: RFPercentage(1.9),
+  },
+  bottom: {
+    alignSelf: 'flex-end',
+    marginTop: RFPercentage(0.5),
+    color: COLORS.grey4,
+    fontSize: RFPercentage(1.5),
+    fontFamily: FONTS.regular2,
+  },
+  imgPicker: {
+    position: 'absolute',
+    bottom: RFPercentage(-1.5),
+  },
   defaultImg: {
     width: RFPercentage(5),
     height: RFPercentage(5),
+  },
+  header: {
+    width: '100%',
+    borderBottomWidth: RFPercentage(0.1),
+    borderBottomColor: COLORS.lightWhite,
+    paddingBottom: RFPercentage(1),
+    height: RFPercentage(10),
+    justifyContent: 'flex-end',
+  },
+  error: {
+    color: COLORS.red,
+    fontFamily: FONTS.regular,
+    fontSize: RFPercentage(1.7),
   },
   dropdowns: {
     flexDirection: 'row',
@@ -530,7 +480,23 @@ const styles = StyleSheet.create({
   editIcon: {
     width: RFPercentage(3.8),
     height: RFPercentage(3.8),
-    // bottom: RFPercentage(2),
+  },
+  imgInner: {
+    width: RFPercentage(15),
+    height: RFPercentage(15),
+    borderRadius: RFPercentage(100),
+    backgroundColor: COLORS.lightWhite3,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button: {
+    width: '100%',
+    borderTopWidth: RFPercentage(0.1),
+    borderTopColor: COLORS.lightWhite,
+    height: RFPercentage(10),
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: COLORS.white,
   },
   bioWrapper: {
     marginTop: RFPercentage(3),

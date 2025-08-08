@@ -167,7 +167,7 @@ const MyProfilePlayer = ({ navigation }: any) => {
 
           <View style={styles.premiumBox}>
             <ImageBackground
-              source={IMAGES.background}
+              source={ICONS.modal}
               resizeMode="cover"
               style={styles.premiumBackground}
             >
@@ -402,8 +402,8 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(2),
   },
   premiumBackground: {
-    width: '100%',
-    height: '100%',
+    // width: RFPercentage,
+    height: RFPercentage(36.5),
     alignItems: 'center',
     padding: RFPercentage(2.5),
   },

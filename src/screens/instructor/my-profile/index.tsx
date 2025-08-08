@@ -117,7 +117,7 @@ const MyProfileInstructor = ({ navigation }: any) => {
             />
           </View>
 
-          <View style={styles.sectionWrapper}>
+          <View style={{marginTop:RFPercentage(4)}}>
             <Text style={styles.sectionTitle}>Credentials</Text>
             <View style={styles.badgeWrapper}>
               {credentials.map(item => (
@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(1.9),
   },
   sectionWrapper: {
-    marginTop: RFPercentage(4),
+    marginTop: RFPercentage(3),
   },
   sectionTitle: {
     color: COLORS.primary,

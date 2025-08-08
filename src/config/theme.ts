@@ -42,6 +42,9 @@ export const COLORS = {
   pink5: '#FFD9F2',
   grey6: '3919191',
   disabled: '#B8B8BE',
+  lightWhite3: '#ECECEC',
+  pink6: '#E594C4',
+  light: '#E1E5FF',
 };
 
 export const IMAGES = {
@@ -143,6 +146,7 @@ export const ICONS = {
   bell: require('../assets/icons/Bell.png'),
   premiumBorder: require('../assets/icons/premiumBorder.png'),
   web: require('../assets/icons/web.png'),
+  modal: require('../assets/icons/modal.png'),
 };
 
 export const FONTS = {

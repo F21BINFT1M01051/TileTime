@@ -10,11 +10,11 @@ import {
   Modal,
 } from 'react-native';
 import React, { useState } from 'react';
-import { COLORS, FONTS, ICONS, IMAGES } from '../../../config/theme';
+import { COLORS, FONTS, ICONS, IMAGES } from '../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import SearchField from '../../../components/SearchField';
-import SearchCard from '../components/SearchCard';
-import CustomButton from '../../../components/CustomButton';
+import SearchField from '../../../../components/SearchField';
+import CustomButton from '../../../../components/CustomButton';
+import SearchCard from '../../../player/components/SearchCard';
 
 const searchData = [
   {
@@ -37,7 +37,7 @@ const searchData = [
   },
 ];
 
-const PlayerSearch = ({ navigation }: any) => {
+const SearchScreen = ({ navigation }: any) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible2, setModalVisible2] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState(null);
@@ -167,7 +167,7 @@ const PlayerSearch = ({ navigation }: any) => {
   );
 };
 
-export default PlayerSearch;
+export default SearchScreen;
 
 const styles = StyleSheet.create({
   container: {

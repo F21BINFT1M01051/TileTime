@@ -37,12 +37,6 @@ interface AboutProps {
 
 const validationSchema = yup.object().shape({
   name: yup.string().required('Full Name is required'),
-  checked: yup.boolean(),
-  businessName: yup.string().when('checked', (checked: boolean, schema) => {
-    return checked
-      ? schema.required('Business Name is required')
-      : schema.notRequired();
-  }),
   city: yup.string().required('City is required'),
   phoneNumber: yup
     .string()
@@ -86,7 +80,9 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
   const [bio, setBio] = useState('');
   const [isOn, setIsOn] = useState(false);
   const [website, setWebsite] = React.useState('');
+  const [checked, setChecked] = useState(false);
   const formikRef = useRef<any>(null);
+  const [businessName, setBusinessName] = useState('');
 
   useImperativeHandle(ref, () => ({
     validateForm: () => {
@@ -109,7 +105,6 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
     },
   }));
 
-
   const pickImage = () => {
     const options = {
       mediaType: 'photo',
@@ -131,9 +126,8 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
       const isPhoneValid = !errors.phoneNumber && touched.phoneNumber;
       // const isBusinessValid =
       //   !values.checked || (touched.businessName && !errors.businessName);
-      const isValid =
-        isNameValid && isCityValid && isPhoneValid 
-        // && isBusinessValid;
+      const isValid = isNameValid && isCityValid && isPhoneValid;
+      // && isBusinessValid;
       setFormValid(isValid);
     }
   }, [
@@ -154,22 +148,12 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
     >
       <View style={styles.container}>
         <Text style={styles.title}>Enter Your Personal Details</Text>
-
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={pickImage}
           style={styles.profileContainer}
         >
-          <View
-            style={{
-              width: RFPercentage(15),
-              height: RFPercentage(15),
-              borderRadius: RFPercentage(100),
-              backgroundColor: '#ECECEC',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
+          <View style={styles.profileCircle}>
             <Image
               source={imageUri ? { uri: imageUri } : ICONS.gallery}
               resizeMode="cover"
@@ -177,43 +161,24 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
             />
 
             {imageUri ? (
-              <>
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  onPress={pickImage}
-                  style={{ position: 'absolute', bottom: RFPercentage(-1.5) }}
-                >
-                  <Image
-                    source={ICONS.edit}
-                    resizeMode="contain"
-                    style={styles.editIcon}
-                  />
-                </TouchableOpacity>
-              </>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={pickImage}
+                style={styles.editIconContainer}
+              >
+                <Image
+                  source={ICONS.edit}
+                  resizeMode="contain"
+                  style={styles.editIcon}
+                />
+              </TouchableOpacity>
             ) : (
               <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={pickImage}
-                style={{
-                  position: 'absolute',
-                  bottom: RFPercentage(-1),
-                  width: RFPercentage(16),
-                  height: RFPercentage(4),
-                  borderRadius: RFPercentage(100),
-                  backgroundColor: COLORS.primary,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
+                style={styles.addPicButton}
               >
-                <Text
-                  style={{
-                    color: COLORS.white,
-                    fontFamily: FONTS.medium,
-                    fontSize: RFPercentage(1.4),
-                  }}
-                >
-                  Add your Picture
-                </Text>
+                <Text style={styles.addPicText}>Add your Picture</Text>
               </TouchableOpacity>
             )}
           </View>
@@ -223,10 +188,8 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
           innerRef={formikRef}
           initialValues={{
             name: '',
-            businessName: '',
             city: '',
             phoneNumber: '',
-            checked: false,
           }}
           validationSchema={validationSchema}
           onSubmit={values => {
@@ -238,11 +201,9 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
           {({
             handleChange,
             handleBlur,
-            handleSubmit,
             values,
             errors,
             touched,
-            setFieldTouched,
             setFieldValue,
           }) => (
             <>
@@ -266,84 +227,41 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
                 />
                 {touched.name && errors.name && (
                   <View style={{ marginTop: RFPercentage(0.6) }}>
-                    <Text
-                      style={{
-                        color: COLORS.red,
-                        fontFamily: FONTS.regular,
-                        fontSize: RFPercentage(1.7),
-                      }}
-                    >
-                      {errors?.name}
-                    </Text>
+                    <Text style={styles.error}>{errors?.name}</Text>
                   </View>
                 )}
               </View>
 
               <TouchableOpacity
-                style={{
-                  width: '100%',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginTop: RFPercentage(3),
-                }}
+                style={styles.checkWrap}
                 activeOpacity={0.8}
-                onPress={() => setFieldValue('checked', !values.checked)}
+                onPress={() => setChecked(!checked)}
               >
                 <TouchableOpacity
                   activeOpacity={0.8}
-                  onPress={() => setFieldValue('checked', !values.checked)}
+                  onPress={() => setChecked(!checked)}
                 >
                   <Image
-                    source={values.checked ? ICONS.checked : ICONS.uncheck}
+                    source={checked ? ICONS.checked : ICONS.uncheck}
                     resizeMode="contain"
                     style={{ width: RFPercentage(3), height: RFPercentage(3) }}
                   />
                 </TouchableOpacity>
-                <Text
-                  style={{
-                    color: COLORS.inputColor,
-                    fontSize: RFPercentage(1.9),
-                    fontFamily: FONTS.regular,
-                    marginLeft: RFPercentage(1),
-                  }}
-                >
+                <Text style={styles.business}>
                   I conduct business under a different name
                 </Text>
               </TouchableOpacity>
-              {values.checked && (
+              {checked && (
                 <>
                   <InputField
                     placeholder="Enter Business Name"
-                    value={values.businessName}
-                    onChangeText={handleChange('businessName')}
-                    handleBlur={handleBlur('businessName')}
+                    value={businessName}
+                    onChangeText={setBusinessName}
                     password={false}
-                    hasError={
-                      touched.businessName && errors.businessName ? true : false
-                    }
                     defaultColor={COLORS.placeholder}
                     focusedColor={COLORS.focused}
                     errorColor={COLORS.red}
-                    style={{
-                      borderColor:
-                        touched.businessName && errors.businessName
-                          ? COLORS.red
-                          : COLORS.fieldBorder,
-                    }}
                   />
-                  {touched.businessName && errors.businessName && (
-                    <View style={{ marginTop: RFPercentage(0.6) }}>
-                      <Text
-                        style={{
-                          color: COLORS.red,
-                          fontFamily: FONTS.regular,
-                          fontSize: RFPercentage(1.7),
-                        }}
-                      >
-                        {errors?.businessName}
-                      </Text>
-                    </View>
-                  )}
                 </>
               )}
 
@@ -370,13 +288,7 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
                       value={bio}
                       onChangeText={setBio}
                     />
-                    <View
-                      style={{
-                        alignSelf: 'flex-end',
-                        right: RFPercentage(-1),
-                        bottom: RFPercentage(2),
-                      }}
-                    >
+                    <View style={styles.end}>
                       <Image
                         source={ICONS.bars}
                         resizeMode="contain"
@@ -389,25 +301,12 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
                   </View>
                 </View>
               </View>
-              <Text
-                style={{
-                  alignSelf: 'flex-end',
-                  marginTop: RFPercentage(0.5),
-                  color: COLORS.grey4,
-                  fontSize: RFPercentage(1.5),
-                  fontFamily: FONTS.regular2,
-                }}
-              >
+              <Text style={styles.bottom}>
                 {MAX_LENGTH - bio.length} characters left
               </Text>
+
               <View style={{ marginTop: RFPercentage(3) }}>
-                <Text
-                  style={{
-                    color: COLORS.primary,
-                    fontFamily: FONTS.bold,
-                    fontSize: RFPercentage(1.9),
-                  }}
-                >
+                <Text style={styles.conduct}>
                   Where do you conduct business
                 </Text>
               </View>
@@ -433,25 +332,11 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
                   />
                   {touched.city && errors.city && (
                     <View style={{ marginTop: RFPercentage(0.6) }}>
-                      <Text
-                        style={{
-                          color: COLORS.red,
-                          fontFamily: FONTS.regular,
-                          fontSize: RFPercentage(1.7),
-                        }}
-                      >
-                        {errors?.city}
-                      </Text>
+                      <Text style={styles.error}>{errors?.city}</Text>
                     </View>
                   )}
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      marginTop: RFPercentage(1.3),
-                    }}
-                  >
+
+                  <TouchableOpacity activeOpacity={0.8} style={styles.add}>
                     <Image
                       source={ICONS.plus5}
                       tintColor={COLORS.primary}
@@ -461,16 +346,7 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
                         height: RFPercentage(2),
                       }}
                     />
-                    <Text
-                      style={{
-                        color: COLORS.primary,
-                        fontFamily: FONTS.bold,
-                        marginLeft: RFPercentage(0.8),
-                        fontSize: RFPercentage(1.8),
-                      }}
-                    >
-                      Add Another Location
-                    </Text>
+                    <Text style={styles.another}>Add Another Location</Text>
                   </TouchableOpacity>
                 </View>
 
@@ -488,15 +364,7 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
               </View>
 
               <View style={{ marginTop: RFPercentage(4) }}>
-                <Text
-                  style={{
-                    color: COLORS.primary,
-                    fontFamily: FONTS.bold,
-                    fontSize: RFPercentage(1.9),
-                  }}
-                >
-                  Where can people find you
-                </Text>
+                <Text style={styles.conduct}>Where can people find you</Text>
                 <View>
                   <InputField
                     placeholder="Phone Number (Required)"
@@ -528,18 +396,9 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
                       />
                     }
                   />
-
                   {touched.phoneNumber && errors.phoneNumber && (
                     <View style={{ marginTop: RFPercentage(0.6) }}>
-                      <Text
-                        style={{
-                          color: COLORS.red,
-                          fontFamily: FONTS.regular,
-                          fontSize: RFPercentage(1.7),
-                        }}
-                      >
-                        {errors?.phoneNumber}
-                      </Text>
+                      <Text style={styles.error}>{errors?.phoneNumber}</Text>
                     </View>
                   )}
                 </View>
@@ -614,6 +473,14 @@ const styles = StyleSheet.create({
     width: RFPercentage(16),
     alignItems: 'center',
   },
+  profileCircle: {
+    width: RFPercentage(15),
+    height: RFPercentage(15),
+    borderRadius: RFPercentage(100),
+    backgroundColor: COLORS.lightWhite3,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   profileImage: {
     width: RFPercentage(14.8),
     height: RFPercentage(14.8),
@@ -623,18 +490,55 @@ const styles = StyleSheet.create({
     width: RFPercentage(5),
     height: RFPercentage(5),
   },
-  dropdowns: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: RFPercentage(-0.5),
+  editIconContainer: {
+    position: 'absolute',
+    bottom: RFPercentage(-1.5),
   },
   editIcon: {
     width: RFPercentage(3.8),
     height: RFPercentage(3.8),
-    // bottom: RFPercentage(2),
+  },
+  conduct: {
+    color: COLORS.primary,
+    fontFamily: FONTS.bold,
+    fontSize: RFPercentage(1.9),
+  },
+  addPicButton: {
+    position: 'absolute',
+    bottom: RFPercentage(-1),
+    width: RFPercentage(16),
+    height: RFPercentage(4),
+    borderRadius: RFPercentage(100),
+    backgroundColor: COLORS.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  addPicText: {
+    color: COLORS.white,
+    fontFamily: FONTS.medium,
+    fontSize: RFPercentage(1.4),
   },
   bioWrapper: {
     marginTop: RFPercentage(3),
+  },
+  bottom: {
+    alignSelf: 'flex-end',
+    marginTop: RFPercentage(0.5),
+    color: COLORS.grey4,
+    fontSize: RFPercentage(1.5),
+    fontFamily: FONTS.regular2,
+  },
+  checkWrap: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: RFPercentage(3),
+  },
+  business: {
+    color: COLORS.inputColor,
+    fontSize: RFPercentage(1.9),
+    fontFamily: FONTS.regular,
+    marginLeft: RFPercentage(1),
   },
   bioContainer: {
     backgroundColor: COLORS.fieldColor,
@@ -643,6 +547,17 @@ const styles = StyleSheet.create({
     borderRadius: RFPercentage(1.5),
     paddingVertical: RFPercentage(0.5),
   },
+  add: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: RFPercentage(1.3),
+  },
+  another: {
+    color: COLORS.primary,
+    fontFamily: FONTS.bold,
+    marginLeft: RFPercentage(0.8),
+    fontSize: RFPercentage(1.8),
+  },
   bioHeader: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -650,6 +565,16 @@ const styles = StyleSheet.create({
     width: '100%',
     alignSelf: 'center',
     marginTop: RFPercentage(1),
+  },
+  error: {
+    color: COLORS.red,
+    fontFamily: FONTS.regular,
+    fontSize: RFPercentage(1.7),
+  },
+  end: {
+    alignSelf: 'flex-end',
+    right: RFPercentage(-1),
+    bottom: RFPercentage(2),
   },
   bioLabel: {
     fontFamily: FONTS.medium2,
@@ -669,6 +594,11 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     marginTop: RFPercentage(1.5),
   },
+  dropdowns: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: RFPercentage(-0.5),
+  },
   toggleRow: {
     width: '100%',
     alignSelf: 'center',
@@ -683,27 +613,7 @@ const styles = StyleSheet.create({
     color: COLORS.inputColor,
     fontSize: RFPercentage(1.9),
   },
-  inputContainer: {},
-  bottomWrapper: {
-    width: '100%',
-    paddingVertical: RFPercentage(3),
-    borderTopWidth: 1,
-    borderTopColor: COLORS.lightWhite,
-    backgroundColor: COLORS.white,
-  },
-  buttonContainer: {
-    width: '90%',
-    alignSelf: 'center',
-  },
-  skipText: {
-    textAlign: 'center',
-    fontFamily: FONTS.semiBold,
-    color: COLORS.black,
-    fontSize: RFPercentage(1.9),
-  },
-  skip: {
-    alignSelf: 'center',
-    paddingVertical: RFPercentage(1.5),
-    backgroundColor: COLORS.white,
+  inputContainer: {
+    marginTop: RFPercentage(2),
   },
 });

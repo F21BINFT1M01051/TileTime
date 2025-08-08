@@ -6,14 +6,18 @@ import { useNavigation } from '@react-navigation/native';
 
 interface Props {
   title: string;
-  style? : object
+  style?: object;
+  onPress?: () => void;
 }
 
 const AuthHeader = (props: Props) => {
   const navigation = useNavigation();
   return (
     <View style={styles.auth}>
-      <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.goBack()}>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={props.onPress ? props.onPress : () => navigation.goBack()}
+      >
         <Image
           source={ICONS.back}
           resizeMode="contain"

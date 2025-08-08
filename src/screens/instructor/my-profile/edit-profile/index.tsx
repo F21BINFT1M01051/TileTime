@@ -11,7 +11,7 @@ import {
   ScrollView,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import { COLORS, FONTS, ICONS, IMAGES } from '../../../../config/theme';
+import { COLORS, FONTS, ICONS } from '../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import DropdownField from '../../../../components/DropDown';
 import InputField from '../../../../components/InputField';
@@ -48,6 +48,7 @@ const data = [
 ];
 
 const MAX_LENGTH = 230;
+
 const EditProfileInstructor = () => {
   const [state, setState] = useState(null);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -87,33 +88,20 @@ const EditProfileInstructor = () => {
         }
       }}
     >
-      <>
-        <ScrollView
-          style={{ flex: 1, backgroundColor: COLORS.white }}
-          contentContainerStyle={{ paddingBottom: RFPercentage(5) }}
-        >
-          <View
-            style={{
-              borderBottomWidth: RFPercentage(0.1),
-              borderBottomColor: COLORS.lightWhite,
-              height: RFPercentage(10),
-              justifyContent: 'flex-end',
-              paddingBottom: RFPercentage(1),
-            }}
-          >
-            <View style={{ width: '90%', alignSelf: 'center' }}>
+      <View style={styles.mainWrapper}>
+        <ScrollView contentContainerStyle={styles.scrollWrapper}>
+          <View style={styles.header}>
+            <View style={styles.innerHeader}>
               <AuthHeader
                 title="Edit Profile"
-                style={{
-                  fontFamily: FONTS.semiBold,
-                  fontSize: RFPercentage(2),
-                }}
+                style={styles.authHeaderText}
               />
             </View>
           </View>
+
           <View style={styles.container}>
             <Text style={styles.title}>Basic Details</Text>
-            <View style={{ marginTop: RFPercentage(1) }}>
+            <View style={styles.inputSpacing}>
               <InputField
                 placeholder="Full Name"
                 value={name}
@@ -126,12 +114,7 @@ const EditProfileInstructor = () => {
             </View>
 
             <TouchableOpacity
-              style={{
-                width: '100%',
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginTop: RFPercentage(3),
-              }}
+              style={styles.checkboxRow}
               activeOpacity={0.8}
               onPress={() => setChecked(!checked)}
             >
@@ -142,43 +125,32 @@ const EditProfileInstructor = () => {
                 <Image
                   source={checked ? ICONS.checked : ICONS.uncheck}
                   resizeMode="contain"
-                  style={{ width: RFPercentage(3), height: RFPercentage(3) }}
+                  style={styles.checkboxIcon}
                 />
               </TouchableOpacity>
-              <Text
-                style={{
-                  color: COLORS.inputColor,
-                  fontSize: RFPercentage(1.9),
-                  fontFamily: FONTS.regular,
-                  marginLeft: RFPercentage(1),
-                }}
-              >
+              <Text style={styles.checkboxText}>
                 I conduct business under a different name
               </Text>
             </TouchableOpacity>
+
             {checked && (
-              <>
-                <InputField
-                  placeholder="Enter Business Name"
-                  value={business}
-                  onChangeText={setBusiness}
-                  password={false}
-                />
-              </>
+              <InputField
+                placeholder="Enter Business Name"
+                value={business}
+                onChangeText={setBusiness}
+                password={false}
+              />
             )}
 
             <View style={styles.bioWrapper}>
               <View style={styles.bioContainer}>
-                <View style={{ width: '90%', alignSelf: 'center' }}>
+                <View style={styles.bioInner}>
                   <View style={styles.bioHeader}>
                     <Text style={styles.bioLabel}>Add Bio</Text>
                     <Image
                       source={ICONS.user2}
                       resizeMode="contain"
-                      style={{
-                        width: RFPercentage(2),
-                        height: RFPercentage(2),
-                      }}
+                      style={styles.bioIcon}
                     />
                   </View>
                   <TextInput
@@ -190,39 +162,23 @@ const EditProfileInstructor = () => {
                     value={bio}
                     onChangeText={setBio}
                   />
-                  <View
-                    style={{
-                      alignSelf: 'flex-end',
-                      right: RFPercentage(-1),
-                      bottom: RFPercentage(2),
-                    }}
-                  >
+                  <View style={styles.barsWrapper}>
                     <Image
                       source={ICONS.bars}
                       resizeMode="contain"
-                      style={{
-                        width: RFPercentage(1.5),
-                        height: RFPercentage(1.5),
-                      }}
+                      style={styles.barsIcon}
                     />
                   </View>
                 </View>
               </View>
             </View>
-            <Text
-              style={{
-                alignSelf: 'flex-end',
-                marginTop: RFPercentage(0.5),
-                color: COLORS.grey4,
-                fontSize: RFPercentage(1.5),
-                fontFamily: FONTS.regular2,
-              }}
-            >
+
+            <Text style={styles.remainingChars}>
               {MAX_LENGTH - bio.length} characters left
             </Text>
 
             <View style={styles.dropdowns}>
-              <View style={{ width: '48%' }}>
+              <View style={styles.dropdownHalf}>
                 <InputField
                   placeholder="City"
                   value={city}
@@ -235,35 +191,21 @@ const EditProfileInstructor = () => {
 
                 <TouchableOpacity
                   activeOpacity={0.8}
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginTop: RFPercentage(1.3),
-                  }}
+                  style={styles.addLocation}
                 >
                   <Image
                     source={ICONS.plus5}
                     tintColor={COLORS.primary}
                     resizeMode="contain"
-                    style={{
-                      width: RFPercentage(2),
-                      height: RFPercentage(2),
-                    }}
+                    style={styles.plusIcon}
                   />
-                  <Text
-                    style={{
-                      color: COLORS.primary,
-                      fontFamily: FONTS.bold,
-                      marginLeft: RFPercentage(0.8),
-                      fontSize: RFPercentage(1.8),
-                    }}
-                  >
+                  <Text style={styles.addLocationText}>
                     Add Another Location
                   </Text>
                 </TouchableOpacity>
               </View>
 
-              <View style={{ width: '48%' }}>
+              <View style={styles.dropdownHalf}>
                 <DropdownField
                   placeholder="State"
                   data={['Beijing', 'Shanghai', 'Guangdong', 'Sichuan']}
@@ -271,25 +213,17 @@ const EditProfileInstructor = () => {
                   onValueChange={(val: any) => setState(val)}
                   isDropdownVisible={isDropdownVisible2}
                   setIsDropdownVisible={setIsDropdownVisible2}
-                  style={{ paddingHorizontal: RFPercentage(1) }}
+                  style={styles.dropdownInput}
                 />
               </View>
             </View>
 
-            <View style={{ marginTop: RFPercentage(4) }}>
-              <Text
-                style={{
-                  color: COLORS.primary,
-                  fontFamily: FONTS.bold,
-                  fontSize: RFPercentage(1.9),
-                }}
-              >
-                Experience and Credentials
-              </Text>
+            <View style={styles.sectionWrapper}>
+              <Text style={styles.sectionTitle}>Experience and Credentials</Text>
 
               <View style={styles.inputContainer}>
                 <Text style={styles.sectionLabel}>Your Experience</Text>
-                <View style={{ marginTop: RFPercentage(1.5) }}>
+                <View style={styles.searchSpacing}>
                   <Search
                     placeholder="Search And Add Experience"
                     value={Experience}
@@ -303,12 +237,8 @@ const EditProfileInstructor = () => {
                   />
                 </View>
 
-                <Text
-                  style={[styles.sectionLabel, { marginTop: RFPercentage(3) }]}
-                >
-                  Credentials
-                </Text>
-                <View style={{ marginTop: RFPercentage(1.5) }}>
+                <Text style={styles.credentialLabel}>Credentials</Text>
+                <View style={styles.searchSpacing}>
                   <Search
                     placeholder="Search And Add Credentials"
                     value={Credential}
@@ -323,96 +253,68 @@ const EditProfileInstructor = () => {
               </View>
             </View>
 
-            <View style={{ marginTop: RFPercentage(3) }}>
-              <Text
-                style={{
-                  color: COLORS.primary,
-                  fontFamily: FONTS.bold,
-                  fontSize: RFPercentage(1.9),
-                }}
-              >
-                Social Handles
-              </Text>
-              <View>
-                <InputField
-                  placeholder="Phone Number"
-                  value={phone}
-                  onChangeText={setPhone}
-                  defaultColor={COLORS.focused}
-                  focusedColor={COLORS.focused}
-                  errorColor={COLORS.red}
-                  password={false}
-                  type="phone-pad"
-                  icon={
-                    <Image
-                      source={ICONS.phone}
-                      resizeMode="contain"
-                      style={{
-                        width: RFPercentage(2.2),
-                        height: RFPercentage(2.2),
-                      }}
-                    />
-                  }
-                />
-              </View>
-              <View>
-                <InputField
-                  placeholder="Your Website URL"
-                  value={website}
-                  onChangeText={setWebsite}
-                  password={false}
-                  icon={
-                    <Image
-                      source={ICONS.globe}
-                      resizeMode="contain"
-                      style={{
-                        width: RFPercentage(2.3),
-                        height: RFPercentage(2.3),
-                      }}
-                    />
-                  }
-                />
-              </View>
-            </View>
-
-            <View>
-              <FlatList
-                data={data}
-                scrollEnabled={false}
-                keyExtractor={item => item.id.toString()}
-                renderItem={({ item }) => (
-                  <SocialField
-                    icon={item.icon}
-                    name={item.name}
-                    navigation={item.navigationScreen}
-                    color={item.color}
-                    connected={item.connected}
+            <View style={styles.sectionWrapper}>
+              <Text style={styles.sectionTitle}>Social Handles</Text>
+              <InputField
+                placeholder="Phone Number"
+                value={phone}
+                onChangeText={setPhone}
+                defaultColor={COLORS.focused}
+                focusedColor={COLORS.focused}
+                errorColor={COLORS.red}
+                password={false}
+                type="phone-pad"
+                icon={
+                  <Image
+                    source={ICONS.phone}
+                    resizeMode="contain"
+                    style={styles.phoneIcon}
                   />
-                )}
+                }
+              />
+
+              <InputField
+                placeholder="Your Website URL"
+                value={website}
+                onChangeText={setWebsite}
+                password={false}
+                icon={
+                  <Image
+                    source={ICONS.globe}
+                    resizeMode="contain"
+                    style={styles.globeIcon}
+                  />
+                }
               />
             </View>
+
+            <FlatList
+              data={data}
+              scrollEnabled={false}
+              keyExtractor={item => item.id.toString()}
+              renderItem={({ item }) => (
+                <SocialField
+                  icon={item.icon}
+                  name={item.name}
+                  navigation={item.navigationScreen}
+                  color={item.color}
+                  connected={item.connected}
+                />
+              )}
+            />
           </View>
         </ScrollView>
+
         {!keyboardIsVisible && (
-          <View
-            style={{
-              width: '100%',
-              borderTopWidth: RFPercentage(0.1),
-              borderTopColor: COLORS.lightWhite,
-              height: RFPercentage(10),
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: COLORS.white,
-            }}
-          >
+          <View style={styles.footer}>
             <CustomButton
               title="Save"
-              style={{ width: '90%', alignSelf: 'center' }}
+              style={styles.saveButton}
               onPress={() => {}}
             />
           </View>
         )}
-      </>
+      </View>
     </TouchableWithoutFeedback>
   );
 };
@@ -420,6 +322,28 @@ const EditProfileInstructor = () => {
 export default EditProfileInstructor;
 
 const styles = StyleSheet.create({
+  mainWrapper: {
+    flex: 1,
+    backgroundColor: COLORS.white,
+  },
+  scrollWrapper: {
+    paddingBottom: RFPercentage(5),
+  },
+  header: {
+    borderBottomWidth: RFPercentage(0.1),
+    borderBottomColor: COLORS.lightWhite,
+    height: RFPercentage(10),
+    justifyContent: 'flex-end',
+    paddingBottom: RFPercentage(1),
+  },
+  innerHeader: {
+    width: '90%',
+    alignSelf: 'center',
+  },
+  authHeaderText: {
+    fontFamily: FONTS.semiBold,
+    fontSize: RFPercentage(2),
+  },
   container: {
     backgroundColor: COLORS.white,
     width: '90%',
@@ -431,34 +355,24 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontSize: RFPercentage(2),
   },
-  profileContainer: {
-    marginTop: RFPercentage(3),
-    width: RFPercentage(16),
-    alignItems: 'center',
+  inputSpacing: {
+    marginTop: RFPercentage(0.5),
   },
-  sectionLabel: {
-    fontFamily: FONTS.regular,
-    color: COLORS.primary,
-    fontSize: RFPercentage(1.6),
-  },
-  profileImage: {
-    width: RFPercentage(14.8),
-    height: RFPercentage(14.8),
-    borderRadius: RFPercentage(100),
-  },
-  defaultImg: {
-    width: RFPercentage(5),
-    height: RFPercentage(5),
-  },
-  dropdowns: {
+  checkboxRow: {
+    width: '100%',
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: RFPercentage(0.8),
+    alignItems: 'center',
+    marginTop: RFPercentage(3),
   },
-  editIcon: {
-    width: RFPercentage(3.8),
-    height: RFPercentage(3.8),
-    // bottom: RFPercentage(2),
+  checkboxIcon: {
+    width: RFPercentage(3),
+    height: RFPercentage(3),
+  },
+  checkboxText: {
+    color: COLORS.inputColor,
+    fontSize: RFPercentage(1.9),
+    fontFamily: FONTS.regular,
+    marginLeft: RFPercentage(1),
   },
   bioWrapper: {
     marginTop: RFPercentage(3),
@@ -470,12 +384,14 @@ const styles = StyleSheet.create({
     borderRadius: RFPercentage(1.5),
     paddingVertical: RFPercentage(0.5),
   },
+  bioInner: {
+    width: '90%',
+    alignSelf: 'center',
+  },
   bioHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    width: '100%',
-    alignSelf: 'center',
     marginTop: RFPercentage(1),
   },
   bioLabel: {
@@ -483,9 +399,12 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontSize: RFPercentage(1.7),
   },
+  bioIcon: {
+    width: RFPercentage(2),
+    height: RFPercentage(2),
+  },
   bioInput: {
     width: '100%',
-    alignSelf: 'center',
     textAlignVertical: 'top',
     fontFamily: FONTS.regular,
     color: COLORS.inputColor,
@@ -496,41 +415,92 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     marginTop: RFPercentage(1.5),
   },
-  toggleRow: {
-    width: '100%',
-    alignSelf: 'center',
+  barsWrapper: {
+    alignSelf: 'flex-end',
+    right: RFPercentage(-1),
+    bottom: RFPercentage(2),
+  },
+  barsIcon: {
+    width: RFPercentage(1.5),
+    height: RFPercentage(1.5),
+  },
+  remainingChars: {
+    alignSelf: 'flex-end',
+    marginTop: RFPercentage(0.5),
+    color: COLORS.grey4,
+    fontSize: RFPercentage(1.5),
+    fontFamily: FONTS.regular2,
+  },
+  dropdowns: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: RFPercentage(0.8),
+  },
+  dropdownHalf: {
+    width: '48%',
+  },
+  addLocation: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    marginVertical: RFPercentage(2),
+    marginTop: RFPercentage(1.3),
   },
-  toggleLabel: {
-    textAlign: 'center',
-    fontFamily: FONTS.medium,
-    color: COLORS.inputColor,
+  plusIcon: {
+    width: RFPercentage(2),
+    height: RFPercentage(2),
+  },
+  addLocationText: {
+    color: COLORS.primary,
+    fontFamily: FONTS.bold,
+    marginLeft: RFPercentage(0.8),
+    fontSize: RFPercentage(1.8),
+  },
+  dropdownInput: {
+    paddingHorizontal: RFPercentage(1),
+  },
+  sectionWrapper: {
+    marginTop: RFPercentage(4),
+  },
+  sectionTitle: {
+    color: COLORS.primary,
+    fontFamily: FONTS.bold,
     fontSize: RFPercentage(1.9),
   },
-  inputContainer: { marginTop: RFPercentage(2) },
-  bottomWrapper: {
+  inputContainer: {
+    marginTop: RFPercentage(2),
+  },
+  sectionLabel: {
+    fontFamily: FONTS.regular,
+    color: COLORS.primary,
+    fontSize: RFPercentage(1.6),
+  },
+  searchSpacing: {
+    marginTop: RFPercentage(1.5),
+  },
+  credentialLabel: {
+    fontFamily: FONTS.regular,
+    color: COLORS.primary,
+    fontSize: RFPercentage(1.6),
+    marginTop: RFPercentage(3),
+  },
+  phoneIcon: {
+    width: RFPercentage(2.2),
+    height: RFPercentage(2.2),
+  },
+  globeIcon: {
+    width: RFPercentage(2.3),
+    height: RFPercentage(2.3),
+  },
+  footer: {
     width: '100%',
-    paddingVertical: RFPercentage(3),
-    borderTopWidth: 1,
+    borderTopWidth: RFPercentage(0.1),
     borderTopColor: COLORS.lightWhite,
+    height: RFPercentage(10),
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: COLORS.white,
   },
-  buttonContainer: {
+  saveButton: {
     width: '90%',
     alignSelf: 'center',
-  },
-  skipText: {
-    textAlign: 'center',
-    fontFamily: FONTS.semiBold,
-    color: COLORS.black,
-    fontSize: RFPercentage(1.9),
-  },
-  skip: {
-    alignSelf: 'center',
-    paddingVertical: RFPercentage(1.5),
-    backgroundColor: COLORS.white,
   },
 });

@@ -317,7 +317,7 @@ const styles = StyleSheet.create({
     width: RFPercentage(15),
     height: RFPercentage(15),
     borderRadius: RFPercentage(100),
-    backgroundColor: '#ECECEC',
+    backgroundColor: COLORS.lightWhite3,
     alignItems: 'center',
     justifyContent: 'center',
   },
