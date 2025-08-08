@@ -35,17 +35,17 @@ export default CustomButton;
 const styles = StyleSheet.create({
   button: {
     width: '100%',
-    height: RFPercentage(6.3),
+    height: RFPercentage(5.5),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: COLORS.primary,
-    borderRadius: RFPercentage(2.6),
+    borderRadius: RFPercentage(1.7),
     flexDirection: 'row',
   },
   text: {
     color: COLORS.white,
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(2),
+    fontSize: RFPercentage(1.9),
   },
   img: {
     width: RFPercentage(2.5),

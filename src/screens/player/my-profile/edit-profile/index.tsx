@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
   headerWrapper: {
     borderBottomWidth: RFPercentage(0.1),
     borderBottomColor: COLORS.lightWhite,
-    height: RFPercentage(10),
+    height: RFPercentage(12),
     justifyContent: 'flex-end',
     paddingBottom: RFPercentage(1),
   },

@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     paddingBottom: RFPercentage(1.5),
     borderBottomWidth: RFPercentage(0.1),
     borderBottomColor: '#D8D8D8',
-    height: RFPercentage(10),
+    height: RFPercentage(12),
     justifyContent: 'flex-end',
   },
   topBarContent: {
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: RFPercentage(2),
   },
   filterButton: {
-    height: RFPercentage(4.5),
+    height: RFPercentage(4.2),
     paddingHorizontal: RFPercentage(2),
     alignItems: 'center',
     justifyContent: 'center',

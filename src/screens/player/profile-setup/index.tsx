@@ -464,7 +464,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: RFPercentage(0.1),
     borderBottomColor: COLORS.lightWhite,
     paddingBottom: RFPercentage(1),
-    height: RFPercentage(10),
+    height: RFPercentage(12),
     justifyContent: 'flex-end',
   },
   error: {

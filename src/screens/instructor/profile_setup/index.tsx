@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: RFPercentage(0.1),
     paddingBottom: RFPercentage(1.5),
     borderColor: COLORS.fieldBorder,
-    height: RFPercentage(10),
+    height: RFPercentage(12),
     justifyContent: 'flex-end',
   },
   stepBarContainer: {

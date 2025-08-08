@@ -58,7 +58,10 @@ const SearchScreen = ({ navigation }: any) => {
       <View style={styles.headerContainer}>
         <View style={styles.headerRow}>
           <Text style={styles.headerText}>Search Players and Groups</Text>
-          <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.goBack()}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigation.goBack()}
+          >
             <Image
               source={ICONS.cross}
               tintColor={'#8C8C8C'}
@@ -101,12 +104,18 @@ const SearchScreen = ({ navigation }: any) => {
           <View style={styles.overLay}>
             <TouchableWithoutFeedback>
               <View style={styles.modalContent}>
-                <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.closeButton}>
+                <TouchableOpacity
+                  onPress={() => setModalVisible(false)}
+                  style={styles.closeButton}
+                >
                   <Image source={ICONS.cross} style={styles.closeIcon} />
                 </TouchableOpacity>
 
                 <View style={styles.largeGroupIconContainer}>
-                  <Image source={IMAGES.customProfile} style={styles.largeGroupIcon} />
+                  <Image
+                    source={IMAGES.customProfile}
+                    style={styles.largeGroupIcon}
+                  />
                 </View>
 
                 <Text style={styles.modalText}>Join {selectedGroup?.name}</Text>
@@ -140,22 +149,36 @@ const SearchScreen = ({ navigation }: any) => {
           <View style={[styles.overLay, styles.bottomSheetOverlay]}>
             <TouchableWithoutFeedback>
               <View style={styles.bottomSheet}>
-                <TouchableOpacity onPress={() => setModalVisible2(false)} style={styles.closeButton}>
+                <TouchableOpacity
+                  onPress={() => setModalVisible2(false)}
+                  style={styles.closeButton}
+                >
                   <Image source={ICONS.cross} style={styles.closeIcon} />
                 </TouchableOpacity>
 
-                <Image source={ICONS.group22} resizeMode="contain" style={styles.groupImage} />
+                <Image
+                  source={ICONS.group22}
+                  resizeMode="contain"
+                  style={styles.groupImage}
+                />
 
                 <View style={styles.groupInfoWrapper}>
                   <Text style={styles.groupName}>Emily Girls Group</Text>
-                  <Text style={styles.groupInviteNote}>This Group Is Invite-only</Text>
+                  <Text style={styles.groupInviteNote}>
+                    This Group Is Invite-only
+                  </Text>
 
-                  <Image source={ICONS.qoutes} resizeMode="contain" style={styles.qouteIcon} />
+                  <Image
+                    source={ICONS.qoutes}
+                    resizeMode="contain"
+                    style={styles.qouteIcon}
+                  />
                 </View>
 
                 <View style={styles.groupDescriptionWrapper}>
                   <Text style={styles.groupDescription}>
-                    Reach out to a member you know for an invite or the group link.
+                    Reach out to a member you know for an invite or the group
+                    link.
                   </Text>
                 </View>
               </View>
@@ -178,8 +201,8 @@ const styles = StyleSheet.create({
     paddingBottom: RFPercentage(1.5),
     borderBottomWidth: RFPercentage(0.1),
     borderBottomColor: '#D8D8D8',
-    height:RFPercentage(10),
-    justifyContent:"flex-end"
+    height: RFPercentage(12),
+    justifyContent: 'flex-end',
   },
   headerRow: {
     width: '90%',

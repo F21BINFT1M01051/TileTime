@@ -121,8 +121,8 @@ const MyProfilePlayer = ({ navigation }: any) => {
           </View>
 
           <Text style={styles.bioText}>
-            Mahjong instructor focused on strategy, community, and fun. Open to
-            all skill levels - join the table and play your way.
+            Mahjong instrucsdsdstor focused on strategy, community, and fun.
+            Open to all skill levels - join the table and play your way.
           </Text>
 
           <FlatList
@@ -331,7 +331,7 @@ const styles = StyleSheet.create({
   editButton: {
     borderRadius: RFPercentage(1.6),
     marginTop: RFPercentage(1.8),
-    height: RFPercentage(5.8),
+    height: RFPercentage(5.5),
   },
   bioText: {
     color: COLORS.primary,
@@ -365,7 +365,7 @@ const styles = StyleSheet.create({
     marginLeft: RFPercentage(1.6),
   },
   connectButton: {
-    width: RFPercentage(13),
+    width: RFPercentage(14),
     height: RFPercentage(3.5),
     borderRadius: RFPercentage(100),
     backgroundColor: COLORS.primary,

@@ -92,10 +92,7 @@ const EditProfileInstructor = () => {
         <ScrollView contentContainerStyle={styles.scrollWrapper}>
           <View style={styles.header}>
             <View style={styles.innerHeader}>
-              <AuthHeader
-                title="Edit Profile"
-                style={styles.authHeaderText}
-              />
+              <AuthHeader title="Edit Profile" style={styles.authHeaderText} />
             </View>
           </View>
 
@@ -219,7 +216,9 @@ const EditProfileInstructor = () => {
             </View>
 
             <View style={styles.sectionWrapper}>
-              <Text style={styles.sectionTitle}>Experience and Credentials</Text>
+              <Text style={styles.sectionTitle}>
+                Experience and Credentials
+              </Text>
 
               <View style={styles.inputContainer}>
                 <Text style={styles.sectionLabel}>Your Experience</Text>
@@ -332,7 +331,7 @@ const styles = StyleSheet.create({
   header: {
     borderBottomWidth: RFPercentage(0.1),
     borderBottomColor: COLORS.lightWhite,
-    height: RFPercentage(10),
+    height: RFPercentage(12),
     justifyContent: 'flex-end',
     paddingBottom: RFPercentage(1),
   },
