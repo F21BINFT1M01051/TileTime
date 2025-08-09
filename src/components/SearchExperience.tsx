@@ -8,7 +8,7 @@ import {
   Keyboard,
   Image,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { COLORS, FONTS, ICONS } from '../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import Feather from 'react-native-vector-icons/Feather';
@@ -23,6 +23,7 @@ interface Props {
 const Search = ({ placeholder, value, onChangeText, data }: Props) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const inputRef = React.useRef<TextInput>(null);
 
   const filteredData = data.filter(item =>
     item.toLowerCase().includes(value.toLowerCase()),
@@ -34,7 +35,9 @@ const Search = ({ placeholder, value, onChangeText, data }: Props) => {
     }
     onChangeText('');
     setShowDropdown(false);
-    Keyboard.dismiss();
+    requestAnimationFrame(() => {
+      inputRef.current?.blur();
+    });
   };
 
   const removeItem = (itemToRemove: string) => {
@@ -54,13 +57,19 @@ const Search = ({ placeholder, value, onChangeText, data }: Props) => {
       >
         <View style={styles.inputContainer}>
           <TextInput
+            ref={inputRef}
             placeholder={placeholder}
             placeholderTextColor={COLORS.placeholder}
             style={styles.textInput}
-            value={value}
+            value={value || ''}
+            onFocus={() => setShowDropdown(true)}
             onChangeText={text => {
               onChangeText(text);
-              setShowDropdown(true);
+              if (text.length > 0) {
+                setShowDropdown(true);
+              } else {
+                setShowDropdown(false);
+              }
             }}
           />
           <Feather
@@ -76,7 +85,7 @@ const Search = ({ placeholder, value, onChangeText, data }: Props) => {
         <View style={styles.dropdownContainer}>
           <FlatList
             data={filteredData}
-            keyboardShouldPersistTaps="handled"
+            keyboardShouldPersistTaps="always"
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => {
               const isLastItem =
@@ -161,7 +170,7 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: RFPercentage(0.1),
     width: '100%',
-    height: RFPercentage(6.6),
+    height: RFPercentage(6),
     borderRadius: RFPercentage(1.3),
     justifyContent: 'center',
     zIndex: 1,
@@ -218,7 +227,7 @@ const styles = StyleSheet.create({
     borderRadius: RFPercentage(100),
     paddingHorizontal: RFPercentage(2),
     marginRight: RFPercentage(1),
-    height: RFPercentage(4.5),
+    height: RFPercentage(4.3),
     justifyContent: 'space-between',
   },
   selectedText: {

@@ -21,10 +21,10 @@ import SocialField from '../../../../../../components/SocialField';
 const GroupDetails = ({ navigation }: any) => {
   return (
     <View style={styles.safeArea}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <ImageBackground
           source={IMAGES.groupDetail}
-          resizeMode="repeat"
+          resizeMode="contain"
           style={styles.groupImage}
         >
           <View style={styles.headerBorder}>
@@ -191,12 +191,12 @@ const styles = StyleSheet.create({
   },
   groupImage: {
     width: '100%',
-    height: RFPercentage(20),
+    height: RFPercentage(26),
   },
   contentContainer: {
     width: '90%',
     alignSelf: 'center',
-    bottom: RFPercentage(6),
+    bottom: RFPercentage(8),
   },
   largeGroupIconContainer: {
     width: RFPercentage(12),

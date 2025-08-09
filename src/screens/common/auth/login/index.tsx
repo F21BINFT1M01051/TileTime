@@ -47,7 +47,6 @@ const Login = ({ navigation }: any) => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <ScrollView>
         <LinearGradient
           colors={[COLORS.gradient1, COLORS.gradient2]}
           style={styles.gradient}
@@ -66,9 +65,16 @@ const Login = ({ navigation }: any) => {
           </View>
 
           <View style={styles.whiteContainer}>
-            <View style={styles.contentWrapper}>
-              <AuthHeader title="Log In" />
+            <AuthHeader
+              title="Log In"
+              wrapStyle={{
+                height: RFPercentage(5),
+                borderBottomWidth: 0,
+                marginTop: RFPercentage(2.5),
+              }}
+            />
 
+            <View style={styles.contentWrapper}>
               <Formik
                 initialValues={{
                   email: '',
@@ -111,7 +117,7 @@ const Login = ({ navigation }: any) => {
                             style={{
                               color: COLORS.red,
                               fontFamily: FONTS.regular,
-                              fontSize: RFPercentage(1.7),
+                              fontSize: RFPercentage(1.6),
                             }}
                           >
                             {errors?.email}
@@ -124,7 +130,7 @@ const Login = ({ navigation }: any) => {
                       <InputField
                         placeholder="Enter Password"
                         onChangeText={text => {
-                          setFieldTouched('password', true);
+                          // setFieldTouched('password', true);
                           handleChange('password')(text);
                         }}
                         handleBlur={handleBlur('password')}
@@ -149,7 +155,7 @@ const Login = ({ navigation }: any) => {
                             style={{
                               color: COLORS.red,
                               fontFamily: FONTS.regular,
-                              fontSize: RFPercentage(1.7),
+                              fontSize: RFPercentage(1.6),
                             }}
                           >
                             {errors?.password}
@@ -207,7 +213,6 @@ const Login = ({ navigation }: any) => {
             </View>
           </View>
         </LinearGradient>
-      </ScrollView>
     </TouchableWithoutFeedback>
   );
 };
@@ -222,7 +227,7 @@ const styles = StyleSheet.create({
   logoContainer: {
     width: '100%',
     alignItems: 'center',
-    paddingTop: RFPercentage(6),
+    paddingTop: RFPercentage(8),
   },
   logo: {
     width: RFPercentage(10),
@@ -240,17 +245,14 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: RFPercentage(2.5),
     alignItems: 'center',
     marginTop: RFPercentage(4),
-    paddingBottom: RFPercentage(5),
-    height: '100%',
+    flex:1,
   },
   contentWrapper: {
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(3.5),
   },
 
   emailField: {
-    marginTop: RFPercentage(1.5),
   },
   passwordField: {},
   forgotPasswordButton: {

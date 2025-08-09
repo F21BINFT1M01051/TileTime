@@ -84,20 +84,14 @@ const InstructorProfileSetup = ({ navigation }: any) => {
         style={{ flex: 1, backgroundColor: COLORS.white }}
         contentContainerStyle={{ flexGrow: 1, paddingBottom: RFPercentage(3) }}
         keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
       >
-        {/* Header */}
-        <View style={styles.header}>
-          <View style={{ width: '90%', alignSelf: 'center' }}>
-            <AuthHeader
-              title="Set Up Your Profile"
-              onPress={() => {
-                stepIndex === 0
-                  ? navigation.goBack()
-                  : setStepIndex(stepIndex - 1);
-              }}
-            />
-          </View>
-        </View>
+        <AuthHeader
+          title="Set Up Your Profile"
+          onPress={() => {
+            stepIndex === 0 ? navigation.goBack() : setStepIndex(stepIndex - 1);
+          }}
+        />
 
         {/* Step Bars */}
         <View style={styles.stepBarContainer}>
@@ -188,10 +182,11 @@ const styles = StyleSheet.create({
   },
   bottomWrapper: {
     width: '100%',
-    paddingVertical: RFPercentage(3),
+    paddingVertical: RFPercentage(2),
     borderTopWidth: 1,
     borderTopColor: COLORS.lightWhite,
     backgroundColor: COLORS.white,
+    paddingBottom:RFPercentage(4)
   },
   buttonContainer: {
     width: '90%',

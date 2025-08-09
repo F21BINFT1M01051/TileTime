@@ -45,6 +45,8 @@ export const COLORS = {
   lightWhite3: '#ECECEC',
   pink6: '#E594C4',
   light: '#E1E5FF',
+  date:"#E4F7F6",
+  location:"#FFEDE2"
 };
 
 export const IMAGES = {

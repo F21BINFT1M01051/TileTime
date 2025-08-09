@@ -6,6 +6,7 @@ import {
   FlatList,
   Text,
   StyleSheet,
+  Platform
 } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS } from '../config/theme';
@@ -65,7 +66,7 @@ const DropdownField: React.FC<Props> = ({
     position: 'absolute' as const,
     top: animatedIsFocused.interpolate({
       inputRange: [0, 1],
-      outputRange: [0, RFPercentage(-1.3)],
+      outputRange: [0, RFPercentage(-1)],
     }),
     fontSize: animatedIsFocused.interpolate({
       inputRange: [0, 1],
@@ -158,7 +159,7 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: RFPercentage(0.1),
     width: '100%',
-    height: RFPercentage(7),
+    height: Platform.OS === 'ios' ? RFPercentage(6) : RFPercentage(7),
     backgroundColor: COLORS.fieldColor,
     borderColor: COLORS.fieldBorder,
     borderRadius: RFPercentage(1.3),

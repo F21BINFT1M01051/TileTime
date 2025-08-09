@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
   Image,
+  Platform,
 } from 'react-native';
 import React, { useState } from 'react';
 import { COLORS, IMAGES, FONTS, ICONS } from '../../../../../../config/theme';
@@ -22,7 +23,7 @@ const PlayerProfile = ({ navigation }: any) => {
       <View style={{ width: '100%' }}>
         <ImageBackground
           source={IMAGES.single}
-          resizeMode="repeat"
+          resizeMode="contain"
           style={styles.backgroundImage}
         >
           <View style={styles.headerBorder}>
@@ -77,6 +78,7 @@ const PlayerProfile = ({ navigation }: any) => {
               title="Add to group"
               icon={ICONS.add}
               style={styles.buttonRounded}
+              textStyle={{ fontFamily: FONTS.semiBold }}
               onPress={() => {}}
             />
           </View>
@@ -85,6 +87,7 @@ const PlayerProfile = ({ navigation }: any) => {
               title="Send Message"
               icon={ICONS.message}
               style={styles.buttonRounded}
+              textStyle={{ fontFamily: FONTS.semiBold }}
               onPress={() => {
                 navigation.navigate('ChatScreen', {
                   isGroup: false,
@@ -113,7 +116,7 @@ const PlayerProfile = ({ navigation }: any) => {
           zIndex: 999,
           height: '100%',
           position: 'absolute',
-          top: RFPercentage(55),
+          top: RFPercentage(58),
           alignItems: 'center',
         }}
       >
@@ -157,7 +160,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(5),
+    marginTop: Platform.OS === 'android' ? RFPercentage(5) : RFPercentage(7.6),
   },
   groupDesc: {
     fontFamily: FONTS.regular2,
@@ -184,17 +187,17 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     width: '100%',
-    height: RFPercentage(20),
+    height: RFPercentage(26),
   },
   mainContent: {
     width: '90%',
     alignSelf: 'center',
-    bottom: RFPercentage(6),
+    bottom: RFPercentage(8),
   },
   avatarOuterLayer: {
     width: RFPercentage(11),
-    height: RFPercentage(12),
-    borderRadius: RFPercentage(4.6),
+    height: RFPercentage(12.5),
+    borderRadius: RFPercentage(4.8),
     backgroundColor: COLORS.purple,
     alignItems: 'center',
     justifyContent: 'center',
@@ -202,8 +205,8 @@ const styles = StyleSheet.create({
   avatarMiddleLayer: {
     backgroundColor: COLORS.green2,
     width: RFPercentage(11),
-    height: RFPercentage(12),
-    borderRadius: RFPercentage(4.6),
+    height: RFPercentage(12.5),
+    borderRadius: RFPercentage(4.8),
     alignItems: 'center',
     justifyContent: 'center',
     right: RFPercentage(0.3),
@@ -211,16 +214,16 @@ const styles = StyleSheet.create({
   avatarInnerLayer: {
     backgroundColor: COLORS.pink3,
     width: RFPercentage(11),
-    height: RFPercentage(12),
-    borderRadius: RFPercentage(4.6),
+    height: RFPercentage(12.5),
+    borderRadius: RFPercentage(4.8),
     alignItems: 'center',
     justifyContent: 'center',
     right: RFPercentage(0.3),
   },
   avatarImage: {
     width: RFPercentage(11),
-    height: RFPercentage(12),
-    borderRadius: RFPercentage(4.6),
+    height: RFPercentage(12.5),
+    borderRadius: RFPercentage(4.8),
     right: RFPercentage(0.3),
     bottom: RFPercentage(0.2),
   },
@@ -235,13 +238,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: RFPercentage(4),
+    marginTop: RFPercentage(3.4),
   },
   buttonHalf: {
     width: '48%',
   },
   buttonRounded: {
-    borderRadius: RFPercentage(1.6),
+    borderRadius: RFPercentage(1.4),
   },
   viewProfile: {
     marginTop: RFPercentage(4),
@@ -278,6 +281,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 1000,
-    marginTop: RFPercentage(15),
+    marginTop: RFPercentage(11),
   },
 });

@@ -68,7 +68,7 @@ const MyProfileInstructor = ({ navigation }: any) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContent}>
+      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         <TopNavigation title="My Profile" />
 
         <View style={styles.innerContainer}>
@@ -193,27 +193,27 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
+    justifyContent:"space-between"
   },
   avatarBorder: {
-    width: RFPercentage(16),
-    height: RFPercentage(16),
+    width: RFPercentage(14),
+    height: RFPercentage(14),
     alignItems: 'center',
     justifyContent: 'center',
   },
   avatarImage: {
-    width: RFPercentage(15),
-    height: RFPercentage(15),
+    width: RFPercentage(13),
+    height: RFPercentage(13),
     borderRadius: RFPercentage(100),
   },
   premiumIcon: {
     position: 'absolute',
     bottom: RFPercentage(-1.6),
-    width: RFPercentage(5),
-    height: RFPercentage(5),
+    width: RFPercentage(4),
+    height: RFPercentage(4),
   },
   nameSection: {
     marginLeft: RFPercentage(2),
-    width: '60%',
   },
   nameText: {
     fontFamily: FONTS.headline,
@@ -227,9 +227,10 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(0.5),
   },
   editButton: {
-    borderRadius: RFPercentage(1.6),
+    borderRadius: RFPercentage(1.3),
     marginTop: RFPercentage(1.8),
-    height: RFPercentage(5.8),
+    height: RFPercentage(5.3),
+    
   },
   bioText: {
     color: COLORS.primary,
@@ -265,8 +266,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   credentialBadge: {
-    height: RFPercentage(5),
-    paddingHorizontal: RFPercentage(1.5),
+    height: RFPercentage(4.5),
+    paddingHorizontal: RFPercentage(1.8),
     backgroundColor: '#DEE3FD',
     borderRadius: RFPercentage(100),
     alignItems: 'center',
@@ -275,8 +276,8 @@ const styles = StyleSheet.create({
     marginBottom: RFPercentage(1.5),
   },
   experienceBadge: {
-    height: RFPercentage(5),
-    paddingHorizontal: RFPercentage(1.5),
+    height: RFPercentage(4.5),
+    paddingHorizontal: RFPercentage(1.8),
     backgroundColor: '#FCFDDE',
     borderRadius: RFPercentage(100),
     alignItems: 'center',
@@ -286,7 +287,7 @@ const styles = StyleSheet.create({
   },
   badgeText: {
     color: COLORS.primary,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.6),
     fontFamily: FONTS.medium,
   },
   connectList: {
@@ -299,8 +300,8 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(2.8),
   },
   connectionIcon: {
-    width: RFPercentage(3),
-    height: RFPercentage(3),
+    width: RFPercentage(2.5),
+    height: RFPercentage(2.5),
   },
   connectedText: {
     color: COLORS.primary,
@@ -315,7 +316,7 @@ const styles = StyleSheet.create({
     marginLeft: RFPercentage(1.6),
   },
   connectNowButton: {
-    width: RFPercentage(13),
+    width: RFPercentage(12),
     height: RFPercentage(3.5),
     borderRadius: RFPercentage(100),
     backgroundColor: COLORS.primary,
@@ -326,7 +327,7 @@ const styles = StyleSheet.create({
   },
   connectNowText: {
     color: COLORS.white,
-    fontSize: RFPercentage(1.6),
+    fontSize: RFPercentage(1.4),
     fontFamily: FONTS.medium,
   },
 });

@@ -121,9 +121,11 @@ const styles = StyleSheet.create({
     borderTopColor: COLORS.lightWhite,
     alignItems: 'center',
     paddingVertical: RFPercentage(3),
+    paddingTop:RFPercentage(2)
   },
   buttonWrapper: {
     width: '90%',
     alignSelf: 'center',
+    paddingBottom:RFPercentage(2)
   },
 });

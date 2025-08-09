@@ -99,12 +99,9 @@ const EditProfile = () => {
         <ScrollView
           style={styles.scrollContainer}
           contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
         >
-          <View style={styles.headerWrapper}>
-            <View style={styles.headerInner}>
-              <AuthHeader title="Edit Profile" style={styles.headerTitle} />
-            </View>
-          </View>
+          <AuthHeader title="Edit Profile" style={styles.headerTitle} />
 
           <View style={styles.container}>
             <Text style={styles.title}>Basic Details</Text>
@@ -202,6 +199,7 @@ const EditProfile = () => {
                   focusedColor={COLORS.focused}
                   errorColor={COLORS.red}
                   password={false}
+                  style={{paddingHorizontal:RFPercentage(1)}}
                 />
               </View>
 
@@ -444,10 +442,11 @@ const styles = StyleSheet.create({
     width: '100%',
     borderTopWidth: RFPercentage(0.1),
     borderTopColor: COLORS.lightWhite,
-    height: RFPercentage(10),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: COLORS.white,
+    paddingVertical:RFPercentage(2),
+    paddingBottom:RFPercentage(4)
   },
   buttonContainer: {
     width: '90%',

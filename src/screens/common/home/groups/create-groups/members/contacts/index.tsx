@@ -132,17 +132,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: COLORS.grey5,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.7),
     bottom: RFPercentage(1),
     lineHeight:RFPercentage(2.7),
   },
   enableButton: {
-    height: RFPercentage(5.4),
+    height: RFPercentage(5.2),
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: RFPercentage(0.2),
     borderColor: COLORS.primary,
-    borderRadius: RFPercentage(2.6),
+    borderRadius: RFPercentage(2.4),
     alignSelf: 'center',
     paddingHorizontal: RFPercentage(2.5),
     marginTop: RFPercentage(3),
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   enableButtonText: {
     color: COLORS.primary,
     fontFamily: FONTS.semiBold,
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(1.8),
   },
   contactRow: {
     width: '100%',
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(0.4),
   },
   checkIcon: {
-    width: RFPercentage(3.5),
-    height: RFPercentage(3.5),
+    width: RFPercentage(3),
+    height: RFPercentage(3),
   },
 });

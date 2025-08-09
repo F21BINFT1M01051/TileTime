@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
   },
   adminBadge: {
     width: RFPercentage(7.5),
-    height: RFPercentage(3.5),
+    height: RFPercentage(3),
     borderRadius: RFPercentage(100),
     backgroundColor: COLORS.pink4,
     borderWidth: RFPercentage(0.1),

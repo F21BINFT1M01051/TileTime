@@ -65,9 +65,15 @@ const SignUp = ({ navigation }: any) => {
         </View>
 
         <View style={styles.whiteContainer}>
+          <AuthHeader
+            title="Create Your Account"
+            wrapStyle={{
+              height: RFPercentage(5),
+              borderBottomWidth: 0,
+              marginTop: RFPercentage(2.5),
+            }}
+          />
           <View style={styles.contentWrapper}>
-            <AuthHeader title="Create Your Account" />
-
             <Formik
               initialValues={{
                 email: '',
@@ -123,7 +129,7 @@ const SignUp = ({ navigation }: any) => {
                     <InputField
                       placeholder="Enter Password"
                       onChangeText={text => {
-                        setFieldTouched('password', true);
+                        // setFieldTouched('password', true);
                         handleChange('password')(text);
                       }}
                       handleBlur={handleBlur('password')}
@@ -215,7 +221,7 @@ const styles = StyleSheet.create({
   logoContainer: {
     width: '100%',
     alignItems: 'center',
-    paddingTop: RFPercentage(6),
+    paddingTop: RFPercentage(8),
   },
   logo: {
     width: RFPercentage(10),
@@ -239,11 +245,9 @@ const styles = StyleSheet.create({
   contentWrapper: {
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(3.5),
   },
 
   inputMarginTop: {
-    marginTop: RFPercentage(1.5),
   },
 
   buttonWrapper: {

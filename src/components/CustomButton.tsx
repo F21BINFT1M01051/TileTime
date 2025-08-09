@@ -39,13 +39,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: COLORS.primary,
-    borderRadius: RFPercentage(1.7),
+    borderRadius: RFPercentage(2),
     flexDirection: 'row',
   },
   text: {
     color: COLORS.white,
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(1.8),
   },
   img: {
     width: RFPercentage(2.5),

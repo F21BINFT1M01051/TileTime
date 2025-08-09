@@ -694,7 +694,7 @@ const styles = StyleSheet.create({
 
   inputToolbarContainer: {
     backgroundColor: COLORS.white,
-    height: RFPercentage(12),
+    height: RFPercentage(13),
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -707,6 +707,7 @@ const styles = StyleSheet.create({
     height: RFPercentage(6),
     width: '90%',
     alignSelf: 'center',
+    bottom:RFPercentage(1)
   },
   plusIcon: {
     width: RFPercentage(3),

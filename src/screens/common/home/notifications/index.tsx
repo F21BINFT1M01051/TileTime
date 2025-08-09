@@ -1,6 +1,7 @@
 import {
   FlatList,
   Image,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -10,6 +11,7 @@ import React, { useState } from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import NotificationCard from '../../../../components/NotificationCard';
+import HomeNavigator from '../../../../components/HomeNavigator';
 
 const notificationData = [
   {
@@ -31,7 +33,7 @@ const notificationData = [
   },
   {
     id: 3,
-    notification: 'Mahjong Crash Course has been cancelled',
+    notification: "New feature: You can now message attendees before sessions.",
     time: '12h',
     profile: IMAGES.customProfile,
     unread: false,
@@ -70,84 +72,72 @@ const Notifications = ({ navigation }: any) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.topBar}>
-        <View style={styles.topBarContent}>
-          <Text style={styles.title}>Notifications</Text>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => navigation.goBack()}
-          >
-            <Image
-              source={ICONS.cross}
-              tintColor={'#8C8C8C'}
-              resizeMode="contain"
-              style={styles.crossIcon}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      <View style={styles.filterContainer}>
-        <FlatList
-          data={Filters}
-          keyExtractor={item => item.id.toString()}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.filterList}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => setActiveFilter(item.name)}
-              style={[
-                styles.filterButton,
-                {
-                  backgroundColor:
-                    activeFilter === item.name
-                      ? COLORS.inputColor
-                      : COLORS.fieldColor,
-                },
-              ]}
-            >
-              <Text
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <HomeNavigator title="Notifications" />
+        <View style={styles.filterContainer}>
+          <FlatList
+            data={Filters}
+            keyExtractor={item => item.id.toString()}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.filterList}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => setActiveFilter(item.name)}
                 style={[
-                  styles.filterText,
+                  styles.filterButton,
                   {
-                    color:
-                      activeFilter === item.name ? COLORS.white : COLORS.grey4,
+                    backgroundColor:
+                      activeFilter === item.name
+                        ? COLORS.inputColor
+                        : COLORS.fieldColor,
                   },
                 ]}
               >
-                {item.name}
-              </Text>
-            </TouchableOpacity>
-          )}
-        />
-      </View>
-
-      <View style={styles.notificationListContainer}>
-        <FlatList
-          data={displayData}
-          keyExtractor={item => item.id.toString()}
-          contentContainerStyle={styles.notificationList}
-          renderItem={({ item, index }) => {
-            const isLastItem = index === notificationData.length - 1;
-            return (
-              <NotificationCard
-                notification={item.notification}
-                player={item.player}
-                admin={item.admin}
-                group={item.group}
-                unread={item.unread}
-                time={item.time}
-                profile={item.profile}
-                style={{
-                  borderBottomWidth: isLastItem ? 0 : RFPercentage(0.1),
-                }}
-              />
-            );
-          }}
-        />
-      </View>
+                <Text
+                  style={[
+                    styles.filterText,
+                    {
+                      color:
+                        activeFilter === item.name
+                          ? COLORS.white
+                          : COLORS.grey4,
+                    },
+                  ]}
+                >
+                  {item.name}
+                </Text>
+              </TouchableOpacity>
+            )}
+          />
+        </View>
+        <View style={styles.notificationListContainer}>
+          <FlatList
+            data={displayData}
+            keyExtractor={item => item.id.toString()}
+            contentContainerStyle={styles.notificationList}
+            scrollEnabled={false}
+            renderItem={({ item, index }) => {
+              const isLastItem = index === notificationData.length - 1;
+              return (
+                <NotificationCard
+                  notification={item.notification}
+                  player={item.player}
+                  admin={item.admin}
+                  group={item.group}
+                  unread={item.unread}
+                  time={item.time}
+                  profile={item.profile}
+                  style={{
+                    borderBottomWidth: isLastItem ? 0 : RFPercentage(0.1),
+                  }}
+                />
+              );
+            }}
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -205,8 +195,9 @@ const styles = StyleSheet.create({
   notificationListContainer: {
     width: '90%',
     alignSelf: 'center',
+    marginTop:RFPercentage(1)
   },
   notificationList: {
-    paddingVertical: RFPercentage(1),
+    paddingVertical: RFPercentage(0.3),
   },
 });

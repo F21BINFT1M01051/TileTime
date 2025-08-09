@@ -88,13 +88,13 @@ const EditProfileInstructor = () => {
         }
       }}
     >
-      <View style={styles.mainWrapper}>
-        <ScrollView contentContainerStyle={styles.scrollWrapper}>
-          <View style={styles.header}>
-            <View style={styles.innerHeader}>
-              <AuthHeader title="Edit Profile" style={styles.authHeaderText} />
-            </View>
-          </View>
+      <>
+        <ScrollView
+          style={styles.mainWrapper}
+          contentContainerStyle={styles.scrollWrapper}
+          showsVerticalScrollIndicator={false}
+        >
+          <AuthHeader title="Edit Profile" style={styles.authHeaderText} />
 
           <View style={styles.container}>
             <Text style={styles.title}>Basic Details</Text>
@@ -184,6 +184,7 @@ const EditProfileInstructor = () => {
                   focusedColor={COLORS.focused}
                   errorColor={COLORS.red}
                   password={false}
+                  style={{ paddingHorizontal: RFPercentage(1) }}
                 />
 
                 <TouchableOpacity
@@ -313,7 +314,7 @@ const EditProfileInstructor = () => {
             />
           </View>
         )}
-      </View>
+      </>
     </TouchableWithoutFeedback>
   );
 };
@@ -347,7 +348,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(3),
+    marginTop: RFPercentage(2),
   },
   title: {
     fontFamily: FONTS.bold,
@@ -493,10 +494,11 @@ const styles = StyleSheet.create({
     width: '100%',
     borderTopWidth: RFPercentage(0.1),
     borderTopColor: COLORS.lightWhite,
-    height: RFPercentage(10),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: COLORS.white,
+    paddingVertical: RFPercentage(2),
+    paddingBottom: RFPercentage(4),
   },
   saveButton: {
     width: '90%',

@@ -115,7 +115,7 @@ const PlayerProfileSetup = ({ navigation }: any) => {
         }
       }}
     >
-      <View style={{ flex: 1, backgroundColor: COLORS.white }}>
+      <>
         <Formik
           innerRef={formikRef}
           initialValues={{
@@ -137,11 +137,12 @@ const PlayerProfileSetup = ({ navigation }: any) => {
             touched,
           }) => (
             <>
-              <ScrollView>
-                <View style={styles.header}>
-                  <View style={{ width: '90%', alignSelf: 'center' }}>
-                    <AuthHeader title="Set Up Your Profile" />
-                  </View>
+              <ScrollView
+                style={{ flex: 1, backgroundColor: COLORS.white }}
+                showsVerticalScrollIndicator={false}
+              >
+                <View>
+                  <AuthHeader title="Set Up Your Profile" />
                 </View>
                 <View style={styles.container}>
                   <Text style={styles.title}>Enter Your Personal Details</Text>
@@ -368,7 +369,8 @@ const PlayerProfileSetup = ({ navigation }: any) => {
                 <View style={styles.button}>
                   <CustomButton
                     title="Save"
-                    style={{ width: '90%', alignSelf: 'center' }}
+                    style={{ width: '90%', alignSelf: 'center' , bottom:RFPercentage(2) ,  backgroundColor: values.name || values.city || values.phoneNumber ? COLORS.primary : COLORS.disabled,
+                    }}
                     onPress={handleSubmit}
                   />
                 </View>
@@ -376,7 +378,7 @@ const PlayerProfileSetup = ({ navigation }: any) => {
             </>
           )}
         </Formik>
-      </View>
+      </>
     </TouchableWithoutFeedback>
   );
 };
@@ -470,7 +472,7 @@ const styles = StyleSheet.create({
   error: {
     color: COLORS.red,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.6),
   },
   dropdowns: {
     flexDirection: 'row',
@@ -493,10 +495,11 @@ const styles = StyleSheet.create({
     width: '100%',
     borderTopWidth: RFPercentage(0.1),
     borderTopColor: COLORS.lightWhite,
-    height: RFPercentage(10),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: COLORS.white,
+    paddingVertical:RFPercentage(3),
+    paddingTop:RFPercentage(4)
   },
   bioWrapper: {
     marginTop: RFPercentage(3),

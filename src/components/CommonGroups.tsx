@@ -216,9 +216,9 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(1.8),
   },
   groupMembers: {
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.5),
     color: COLORS.lightGrey,
     fontFamily: FONTS.regular,
-    marginTop: RFPercentage(0.5),
+    marginTop: RFPercentage(0.7),
   },
 });

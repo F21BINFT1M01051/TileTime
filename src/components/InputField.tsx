@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  Platform,
 } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS } from '../config/theme';
@@ -67,7 +68,7 @@ const InputField: React.FC<Props> = ({
     ...styles.label,
     top: animatedIsFocused.interpolate({
       inputRange: [0, 1],
-      outputRange: [RFPercentage(7) / 3.2, RFPercentage(0.6)],
+      outputRange: [Platform.OS === 'ios' ? RFPercentage(6)/3.3 : RFPercentage(7) / 3.2, RFPercentage(0.6)],
     }),
     fontSize: animatedIsFocused.interpolate({
       inputRange: [0, 1],
@@ -127,7 +128,7 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: RFPercentage(0.1),
     width: '100%',
-    height: RFPercentage(7),
+    height: Platform.OS === 'ios' ? RFPercentage(6) : RFPercentage(7),
     backgroundColor: COLORS.fieldColor,
     borderColor: COLORS.fieldBorder,
     borderRadius: RFPercentage(1.3),
@@ -142,7 +143,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: RFPercentage(7),
+    height: Platform.OS === 'ios' ? RFPercentage(6) : RFPercentage(7),
   },
   input: {
     color: COLORS.inputColor,

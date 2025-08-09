@@ -98,7 +98,7 @@ const MyProfilePlayer = ({ navigation }: any) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+      <ScrollView contentContainerStyle={styles.scrollViewContent} showsVerticalScrollIndicator={false}>
         <TopNavigation title="My Profile" />
 
         <View style={styles.profileContainer}>
@@ -116,6 +116,7 @@ const MyProfilePlayer = ({ navigation }: any) => {
                 icon={ICONS.pen22}
                 onPress={() => navigation.navigate('EditProfile')}
                 style={styles.editButton}
+                textStyle={{ fontFamily: FONTS.semiBold }}
               />
             </View>
           </View>
@@ -223,65 +224,71 @@ const MyProfilePlayer = ({ navigation }: any) => {
       >
         <TouchableWithoutFeedback onPress={closeModal}>
           <View style={styles.overLay}>
-            <Animated.View
-              style={[
-                styles.modalContent,
-                { transform: [{ translateY: slideAnim }] },
-              ]}
-            >
-              <Image
-                source={ICONS.premium22}
-                resizeMode="contain"
-                style={styles.modalBanner}
-              />
-
-              <View style={styles.modalInnerContent}>
-                <Text style={styles.modalText}>
-                  Join Our Instructor Network
-                </Text>
+            <TouchableWithoutFeedback>
+              <Animated.View
+                style={[
+                  styles.modalContent,
+                  { transform: [{ translateY: slideAnim }] },
+                ]}
+              >
                 <Image
-                  source={ICONS.qoutes}
+                  source={ICONS.premium22}
                   resizeMode="contain"
-                  style={styles.modalQuote}
+                  style={styles.modalBanner}
                 />
 
-                <Text style={styles.subTitle}>
-                  {`Become an Instructor to unlock exclusive\ntools and grow your Mahjong presence.`}
-                </Text>
+                <View style={styles.modalInnerContent}>
+                  <Text style={styles.modalText}>
+                    Join Our Instructor Network
+                  </Text>
+                  <Image
+                    source={ICONS.qoutes}
+                    resizeMode="contain"
+                    style={styles.modalQuote}
+                  />
 
-                <FlatList
-                  data={premiumDetails}
-                  keyExtractor={item => item.id.toString()}
-                  renderItem={({ item }) => (
-                    <View style={styles.premiumFeature}>
-                      <View style={styles.premiumFeatureRow}>
-                        <Image
-                          source={item.icon}
-                          resizeMode="contain"
-                          style={styles.featureIcon}
-                        />
-                        <View style={styles.featureTextWrapper}>
-                          <Text style={styles.featureTitle}>{item.title}</Text>
-                          <Text style={styles.featureSub}>{item.subTile}</Text>
+                  <Text style={styles.subTitle}>
+                    {`Become an Instructor to unlock exclusive\ntools and grow your Mahjong presence.`}
+                  </Text>
+
+                  <FlatList
+                    data={premiumDetails}
+                    keyExtractor={item => item.id.toString()}
+                    renderItem={({ item }) => (
+                      <View style={styles.premiumFeature}>
+                        <View style={styles.premiumFeatureRow}>
+                          <Image
+                            source={item.icon}
+                            resizeMode="contain"
+                            style={styles.featureIcon}
+                          />
+                          <View style={styles.featureTextWrapper}>
+                            <Text style={styles.featureTitle}>
+                              {item.title}
+                            </Text>
+                            <Text style={styles.featureSub}>
+                              {item.subTile}
+                            </Text>
+                          </View>
                         </View>
                       </View>
-                    </View>
-                  )}
-                />
-              </View>
-
-              <View style={styles.modalFooter}>
-                <View style={styles.modalFooterInner}>
-                  <CustomButton
-                    title="Understood"
-                    onPress={() => {
-                      closeModal();
-                      navigation.navigate('CreateInstructorProfile');
-                    }}
+                    )}
                   />
                 </View>
-              </View>
-            </Animated.View>
+
+                <View style={styles.modalFooter}>
+                  <View style={styles.modalFooterInner}>
+                    <CustomButton
+                      title="Understood"
+                      onPress={() => {
+                        closeModal();
+                        navigation.navigate('CreateInstructorProfile');
+                      }}
+                    />
+                  </View>
+                </View>
+              </Animated.View>
+            </TouchableWithoutFeedback>
           </View>
         </TouchableWithoutFeedback>
       </Modal>
@@ -307,15 +314,15 @@ const styles = StyleSheet.create({
   profileHeader: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   profileImage: {
-    width: RFPercentage(15),
-    height: RFPercentage(15),
+    width: RFPercentage(13.5),
+    height: RFPercentage(13.5),
     borderRadius: RFPercentage(100),
   },
   profileInfo: {
     marginLeft: RFPercentage(2),
-    width: '60%',
   },
   nameText: {
     fontFamily: FONTS.headline,
@@ -329,14 +336,14 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(0.5),
   },
   editButton: {
-    borderRadius: RFPercentage(1.6),
+    borderRadius: RFPercentage(1.4),
     marginTop: RFPercentage(1.8),
-    height: RFPercentage(5.5),
+    height: RFPercentage(5.2),
   },
   bioText: {
     color: COLORS.primary,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.7),
     marginTop: RFPercentage(3),
   },
   connectList: {
@@ -346,11 +353,11 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     flexDirection: 'row',
-    marginTop: RFPercentage(2.8),
+    marginTop: RFPercentage(3.5),
   },
   connectIcon: {
-    width: RFPercentage(3),
-    height: RFPercentage(3),
+    width: RFPercentage(2.5),
+    height: RFPercentage(2.5),
   },
   connectedText: {
     color: COLORS.primary,
@@ -365,7 +372,7 @@ const styles = StyleSheet.create({
     marginLeft: RFPercentage(1.6),
   },
   connectButton: {
-    width: RFPercentage(14),
+    width: RFPercentage(13.4),
     height: RFPercentage(3.5),
     borderRadius: RFPercentage(100),
     backgroundColor: COLORS.primary,
@@ -496,8 +503,8 @@ const styles = StyleSheet.create({
     width: RFPercentage(4),
     height: RFPercentage(4),
     position: 'absolute',
-    right: 0,
-    top: RFPercentage(-1),
+    right: RFPercentage(-0.5),
+    top: RFPercentage(-2),
   },
   subTitle: {
     fontFamily: FONTS.regular,
@@ -527,7 +534,7 @@ const styles = StyleSheet.create({
   },
   featureSub: {
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(1.8),
     fontFamily: FONTS.regular,
     marginTop: RFPercentage(0.5),
   },

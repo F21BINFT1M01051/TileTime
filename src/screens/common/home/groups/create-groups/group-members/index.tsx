@@ -131,10 +131,11 @@ const styles = StyleSheet.create({
   },
   bottomWrapper: {
     width: '100%',
-    paddingVertical: RFPercentage(3),
+    paddingVertical: RFPercentage(2),
     borderTopWidth: RFPercentage(0.1),
     borderTopColor: COLORS.lightWhite,
     backgroundColor: COLORS.white,
+    paddingBottom:RFPercentage(4)
   },
   buttonContainer: {
     width: '90%',

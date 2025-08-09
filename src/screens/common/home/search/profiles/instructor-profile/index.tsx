@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  Platform,
 } from 'react-native';
 import React from 'react';
 import { COLORS, IMAGES, FONTS, ICONS } from '../../../../../../config/theme';
@@ -22,7 +23,7 @@ const InstructorProfile = ({ navigation }: any) => {
         <View style={{ width: '100%' }}>
           <ImageBackground
             source={IMAGES.single}
-            resizeMode="repeat"
+            resizeMode="contain"
             style={styles.backgroundImage}
           >
             <View style={styles.headerBorder}>
@@ -63,6 +64,7 @@ const InstructorProfile = ({ navigation }: any) => {
                 icon={ICONS.add}
                 style={styles.buttonRounded}
                 onPress={() => {}}
+                textStyle={{ fontFamily: FONTS.semiBold }}
               />
             </View>
             <View style={styles.buttonHalf}>
@@ -70,6 +72,7 @@ const InstructorProfile = ({ navigation }: any) => {
                 title="Send Message"
                 icon={ICONS.message}
                 style={styles.buttonRounded}
+                textStyle={{ fontFamily: FONTS.semiBold }}
                 onPress={() => {
                   navigation.navigate('ChatScreen', {
                     isGroup: false,
@@ -114,7 +117,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(5),
+    marginTop: Platform.OS === 'android' ? RFPercentage(5) : RFPercentage(7.6),
   },
   groupDesc: {
     fontFamily: FONTS.regular2,
@@ -141,16 +144,16 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     width: '100%',
-    height: RFPercentage(20),
+    height: RFPercentage(26),
   },
   mainContent: {
     width: '90%',
     alignSelf: 'center',
-    bottom: RFPercentage(6),
+    bottom: RFPercentage(8),
   },
   nonMemberAvatarWrapper: {
-    width: RFPercentage(9),
-    height: RFPercentage(9),
+    width: RFPercentage(10),
+    height: RFPercentage(10),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: COLORS.pink3,
@@ -158,8 +161,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: RFPercentage(5),
   },
   nonMemberAvatarImage: {
-    width: RFPercentage(9),
-    height: RFPercentage(9),
+    width: RFPercentage(10),
+    height: RFPercentage(10),
     right: RFPercentage(0.2),
     bottom: RFPercentage(0.1),
     borderTopRightRadius: RFPercentage(5),
@@ -177,13 +180,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: RFPercentage(4),
+    marginTop: RFPercentage(3.5),
   },
   buttonHalf: {
     width: '48%',
   },
   buttonRounded: {
-    borderRadius: RFPercentage(1.6),
+    borderRadius: RFPercentage(1.4),
   },
   viewProfile: {
     marginTop: RFPercentage(4),

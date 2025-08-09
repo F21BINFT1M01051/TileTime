@@ -57,11 +57,9 @@ const LoginSignUp = ({ navigation }: any) => {
         </View>
 
         <View style={styles.whiteContainer}>
-          <View style={styles.contentWrapper}>
-            <View>
-              <AuthHeader title="Log In/Sign up with Email" />
-            </View>
+          <AuthHeader title="Log In/Sign up with Email"  wrapStyle={{height:RFPercentage(5), borderBottomWidth:0, marginTop:RFPercentage(2.5)}} />
 
+          <View style={styles.contentWrapper}>
             <Formik
               initialValues={{ email: '' }}
               validationSchema={validationSchema}
@@ -101,7 +99,7 @@ const LoginSignUp = ({ navigation }: any) => {
                           style={{
                             color: COLORS.red,
                             fontFamily: FONTS.regular,
-                            fontSize: RFPercentage(1.7),
+                            fontSize: RFPercentage(1.6),
                           }}
                         >
                           {errors?.email}
@@ -154,7 +152,7 @@ const styles = StyleSheet.create({
   logoContainer: {
     width: '100%',
     alignItems: 'center',
-    paddingTop: RFPercentage(6),
+    paddingTop: RFPercentage(8),
   },
   logo: {
     width: RFPercentage(10),
@@ -178,11 +176,9 @@ const styles = StyleSheet.create({
   contentWrapper: {
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(3.5),
   },
 
   emailField: {
-    marginTop: RFPercentage(1.8),
   },
 
   buttonWrapper: {

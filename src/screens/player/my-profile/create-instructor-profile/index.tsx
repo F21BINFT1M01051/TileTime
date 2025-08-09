@@ -87,13 +87,13 @@ const CreateInstructorProfile = ({ navigation }: any) => {
         }
       }}
     >
-      <View style={styles.scrollView}>
-        <ScrollView contentContainerStyle={styles.scrollViewContent}>
-          <View style={styles.headerWrapper}>
-            <View style={styles.authHeaderContainer}>
-              <AuthHeader title="Additional Details" />
-            </View>
-          </View>
+      <>
+        <ScrollView
+          contentContainerStyle={styles.scrollViewContent}
+          style={styles.scrollView}
+          showsVerticalScrollIndicator={false}
+        >
+          <AuthHeader title="Aditional Details" />
 
           <View style={styles.container}>
             <Text style={styles.title}>Build Your Instructor Profile</Text>
@@ -258,69 +258,73 @@ const CreateInstructorProfile = ({ navigation }: any) => {
         >
           <TouchableWithoutFeedback onPress={closeModal}>
             <View style={styles.overLay}>
-              <Animated.View
-                style={[
-                  styles.modalContent,
-                  { transform: [{ translateY: slideAnim }] },
-                ]}
-              >
-                <ImageBackground
-                  source={ICONS.group33}
-                  resizeMode="contain"
-                  style={styles.modalBackground}
+              <TouchableWithoutFeedback>
+                <Animated.View
+                  style={[
+                    styles.modalContent,
+                    { transform: [{ translateY: slideAnim }] },
+                  ]}
                 >
-                  <View style={styles.modalProfileWrapper}>
-                    <View>
-                      <View style={styles.modalProfileImageWrapper}>
+                  <ImageBackground
+                    source={ICONS.group33}
+                    resizeMode="contain"
+                    style={styles.modalBackground}
+                  >
+                    <View style={styles.modalProfileWrapper}>
+                      <View>
+                        <View style={styles.modalProfileImageWrapper}>
+                          <Image
+                            source={IMAGES.chatProfile}
+                            style={styles.modalProfileImage}
+                          />
+                          <Image
+                            source={ICONS.star}
+                            resizeMode="contain"
+                            style={styles.modalStar}
+                          />
+                        </View>
+
+                        <View style={styles.instructorTag}>
+                          <Text style={styles.instructorTagText}>
+                            Instructor
+                          </Text>
+                        </View>
+                      </View>
+
+                      <View style={styles.modalStarContainer}>
                         <Image
-                          source={IMAGES.chatProfile}
-                          style={styles.modalProfileImage}
-                        />
-                        <Image
-                          source={ICONS.star}
+                          source={ICONS.stars2}
                           resizeMode="contain"
-                          style={styles.modalStar}
+                          style={styles.modalStar2}
                         />
                       </View>
+                    </View>
 
-                      <View style={styles.instructorTag}>
-                        <Text style={styles.instructorTagText}>Instructor</Text>
+                    <Text style={styles.modalText}>You're all set!</Text>
+                    <Text style={styles.subTitle}>
+                      {`Your instructor profile is now live.\nStart creating events, invite players,\nand share your expertise.`}
+                    </Text>
+
+                    <View style={styles.modalBtnWrapper}>
+                      <View style={styles.modalBtnInner}>
+                        <CustomButton
+                          title="Go To Home"
+                          style={styles.transparentBtn}
+                          textStyle={styles.transparentBtnText}
+                          onPress={() => {
+                            closeModal();
+                            navigation.navigate('CreateInstructorProfile');
+                          }}
+                        />
                       </View>
                     </View>
-
-                    <View style={styles.modalStarContainer}>
-                      <Image
-                        source={ICONS.stars2}
-                        resizeMode="contain"
-                        style={styles.modalStar2}
-                      />
-                    </View>
-                  </View>
-
-                  <Text style={styles.modalText}>You're all set!</Text>
-                  <Text style={styles.subTitle}>
-                    {`Your instructor profile is now live.\nStart creating events, invite players,\nand share your expertise.`}
-                  </Text>
-
-                  <View style={styles.modalBtnWrapper}>
-                    <View style={styles.modalBtnInner}>
-                      <CustomButton
-                        title="Go To Home"
-                        style={styles.transparentBtn}
-                        textStyle={styles.transparentBtnText}
-                        onPress={() => {
-                          closeModal();
-                          navigation.navigate('CreateInstructorProfile');
-                        }}
-                      />
-                    </View>
-                  </View>
-                </ImageBackground>
-              </Animated.View>
+                  </ImageBackground>
+                </Animated.View>
+              </TouchableWithoutFeedback>
             </View>
           </TouchableWithoutFeedback>
         </Modal>
-      </View>
+      </>
     </TouchableWithoutFeedback>
   );
 };
@@ -477,7 +481,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
   },
   scrollViewContent: {
-    paddingBottom: RFPercentage(5),
+    flexGrow: 1,
+    paddingBottom: RFPercentage(6),
   },
   headerWrapper: {
     borderBottomWidth: RFPercentage(0.1),
@@ -552,10 +557,11 @@ const styles = StyleSheet.create({
     width: '100%',
     borderTopWidth: RFPercentage(0.1),
     borderTopColor: COLORS.lightWhite,
-    height: RFPercentage(10),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: COLORS.white,
+    paddingVertical: RFPercentage(2),
+    paddingBottom: RFPercentage(4),
   },
   customBtn: {
     width: '90%',

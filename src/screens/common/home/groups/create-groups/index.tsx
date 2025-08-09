@@ -68,6 +68,7 @@ const CreateGroup = ({ navigation }: any) => {
         style={{ flex: 1, backgroundColor: COLORS.white }}
         contentContainerStyle={{ flexGrow: 1, paddingBottom: RFPercentage(2) }}
         keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
       >
         <Nav title="Create Group" />
 
@@ -147,10 +148,11 @@ const styles = StyleSheet.create({
   },
   bottomWrapper: {
     width: '100%',
-    paddingVertical: RFPercentage(3),
+    paddingVertical: RFPercentage(2),
     borderTopWidth: 1,
     borderTopColor: COLORS.lightWhite,
     backgroundColor: COLORS.white,
+    paddingBottom:RFPercentage(4)
   },
   buttonContainer: {
     width: '90%',

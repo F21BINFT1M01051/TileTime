@@ -8,6 +8,9 @@ import {
   View,
   TouchableWithoutFeedback,
   Modal,
+  ScrollView,
+  Animated,
+  Easing,
 } from 'react-native';
 import React, { useState } from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../../config/theme';
@@ -15,6 +18,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 import SearchField from '../../../../components/SearchField';
 import CustomButton from '../../../../components/CustomButton';
 import SearchCard from '../../../player/components/SearchCard';
+import HomeNavigator from '../../../../components/HomeNavigator';
 
 const searchData = [
   {
@@ -53,46 +57,48 @@ const SearchScreen = ({ navigation }: any) => {
     }
   };
 
+  const slideAnim = React.useRef(new Animated.Value(100)).current;
+
+  React.useEffect(() => {
+    if (modalVisible2) {
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 500,
+        easing: Easing.out(Easing.ease),
+        useNativeDriver: true,
+      }).start();
+    } else {
+      slideAnim.setValue(100);
+    }
+  }, [modalVisible2]);
+
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <View style={styles.headerRow}>
-          <Text style={styles.headerText}>Search Players and Groups</Text>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => navigation.goBack()}
-          >
-            <Image
-              source={ICONS.cross}
-              tintColor={'#8C8C8C'}
-              resizeMode="contain"
-              style={styles.crossIcon}
-            />
-          </TouchableOpacity>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <HomeNavigator title="Search Players and Groups" />
+
+        <View style={styles.searchWrapper}>
+          <SearchField placeholder="Search by name" />
+
+          <FlatList
+            data={searchData}
+            keyExtractor={item => item.id.toString()}
+            contentContainerStyle={styles.flatListContent}
+            scrollEnabled={false}
+            renderItem={({ item }) => (
+              <SearchCard
+                name={item.name}
+                isPlayer={item.player}
+                location={item.location}
+                onPress={() => handleCardPress(item)}
+                isInstructor={item.instructor}
+                isGroup={item.group}
+                members={item.member}
+              />
+            )}
+          />
         </View>
-      </View>
-
-      <View style={styles.searchWrapper}>
-        <SearchField placeholder="Search by name" />
-
-        <FlatList
-          data={searchData}
-          keyExtractor={item => item.id.toString()}
-          contentContainerStyle={styles.flatListContent}
-          renderItem={({ item }) => (
-            <SearchCard
-              name={item.name}
-              isPlayer={item.player}
-              location={item.location}
-              onPress={() => handleCardPress(item)}
-              isInstructor={item.instructor}
-              isGroup={item.group}
-              members={item.member}
-            />
-          )}
-        />
-      </View>
-
+      </ScrollView>
       {/* First Modal */}
       <Modal
         visible={modalVisible}
@@ -142,26 +148,29 @@ const SearchScreen = ({ navigation }: any) => {
       <Modal
         visible={modalVisible2}
         transparent
-        animationType="slide"
+        animationType="fade"
         onRequestClose={() => setModalVisible2(false)}
       >
         <TouchableWithoutFeedback onPress={() => setModalVisible2(false)}>
           <View style={[styles.overLay, styles.bottomSheetOverlay]}>
             <TouchableWithoutFeedback>
-              <View style={styles.bottomSheet}>
+              <Animated.View
+                style={[
+                  styles.bottomSheet,
+                  { transform: [{ translateY: slideAnim }] },
+                ]}
+              >
                 <TouchableOpacity
                   onPress={() => setModalVisible2(false)}
                   style={styles.closeButton}
                 >
                   <Image source={ICONS.cross} style={styles.closeIcon} />
                 </TouchableOpacity>
-
                 <Image
                   source={ICONS.group22}
                   resizeMode="contain"
                   style={styles.groupImage}
                 />
-
                 <View style={styles.groupInfoWrapper}>
                   <Text style={styles.groupName}>Emily Girls Group</Text>
                   <Text style={styles.groupInviteNote}>
@@ -174,14 +183,13 @@ const SearchScreen = ({ navigation }: any) => {
                     style={styles.qouteIcon}
                   />
                 </View>
-
                 <View style={styles.groupDescriptionWrapper}>
                   <Text style={styles.groupDescription}>
                     Reach out to a member you know for an invite or the group
                     link.
                   </Text>
                 </View>
-              </View>
+              </Animated.View>
             </TouchableWithoutFeedback>
           </View>
         </TouchableWithoutFeedback>
