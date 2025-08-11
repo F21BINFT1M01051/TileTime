@@ -95,7 +95,7 @@ const InstructorHome = ({ navigation }: any) => {
       colors={[COLORS.offWhite2, COLORS.white]}
       style={styles.gradientContainer}
     >
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <ImageBackground
           source={IMAGES.background}
           resizeMode="cover"

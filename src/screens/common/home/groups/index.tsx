@@ -25,7 +25,7 @@ const Groups = ({ navigation }: any) => {
       colors={[COLORS.white, COLORS.white]}
       style={styles.gradientContainer}
     >
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <ImageBackground
           source={IMAGES.background}
           resizeMode="cover"

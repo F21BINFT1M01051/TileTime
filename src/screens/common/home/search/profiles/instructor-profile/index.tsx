@@ -19,7 +19,7 @@ import CommonGroup from '../../../../../../components/CommonGroups';
 const InstructorProfile = ({ navigation }: any) => {
   return (
     <View style={styles.safeArea}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ width: '100%' }}>
           <ImageBackground
             source={IMAGES.single}
