@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     width: RFPercentage(15.4),
     height: RFPercentage(19),
-    borderRadius: RFPercentage(8),
+    borderRadius: RFPercentage(7),
     overflow: 'hidden',
     backgroundColor: COLORS.pink6,
     justifyContent: 'flex-end',
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   borderWrapper: {
     width: '100%',
     height: '100%',
-    borderRadius: RFPercentage(8),
+    borderRadius: RFPercentage(7),
     overflow: 'hidden',
     right: RFPercentage(0.5),
     bottom: RFPercentage(0.2),
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
-    borderRadius: RFPercentage(8),
+    borderRadius: RFPercentage(7),
   },
   banner: {
     position: 'absolute',

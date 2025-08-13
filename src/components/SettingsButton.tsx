@@ -50,7 +50,7 @@ export default SettingsButton;
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: RFPercentage(7),
+    height: RFPercentage(6),
     backgroundColor: COLORS.white,
     borderRadius: RFPercentage(2.6),
     borderWidth: RFPercentage(0.1),

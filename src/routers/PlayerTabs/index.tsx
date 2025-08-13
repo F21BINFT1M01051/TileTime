@@ -112,7 +112,7 @@ export default function PlayerTabs() {
       <Tab.Screen
         name="Profile"
         component={MyProfilePlayer}
-        options={{ title: 'My Profile' }}
+        options={{ title: 'Profile' }}
       />
     </Tab.Navigator>
   );

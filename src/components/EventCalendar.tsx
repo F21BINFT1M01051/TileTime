@@ -6,7 +6,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 import CustomButton from './CustomButton';
 
 const getSevenDayRow = () => {
-  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const days = ['Mo', 'Tu', 'Wed', 'Th', 'Fr', 'Sa', 'Su'];
   const today = new Date();
   const dayOfWeek = today.getDay(); // 0 (Sun) - 6 (Sat)
   const diffToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular,
     fontSize: RFPercentage(1.5),
     color: COLORS.lightGrey,
+    top:RFPercentage(0.3)
   },
   dayDate: {
     fontFamily: FONTS.semiBold,

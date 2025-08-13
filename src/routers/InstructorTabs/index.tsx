@@ -112,7 +112,7 @@ export default function InstructorTabs() {
       <Tab.Screen
         name="Profile"
         component={MyProfileInstructor}
-        options={{ title: 'My Profile' }}
+        options={{ title: 'Profile' }}
       />
     </Tab.Navigator>
   );

@@ -24,7 +24,7 @@ const SocialField = (props: Props) => {
         styles.container,
         {
           borderColor: props.borderColor || COLORS.borderColor,
-          height: props.connected ? RFPercentage(8.5) : RFPercentage(6.5),
+          height: props.connected ? RFPercentage(8.5) : RFPercentage(6.2),
         },
       ]}
     >
@@ -75,7 +75,7 @@ export default SocialField;
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: RFPercentage(6.8),
+    height: RFPercentage(6),
     backgroundColor: COLORS.white,
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.borderColor,
@@ -85,8 +85,8 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(2.3),
   },
   icon: {
-    width: RFPercentage(3.2),
-    height: RFPercentage(3.2),
+    width: RFPercentage(2.5),
+    height: RFPercentage(2.5),
     marginRight: RFPercentage(1.5),
   },
   text: {

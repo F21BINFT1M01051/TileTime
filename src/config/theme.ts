@@ -45,8 +45,8 @@ export const COLORS = {
   lightWhite3: '#ECECEC',
   pink6: '#E594C4',
   light: '#E1E5FF',
-  date:"#E4F7F6",
-  location:"#FFEDE2"
+  date: '#E4F7F6',
+  location: '#FFEDE2',
 };
 
 export const IMAGES = {
@@ -149,6 +149,12 @@ export const ICONS = {
   premiumBorder: require('../assets/icons/premiumBorder.png'),
   web: require('../assets/icons/web.png'),
   modal: require('../assets/icons/modal.png'),
+  fb22: require('../assets/icons/fb22.png'),
+  contact22: require('../assets/icons/contact22.png'),
+  arrow22: require('../assets/icons/arrow22.png'),
+  stripe: require('../assets/icons/stripe.png'),
+  del: require('../assets/icons/delete.png'),
+  payouts: require('../assets/icons/payouts.png'),
 };
 
 export const FONTS = {

@@ -23,7 +23,7 @@ const AuthHeader = (props: Props) => {
           <Image
             source={ICONS.back}
             resizeMode="contain"
-            style={{ width: RFPercentage(2.8), height: RFPercentage(2.8) }}
+            style={{ width: RFPercentage(2.5), height: RFPercentage(2.5) }}
           />
         </TouchableOpacity>
         <Text style={[styles.getStartedText, props.style]}>{props.title}</Text>

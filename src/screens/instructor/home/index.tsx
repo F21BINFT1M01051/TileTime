@@ -191,11 +191,11 @@ const InstructorHome = ({ navigation }: any) => {
           <View style={styles.groupSection}>
             <View style={styles.rowCenter}>
               <Text style={styles.sectionTitle}>Instructor Recommended</Text>
-              <Image
+              {/* <Image
                 source={ICONS.star}
                 resizeMode="contain"
                 style={styles.iconStar}
-              />
+              /> */}
             </View>
             <Text style={styles.descriptionText}>
               Events you may want to join as an Instructor
@@ -294,11 +294,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(5),
+    marginTop: RFPercentage(4),
   },
   actionsWrapper: {
     width: '100%',
-    bottom: RFPercentage(7),
+    bottom: RFPercentage(6),
   },
   actionsCardWrapper: {
     width: '90%',

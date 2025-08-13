@@ -36,24 +36,42 @@ const About = () => {
       <View style={styles.container}>
         <Text style={styles.title}>Tell us about your group</Text>
 
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={pickImage}
-          style={styles.profileContainer}
-        >
-          <Image
-            source={imageUri ? { uri: imageUri } : ICONS.group}
-            resizeMode="cover"
-            style={styles.profileImage}
-          />
-          <TouchableOpacity activeOpacity={0.8} onPress={pickImage}>
-            <Image
-              source={ICONS.edit}
-              resizeMode="contain"
-              style={styles.editIcon}
-            />
-          </TouchableOpacity>
-        </TouchableOpacity>
+
+      <TouchableOpacity
+               activeOpacity={0.8}
+               onPress={pickImage}
+               style={styles.profileContainer}
+             >
+               <View style={styles.profileCircle}>
+                 <Image
+                   source={imageUri ? { uri: imageUri } : ICONS.gallery}
+                   resizeMode="cover"
+                   style={imageUri ? styles.profileImage : styles.defaultImg}
+                 />
+     
+                 {imageUri ? (
+                   <TouchableOpacity
+                     activeOpacity={0.8}
+                     onPress={pickImage}
+                     style={styles.editIconContainer}
+                   >
+                     <Image
+                       source={ICONS.edit}
+                       resizeMode="contain"
+                       style={styles.editIcon}
+                     />
+                   </TouchableOpacity>
+                 ) : (
+                   <TouchableOpacity
+                     activeOpacity={0.8}
+                     onPress={pickImage}
+                     style={styles.addPicButton}
+                   >
+                     <Text style={styles.addPicText}>Add Group Picture</Text>
+                   </TouchableOpacity>
+                 )}
+               </View>
+             </TouchableOpacity>
 
         <View style={styles.inputWrapper}>
           <InputField
@@ -101,24 +119,57 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(2.3),
   },
   profileContainer: {
-    marginTop: RFPercentage(4),
-    flexDirection: 'column',
-    justifyContent: 'center',
+    marginTop: RFPercentage(3),
+    width: RFPercentage(16),
     alignItems: 'center',
-    width: RFPercentage(13.5),
+  },
+  profileCircle: {
+    width: RFPercentage(15),
+    height: RFPercentage(15),
+    borderRadius: RFPercentage(100),
+    backgroundColor: COLORS.lightWhite3,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   profileImage: {
-    width: RFPercentage(13.5),
-    height: RFPercentage(13.5),
+    width: RFPercentage(14.8),
+    height: RFPercentage(14.8),
     borderRadius: RFPercentage(100),
+  },
+  defaultImg: {
+    width: RFPercentage(5),
+    height: RFPercentage(5),
+  },
+  editIconContainer: {
+    position: 'absolute',
+    bottom: RFPercentage(-1.5),
   },
   editIcon: {
     width: RFPercentage(3.8),
     height: RFPercentage(3.8),
-    bottom: RFPercentage(2),
+  },
+  conduct: {
+    color: COLORS.primary,
+    fontFamily: FONTS.bold,
+    fontSize: RFPercentage(1.9),
+  },
+  addPicButton: {
+    position: 'absolute',
+    bottom: RFPercentage(-1),
+    width: RFPercentage(16),
+    height: RFPercentage(4),
+    borderRadius: RFPercentage(100),
+    backgroundColor: COLORS.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  addPicText: {
+    color: COLORS.white,
+    fontFamily: FONTS.medium,
+    fontSize: RFPercentage(1.4),
   },
   inputWrapper: {
-    marginTop: RFPercentage(-1),
+    marginTop: RFPercentage(2),
   },
   bioWrapper: {
     marginTop: RFPercentage(3),

@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
   groupName: {
     fontFamily: FONTS.headline,
     color: COLORS.primary,
-    fontSize: RFPercentage(3),
+    fontSize: RFPercentage(2.6),
     marginTop: RFPercentage(3),
   },
   groupDesc: {

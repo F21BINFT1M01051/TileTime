@@ -25,6 +25,7 @@ import Notifications from '../../screens/common/home/notifications';
 import SearchScreen from '../../screens/common/home/search';
 import PlayerProfile from '../../screens/common/home/search/profiles/player-profile';
 import InstructorProfile from '../../screens/common/home/search/profiles/instructor-profile';
+import PayoutsInstructor from '../../screens/instructor/payouts';
 
 export type RootStackParamList = {
   OnBoarding: undefined;
@@ -50,6 +51,7 @@ export type RootStackParamList = {
   InstructorTabs: undefined;
   EditProfileInstructor: undefined;
   Notifications: undefined;
+  PayoutsInstructor: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -79,7 +81,6 @@ const Navigator: React.FC = () => {
         <Stack.Screen name="SearchScreen" component={SearchScreen} />
 
 
-
         {/* --------------------Player Flow-------------------- */}
         <Stack.Screen name="PlayerTabs" component={PlayerTabs} />
         <Stack.Screen
@@ -94,7 +95,6 @@ const Navigator: React.FC = () => {
         />
 
 
-
         {/* ------------------------Instructor Flow------------------- */}
         <Stack.Screen name="InstructorTabs" component={InstructorTabs} />
         <Stack.Screen
@@ -106,6 +106,7 @@ const Navigator: React.FC = () => {
           component={EditProfileInstructor}
         />
         <Stack.Screen name="InstructorProfile" component={InstructorProfile} />
+        <Stack.Screen name="PayoutsInstructor" component={PayoutsInstructor} />
       </Stack.Navigator>
     </NavigationContainer>
   );

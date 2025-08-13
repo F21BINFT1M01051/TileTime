@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   subTitle: {
     fontFamily: FONTS.regular,
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(1.8),
     marginTop: RFPercentage(1.4),
     lineHeight: RFPercentage(2.5),
   },

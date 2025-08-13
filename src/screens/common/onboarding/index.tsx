@@ -16,27 +16,27 @@ import SocialField from '../../../components/SocialField';
 const data = [
   {
     id: 1,
-    name: 'Continue with Email/Username',
+    name: 'Continue With Email Address',
     navigationScreen: '',
     color: COLORS.black,
   },
   {
     id: 2,
-    name: 'Continue with Google',
+    name: 'Continue With Google',
     navigationScreen: '',
     icon: ICONS.google,
     color: COLORS.black,
   },
   {
     id: 3,
-    name: 'Continue with Apple',
+    name: 'Continue With Apple',
     navigationScreen: '',
     icon: ICONS.apple,
     color: COLORS.black,
   },
   {
     id: 4,
-    name: 'Continue with Facebook',
+    name: 'Continue With Facebook',
     navigationScreen: '',
     icon: ICONS.facebook,
     color: COLORS.skyBlue,

@@ -247,9 +247,7 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
                     style={{ width: RFPercentage(3), height: RFPercentage(3) }}
                   />
                 </TouchableOpacity>
-                <Text style={styles.business}>
-                  I conduct business under a different name
-                </Text>
+                <Text style={styles.business}>Doing business as</Text>
               </TouchableOpacity>
               {checked && (
                 <>
@@ -305,10 +303,8 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
                 {MAX_LENGTH - bio.length} characters left
               </Text>
 
-              <View style={{ marginTop: RFPercentage(3) }}>
-                <Text style={styles.conduct}>
-                  Where do you conduct business
-                </Text>
+              <View style={{ marginTop: RFPercentage(2) }}>
+                <Text style={styles.conduct}>Cities you serve</Text>
               </View>
               <View style={styles.dropdowns}>
                 <View style={{ width: '48%' }}>
@@ -346,7 +342,7 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
                         height: RFPercentage(2),
                       }}
                     />
-                    <Text style={styles.another}>Add Another Location</Text>
+                    <Text style={styles.another}>Add Another City</Text>
                   </TouchableOpacity>
                 </View>
 
@@ -363,8 +359,7 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
                 </View>
               </View>
 
-              <View style={{ marginTop: RFPercentage(4) }}>
-                <Text style={styles.conduct}>Where can people find you</Text>
+              <View style={{ marginTop: RFPercentage(1.5) }}>
                 <View>
                   <InputField
                     placeholder="Phone Number (Required)"
@@ -614,6 +609,6 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(1.9),
   },
   inputContainer: {
-    marginTop: RFPercentage(2),
+    marginTop: RFPercentage(0),
   },
 });

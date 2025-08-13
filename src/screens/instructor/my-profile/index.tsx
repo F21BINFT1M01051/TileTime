@@ -14,8 +14,16 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 import CustomButton from '../../../components/CustomButton';
 import ToggleSwitch from 'toggle-switch-react-native';
 import TopNavigation from '../../../routers/TopBar';
+import SettingsButton from '../../../components/SettingsButton';
+import Insights from '../../../components/Insights';
 
 const connects = [
+  {
+    id: 1,
+    icon: ICONS.phone2,
+    connected: true,
+    connection: '(909) 934 6677',
+  },
   {
     id: 2,
     icon: ICONS.insta,
@@ -28,16 +36,17 @@ const connects = [
     connected: true,
     connection: '@adam11kiwi__',
   },
-  {
-    id: 4,
-    icon: ICONS.tiktok,
-    connected: false,
-  },
+
   {
     id: 5,
     icon: ICONS.web,
     connected: true,
     connection: 'adam11kiwi.com',
+  },
+  {
+    id: 6,
+    icon: ICONS.tiktok,
+    connected: false,
   },
 ];
 
@@ -63,12 +72,59 @@ const experience = [
   },
 ];
 
+const InsightsData = [
+  {
+    id: 1,
+    name: 'Total Earnings',
+    subText: '$45.00k',
+  },
+  {
+    id: 2,
+    name: 'Total Students Taught',
+    subText: '12',
+  },
+  {
+    id: 3,
+    name: 'Repeat Players',
+    subText: '102',
+  },
+  {
+    id: 4,
+    name: 'New Players This Month',
+    subText: '23%',
+  },
+  {
+    id: 5,
+    name: 'Total Events hosted',
+    subText: '1,039',
+  },
+ 
+  {
+    id: 6,
+    name: 'Average RSVP count',
+    subText: '23%',
+  },
+  {
+    id: 7,
+    name: 'Profile Views',
+    subText: '679',
+  },
+  {
+    id: 8,
+    name: 'Event Views',
+    subText: '1234',
+  },
+];
+
 const MyProfileInstructor = ({ navigation }: any) => {
   const [isOn, setIsOn] = useState(false);
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
         <TopNavigation title="My Profile" />
 
         <View style={styles.innerContainer}>
@@ -103,7 +159,8 @@ const MyProfileInstructor = ({ navigation }: any) => {
           </View>
 
           <Text style={styles.bioText}>
-            Mahjong instructor focused on strategy, community, and fun. Open to all skill levels - join the table and play your way.
+            Mahjong instructor focused on strategy, community, and fun. Open to
+            all skill levels - join the table and play your way.
           </Text>
 
           <View style={styles.toggleRow}>
@@ -117,7 +174,7 @@ const MyProfileInstructor = ({ navigation }: any) => {
             />
           </View>
 
-          <View style={{marginTop:RFPercentage(4)}}>
+          <View style={{ marginTop: RFPercentage(5) }}>
             <Text style={styles.sectionTitle}>Credentials</Text>
             <View style={styles.badgeWrapper}>
               {credentials.map(item => (
@@ -138,6 +195,9 @@ const MyProfileInstructor = ({ navigation }: any) => {
               ))}
             </View>
           </View>
+          <View style={{ marginTop: RFPercentage(2.5) }}>
+            <SettingsButton title="Payouts" icon={ICONS.arrow22} onPress={()=> navigation.navigate("PayoutsInstructor")} />
+          </View>
 
           <View>
             <FlatList
@@ -153,17 +213,57 @@ const MyProfileInstructor = ({ navigation }: any) => {
                     style={styles.connectionIcon}
                   />
                   {item.connected ? (
-                    <Text style={styles.connectedText}>
-                      {item.connection}
-                    </Text>
+                    <Text style={styles.connectedText}>{item.connection}</Text>
                   ) : (
                     <>
                       <Text style={styles.notConnectedText}>Not Connected</Text>
-                      <TouchableOpacity activeOpacity={0.8} style={styles.connectNowButton}>
+                      <TouchableOpacity
+                        activeOpacity={0.8}
+                        style={styles.connectNowButton}
+                      >
                         <Text style={styles.connectNowText}>Connect Now</Text>
                       </TouchableOpacity>
                     </>
                   )}
+                </View>
+              )}
+            />
+          </View>
+          <View>
+            <View style={styles.stepRow}>
+              <View style={styles.stepLeft}>
+                <Image
+                  source={ICONS.hm3}
+                  resizeMode="contain"
+                  style={styles.stepIcon}
+                />
+                <Text style={styles.stepName}>Invite Friends</Text>
+              </View>
+
+              <TouchableOpacity activeOpacity={0.8} style={styles.stepButton}>
+                <Text style={styles.stepButtonText}>Invite</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={{ flex: 1 , marginTop:RFPercentage(4)}}>
+            <Text style={{color:COLORS.primary, fontSize:RFPercentage(1.8), fontFamily:FONTS.semiBold}}>Insights</Text>
+            <FlatList
+              data={InsightsData}
+              keyExtractor={item => item.id.toString()}
+              numColumns={2}
+              columnWrapperStyle={{
+                justifyContent: 'space-between',
+                gap: RFPercentage(1.8),
+                marginTop: RFPercentage(2),
+              }}
+              renderItem={({ item }) => (
+                <View
+                  style={{
+                    flex: 1,
+                  }}
+                >
+                  <Insights name={item.name} subText={item.subText}  />
                 </View>
               )}
             />
@@ -193,7 +293,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
-    justifyContent:"space-between"
+    justifyContent: 'space-between',
   },
   avatarBorder: {
     width: RFPercentage(14),
@@ -230,12 +330,12 @@ const styles = StyleSheet.create({
     borderRadius: RFPercentage(1.3),
     marginTop: RFPercentage(1.8),
     height: RFPercentage(5.3),
-    
+    width: RFPercentage(25),
   },
   bioText: {
     color: COLORS.primary,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.7),
     marginTop: RFPercentage(4),
   },
   toggleRow: {
@@ -244,7 +344,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: RFPercentage(3),
+    marginTop: RFPercentage(5),
   },
   toggleLabel: {
     textAlign: 'center',
@@ -253,7 +353,7 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(1.9),
   },
   sectionWrapper: {
-    marginTop: RFPercentage(3),
+    marginTop: RFPercentage(2.5),
   },
   sectionTitle: {
     color: COLORS.primary,
@@ -297,7 +397,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     flexDirection: 'row',
-    marginTop: RFPercentage(2.8),
+    marginTop: RFPercentage(3),
   },
   connectionIcon: {
     width: RFPercentage(2.5),
@@ -328,6 +428,44 @@ const styles = StyleSheet.create({
   connectNowText: {
     color: COLORS.white,
     fontSize: RFPercentage(1.4),
+    fontFamily: FONTS.medium,
+  },
+  stepRow: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: RFPercentage(3),
+  },
+  stepLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  stepIcon: {
+    width: RFPercentage(4.5),
+    height: RFPercentage(4.5),
+  },
+  stepName: {
+    marginLeft: RFPercentage(1.5),
+    fontFamily: FONTS.semiBold,
+    color: COLORS.primary,
+    fontSize: RFPercentage(1.8),
+  },
+  checkIcon: {
+    width: RFPercentage(5),
+    height: RFPercentage(5),
+  },
+  stepButton: {
+    width: RFPercentage(10),
+    height: RFPercentage(3.5),
+    backgroundColor: COLORS.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: RFPercentage(100),
+  },
+  stepButtonText: {
+    color: COLORS.white,
+    fontSize: RFPercentage(1.6),
     fontFamily: FONTS.medium,
   },
 });

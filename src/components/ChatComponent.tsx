@@ -53,13 +53,13 @@ const ChatComponent = (props: Props) => {
               styles.nameText,
               {
                 fontFamily:
-                  props.unread || props.mute ? FONTS.bold : FONTS.semiBold,
+                  props.unread || props.mute ? FONTS.bold : FONTS.medium,
               },
             ]}
           >
             {props.name}
           </Text>
-          <Text style={styles.messageText}>
+          <Text style={[styles.messageText, {color : props.unread || props.mute  ? COLORS.primary : COLORS.lightGrey}]}>
             {props.message.length > 40
               ? props.message.substring(0, 40) + '...'
               : props.message}

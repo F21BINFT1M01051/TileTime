@@ -29,6 +29,12 @@ const connects = [
     connection: '(909) 934 6677',
   },
   {
+    id: 5,
+    icon: ICONS.web,
+    connected: true,
+    connection: 'adam11kiwi.com',
+  },
+  {
     id: 2,
     icon: ICONS.insta,
     connected: true,
@@ -98,7 +104,10 @@ const MyProfilePlayer = ({ navigation }: any) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollViewContent} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        contentContainerStyle={styles.scrollViewContent}
+        showsVerticalScrollIndicator={false}
+      >
         <TopNavigation title="My Profile" />
 
         <View style={styles.profileContainer}>
@@ -154,6 +163,23 @@ const MyProfilePlayer = ({ navigation }: any) => {
               </View>
             )}
           />
+
+          <View>
+            <View style={styles.stepRow}>
+              <View style={styles.stepLeft}>
+                <Image
+                  source={ICONS.hm3}
+                  resizeMode="contain"
+                  style={styles.stepIcon}
+                />
+                <Text style={styles.stepName}>Invite Friends</Text>
+              </View>
+
+              <TouchableOpacity activeOpacity={0.8} style={styles.stepButton}>
+                <Text style={styles.stepButtonText}>Invite</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
 
           <View style={styles.toggleRow}>
             <Text style={styles.toggleLabel}>Keep My Profile Private</Text>
@@ -547,5 +573,43 @@ const styles = StyleSheet.create({
     width: '90%',
     alignSelf: 'center',
     marginTop: RFPercentage(2),
+  },
+  stepRow: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: RFPercentage(3),
+  },
+  stepLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  stepIcon: {
+    width: RFPercentage(4.5),
+    height: RFPercentage(4.5),
+  },
+  stepName: {
+    marginLeft: RFPercentage(1.5),
+    fontFamily: FONTS.semiBold,
+    color: COLORS.primary,
+    fontSize: RFPercentage(1.8),
+  },
+  checkIcon: {
+    width: RFPercentage(5),
+    height: RFPercentage(5),
+  },
+  stepButton: {
+    width: RFPercentage(10),
+    height: RFPercentage(3.5),
+    backgroundColor: COLORS.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: RFPercentage(100),
+  },
+  stepButtonText: {
+    color: COLORS.white,
+    fontSize: RFPercentage(1.6),
+    fontFamily: FONTS.medium,
   },
 });

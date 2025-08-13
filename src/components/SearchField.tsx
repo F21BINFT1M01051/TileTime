@@ -1,11 +1,10 @@
+import React, { useState } from 'react';
 import {
   StyleSheet,
-  Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
 import { COLORS, FONTS } from '../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import Feather from 'react-native-vector-icons/Feather';
@@ -17,8 +16,15 @@ interface Props {
 }
 
 const SearchField = (props: Props) => {
+  const [isFocused, setIsFocused] = useState(false);
+
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        { borderColor: isFocused ? COLORS.pink : COLORS.fieldBorder , backgroundColor: isFocused ? COLORS.white : COLORS.fieldColor}
+      ]}
+    >
       <View style={styles.inputContainer}>
         <TextInput
           placeholder={props.placeholder}
@@ -26,6 +32,8 @@ const SearchField = (props: Props) => {
           style={styles.textInput}
           value={props.value}
           onChangeText={props.onChangeText}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
         />
         <TouchableOpacity>
           <Feather name="search" color={COLORS.search} size={RFPercentage(2.8)} />
@@ -59,6 +67,6 @@ const styles = StyleSheet.create({
     color: COLORS.inputColor,
     fontFamily: FONTS.regular,
     width: '90%',
-    fontSize:RFPercentage(1.8)
+    fontSize: RFPercentage(1.8)
   },
 });

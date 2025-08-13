@@ -127,7 +127,7 @@ const SignUp = ({ navigation }: any) => {
 
                   <View>
                     <InputField
-                      placeholder="Enter Password"
+                      placeholder="Ceate Your Password"
                       onChangeText={text => {
                         // setFieldTouched('password', true);
                         handleChange('password')(text);
@@ -165,7 +165,7 @@ const SignUp = ({ navigation }: any) => {
 
                   <View style={styles.buttonWrapper}>
                     <CustomButton
-                      title="Continue"
+                      title="Sign Up"
                       onPress={handleSubmit}
                       // disabled={
                       //   !values.email ||
@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
 
   buttonWrapper: {
     width: '100%',
-    marginTop: RFPercentage(9.8),
+    marginTop: RFPercentage(7),
   },
   footerLinkContainer: {
     alignSelf: 'center',
