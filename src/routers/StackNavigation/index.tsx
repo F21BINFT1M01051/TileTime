@@ -26,6 +26,7 @@ import SearchScreen from '../../screens/common/home/search';
 import PlayerProfile from '../../screens/common/home/search/profiles/player-profile';
 import InstructorProfile from '../../screens/common/home/search/profiles/instructor-profile';
 import PayoutsInstructor from '../../screens/instructor/payouts';
+import InviteFriends from '../../screens/common/home/invite-friends';
 
 export type RootStackParamList = {
   OnBoarding: undefined;
@@ -52,6 +53,7 @@ export type RootStackParamList = {
   EditProfileInstructor: undefined;
   Notifications: undefined;
   PayoutsInstructor: undefined;
+  InviteFriends : undefined
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -64,6 +66,7 @@ const Navigator: React.FC = () => {
           headerShown: false,
         }}
       >
+
         {/* ----------------Common Flow----------- */}
         <Stack.Screen name="OnBoarding" component={OnBoarding} />
         <Stack.Screen name="LoginSignUp" component={LoginSignUp} />
@@ -79,7 +82,7 @@ const Navigator: React.FC = () => {
         <Stack.Screen name="Notifications" component={Notifications} />
         <Stack.Screen name="ChatScreen" component={ChatScreen} />
         <Stack.Screen name="SearchScreen" component={SearchScreen} />
-
+        <Stack.Screen name="InviteFriends" component={InviteFriends} />
 
         {/* --------------------Player Flow-------------------- */}
         <Stack.Screen name="PlayerTabs" component={PlayerTabs} />
@@ -93,7 +96,6 @@ const Navigator: React.FC = () => {
           name="CreateInstructorProfile"
           component={CreateInstructorProfile}
         />
-
 
         {/* ------------------------Instructor Flow------------------- */}
         <Stack.Screen name="InstructorTabs" component={InstructorTabs} />

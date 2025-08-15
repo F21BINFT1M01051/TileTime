@@ -240,7 +240,7 @@ const MyProfileInstructor = ({ navigation }: any) => {
                 <Text style={styles.stepName}>Invite Friends</Text>
               </View>
 
-              <TouchableOpacity activeOpacity={0.8} style={styles.stepButton}>
+              <TouchableOpacity activeOpacity={0.8} style={styles.stepButton} onPress={()=>navigation.navigate("InviteFriends")}>
                 <Text style={styles.stepButtonText}>Invite</Text>
               </TouchableOpacity>
             </View>
@@ -255,7 +255,7 @@ const MyProfileInstructor = ({ navigation }: any) => {
               columnWrapperStyle={{
                 justifyContent: 'space-between',
                 gap: RFPercentage(1.8),
-                marginTop: RFPercentage(2),
+                marginTop: RFPercentage(1.9),
               }}
               renderItem={({ item }) => (
                 <View
@@ -397,7 +397,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     flexDirection: 'row',
-    marginTop: RFPercentage(3),
+    marginTop: RFPercentage(3.5),
   },
   connectionIcon: {
     width: RFPercentage(2.5),

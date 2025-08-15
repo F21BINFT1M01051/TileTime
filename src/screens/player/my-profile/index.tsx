@@ -175,7 +175,7 @@ const MyProfilePlayer = ({ navigation }: any) => {
                 <Text style={styles.stepName}>Invite Friends</Text>
               </View>
 
-              <TouchableOpacity activeOpacity={0.8} style={styles.stepButton}>
+              <TouchableOpacity activeOpacity={0.8} style={styles.stepButton} onPress={()=> navigation.navigate("InviteFriends")}>
                 <Text style={styles.stepButtonText}>Invite</Text>
               </TouchableOpacity>
             </View>
