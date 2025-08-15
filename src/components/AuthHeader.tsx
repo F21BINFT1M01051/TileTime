@@ -8,13 +8,28 @@ interface Props {
   title: string;
   style?: object;
   onPress?: () => void;
-  wrapStyle? : object
+  wrapStyle?: object;
+  right?: boolean;
+  rightText?: string;
 }
 
 const AuthHeader = (props: Props) => {
   const navigation = useNavigation();
   return (
-    <View style={[{backgroundColor:COLORS.white, width:"100%", height:RFPercentage(13), justifyContent:"flex-end", borderBottomWidth:RFPercentage(0.1), borderBottomColor:COLORS.lightWhite, paddingBottom:RFPercentage(1.5)}, props.wrapStyle]}>
+    <View
+      style={[
+        {
+          backgroundColor: COLORS.white,
+          width: '100%',
+          height: RFPercentage(13),
+          justifyContent: 'flex-end',
+          borderBottomWidth: RFPercentage(0.1),
+          borderBottomColor: COLORS.lightWhite,
+          paddingBottom: RFPercentage(1.5),
+        },
+        props.wrapStyle,
+      ]}
+    >
       <View style={styles.auth}>
         <TouchableOpacity
           activeOpacity={0.8}
@@ -27,6 +42,11 @@ const AuthHeader = (props: Props) => {
           />
         </TouchableOpacity>
         <Text style={[styles.getStartedText, props.style]}>{props.title}</Text>
+        {props.right && (
+          <TouchableOpacity activeOpacity={0.8} style={{position:'absolute', right:0}}>
+            <Text style={{color:COLORS.icon, fontFamily:FONTS.bold, fontSize:RFPercentage(1.7)}}>{props.rightText}</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
@@ -45,6 +65,6 @@ const styles = StyleSheet.create({
     width: '90%',
     flexDirection: 'row',
     alignItems: 'center',
-    alignSelf:"center"
+    alignSelf: 'center',
   },
 });

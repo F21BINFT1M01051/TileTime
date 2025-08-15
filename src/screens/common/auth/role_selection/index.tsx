@@ -8,12 +8,7 @@ import Selection from '../../../../components/Selection';
 
 const RoleSelection = ({ navigation }: any) => {
   const [selected, setSelected] = useState('');
-  const role =
-    selected === 'Instructor'
-      ? 'Instructor'
-      : selected === 'Player'
-      ? 'Player'
-      : '';
+ 
   return (
     <LinearGradient
       colors={[COLORS.gradient1, COLORS.gradient2]}

@@ -47,6 +47,9 @@ export const COLORS = {
   light: '#E1E5FF',
   date: '#E4F7F6',
   location: '#FFEDE2',
+  dashedBorder: '#A2A2A2',
+  lightYellow : "#FFFFE1",
+  darkYeloow : "#929212"
 };
 
 export const IMAGES = {
@@ -68,6 +71,7 @@ export const IMAGES = {
   home_top: require('../assets/images/home-top.png'),
   home_bottom: require('../assets/images/home-bottom.png'),
   home_pic: require('../assets/images/home11.png'),
+  event22: require('../assets/images/event22.png'),
 };
 
 export const ICONS = {
@@ -155,6 +159,10 @@ export const ICONS = {
   stripe: require('../assets/icons/stripe.png'),
   del: require('../assets/icons/delete.png'),
   payouts: require('../assets/icons/payouts.png'),
+  right: require('../assets/icons/right.png'),
+  upload: require('../assets/icons/uploadImg.png'),
+  cl: require('../assets/icons/cl.png'),
+  clock: require('../assets/icons/clock.png'),
 };
 
 export const FONTS = {

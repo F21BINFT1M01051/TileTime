@@ -10,161 +10,47 @@ const PayoutsInstructor = () => {
   const [deleteCard, setDeleteCard] = useState(false);
 
   return (
-    <View style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <AuthHeader
-        title="Payouts"
-        style={{ fontFamily: FONTS.semiBold, fontSize: RFPercentage(1.9) }}
-      />
-      <View
-        style={{
-          width: '90%',
-          alignSelf: 'center',
-          marginTop: RFPercentage(2),
-        }}
-      >
+    <View style={styles.container}>
+      <AuthHeader title="Payouts" style={styles.headerTitle} />
+      <View style={styles.mainWrapper}>
         {deleteCard ? (
           <>
-            <View
-              style={{
-                width: '80%',
-                alignSelf: 'center',
-                marginTop: RFPercentage(3),
-                justifyContent: 'center',
-              }}
-            >
-              <Text
-                style={{
-                  textAlign: 'center',
-                  fontFamily: FONTS.headline,
-                  color: COLORS.primary,
-                  fontSize: RFPercentage(3),
-                }}
-              >
-                Get Paid Directly
-              </Text>
-              <Text
-                style={{
-                  textAlign: 'center',
-                  fontFamily: FONTS.stylish,
-                  color: COLORS.primary,
-                  fontSize: RFPercentage(2),
-                  marginTop: RFPercentage(2),
-                }}
-              >
+            <View style={styles.getPaidWrapper}>
+              <Text style={styles.getPaidTitle}>Get Paid Directly</Text>
+              <Text style={styles.getPaidDesc}>
                 Connect your payout account to start receiving earnings from
                 your hosted events and sessions—fast, secure, and fully
                 trackable.
               </Text>
-              <Image
-                source={ICONS.border}
-                resizeMode="contain"
-                style={{
-                  width: RFPercentage(12),
-                  height: RFPercentage(5),
-                  alignSelf: 'center',
-                  bottom: RFPercentage(1),
-                }}
-              />
+              <Image source={ICONS.border} resizeMode="contain" style={styles.borderImg} />
             </View>
 
-            <Image
-              source={ICONS.payouts}
-              resizeMode="contain"
-              style={{
-                width: RFPercentage(25),
-                height: RFPercentage(26),
-                alignSelf: 'center',
-                marginTop: RFPercentage(4),
-              }}
-            />
+            <Image source={ICONS.payouts} resizeMode="contain" style={styles.payoutImg} />
           </>
         ) : (
           <>
-            <Text
-              style={{
-                fontFamily: FONTS.bold,
-                color: COLORS.primary,
-                fontSize: RFPercentage(1.8),
-              }}
-            >
-              Linked Account
-            </Text>
-            <View style={{ marginTop: RFPercentage(2) }}>
-              <View
-                style={{
-                  width: '100%',
-                  backgroundColor: COLORS.white,
-                  height: RFPercentage(6),
-                  borderWidth: RFPercentage(0.1),
-                  borderColor: COLORS.lightWhite,
-                  borderRadius: RFPercentage(2.3),
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  paddingHorizontal: RFPercentage(2),
-                }}
-              >
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <Image
-                    source={ICONS.stripe}
-                    resizeMode="contain"
-                    style={{
-                      width: RFPercentage(2.8),
-                      height: RFPercentage(2.8),
-                    }}
-                  />
-                  <View style={{ marginLeft: RFPercentage(1.8) }}>
-                    <Text
-                      style={{
-                        fontFamily: FONTS.bold,
-                        color: COLORS.primary,
-                        fontSize: RFPercentage(1.7),
-                      }}
-                    >
-                      Stripe
-                    </Text>
-                    <Text
-                      style={{
-                        color: COLORS.grey4,
-                        fontFamily: FONTS.regular,
-                        fontSize: RFPercentage(1.4),
-                        marginTop: RFPercentage(0.2),
-                      }}
-                    >
-                      xxxxxxxx91082
-                    </Text>
+            <Text style={styles.linkedAccountText}>Linked Account</Text>
+            <View style={styles.linkedAccountWrapper}>
+              <View style={styles.accountContainer}>
+                <View style={styles.accountLeft}>
+                  <Image source={ICONS.stripe} resizeMode="contain" style={styles.stripeImg} />
+                  <View style={styles.accountTextWrapper}>
+                    <Text style={styles.accountTitle}>Stripe</Text>
+                    <Text style={styles.accountNumber}>xxxxxxxx91082</Text>
                   </View>
                 </View>
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  onPress={() => setDeleteCard(true)}
-                >
-                  <Image
-                    source={ICONS.del}
-                    resizeMode="contain"
-                    style={{ width: RFPercentage(2), height: RFPercentage(2) }}
-                  />
+                <TouchableOpacity activeOpacity={0.8} onPress={() => setDeleteCard(true)}>
+                  <Image source={ICONS.del} resizeMode="contain" style={styles.deleteIcon} />
                 </TouchableOpacity>
               </View>
             </View>
           </>
         )}
       </View>
-      <View
-        style={{
-          position: 'absolute',
-          width: '100%',
-          alignItems: 'center',
-          bottom: 0,
-          paddingBottom: RFPercentage(4),
-          borderTopWidth: deleteCard ? RFPercentage(0.1) : 0,
-          borderTopColor: COLORS.lightWhite,
-          paddingTop:RFPercentage(2)
-        }}
-      >
-        <View style={{ width: '90%', alignSelf: 'center' }}>
+      <View style={[styles.footerWrapper, deleteCard && styles.footerBorder]}>
+        <View style={styles.footerInner}>
           {deleteCard ? (
-            <CustomButton title="Add Payout Account" icon={ICONS.plus} />
+            <CustomButton title="Add Payout Account" icon={ICONS.plus} onPress={()=> {}} />
           ) : (
             <SocialField
               name="Add Payout Account"
@@ -182,4 +68,111 @@ const PayoutsInstructor = () => {
 
 export default PayoutsInstructor;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.white,
+  },
+  headerTitle: {
+    fontFamily: FONTS.semiBold,
+    fontSize: RFPercentage(1.9),
+  },
+  mainWrapper: {
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: RFPercentage(2),
+  },
+  getPaidWrapper: {
+    width: '80%',
+    alignSelf: 'center',
+    marginTop: RFPercentage(3),
+    justifyContent: 'center',
+  },
+  getPaidTitle: {
+    textAlign: 'center',
+    fontFamily: FONTS.headline,
+    color: COLORS.primary,
+    fontSize: RFPercentage(3),
+  },
+  getPaidDesc: {
+    textAlign: 'center',
+    fontFamily: FONTS.stylish,
+    color: COLORS.primary,
+    fontSize: RFPercentage(2),
+    marginTop: RFPercentage(2),
+  },
+  borderImg: {
+    width: RFPercentage(12),
+    height: RFPercentage(5),
+    alignSelf: 'center',
+    bottom: RFPercentage(1),
+  },
+  payoutImg: {
+    width: RFPercentage(25),
+    height: RFPercentage(26),
+    alignSelf: 'center',
+    marginTop: RFPercentage(4),
+  },
+  linkedAccountText: {
+    fontFamily: FONTS.bold,
+    color: COLORS.primary,
+    fontSize: RFPercentage(1.8),
+  },
+  linkedAccountWrapper: {
+    marginTop: RFPercentage(2),
+  },
+  accountContainer: {
+    width: '100%',
+    backgroundColor: COLORS.white,
+    height: RFPercentage(6),
+    borderWidth: RFPercentage(0.1),
+    borderColor: COLORS.lightWhite,
+    borderRadius: RFPercentage(2.3),
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: RFPercentage(2),
+  },
+  accountLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  stripeImg: {
+    width: RFPercentage(2.8),
+    height: RFPercentage(2.8),
+  },
+  accountTextWrapper: {
+    marginLeft: RFPercentage(1.8),
+  },
+  accountTitle: {
+    fontFamily: FONTS.bold,
+    color: COLORS.primary,
+    fontSize: RFPercentage(1.7),
+  },
+  accountNumber: {
+    color: COLORS.grey4,
+    fontFamily: FONTS.regular,
+    fontSize: RFPercentage(1.4),
+    marginTop: RFPercentage(0.2),
+  },
+  deleteIcon: {
+    width: RFPercentage(2),
+    height: RFPercentage(2),
+  },
+  footerWrapper: {
+    position: 'absolute',
+    width: '100%',
+    alignItems: 'center',
+    bottom: 0,
+    paddingBottom: RFPercentage(4),
+    paddingTop: RFPercentage(2),
+  },
+  footerBorder: {
+    borderTopWidth: RFPercentage(0.1),
+    borderTopColor: COLORS.lightWhite,
+  },
+  footerInner: {
+    width: '90%',
+    alignSelf: 'center',
+  },
+});

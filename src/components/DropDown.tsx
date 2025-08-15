@@ -6,7 +6,7 @@ import {
   FlatList,
   Text,
   StyleSheet,
-  Platform
+  Platform,
 } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS } from '../config/theme';
@@ -86,8 +86,8 @@ const DropdownField: React.FC<Props> = ({
           styles.container,
           style,
           isDropdownVisible && {
-            borderBottomLeftRadius: 0,
-            borderBottomRightRadius: 0,
+            borderColor: COLORS.pink,
+            backgroundColor: COLORS.white,
           },
         ]}
       >
@@ -101,7 +101,7 @@ const DropdownField: React.FC<Props> = ({
             style={[
               styles.selectedText,
               {
-                fontFamily: selectedValue ? FONTS.medium2 : FONTS.regular,
+                fontFamily: FONTS.regular,
                 color: selectedValue ? COLORS.inputColor : COLORS.placeholder,
               },
             ]}
@@ -124,6 +124,7 @@ const DropdownField: React.FC<Props> = ({
             keyExtractor={(item, index) => index.toString()}
             scrollEnabled={true}
             keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
             renderItem={({ item, index }) => {
               const isLastItem = index === data.length - 1;
               return (
@@ -165,7 +166,6 @@ const styles = StyleSheet.create({
     borderRadius: RFPercentage(1.3),
     marginTop: RFPercentage(2),
     justifyContent: 'center',
-   
   },
   dropdownButton: {
     flexDirection: 'row',
@@ -175,22 +175,21 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   selectedText: {
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(1.8),
     top: RFPercentage(1),
   },
   dropdownList: {
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.fieldBorder,
-    borderBottomRightRadius: RFPercentage(1.2),
-    borderBottomLeftRadius: RFPercentage(1.2),
-    backgroundColor: COLORS.fieldColor,
+    borderRadius: RFPercentage(1.5),
+    backgroundColor: COLORS.white,
     maxHeight: RFPercentage(25),
-    borderTopWidth: 0,
     zIndex: 999999,
+    marginTop: RFPercentage(1),
   },
   dropdownItem: {
-    paddingVertical: RFPercentage(1.8),
-    paddingHorizontal: RFPercentage(2),
+    paddingVertical: RFPercentage(2.5),
+    marginHorizontal: RFPercentage(2),
     borderBottomWidth: RFPercentage(0.1),
     borderBottomColor: COLORS.dropDown,
   },

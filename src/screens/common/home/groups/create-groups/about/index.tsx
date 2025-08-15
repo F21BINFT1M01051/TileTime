@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
   bioInputWrapper: {
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(1.5),
+    marginTop: RFPercentage(1),
   },
   bioInput: {
     width: '100%',

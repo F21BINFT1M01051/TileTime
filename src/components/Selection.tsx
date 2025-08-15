@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     height: RFPercentage(3.5),
   },
   textWrapper: {
-    marginTop: RFPercentage(1.4),
+    marginTop: RFPercentage(1.8),
   },
   title: {
     fontFamily: FONTS.bold,
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     color: COLORS.lightGrey,
     fontSize: RFPercentage(1.8),
     marginTop: RFPercentage(1.4),
-    lineHeight: RFPercentage(2.5),
+    lineHeight: RFPercentage(2.3),
   },
   radioButton: {
     width: RFPercentage(3),

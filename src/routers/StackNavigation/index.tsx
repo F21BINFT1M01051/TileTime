@@ -27,6 +27,10 @@ import PlayerProfile from '../../screens/common/home/search/profiles/player-prof
 import InstructorProfile from '../../screens/common/home/search/profiles/instructor-profile';
 import PayoutsInstructor from '../../screens/instructor/payouts';
 import InviteFriends from '../../screens/common/home/invite-friends';
+import InvitePlayer from '../../screens/instructor/create-events/invite-player';
+import InviteGroup from '../../screens/instructor/create-events/invite-group';
+import SelectPlayers from '../../screens/instructor/create-events/select-players';
+import GuidedPlay from '../../screens/instructor/create-events/guided-play';
 
 export type RootStackParamList = {
   OnBoarding: undefined;
@@ -53,7 +57,11 @@ export type RootStackParamList = {
   EditProfileInstructor: undefined;
   Notifications: undefined;
   PayoutsInstructor: undefined;
-  InviteFriends : undefined
+  InviteFriends: undefined;
+  InvitePlayer: undefined;
+  InviteGroup: undefined;
+  SelectPlayers: undefined;
+  GuidedPlay:undefined
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -66,6 +74,7 @@ const Navigator: React.FC = () => {
           headerShown: false,
         }}
       >
+        <Stack.Screen name="InstructorTabs" component={InstructorTabs} />
 
         {/* ----------------Common Flow----------- */}
         <Stack.Screen name="OnBoarding" component={OnBoarding} />
@@ -83,6 +92,10 @@ const Navigator: React.FC = () => {
         <Stack.Screen name="ChatScreen" component={ChatScreen} />
         <Stack.Screen name="SearchScreen" component={SearchScreen} />
         <Stack.Screen name="InviteFriends" component={InviteFriends} />
+        <Stack.Screen name="InvitePlayer" component={InvitePlayer} />
+        <Stack.Screen name="InviteGroup" component={InviteGroup} />
+        <Stack.Screen name="SelectPlayers" component={SelectPlayers} />
+        <Stack.Screen name="GuidedPlay" component={GuidedPlay} />
 
         {/* --------------------Player Flow-------------------- */}
         <Stack.Screen name="PlayerTabs" component={PlayerTabs} />
@@ -98,7 +111,7 @@ const Navigator: React.FC = () => {
         />
 
         {/* ------------------------Instructor Flow------------------- */}
-        <Stack.Screen name="InstructorTabs" component={InstructorTabs} />
+        {/* <Stack.Screen name="InstructorTabs" component={InstructorTabs} /> */}
         <Stack.Screen
           name="InstructorProfileSetup"
           component={InstructorProfileSetup}

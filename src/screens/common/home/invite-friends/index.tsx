@@ -16,7 +16,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 import SearchField from '../../../../components/SearchField';
 import CustomButton from '../../../../components/CustomButton';
 import { BlurView } from '@react-native-community/blur';
-import { ProgressBar, MD3Colors } from 'react-native-paper';
+import { ProgressBar } from 'react-native-paper';
 
 const contacts = [
   { id: 1, name: 'Jamie Anderson', profile: 'JA', phone: '(909) 92288 3355' },
@@ -190,7 +190,11 @@ const InviteFriends = () => {
       <View style={styles.bottomBar}>
         <View style={{ width: '90%', alignSelf: 'center' }}>
           <CustomButton
-            title={activeTab === 'All' ? `Invite ${selectedContacts.length} People` : 'Resend Invites'}
+            title={
+              activeTab === 'All'
+                ? `Invite ${selectedContacts.length} People`
+                : 'Resend Invites'
+            }
             onPress={() => {
               if (activeTab === 'All' && selectedContacts.length > 0) {
                 setVisible(true);
@@ -224,37 +228,12 @@ const InviteFriends = () => {
               <ProgressBar
                 progress={0.7}
                 color={COLORS.green}
-                style={{
-                  width: RFPercentage(10),
-                  height: RFPercentage(0.6),
-                  borderRadius: RFPercentage(100),
-                  marginTop: RFPercentage(2.5),
-                      backgroundColor: COLORS.fieldColor, // unfilled part color
-
-                }}
+                style={styles.progress}
                 animatedValue={0.7}
               />
 
-              <Text
-                style={{
-                  color: COLORS.primary,
-                  fontFamily: FONTS.semiBold,
-                  fontSize: RFPercentage(1.7),
-                  marginTop: RFPercentage(2),
-                }}
-              >
-                Sending Your Invites...
-              </Text>
-              <Text
-                style={{
-                  textAlign: 'center',
-                  color: COLORS.grey4,
-                  fontSize: RFPercentage(1.5),
-                  fontFamily: FONTS.regular,
-                  marginTop: RFPercentage(1),
-                  marginHorizontal:RFPercentage(3)
-                }}
-              >
+              <Text style={styles.head}>Sending Your Invites...</Text>
+              <Text style={styles.sub}>
                 Sit tight while we notify your friends. You’ll be redirected
                 shortly.
               </Text>
@@ -371,6 +350,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: RFPercentage(1.5),
     padding: RFPercentage(3),
-    paddingTop:RFPercentage(1.4)
+    paddingTop: RFPercentage(1.4),
+  },
+  progress: {
+    width: RFPercentage(10),
+    height: RFPercentage(0.6),
+    borderRadius: RFPercentage(100),
+    marginTop: RFPercentage(2.5),
+    backgroundColor: COLORS.fieldColor, // unfilled part color
+  },
+  head: {
+    color: COLORS.primary,
+    fontFamily: FONTS.semiBold,
+    fontSize: RFPercentage(1.7),
+    marginTop: RFPercentage(2),
+  },
+  sub: {
+    textAlign: 'center',
+    color: COLORS.grey4,
+    fontSize: RFPercentage(1.5),
+    fontFamily: FONTS.regular,
+    marginTop: RFPercentage(1),
+    marginHorizontal: RFPercentage(3),
   },
 });

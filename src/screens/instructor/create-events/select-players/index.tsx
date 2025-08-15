@@ -1,0 +1,358 @@
+import {
+  FlatList,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import React, { useState } from 'react';
+import { COLORS, FONTS, ICONS, IMAGES } from '../../../../config/theme';
+import AuthHeader from '../../../../components/AuthHeader';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+import CustomButton from '../../../../components/CustomButton';
+import SearchField from '../../../../components/SearchField';
+
+const players = [
+  {
+    id: 1,
+    name: 'Jamie Anderson',
+    profile: IMAGES.profile3,
+    common: '2 Groups Common • Montgom..',
+    connected: false,
+    tileTime: true,
+  },
+  {
+    id: 2,
+    name: 'Jamie Anderson',
+    profile: IMAGES.profile3,
+    common: '2 Groups Common • Montgom..',
+    connected: false,
+    tileTime: true,
+  },
+  {
+    id: 3,
+    name: 'Jamie Anderson',
+    profile: IMAGES.customProfile,
+    connected: true,
+    tileTime: false,
+  },
+  {
+    id: 4,
+    name: 'Jamie Anderson',
+    profile: null,
+    connected: false,
+    tileTime: false,
+  },
+  {
+    id: 5,
+    name: 'Jamie Anderson',
+    profile: IMAGES.profile1,
+    common: '2 Groups Common • Montgom..',
+    connected: false,
+    tileTime: true,
+  },
+  {
+    id: 6,
+    name: 'Jamie Anderson',
+    profile: IMAGES.profile1,
+    common: '2 Groups Common • Montgom..',
+    connected: false,
+    tileTime: true,
+  },
+  {
+    id: 7,
+    name: 'Jamie Anderson',
+    profile: IMAGES.profile1,
+    common: '2 Groups Common • Montgom..',
+    connected: false,
+    tileTime: true,
+  },
+  {
+    id: 8,
+    name: 'Jamie Anderson',
+    profile: IMAGES.profile1,
+    common: '2 Groups Common • Montgom..',
+    connected: false,
+    tileTime: true,
+  },
+
+  {
+    id: 9,
+    name: 'Jamie Anderson',
+    profile: IMAGES.profile1,
+    common: '2 Groups Common • Montgom..',
+    connected: false,
+    tileTime: true,
+  },
+  {
+    id: 10,
+    name: 'Jamie Anderson',
+    profile: IMAGES.profile1,
+    common: '2 Groups Common • Montgom..',
+    connected: false,
+    tileTime: true,
+  },
+];
+
+const SelectPlayers = ({ navigation }: any) => {
+  const [selectedContacts, setSelectedContacts] = useState<number[]>([]);
+  const [quuery, setQuery] = useState('');
+
+  const toggleContact = (id: number) => {
+    setSelectedContacts(prev =>
+      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id],
+    );
+  };
+
+  return (
+    <View style={styles.container}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollContent}
+      >
+        <AuthHeader title="Select Players" />
+        <View style={styles.contentContainer}>
+          <SearchField
+            placeholder="Search Name, Email or Phone Number"
+            value={quuery}
+            onChangeText={setQuery}
+          />
+          <View style={styles.listContainer}>
+            <Text style={styles.sectionTitleDisabled}>SUGGESTED</Text>
+            <FlatList
+              data={players}
+              keyExtractor={item => item.id.toString()}
+              contentContainerStyle={styles.flatListContent}
+              renderItem={({ item }) => {
+                const isSelected = selectedContacts.includes(item.id);
+                return (
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() => toggleContact(item.id)}
+                  >
+                    <View style={styles.contactRow}>
+                      {item.connected === false && item.tileTime === true ? (
+                        <View style={styles.contactInfo}>
+                          <View style={styles.avatarContainer}>
+                            <View style={styles.avatarOuterLayer}>
+                              <View style={styles.avatarMiddleLayer}>
+                                <View style={styles.avatarInnerLayer}>
+                                  <Image
+                                    source={item.profile}
+                                    resizeMode="contain"
+                                    style={styles.avatarImage}
+                                  />
+                                </View>
+                              </View>
+                            </View>
+                          </View>
+                          <View style={styles.nameSection}>
+                            <Text style={styles.nameText}>{item.name}</Text>
+                            <Text style={styles.phoneText}>{item.common}</Text>
+                          </View>
+                        </View>
+                      ) : item.connected === true && item.tileTime === false ? (
+                        <View style={styles.contactInfo}>
+                          <View style={styles.connectedAvatar}>
+                            <Image
+                              source={item.profile}
+                              resizeMode="cover"
+                              style={styles.connectedAvatarImage}
+                            />
+                            <Image
+                              source={ICONS.fb22}
+                              resizeMode="contain"
+                              style={styles.connectedFbIcon}
+                            />
+                          </View>
+                          <View style={styles.nameSection}>
+                            <Text style={styles.nameText}>{item.name}</Text>
+                            <Text style={styles.phoneText}>
+                              Not on TileTime
+                            </Text>
+                          </View>
+                        </View>
+                      ) : (
+                        <View style={styles.contactInfo}>
+                          <View style={styles.notOnTileTimeAvatar}>
+                            <Text style={styles.notOnTileTimeInitials}>JA</Text>
+                            <Image
+                              source={ICONS.contact22}
+                              resizeMode="contain"
+                              style={styles.connectedFbIcon}
+                            />
+                          </View>
+                          <View style={styles.nameSection}>
+                            <Text style={styles.nameText}>{item.name}</Text>
+                            <Text style={styles.phoneText}>
+                              Not on TileTime
+                            </Text>
+                          </View>
+                        </View>
+                      )}
+
+                      <TouchableOpacity onPress={() => toggleContact(item.id)}>
+                        <Image
+                          resizeMode="contain"
+                          source={isSelected ? ICONS.checked : ICONS.uncheck}
+                          style={styles.checkIcon}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  </TouchableOpacity>
+                );
+              }}
+            />
+          </View>
+        </View>
+      </ScrollView>
+      <View style={styles.bottomBar}>
+        <View style={styles.bottomContent}>
+          <CustomButton title="Save And Next" onPress={() => {}} />
+        </View>
+      </View>
+    </View>
+  );
+};
+
+export default SelectPlayers;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.white,
+  },
+  scrollContent: {
+    paddingBottom: RFPercentage(2),
+  },
+  contentContainer: {
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: RFPercentage(2.5),
+  },
+  listContainer: {
+    marginTop: RFPercentage(3),
+  },
+  flatListContent: {
+    paddingBottom: RFPercentage(10),
+  },
+  sectionTitleDisabled: {
+    color: COLORS.grey5,
+    fontFamily: FONTS.regular,
+    fontSize: RFPercentage(1.4),
+    letterSpacing: 2,
+  },
+  contactRow: {
+    width: '100%',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: RFPercentage(3),
+  },
+  contactInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  avatarContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: RFPercentage(1),
+  },
+  avatarOuterLayer: {
+    width: RFPercentage(5.5),
+    height: RFPercentage(6.5),
+    borderRadius: RFPercentage(2.5),
+    backgroundColor: COLORS.purple,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  avatarMiddleLayer: {
+    backgroundColor: COLORS.green2,
+    width: RFPercentage(5.5),
+    height: RFPercentage(6.5),
+    borderRadius: RFPercentage(2.5),
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: RFPercentage(0.2),
+  },
+  avatarInnerLayer: {
+    backgroundColor: COLORS.pink3,
+    width: RFPercentage(5.5),
+    height: RFPercentage(6.5),
+    borderRadius: RFPercentage(2.5),
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: RFPercentage(0.2),
+  },
+  avatarImage: {
+    width: RFPercentage(5.5),
+    height: RFPercentage(6.5),
+    borderRadius: RFPercentage(2.5),
+    right: RFPercentage(0.2),
+    bottom: RFPercentage(0.2),
+  },
+  connectedAvatar: {
+    width: RFPercentage(7),
+    height: RFPercentage(7),
+    borderRadius: RFPercentage(100),
+  },
+  connectedAvatarImage: {
+    width: RFPercentage(7),
+    height: RFPercentage(7),
+    borderRadius: RFPercentage(100),
+  },
+  connectedFbIcon: {
+    width: RFPercentage(4),
+    height: RFPercentage(4),
+    position: 'absolute',
+    bottom: RFPercentage(-1),
+    right: RFPercentage(-0.6),
+  },
+  notOnTileTimeAvatar: {
+    width: RFPercentage(7),
+    height: RFPercentage(7),
+    borderRadius: RFPercentage(100),
+    backgroundColor: COLORS.lightYellow,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  notOnTileTimeInitials: {
+    fontFamily: FONTS.semiBold,
+    fontSize: RFPercentage(2.3),
+    color: COLORS.darkYeloow,
+  },
+  nameSection: {
+    marginLeft: RFPercentage(2),
+  },
+  nameText: {
+    color: COLORS.primary,
+    fontFamily: FONTS.semiBold,
+    fontSize: RFPercentage(2),
+  },
+  phoneText: {
+    color: COLORS.lightGrey,
+    fontFamily: FONTS.regular,
+    fontSize: RFPercentage(1.6),
+    marginTop: RFPercentage(0.7),
+  },
+  checkIcon: {
+    width: RFPercentage(3),
+    height: RFPercentage(3),
+  },
+  bottomBar: {
+    width: '100%',
+    borderTopWidth: RFPercentage(0.1),
+    borderTopColor: COLORS.lightWhite,
+    position: 'absolute',
+    bottom: 0,
+    paddingTop: RFPercentage(2),
+    paddingBottom: RFPercentage(4),
+    backgroundColor: COLORS.white,
+  },
+  bottomContent: {
+    width: '90%',
+    alignSelf: 'center',
+  },
+});
