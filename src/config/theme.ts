@@ -51,6 +51,9 @@ export const COLORS = {
   lightYellow: '#FFFFE1',
   darkYeloow: '#929212',
   grey7: '#D8D8D8',
+  yellow2 : "#FFF9E2",
+  blue2 : "#ECF1FF",
+  green3 : "#ECFFE5"
 };
 
 export const IMAGES = {

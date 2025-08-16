@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(2),
   },
   getPaidWrapper: {
-    width: '80%',
+    width: '90%',
     alignSelf: 'center',
     marginTop: RFPercentage(3),
     justifyContent: 'center',
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: FONTS.stylish,
     color: COLORS.primary,
-    fontSize: RFPercentage(2),
+    fontSize: RFPercentage(2.1),
     marginTop: RFPercentage(2),
   },
   borderImg: {

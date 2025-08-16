@@ -64,25 +64,25 @@ const data = [
     id: 1,
     name: 'Create Event',
     icon: ICONS.hm1,
-    color: '#FFE5F6',
+    color: COLORS.pink4,
   },
   {
     id: 2,
     name: 'Reschedule Event',
     icon: ICONS.schedule,
-    color: '#FFF9E2',
+    color: COLORS.yellow2,
   },
   {
     id: 3,
     name: 'Create Group',
     icon: ICONS.hm2,
-    color: '#ECF1FF',
+    color: COLORS.blue2,
   },
   {
     id: 4,
     name: 'Find Local Events',
     icon: ICONS.hm4,
-    color: '#ECFFE5',
+    color: COLORS.green3,
   },
 ];
 

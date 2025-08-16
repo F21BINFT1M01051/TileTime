@@ -537,7 +537,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderTopWidth: RFPercentage(0.1),
     borderTopColor: COLORS.lightWhite,
-    marginTop: RFPercentage(16),
+    marginTop: RFPercentage(10),
   },
   confirm: {
     width: '90%',

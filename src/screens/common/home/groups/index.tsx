@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   subtitleText: {
     color: COLORS.primary,
     fontFamily: FONTS.stylish,
-    fontSize: RFPercentage(2),
+    fontSize: RFPercentage(2.1),
     textAlign: 'center',
   },
   borderIcon: {
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
   groupImage: {
     width: RFPercentage(50),
     height: RFPercentage(30),
-    marginTop: RFPercentage(4),
+    marginTop: RFPercentage(2),
   },
   buttonWrapper: {
     width: '90%',
