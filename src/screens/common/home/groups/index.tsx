@@ -76,7 +76,12 @@ const Groups = ({ navigation }: any) => {
                 <View style={{ marginTop: RFPercentage(1.3) }}>
                   <CustomButton
                     title={'Start A Direct Message'}
-                    onPress={() => {}}
+                    onPress={() =>
+                      navigation.navigate('ChatScreen', {
+                        isGroup: false,
+                        isNew: false,
+                      })
+                    }
                   />
                 </View>
               </View>

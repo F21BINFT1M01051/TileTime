@@ -7,13 +7,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../../config/theme';
 import AuthHeader from '../../../../components/AuthHeader';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import CustomButton from '../../../../components/CustomButton';
 import SearchField from '../../../../components/SearchField';
-import EventLive from '../../components/EventLive';
 
 const players = [
   {
@@ -26,22 +25,22 @@ const players = [
   },
   {
     id: 2,
-    name: 'Jamie Anderson',
+    name: 'David Warner',
     profile: IMAGES.profile3,
-    common: '2 Groups Common • Montgom..',
+    common: '3 Groups Common • NYC',
     connected: false,
     tileTime: true,
   },
   {
     id: 3,
-    name: 'Jamie Anderson',
+    name: 'Chris Evans',
     profile: IMAGES.customProfile,
     connected: true,
     tileTime: false,
   },
   {
     id: 4,
-    name: 'Jamie Anderson',
+    name: 'Emma Stone',
     profile: null,
     connected: false,
     tileTime: false,
@@ -50,14 +49,22 @@ const players = [
 
 const SelectPlayers = ({ navigation }: any) => {
   const [selectedContacts, setSelectedContacts] = useState<number[]>([]);
-  const [quuery, setQuery] = useState('');
-  const [modalVisible, setModalVisible] = useState(false);
+  const [query, setQuery] = useState('');
 
   const toggleContact = (id: number) => {
     setSelectedContacts(prev =>
       prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id],
     );
   };
+
+  const filteredPlayers = useMemo(() => {
+    if (!query.trim()) return players;
+    return players.filter(
+      item =>
+        (item.name?.toLowerCase() || '').includes(query.toLowerCase()) ||
+        (item.common?.toLowerCase() || '').includes(query.toLowerCase()),
+    );
+  }, [query]);
 
   return (
     <View style={styles.container}>
@@ -69,15 +76,26 @@ const SelectPlayers = ({ navigation }: any) => {
         <View style={styles.contentContainer}>
           <SearchField
             placeholder="Search Name, Email or Phone Number"
-            value={quuery}
+            value={query}
             onChangeText={setQuery}
           />
           <View style={styles.listContainer}>
             <Text style={styles.sectionTitleDisabled}>SUGGESTED</Text>
             <FlatList
-              data={players}
+              data={filteredPlayers}
               keyExtractor={item => item.id.toString()}
               contentContainerStyle={styles.flatListContent}
+              ListEmptyComponent={
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    marginTop: RFPercentage(2),
+                    color: COLORS.grey5,
+                  }}
+                >
+                  No players found
+                </Text>
+              }
               renderItem={({ item }) => {
                 const isSelected = selectedContacts.includes(item.id);
                 return (
@@ -165,16 +183,21 @@ const SelectPlayers = ({ navigation }: any) => {
         <View style={styles.bottomContent}>
           <CustomButton
             title="Save And Next"
-            onPress={() => navigation.navigate("GuidedPlay", {players: true, groups: false , link : false})}
+            disabled={selectedContacts.length === 0}
+            style={{
+              backgroundColor:
+                selectedContacts.length > 0 ? COLORS.primary : COLORS.disabled,
+            }}
+            onPress={() =>
+              navigation.navigate('GuidedPlay', {
+                players: true,
+                groups: false,
+                link: false,
+              })
+            }
           />
         </View>
       </View>
-
-      {/* Modal */}
-      <EventLive
-        visible={modalVisible}
-        onClose={() => setModalVisible(false)}
-      />
     </View>
   );
 };

@@ -1,5 +1,5 @@
-import { FlatList, StyleSheet, View } from 'react-native';
-import React from 'react';
+import { FlatList, StyleSheet, View, Text } from 'react-native';
+import React, { useState, useMemo } from 'react';
 import { COLORS, FONTS, IMAGES } from '../../../../../../config/theme';
 import Nav from '../../../../../../components/Nav';
 import { RFPercentage } from 'react-native-responsive-fontsize';
@@ -35,17 +35,46 @@ const admins = [
   },
 ];
 
-const GroupAdmins = () => {
+const GroupAdmins = ({ navigation }:any) => {
+  const [query, setQuery] = useState('');
+
+  const filteredAdmins = useMemo(() => {
+    if (!query.trim()) return admins;
+    return admins.filter(item =>
+      item.name.toLowerCase().includes(query.toLowerCase())
+    );
+  }, [query]);
+
   return (
     <View style={styles.container}>
-      <Nav title="Group Admins" style={styles.navTitle} />
+      <Nav
+        title="Group Admins"
+        style={styles.navTitle}
+        onPress={() => navigation.goBack()}
+      />
       <View style={styles.contentWrapper}>
-        <SearchField placeholder="Search by name" />
+        <SearchField
+          placeholder="Search by name"
+          value={query}
+          onChangeText={setQuery}
+        />
         <View style={styles.subSectionSpacing}>
           <FlatList
-            data={admins}
+            data={filteredAdmins}
             keyExtractor={item => item.id.toString()}
             contentContainerStyle={{ paddingBottom: RFPercentage(1) }}
+            ListEmptyComponent={
+              <Text
+                style={{
+                  textAlign: 'center',
+                  marginTop: RFPercentage(5),
+                  color: COLORS.grey4,
+                  fontFamily: FONTS.regular,
+                  fontSize:RFPercentage(1.8)
+                }}>
+                No admin found
+              </Text>
+            }
             renderItem={({ item }) => {
               return (
                 <View style={{ marginTop: RFPercentage(2) }}>
@@ -118,7 +147,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: COLORS.lightWhite,
     backgroundColor: COLORS.white,
-    paddingBottom:RFPercentage(4)
+    paddingBottom: RFPercentage(4),
   },
   buttonContainer: {
     width: '90%',

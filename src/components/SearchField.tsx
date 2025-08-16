@@ -23,7 +23,10 @@ const SearchField = (props: Props) => {
     <View
       style={[
         styles.container,
-        { borderColor: isFocused ? COLORS.pink : COLORS.fieldBorder , backgroundColor: isFocused ? COLORS.white : COLORS.fieldColor}
+        {
+          borderColor: isFocused ? COLORS.pink : COLORS.fieldBorder,
+          backgroundColor: isFocused ? COLORS.white : COLORS.fieldColor,
+        },
       ]}
     >
       <View style={styles.inputContainer}>
@@ -37,7 +40,11 @@ const SearchField = (props: Props) => {
           onBlur={() => setIsFocused(false)}
         />
         <TouchableOpacity>
-          <Feather name="search" color={COLORS.search} size={RFPercentage(2.8)} />
+          <Feather
+            name="search"
+            color={COLORS.search}
+            size={RFPercentage(2.8)}
+          />
         </TouchableOpacity>
       </View>
     </View>
@@ -50,7 +57,7 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: RFPercentage(0.1),
     width: '100%',
-    height:Platform.OS === "ios" ? RFPercentage(5.5) : RFPercentage(6),
+    height: Platform.OS === 'ios' ? RFPercentage(5.5) : RFPercentage(6),
     backgroundColor: COLORS.fieldColor,
     borderColor: COLORS.fieldBorder,
     borderRadius: RFPercentage(1.3),
@@ -68,6 +75,10 @@ const styles = StyleSheet.create({
     color: COLORS.inputColor,
     fontFamily: FONTS.regular,
     width: '90%',
-    fontSize: RFPercentage(1.7)
+    fontSize: RFPercentage(1.7),
+    marginVertical: 0,
+    paddingVertical: 0,
+    textAlignVertical: 'center',
+    lineHeight: RFPercentage(2),
   },
 });

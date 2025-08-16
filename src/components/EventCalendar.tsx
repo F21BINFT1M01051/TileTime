@@ -1,9 +1,16 @@
-// components/EventCalendar.js
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { COLORS, FONTS, ICONS } from '../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import CustomButton from './CustomButton';
+
+// Mock avatars (if needed)
+const avatars = [
+  { id: 1, profile: ICONS.avatar },
+  { id: 2, profile: ICONS.avatar },
+  { id: 3, profile: ICONS.avatar },
+  { id: 4, profile: ICONS.avatar },
+];
 
 const getSevenDayRow = () => {
   const days = ['Mo', 'Tu', 'Wed', 'Th', 'Fr', 'Sa', 'Su'];
@@ -22,8 +29,8 @@ const getSevenDayRow = () => {
   });
 };
 
-const EventCalendar = () => {
-  const renderTimeLabels = (times) =>
+const EventCalendar = ({ onPress, events = [] }: any) => {
+  const renderTimeLabels = (times: string[]) =>
     times.map((time, i) => (
       <Text
         key={i}
@@ -33,10 +40,36 @@ const EventCalendar = () => {
       </Text>
     ));
 
+  const renderAvatars = () => {
+    const visible = avatars.slice(0, 2);
+    const remaining = avatars.length - visible.length;
+    return (
+      <View style={styles.avatarContainer}>
+        {visible.map((item, index) => (
+          <View
+            key={item.id}
+            style={[
+              styles.avatarWrapper,
+              { marginLeft: index === 0 ? 0 : -10 },
+            ]}
+          >
+            <Image source={item.profile} style={styles.avatarImage} />
+          </View>
+        ))}
+        {remaining > 0 && (
+          <View style={[styles.avatarWrapper, styles.remainingWrapper]}>
+            <Text style={styles.remainingText}>+{remaining}</Text>
+          </View>
+        )}
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Your Event Calendar</Text>
 
+      {/* Week Row */}
       <View style={styles.weekRow}>
         {getSevenDayRow().map((day, index) => (
           <View
@@ -58,19 +91,41 @@ const EventCalendar = () => {
 
       <Text style={styles.scheduleText}>Schedule Today</Text>
 
-      <View style={styles.timeBlock}>
-        <View style={styles.timeColumn}>
-          {renderTimeLabels(['08.00', '10.00', '12.00', '14.00'])}
+      {/* Events vs Empty */}
+      {events.length === 0 ? (
+        <View style={styles.timeBlock}>
+          <View style={styles.timeColumn}>
+            {renderTimeLabels(['08.00', '10.00', '12.00', '14.00'])}
+          </View>
+          <View style={styles.eventColumn}>
+            <Text style={styles.noEventText}>No events for this date</Text>
+            <CustomButton
+              onPress={onPress}
+              title="Create Event"
+              icon={ICONS.calender}
+              style={styles.button}
+            />
+          </View>
         </View>
-        <View style={styles.eventColumn}>
-          <Text style={styles.noEventText}>No events for this date</Text>
-          <CustomButton
-            title="Create Event"
-            icon={ICONS.calender}
-            style={styles.button}
-          />
-        </View>
-      </View>
+      ) : (
+        <>
+          {/* Example: Event at 10:00 */}
+          <View style={styles.timeBlock}>
+            <View>{renderTimeLabels(['10.00'])}</View>
+            <View style={styles.eventBox}>
+              <Text style={styles.eventText}>
+                {events[0].title || 'Community Mahjong Session'}
+              </Text>
+              {renderAvatars()}
+              <Image
+                source={ICONS.event}
+                resizeMode="contain"
+                style={styles.eventImageSmall}
+              />
+            </View>
+          </View>
+        </>
+      )}
     </View>
   );
 };
@@ -91,8 +146,6 @@ const styles = StyleSheet.create({
   weekRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%',
     marginTop: RFPercentage(1.5),
   },
   dayContainer: {
@@ -109,7 +162,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular,
     fontSize: RFPercentage(1.5),
     color: COLORS.lightGrey,
-    top:RFPercentage(0.3)
+    top: RFPercentage(0.3),
   },
   dayDate: {
     fontFamily: FONTS.semiBold,
@@ -126,9 +179,7 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(2),
   },
   timeBlock: {
-    width: '100%',
     flexDirection: 'row',
-    alignItems: 'center',
     marginTop: RFPercentage(2),
   },
   timeColumn: {
@@ -137,10 +188,9 @@ const styles = StyleSheet.create({
   },
   eventColumn: {
     marginLeft: RFPercentage(2),
-    alignSelf: 'center',
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1,
   },
   timeLabel: {
     color: COLORS.lightGrey,
@@ -156,5 +206,51 @@ const styles = StyleSheet.create({
     width: RFPercentage(22),
     borderRadius: RFPercentage(1.4),
     marginTop: RFPercentage(1),
+  },
+  eventBox: {
+    marginLeft: RFPercentage(2),
+    padding: RFPercentage(1),
+    backgroundColor: 'rgba(17, 54, 239, 0.14)',
+    borderRadius: RFPercentage(1),
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: RFPercentage(1),
+  },
+  eventText: {
+    flex: 1,
+    color: COLORS.primary,
+    fontFamily: FONTS.medium,
+    fontSize: RFPercentage(1.6),
+  },
+  avatarContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  avatarWrapper: {
+    width: RFPercentage(3.5),
+    height: RFPercentage(3.5),
+    borderRadius: RFPercentage(2),
+    overflow: 'hidden',
+    backgroundColor: COLORS.white,
+    borderWidth: 1,
+    borderColor: COLORS.lightGrey,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  avatarImage: {
+    width: '100%',
+    height: '100%',
+  },
+  remainingWrapper: {
+    backgroundColor: COLORS.lightGrey,
+  },
+  remainingText: {
+    fontSize: RFPercentage(1.3),
+    fontFamily: FONTS.medium,
+    color: COLORS.white,
+  },
+  eventImageSmall: {
+    width: RFPercentage(2.5),
+    height: RFPercentage(2.5),
   },
 });

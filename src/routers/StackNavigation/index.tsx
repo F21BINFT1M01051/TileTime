@@ -78,7 +78,6 @@ const Navigator: React.FC = () => {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="InstructorTabs" component={InstructorTabs} />
 
         {/* ----------------Common Flow----------- */}
         <Stack.Screen name="OnBoarding" component={OnBoarding} />
@@ -117,7 +116,7 @@ const Navigator: React.FC = () => {
         />
 
         {/* ------------------------Instructor Flow------------------- */}
-        {/* <Stack.Screen name="InstructorTabs" component={InstructorTabs} /> */}
+        <Stack.Screen name="InstructorTabs" component={InstructorTabs} />
         <Stack.Screen
           name="InstructorProfileSetup"
           component={InstructorProfileSetup}

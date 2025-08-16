@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
   Image,
+  Share,
 } from 'react-native';
 import { COLORS, FONTS, ICONS } from '../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
@@ -52,6 +53,27 @@ const ActionsCard = () => {
   const [expanded, setExpanded] = useState(true);
   const animation = useRef(new Animated.Value(1)).current;
   const navigation = useNavigation();
+
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: 'Check out this awesome content! 🚀',
+        url: 'https://example.com',
+      });
+
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          console.log('Shared with activity type: ', result.activityType);
+        } else {
+          console.log('Shared successfully');
+        }
+      } else if (result.action === Share.dismissedAction) {
+        console.log('Dismissed');
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   const toggleExpand = () => {
     Animated.timing(animation, {
@@ -136,7 +158,13 @@ const ActionsCard = () => {
               ) : (
                 <TouchableOpacity
                   activeOpacity={0.8}
-                  onPress={() => navigation.navigate(item.navigationScreen)}
+                  onPress={() => {
+                    if (item.button === 'Invite') {
+                      onShare();
+                    } else {
+                      navigation.navigate(item.navigationScreen);
+                    }
+                  }}
                   style={styles.stepButton}
                 >
                   <Text style={styles.stepButtonText}>{item.button}</Text>

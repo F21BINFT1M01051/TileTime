@@ -45,6 +45,11 @@ const SearchScreen = ({ navigation }: any) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible2, setModalVisible2] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState(null);
+  const [query, setQuery] = useState('');
+
+  const filteredData = searchData.filter(item =>
+    item.name.toLowerCase().includes(query.toLowerCase()),
+  );
 
   const handleCardPress = (item: any) => {
     if (item.group) {
@@ -78,13 +83,22 @@ const SearchScreen = ({ navigation }: any) => {
         <HomeNavigator title="Search Players and Groups" />
 
         <View style={styles.searchWrapper}>
-          <SearchField placeholder="Search by name" />
+          <SearchField
+            placeholder="Search by name"
+            value={query}
+            onChangeText={setQuery}
+          />
 
           <FlatList
-            data={searchData}
+            data={filteredData}
             keyExtractor={item => item.id.toString()}
             contentContainerStyle={styles.flatListContent}
             scrollEnabled={false}
+            ListEmptyComponent={
+              <Text style={{ textAlign: 'center', color: COLORS.lightGrey , fontFamily:FONTS.regular, fontSize:RFPercentage(1.8), marginTop:RFPercentage(5)}}>
+                No results found
+              </Text>
+            }
             renderItem={({ item }) => (
               <SearchCard
                 name={item.name}

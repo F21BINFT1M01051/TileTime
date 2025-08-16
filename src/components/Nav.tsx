@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 interface Props {
   title: string;
   style?: object;
+  onPress? : ()=> void
 }
 
 const Nav = (props: Props) => {
@@ -16,9 +17,7 @@ const Nav = (props: Props) => {
     <View style={styles.auth}>
       <View style={styles.content}>
         <TouchableOpacity
-          onPress={() => {
-            navigation.goBack();
-          }}
+          onPress={props.onPress}
         >
           <AntDesign
             name="arrowleft"

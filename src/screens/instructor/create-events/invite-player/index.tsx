@@ -39,7 +39,7 @@ const types = [
 const InvitePlayer = ({ navigation }: any) => {
   return (
     <View style={styles.container}>
-      <AuthHeader title="Invite Players" rightText="Save Drafts" right={true} />
+      <AuthHeader title="Invite Players" rightText="Save Draft" right={true} />
       <View style={styles.contentContainer}>
         <Text style={styles.headingText}>
           How would you like to get players in?

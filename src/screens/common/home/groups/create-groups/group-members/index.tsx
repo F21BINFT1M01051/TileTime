@@ -7,7 +7,7 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../../../../config/theme';
 import Nav from '../../../../../../components/Nav';
 import { RFPercentage } from 'react-native-responsive-fontsize';
@@ -43,26 +43,43 @@ const admins = [
   },
 ];
 
-const GroupMembers = () => {
+const GroupMembers = ({navigation}  :any) => {
   const [visibleTooltipId, setVisibleTooltipId] = useState(null);
+  const [query, setQuery] = useState('');
 
   const dismissAll = () => {
     Keyboard.dismiss();
     setVisibleTooltipId(null);
   };
 
+  const filteredAdmins = useMemo(() => {
+    if (!query.trim()) return admins;
+    return admins.filter(item =>
+      item.name.toLowerCase().includes(query.toLowerCase())
+    );
+  }, [query]);
+
   return (
     <TouchableWithoutFeedback onPress={dismissAll}>
       <View style={styles.container}>
-        <Nav title="Group Members" style={styles.navTitle} />
+        <Nav title="Group Members" style={styles.navTitle} onPress={()=> navigation.goBack()} />
         <View style={styles.contentWrapper}>
-          <SearchField placeholder="Search by name" />
+          <SearchField
+            placeholder="Search by name"
+            value={query}
+            onChangeText={setQuery}
+          />
           <View style={styles.subSectionSpacing}>
             <FlatList
-              data={admins}
+              data={filteredAdmins}
               keyExtractor={item => item.id.toString()}
               contentContainerStyle={{ paddingBottom: RFPercentage(2) }}
               keyboardShouldPersistTaps="handled"
+              ListEmptyComponent={
+                <Text style={{ textAlign: 'center', marginTop: RFPercentage(5), color: COLORS.grey4 , fontFamily:FONTS.regular, fontSize:RFPercentage(1.7)}}>
+                  No member found
+                </Text>
+              }
               renderItem={({ item }) => (
                 <View style={{ marginTop: RFPercentage(2) }}>
                   <AdminCard
@@ -135,7 +152,7 @@ const styles = StyleSheet.create({
     borderTopWidth: RFPercentage(0.1),
     borderTopColor: COLORS.lightWhite,
     backgroundColor: COLORS.white,
-    paddingBottom:RFPercentage(4)
+    paddingBottom: RFPercentage(4),
   },
   buttonContainer: {
     width: '90%',

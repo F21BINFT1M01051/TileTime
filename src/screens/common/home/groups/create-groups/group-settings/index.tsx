@@ -10,7 +10,7 @@ import AdminCard from '../../../../../../components/AdminCard';
 const GroupSettings = ({ navigation }: any) => {
   return (
     <View style={styles.container}>
-      <Nav title="Permissions & Settings" style={styles.navTitle} />
+      <Nav title="Permissions & Settings" style={styles.navTitle} onPress={()=> navigation.goBack()} />
       <View style={styles.contentWrapper}>
         <Text style={styles.sectionTitle}>Members can</Text>
         <View style={styles.subSection}>

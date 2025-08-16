@@ -36,7 +36,7 @@ const GroupDetails = ({ navigation }: any) => {
                 <AntDesign
                   name="arrowleft"
                   color={COLORS.grey}
-                  size={RFPercentage(3)}
+                  size={RFPercentage(2.5)}
                 />
               </TouchableOpacity>
 
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(7),
+    marginTop: RFPercentage(8),
   },
   dotsButton: {
     position: 'absolute',

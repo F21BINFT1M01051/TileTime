@@ -193,5 +193,5 @@ export const FONTS = {
   semiBold2: 'PublicSans-SemiBold',
   bold2: 'PublicSans-Bold',
   tab: 'SchibstedGrotesk-SemiBold',
-  stylish: 'ShadowsIntoLight-Regular',
+  stylish: 'ShadowsIntoLight',
 };

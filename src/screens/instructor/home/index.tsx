@@ -7,8 +7,9 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Share,
 } from 'react-native';
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import TopNavigation from '../../../routers/TopBar';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../config/theme';
@@ -18,6 +19,7 @@ import ActionsCard from '../../../components/ActionsCard';
 import HomeCard from '../../../components/HomeCard';
 import HomeGroupCard from '../../../components/HomeGroupCard';
 import EventCalendar from '../../../components/EventCalendar';
+import CreateEvent from '../../../components/CreateEvent';
 
 const Groups = [
   {
@@ -89,6 +91,12 @@ const Cards2 = [
 
 const InstructorHome = ({ navigation }: any) => {
   const actions = ['1'];
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedType, setSelectedType] = useState('');
+
+  const openModal = () => {
+    setIsModalVisible(true);
+  };
 
   return (
     <LinearGradient
@@ -133,7 +141,7 @@ const InstructorHome = ({ navigation }: any) => {
             </>
           )}
 
-          <EventCalendar />
+          <EventCalendar onPress={openModal} />
           <ImageBackground
             source={IMAGES.home_pic}
             resizeMode="contain"
@@ -160,7 +168,7 @@ const InstructorHome = ({ navigation }: any) => {
                   title="Create Event"
                   icon={ICONS.calender}
                   style={styles.createEventButton}
-                  onPress={() => {}}
+                  onPress={openModal}
                 />
               </View>
             </View>
@@ -261,6 +269,18 @@ const InstructorHome = ({ navigation }: any) => {
           </View>
         </View>
       </ScrollView>
+
+      <CreateEvent
+        visible={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+        title="Select Event Type"
+        selectedValue={selectedType}
+        onSelect={setSelectedType}
+        onConfirm={() => {
+          setIsModalVisible(false);
+          navigation.navigate('InvitePlayer');
+        }}
+      />
     </LinearGradient>
   );
 };
@@ -394,5 +414,45 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(2.2),
     lineHeight: RFPercentage(2.9),
     marginTop: RFPercentage(0.6),
+  },
+  overLay2: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  modalContent: {
+    backgroundColor: COLORS.white,
+    borderTopLeftRadius: RFPercentage(3),
+    borderTopRightRadius: RFPercentage(3),
+    paddingBottom: RFPercentage(4),
+    height: '84%',
+  },
+  modalBanner: {
+    width: RFPercentage(40),
+    height: RFPercentage(14),
+    alignSelf: 'center',
+  },
+  modalInnerContent: {
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: RFPercentage(3.5),
+  },
+
+  modalFooter: {
+    borderTopWidth: RFPercentage(0.1),
+    borderTopColor: COLORS.lightWhite,
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    paddingBottom: RFPercentage(4),
+  },
+  modalFooterInner: {
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: RFPercentage(2),
+  },
+  type: {
+    fontFamily: FONTS.headline,
+    color: COLORS.primary,
+    fontSize: RFPercentage(2.6),
   },
 });

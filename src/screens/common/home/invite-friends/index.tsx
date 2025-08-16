@@ -39,13 +39,24 @@ const InviteFriends = () => {
   const [activeTab, ssetActiveTab] = useState('All');
   const [selectedContacts, setSelectedContacts] = useState<number[]>([]);
   const [visible, setVisible] = useState(false);
-  const [quuery, setQuery] = useState('');
+  const [query, setQuery] = useState('');
 
   const toggleContact = (id: number) => {
     setSelectedContacts(prev =>
       prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id],
     );
   };
+
+  const filteredContacts =
+    activeTab === 'All'
+      ? contacts.filter(item =>
+          item.name.toLowerCase().includes(query.toLowerCase()) ||
+          item.phone.toLowerCase().includes(query.toLowerCase()),
+        )
+      : invited.filter(item =>
+          item.name.toLowerCase().includes(query.toLowerCase()) ||
+          item.phone.toLowerCase().includes(query.toLowerCase()),
+        );
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
@@ -61,6 +72,7 @@ const InviteFriends = () => {
             community.
           </Text>
 
+          {/* Tabs */}
           <View style={styles.tabContainer}>
             <TouchableOpacity
               activeOpacity={0.8}
@@ -113,80 +125,80 @@ const InviteFriends = () => {
             </TouchableOpacity>
           </View>
 
+          {/* Search Bar */}
           <View style={{ marginTop: RFPercentage(3.5) }}>
             <SearchField
-              placeholder="Search by name"
-              value={quuery}
+              placeholder="Search by name or phone"
+              value={query}
               onChangeText={setQuery}
             />
           </View>
+
+          {/* List */}
           <View>
             <Text style={styles.sectionTitleDisabled}>YOUR CONTACTS</Text>
-            {activeTab === 'All' ? (
-              <FlatList
-                data={contacts}
-                keyExtractor={item => item.id.toString()}
-                renderItem={({ item }) => {
-                  const isSelected = selectedContacts.includes(item.id);
-                  return (
-                    <TouchableOpacity
-                      activeOpacity={0.8}
-                      onPress={() => toggleContact(item.id)}
-                    >
-                      <View style={styles.contactRow}>
-                        <View style={styles.contactInfo}>
-                          <View style={styles.avatar}>
-                            <Text style={styles.avatarText}>
-                              {item.profile}
-                            </Text>
-                          </View>
-                          <View style={styles.nameSection}>
-                            <Text style={styles.nameText}>{item.name}</Text>
-                            <Text style={styles.phoneText}>{item.phone}</Text>
-                          </View>
+            <FlatList
+              data={filteredContacts}
+              keyExtractor={item => item.id.toString()}
+              ListEmptyComponent={
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    color: COLORS.lightGrey,
+                    marginTop: RFPercentage(5),
+                    fontFamily:FONTS.regular,
+                    fontSize:RFPercentage(1.8)
+                  }}
+                >
+                  No results found
+                </Text>
+              }
+              renderItem={({ item }) => {
+                const isSelected = selectedContacts.includes(item.id);
+                return activeTab === 'All' ? (
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() => toggleContact(item.id)}
+                  >
+                    <View style={styles.contactRow}>
+                      <View style={styles.contactInfo}>
+                        <View style={styles.avatar}>
+                          <Text style={styles.avatarText}>{item.profile}</Text>
                         </View>
-                        <TouchableOpacity
-                          onPress={() => toggleContact(item.id)}
-                        >
-                          <Image
-                            resizeMode="contain"
-                            source={isSelected ? ICONS.checked : ICONS.uncheck}
-                            style={styles.checkIcon}
-                          />
-                        </TouchableOpacity>
+                        <View style={styles.nameSection}>
+                          <Text style={styles.nameText}>{item.name}</Text>
+                          <Text style={styles.phoneText}>{item.phone}</Text>
+                        </View>
                       </View>
-                    </TouchableOpacity>
-                  );
-                }}
-              />
-            ) : (
-              <FlatList
-                data={invited}
-                keyExtractor={item => item.id.toString()}
-                renderItem={({ item }) => {
-                  return (
-                    <View>
-                      <View style={styles.contactRow}>
-                        <View style={styles.contactInfo}>
-                          <View style={styles.avatar}>
-                            <Text style={styles.avatarText}>
-                              {item.profile}
-                            </Text>
-                          </View>
-                          <View style={styles.nameSection}>
-                            <Text style={styles.nameText}>{item.name}</Text>
-                            <Text style={styles.phoneText}>{item.phone}</Text>
-                          </View>
-                        </View>
+                      <TouchableOpacity onPress={() => toggleContact(item.id)}>
+                        <Image
+                          resizeMode="contain"
+                          source={isSelected ? ICONS.checked : ICONS.uncheck}
+                          style={styles.checkIcon}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  </TouchableOpacity>
+                ) : (
+                  <View style={styles.contactRow}>
+                    <View style={styles.contactInfo}>
+                      <View style={styles.avatar}>
+                        <Text style={styles.avatarText}>{item.profile}</Text>
+                      </View>
+                      <View style={styles.nameSection}>
+                        <Text style={styles.nameText}>{item.name}</Text>
+                        <Text style={styles.phoneText}>{item.phone}</Text>
                       </View>
                     </View>
-                  );
-                }}
-              />
-            )}
+                  </View>
+                );
+              }}
+            />
           </View>
         </View>
       </ScrollView>
+
+      {/* Bottom Bar */}
       <View style={styles.bottomBar}>
         <View style={{ width: '90%', alignSelf: 'center' }}>
           <CustomButton
@@ -244,6 +256,7 @@ const InviteFriends = () => {
     </View>
   );
 };
+
 
 export default InviteFriends;
 

@@ -15,7 +15,7 @@ import SearchField from '../../../../../../components/SearchField';
 const players = [
   {
     id: 1,
-    name: 'Jamie Anderson',
+    name: 'Sarah Johnson',
     profile: IMAGES.profile3,
     common: '2 Groups Common • Montgom..',
     connected: false,
@@ -23,72 +23,71 @@ const players = [
   },
   {
     id: 2,
-    name: 'Jamie Anderson',
+    name: 'Michael Brown',
     profile: IMAGES.profile3,
-    common: '2 Groups Common • Montgom..',
+    common: '3 Groups Common • Brooklyn',
     connected: false,
     tileTime: true,
   },
   {
     id: 3,
-    name: 'Jamie Anderson',
+    name: 'Emily Davis',
     profile: IMAGES.customProfile,
     connected: true,
-    tileTime: false,
+    tileTime: false, // FB case
   },
   {
     id: 4,
-    name: 'Jamie Anderson',
+    name: 'David Wilson',
     profile: null,
     connected: false,
-    tileTime: false,
+    tileTime: false, // Contact case
   },
   {
     id: 5,
-    name: 'Jamie Anderson',
+    name: 'Olivia Miller',
     profile: IMAGES.profile1,
-    common: '2 Groups Common • Montgom..',
+    common: '1 Group Common • Queens',
     connected: false,
     tileTime: true,
   },
   {
     id: 6,
-    name: 'Jamie Anderson',
+    name: 'James Martinez',
     profile: IMAGES.profile1,
-    common: '2 Groups Common • Montgom..',
+    common: '4 Groups Common • Harlem',
     connected: false,
     tileTime: true,
   },
   {
     id: 7,
-    name: 'Jamie Anderson',
+    name: 'Sophia Garcia',
     profile: IMAGES.profile1,
-    common: '2 Groups Common • Montgom..',
+    common: '2 Groups Common • Bronx',
     connected: false,
     tileTime: true,
   },
   {
     id: 8,
-    name: 'Jamie Anderson',
+    name: 'Daniel Rodriguez',
     profile: IMAGES.profile1,
-    common: '2 Groups Common • Montgom..',
+    common: '1 Group Common • NJ',
     connected: false,
     tileTime: true,
   },
-
   {
     id: 9,
-    name: 'Jamie Anderson',
+    name: 'Emma Thompson',
     profile: IMAGES.profile1,
-    common: '2 Groups Common • Montgom..',
+    common: '2 Groups Common • Yonkers',
     connected: false,
     tileTime: true,
   },
   {
     id: 10,
-    name: 'Jamie Anderson',
+    name: 'William Anderson',
     profile: IMAGES.profile1,
-    common: '2 Groups Common • Montgom..',
+    common: '3 Groups Common • Newark',
     connected: false,
     tileTime: true,
   },
@@ -105,6 +104,15 @@ const Members = () => {
       prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id],
     );
   };
+
+  const filteredPlayers = players.filter(player => {
+    const searchText = quuery.toLowerCase();
+    return (
+      player.name.toLowerCase().includes(searchText) ||
+      (player.common && player.common.toLowerCase().includes(searchText))
+    );
+  });
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Invite Members</Text>
@@ -168,8 +176,23 @@ const Members = () => {
       </View>
       <View>
         <FlatList
-          data={players}
+          data={filteredPlayers}
           keyExtractor={item => item.id.toString()}
+          ListEmptyComponent={() =>
+            quuery ? (
+              <Text
+                style={{
+                  textAlign: 'center',
+                  marginTop: RFPercentage(3),
+                  fontFamily: FONTS.regular,
+                  fontSize: RFPercentage(1.8),
+                  color: COLORS.grey5,
+                }}
+              >
+                No players found
+              </Text>
+            ) : null
+          }
           renderItem={({ item }) => {
             const isSelected = selectedContacts.includes(item.id);
             return (
@@ -200,28 +223,79 @@ const Members = () => {
                     </View>
                   ) : item.connected === true && item.tileTime === false ? (
                     <View style={styles.contactInfo}>
-                      <View style={{width:RFPercentage(8), height:RFPercentage(8), borderRadius:RFPercentage(100), }}>
+                      <View
+                        style={{
+                          width: RFPercentage(8),
+                          height: RFPercentage(8),
+                          borderRadius: RFPercentage(100),
+                        }}
+                      >
                         <Image
                           source={item.profile}
                           resizeMode="cover"
-                          style={{width:RFPercentage(8), height:RFPercentage(8), borderRadius:RFPercentage(100),}}
+                          style={{
+                            width: RFPercentage(8),
+                            height: RFPercentage(8),
+                            borderRadius: RFPercentage(100),
+                          }}
                         />
-                        <Image source={ICONS.fb22} resizeMode='contain' style={{width:RFPercentage(4), height:RFPercentage(4), position:"absolute", bottom:RFPercentage(-1), right:RFPercentage(-0.6)}} />
+                        <Image
+                          source={ICONS.fb22}
+                          resizeMode="contain"
+                          style={{
+                            width: RFPercentage(4),
+                            height: RFPercentage(4),
+                            position: 'absolute',
+                            bottom: RFPercentage(-1),
+                            right: RFPercentage(-0.6),
+                          }}
+                        />
                       </View>
                       <View style={styles.nameSection}>
                         <Text style={styles.nameText}>{item.name}</Text>
-                        <Text style={styles.phoneText}>{`Not on TileTime`}</Text>
+                        <Text
+                          style={styles.phoneText}
+                        >{`Not on TileTime`}</Text>
                       </View>
                     </View>
                   ) : (
                     <View style={styles.contactInfo}>
-                      <View style={{width:RFPercentage(8), height:RFPercentage(8), borderRadius:RFPercentage(100),backgroundColor:"#FFFFE1", alignItems:'center', justifyContent:"center" }}>
-                        <Text style={{fontFamily:FONTS.semiBold, fontSize:RFPercentage(2.3), color:"#929212"}}>JA</Text>
-                        <Image source={ICONS.contact22} resizeMode='contain' style={{width:RFPercentage(4), height:RFPercentage(4), position:"absolute", bottom:RFPercentage(-1), right:RFPercentage(-0.6)}} />
+                      <View
+                        style={{
+                          width: RFPercentage(8),
+                          height: RFPercentage(8),
+                          borderRadius: RFPercentage(100),
+                          backgroundColor: '#FFFFE1',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <Text
+                          style={{
+                            fontFamily: FONTS.semiBold,
+                            fontSize: RFPercentage(2.3),
+                            color: '#929212',
+                          }}
+                        >
+                          JA
+                        </Text>
+                        <Image
+                          source={ICONS.contact22}
+                          resizeMode="contain"
+                          style={{
+                            width: RFPercentage(4),
+                            height: RFPercentage(4),
+                            position: 'absolute',
+                            bottom: RFPercentage(-1),
+                            right: RFPercentage(-0.6),
+                          }}
+                        />
                       </View>
                       <View style={styles.nameSection}>
                         <Text style={styles.nameText}>{item.name}</Text>
-                        <Text style={styles.phoneText}>{`Not on TileTime`}</Text>
+                        <Text
+                          style={styles.phoneText}
+                        >{`Not on TileTime`}</Text>
                       </View>
                     </View>
                   )}

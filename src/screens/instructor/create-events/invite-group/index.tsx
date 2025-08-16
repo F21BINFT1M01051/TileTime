@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import React, { useState } from 'react';
-import { COLORS, FONTS, ICONS, IMAGES } from '../../../../config/theme';
+import { COLORS, FONTS, IMAGES } from '../../../../config/theme';
 import AuthHeader from '../../../../components/AuthHeader';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import CustomButton from '../../../../components/CustomButton';
@@ -31,11 +31,21 @@ const groups = [
 ];
 
 const InviteGroup = ({ navigation }: any) => {
-  const [selectedGroup, setSelectedGroup] = useState('');
+  const [selectedGroups, setSelectedGroups] = useState<string[]>([]);
+
+  const toggleGroupSelection = (id: string) => {
+    if (selectedGroups.includes(id)) {
+      // remove group
+      setSelectedGroups(selectedGroups.filter(groupId => groupId !== id));
+    } else {
+      // add group
+      setSelectedGroups([...selectedGroups, id]);
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <AuthHeader title="Invite a Group" rightText="Save Drafts" right={true} />
+      <AuthHeader title="Invite a Group" rightText="Save Draft" right={true} />
       <View style={styles.contentContainer}>
         <Text style={styles.headingText}>
           Choose a Group for This Open Play
@@ -45,11 +55,11 @@ const InviteGroup = ({ navigation }: any) => {
             data={groups}
             keyExtractor={item => item.id}
             renderItem={({ item }) => {
-              const isSelected = selectedGroup === item.id;
+              const isSelected = selectedGroups.includes(item.id);
               return (
                 <TouchableOpacity
                   activeOpacity={0.8}
-                  onPress={() => setSelectedGroup(item.id)}
+                  onPress={() => toggleGroupSelection(item.id)}
                   style={[
                     styles.groupItem,
                     {
@@ -72,7 +82,7 @@ const InviteGroup = ({ navigation }: any) => {
                       </View>
                     </View>
                     <TouchableOpacity
-                      onPress={() => setSelectedGroup(item.id)}
+                      onPress={() => toggleGroupSelection(item.id)}
                       style={[
                         styles.radioButton,
                         {
@@ -103,6 +113,8 @@ const InviteGroup = ({ navigation }: any) => {
                 link: false,
               })
             }
+            disabled={selectedGroups.length === 0}
+            style={{backgroundColor : selectedGroups.length > 0 ? COLORS.primary : COLORS.disabled}}
           />
         </View>
       </View>
@@ -153,18 +165,14 @@ const styles = StyleSheet.create({
     width: RFPercentage(7),
     height: RFPercentage(7),
     backgroundColor: COLORS.yellow,
-    borderTopRightRadius: RFPercentage(100),
-    borderTopLeftRadius: RFPercentage(100),
-    borderBottomRightRadius: RFPercentage(100),
+    borderRadius: RFPercentage(100),
     alignItems: 'center',
     justifyContent: 'center',
   },
   avatarImage: {
     width: RFPercentage(7),
     height: RFPercentage(7),
-    borderTopRightRadius: RFPercentage(100),
-    borderTopLeftRadius: RFPercentage(100),
-    borderBottomRightRadius: RFPercentage(100),
+    borderRadius: RFPercentage(100),
     right: RFPercentage(0.4),
   },
   textContainer: {

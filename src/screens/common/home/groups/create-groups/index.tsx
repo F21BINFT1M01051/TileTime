@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   StyleSheet,
   View,
@@ -13,12 +13,15 @@ import Members from './members';
 import About from './about';
 import { COLORS, FONTS } from '../../../../../config/theme';
 import Nav from '../../../../../components/Nav';
+import { AboutFormRef } from './about';
 
 const steps = ['about', 'members'];
 
 const CreateGroup = ({ navigation }: any) => {
   const [stepIndex, setStepIndex] = useState(0);
   const [keyboardIsVisible, setKeyboardIsVisible] = useState(false);
+  const aboutFormRef = useRef<AboutFormRef>(null);
+  const [isAboutValid, setIsAboutValid] = useState(false);
 
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -34,11 +37,20 @@ const CreateGroup = ({ navigation }: any) => {
     };
   }, []);
 
-  const handleNext = () => {
-    if (stepIndex < steps.length - 1) {
-      setStepIndex(stepIndex + 1);
-    } else {
-      navigation.navigate('ChatScreen', { isGroup: true, isNew : true });
+  const handleNext = async () => {
+    try {
+      if (stepIndex === 0 && aboutFormRef.current) {
+        const errors = await aboutFormRef.current.validateForm();
+        if (Object.keys(errors).length === 0) {
+          setStepIndex(stepIndex + 1);
+        }
+      } else if (stepIndex < steps.length - 1) {
+        setStepIndex(stepIndex + 1);
+      } else {
+        navigation.navigate('ChatScreen', { isGroup: true, isNew: true });
+      }
+    } catch (error) {
+      console.log('Validation error:', error);
     }
   };
 
@@ -51,7 +63,7 @@ const CreateGroup = ({ navigation }: any) => {
   const renderStepContent = () => {
     switch (stepIndex) {
       case 0:
-        return <About />;
+        return <About ref={aboutFormRef} setFormValid={setIsAboutValid} />;
       case 1:
         return <Members />;
       default:
@@ -70,7 +82,12 @@ const CreateGroup = ({ navigation }: any) => {
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
-        <Nav title="Create Group" />
+        <Nav
+          title="Create Group"
+          onPress={() => {
+            stepIndex === 0 ? navigation.goBack() : setStepIndex(stepIndex - 1);
+          }}
+        />
 
         {/* Step Bars */}
         <View style={styles.stepBarContainer}>
@@ -100,6 +117,12 @@ const CreateGroup = ({ navigation }: any) => {
                   stepIndex === 0 ? 'Save And Next' : 'Send Invites & Next'
                 }
                 onPress={handleNext}
+                style={{
+                  backgroundColor:
+                    stepIndex === 0 && !isAboutValid
+                      ? COLORS.disabled
+                      : COLORS.primary,
+                }}
               />
             </View>
           </View>
@@ -152,7 +175,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: COLORS.lightWhite,
     backgroundColor: COLORS.white,
-    paddingBottom:RFPercentage(4)
+    paddingBottom: RFPercentage(4),
   },
   buttonContainer: {
     width: '90%',

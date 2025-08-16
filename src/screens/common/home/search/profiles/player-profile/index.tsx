@@ -21,6 +21,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import CustomButton from '../../../../../../components/CustomButton';
 import CommonGroup from '../../../../../../components/CommonGroups';
 import SearchField from '../../../../../../components/SearchField';
+import { BlurView } from '@react-native-community/blur';
 
 const players = [
   {
@@ -46,8 +47,13 @@ const players = [
 const PlayerProfile = ({ navigation }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedContacts, setSelectedContacts] = useState([]);
+  const [query, setQuery] = useState('');
 
-  const toggleContact = (id) => {
+  const filteredData = players.filter(item =>
+    item.name.toLowerCase().includes(query.toLowerCase()),
+  );
+
+  const toggleContact = id => {
     setSelectedContacts(prev =>
       prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id],
     );
@@ -80,7 +86,7 @@ const PlayerProfile = ({ navigation }) => {
 
   return (
     <View style={styles.safeArea}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.fullWidth}>
           <ImageBackground
             source={IMAGES.single}
@@ -118,9 +124,7 @@ const PlayerProfile = ({ navigation }) => {
           </View>
 
           <Text style={styles.userName}>Sophie Reynolds</Text>
-          <Text style={styles.locationText}>
-            Seattle, WA
-          </Text>
+          <Text style={styles.locationText}>Seattle, WA</Text>
           <Text style={styles.groupDesc}>
             Mahjong lover always up for a good game! Here to learn, have fun,
             and meet fellow tile-heads along the way.
@@ -185,6 +189,12 @@ const PlayerProfile = ({ navigation }) => {
         animationType="none"
         onRequestClose={closeModal}
       >
+        <BlurView
+          style={StyleSheet.absoluteFill}
+          blurType="dark"
+          blurAmount={5}
+          reducedTransparencyFallbackColor="white"
+        />
         <TouchableWithoutFeedback onPress={closeModal}>
           <View style={styles.overLay2}>
             <TouchableWithoutFeedback>
@@ -196,9 +206,7 @@ const PlayerProfile = ({ navigation }) => {
               >
                 <View style={styles.modalInnerContent}>
                   <View style={styles.modalHeader}>
-                    <Text style={styles.modalTitle}>
-                      Add to Group
-                    </Text>
+                    <Text style={styles.modalTitle}>Add to Group</Text>
                     <TouchableOpacity activeOpacity={0.8} onPress={closeModal}>
                       <Image
                         source={ICONS.cross}
@@ -209,12 +217,29 @@ const PlayerProfile = ({ navigation }) => {
                     </TouchableOpacity>
                   </View>
                   <View style={styles.searchContainer}>
-                    <SearchField placeholder="Search by name" />
+                    <SearchField
+                      placeholder="Search by name"
+                      value={query}
+                      onChangeText={setQuery}
+                    />
                   </View>
                   <View style={styles.flatListContainer}>
                     <FlatList
-                      data={players}
+                      data={filteredData}
                       keyExtractor={item => item.id.toString()}
+                      ListEmptyComponent={
+                        <Text
+                          style={{
+                            textAlign: 'center',
+                            color: COLORS.lightGrey,
+                            fontFamily: FONTS.regular,
+                            fontSize: RFPercentage(1.8),
+                            marginTop: RFPercentage(5),
+                          }}
+                        >
+                          No results found
+                        </Text>
+                      }
                       renderItem={({ item }) => {
                         const isSelected = selectedContacts.includes(item.id);
                         return (
@@ -232,8 +257,12 @@ const PlayerProfile = ({ navigation }) => {
                                   />
                                 </View>
                                 <View style={styles.contactInfo}>
-                                  <Text style={styles.contactName}>{item.name}</Text>
-                                  <Text style={styles.contactMembers}>{item.members}</Text>
+                                  <Text style={styles.contactName}>
+                                    {item.name}
+                                  </Text>
+                                  <Text style={styles.contactMembers}>
+                                    {item.members}
+                                  </Text>
                                 </View>
                               </View>
                               <TouchableOpacity
@@ -261,7 +290,13 @@ const PlayerProfile = ({ navigation }) => {
                       title="Add Sophie To 2 Groups"
                       onPress={() => {
                         closeModal();
-                        navigation.navigate('CreateInstructorProfile');
+                      }}
+                      disabled={selectedContacts.length === 0}
+                      style={{
+                        backgroundColor:
+                          selectedContacts.length > 0
+                            ? COLORS.primary
+                            : COLORS.disabled,
                       }}
                     />
                   </View>
@@ -385,7 +420,6 @@ const styles = StyleSheet.create({
   },
   overLay2: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.7)',
     justifyContent: 'flex-end',
   },
   modalContent: {

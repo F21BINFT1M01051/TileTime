@@ -8,11 +8,9 @@ import {
   View,
   Modal,
   Image,
-  TouchableWithoutFeedback,
   Animated,
-  Easing,
   Dimensions,
-  FlatList,
+  
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { COLORS, FONTS, IMAGES, ICONS } from '../../../../config/theme';
@@ -24,8 +22,7 @@ import { Calendar, LocaleConfig } from 'react-native-calendars';
 import EventCard from '../../../../components/EventCard';
 import NewEvent from '../../../../components/NewEvent';
 import CustomButton from '../../../../components/CustomButton';
-import { BlurView } from '@react-native-community/blur';
-import Selection from '../../../../components/Selection';
+import CreateEvent from '../../../../components/CreateEvent';
 
 const avatars = [
   { id: 1, profile: ICONS.avatar },
@@ -79,37 +76,20 @@ LocaleConfig.locales['en'] = {
 };
 LocaleConfig.defaultLocale = 'en';
 
-const eventTypes = [
-  {
-    id: 1,
-    name: 'Open Play',
-    subTitle:
-      'Let players join freely - perfect for casual games, meetups, or impromptu tiles with friends.',
-  },
-  {
-    id: 2,
-    name: 'Guided Play',
-    subTitle:
-      'Lead focused sessions for small groups and teach them how to play with confidence.',
-  },
-  {
-    id: 3,
-    name: 'Mahjong Lessons',
-    subTitle:
-      'Lead hands - on lessons, explain rules and help players build confidence step by step.',
-  },
-];
-
 const Events = ({ navigation }: any) => {
   const [isCalendarVisible, setCalendarVisible] = useState(false);
   const events = [];
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedType, setSelectedType] = useState('');
 
+  const openModal = () => {
+    setIsModalVisible(true);
+  };
+
   const toggleCalendar = () => setCalendarVisible(!isCalendarVisible);
 
   const getSevenDayRow = () => {
-    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const days = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
     const today = new Date();
     return [...Array(7)].map((_, i) => {
       const offset = i - 3;
@@ -162,27 +142,6 @@ const Events = ({ navigation }: any) => {
     new Animated.Value(Dimensions.get('window').height),
   ).current;
 
-  const openModal = () => {
-    setIsModalVisible(true);
-    Animated.timing(slideAnim, {
-      toValue: 0,
-      duration: 600,
-      easing: Easing.out(Easing.ease),
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const closeModal = () => {
-    Animated.timing(slideAnim, {
-      toValue: Dimensions.get('window').height,
-      duration: 600,
-      easing: Easing.in(Easing.ease),
-      useNativeDriver: true,
-    }).start(() => {
-      setIsModalVisible(false);
-    });
-  };
-
   return (
     <LinearGradient colors={[COLORS.white, COLORS.white]} style={{ flex: 1 }}>
       <ScrollView>
@@ -208,8 +167,7 @@ const Events = ({ navigation }: any) => {
                 {`Host an Event and\nBring People Together`}
               </Text>
               <Text style={styles.sub}>
-                Events are a great way to gather players, share experiences, and
-                enjoy Mahjong as a community.
+                {`Events are a great way to gather players, share\nexperiences, and enjoy Mahjong as a community.`}
               </Text>
             </View>
           )}
@@ -354,66 +312,17 @@ const Events = ({ navigation }: any) => {
       </Modal>
 
       {/* Event Modal */}
-
-      <Modal
+      <CreateEvent
         visible={isModalVisible}
-        transparent
-        animationType="none"
-        onRequestClose={closeModal}
-      >
-        <BlurView
-          style={StyleSheet.absoluteFill}
-          blurType="dark"
-          blurAmount={5}
-          reducedTransparencyFallbackColor="white"
-        />
-        <TouchableWithoutFeedback onPress={closeModal}>
-          <View style={styles.overLay2}>
-            <TouchableWithoutFeedback>
-              <Animated.View
-                style={[
-                  styles.modalContent,
-                  { transform: [{ translateY: slideAnim }] },
-                ]}
-              >
-                <View style={styles.modalInnerContent}>
-                  <Text style={styles.type}>Select Event Type</Text>
-                  <View style={{ marginTop: RFPercentage(0.5) }}>
-                    <FlatList
-                      data={eventTypes}
-                      scrollEnabled={false}
-                      keyExtractor={item => item.id.toString()}
-                      renderItem={({ item }) => {
-                        return (
-                          <Selection
-                            title={item.name}
-                            subTitle={item.subTitle}
-                            icon={ICONS.user}
-                            onSelect={() => setSelectedType(item.name)}
-                            isSelected={selectedType === item.name}
-                          />
-                        );
-                      }}
-                    />
-                  </View>
-                </View>
-
-                <View style={styles.modalFooter}>
-                  <View style={styles.modalFooterInner}>
-                    <CustomButton
-                      title="Confirm & Continue"
-                      onPress={() => {
-                        closeModal();
-                        navigation.navigate('InvitePlayer');
-                      }}
-                    />
-                  </View>
-                </View>
-              </Animated.View>
-            </TouchableWithoutFeedback>
-          </View>
-        </TouchableWithoutFeedback>
-      </Modal>
+        onClose={() => setIsModalVisible(false)}
+        title="Select Event Type"
+        selectedValue={selectedType}
+        onSelect={setSelectedType}
+        onConfirm={() => {
+          setIsModalVisible(false);
+          navigation.navigate('InvitePlayer');
+        }}
+      />
     </LinearGradient>
   );
 };
@@ -444,7 +353,7 @@ const styles = StyleSheet.create({
   sub: {
     color: COLORS.primary,
     fontFamily: FONTS.stylish,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(2),
     marginTop: RFPercentage(1.5),
     textAlign: 'center',
   },

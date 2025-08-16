@@ -193,7 +193,6 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
           }}
           validationSchema={validationSchema}
           onSubmit={values => {
-            console.log('Form submitted:', values);
           }}
           validateOnBlur={true}
           validateOnChange={true}
