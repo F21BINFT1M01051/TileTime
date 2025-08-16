@@ -12,12 +12,13 @@ import { COLORS, FONTS, ICONS } from '../../config/theme';
 
 interface Props {
   right?: boolean;
-  onPress? : () => void;
+  onPress?: () => void;
   title: string;
   text?: string;
   home?: boolean;
   onPress2?: () => void;
   onPress3?: () => void;
+  noVector?: boolean;
 }
 
 const TopNavigation = (props: Props) => {
@@ -25,11 +26,16 @@ const TopNavigation = (props: Props) => {
     <View style={styles.container}>
       <View style={styles.innerContainer}>
         <Text style={styles.titleText}>{props.title}</Text>
-        <Image
-          source={ICONS.vector}
-          resizeMode="contain"
-          style={styles.vectorIcon}
-        />
+        {props.noVector ? (
+          <></>
+        ) : (
+          <Image
+            source={ICONS.vector}
+            resizeMode="contain"
+            style={styles.vectorIcon}
+          />
+        )}
+
         {props.right && props.text && (
           <TouchableOpacity
             activeOpacity={0.8}

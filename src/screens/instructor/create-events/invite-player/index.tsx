@@ -53,7 +53,17 @@ const InvitePlayer = ({ navigation }: any) => {
                 <NextCard
                   title={item.title}
                   subTitle={item.subTitle}
-                  onPress={() => {navigation.navigate(item.navigateTo)}}
+                  onPress={() => {
+                    if (item.navigateTo === 'GuidedPlay') {
+                      navigation.navigate('GuidedPlay', {
+                        players: false,
+                        groups: false,
+                        link: true,
+                      });
+                    } else {
+                      navigation.navigate(item.navigateTo);
+                    }
+                  }}
                 />
               );
             }}

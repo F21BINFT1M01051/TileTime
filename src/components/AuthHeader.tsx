@@ -11,6 +11,7 @@ interface Props {
   wrapStyle?: object;
   right?: boolean;
   rightText?: string;
+  rightIcon?: any;
 }
 
 const AuthHeader = (props: Props) => {
@@ -43,9 +44,39 @@ const AuthHeader = (props: Props) => {
         </TouchableOpacity>
         <Text style={[styles.getStartedText, props.style]}>{props.title}</Text>
         {props.right && (
-          <TouchableOpacity activeOpacity={0.8} style={{position:'absolute', right:0}}>
-            <Text style={{color:COLORS.icon, fontFamily:FONTS.bold, fontSize:RFPercentage(1.7)}}>{props.rightText}</Text>
-          </TouchableOpacity>
+          <>
+            {props.rightText ? (
+              <>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  style={{ position: 'absolute', right: 0 }}
+                >
+                  <Text
+                    style={{
+                      color: COLORS.icon,
+                      fontFamily: FONTS.bold,
+                      fontSize: RFPercentage(1.7),
+                    }}
+                  >
+                    {props.rightText}
+                  </Text>
+                </TouchableOpacity>
+              </>
+            ) : (
+              <>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  style={{ position: 'absolute', right: 0 }}
+                >
+                  <Image
+                    source={props.rightIcon}
+                    resizeMode="contain"
+                    style={{ width: RFPercentage(2.5), height: RFPercentage(2.5) }}
+                  />
+                </TouchableOpacity>
+              </>
+            )}
+          </>
         )}
       </View>
     </View>

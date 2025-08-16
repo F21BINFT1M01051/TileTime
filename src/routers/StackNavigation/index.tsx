@@ -31,6 +31,8 @@ import InvitePlayer from '../../screens/instructor/create-events/invite-player';
 import InviteGroup from '../../screens/instructor/create-events/invite-group';
 import SelectPlayers from '../../screens/instructor/create-events/select-players';
 import GuidedPlay from '../../screens/instructor/create-events/guided-play';
+import Dashboard from '../../screens/instructor/dashboard';
+import EventDetails from '../../screens/common/home/events/event-details';
 
 export type RootStackParamList = {
   OnBoarding: undefined;
@@ -61,7 +63,9 @@ export type RootStackParamList = {
   InvitePlayer: undefined;
   InviteGroup: undefined;
   SelectPlayers: undefined;
-  GuidedPlay:undefined
+  GuidedPlay: undefined;
+  Dashboard: undefined;
+  EventDetails:undefined
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -96,6 +100,8 @@ const Navigator: React.FC = () => {
         <Stack.Screen name="InviteGroup" component={InviteGroup} />
         <Stack.Screen name="SelectPlayers" component={SelectPlayers} />
         <Stack.Screen name="GuidedPlay" component={GuidedPlay} />
+        <Stack.Screen name="Dashboard" component={Dashboard} />
+        <Stack.Screen name="EventDetails" component={EventDetails} />
 
         {/* --------------------Player Flow-------------------- */}
         <Stack.Screen name="PlayerTabs" component={PlayerTabs} />

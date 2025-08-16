@@ -36,7 +36,7 @@ const steps = [
     icon: ICONS.hm3,
     completed: false,
     button: 'Invite',
-    navigationScreen: '',
+    navigationScreen: 'InviteFriends',
   },
   {
     id: 4,
@@ -44,7 +44,7 @@ const steps = [
     icon: ICONS.hm4,
     completed: false,
     button: 'Explore',
-    navigationScreen: '',
+    navigationScreen: 'EventDetails',
   },
 ];
 
@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
   },
   stepButton: {
     width: RFPercentage(10),
-    height: RFPercentage(4),
+    height: RFPercentage(3.8),
     backgroundColor: COLORS.primary,
     alignItems: 'center',
     justifyContent: 'center',

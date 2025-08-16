@@ -13,6 +13,7 @@ import AuthHeader from '../../../../components/AuthHeader';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import CustomButton from '../../../../components/CustomButton';
 import SearchField from '../../../../components/SearchField';
+import EventLive from '../../components/EventLive';
 
 const players = [
   {
@@ -45,60 +46,12 @@ const players = [
     connected: false,
     tileTime: false,
   },
-  {
-    id: 5,
-    name: 'Jamie Anderson',
-    profile: IMAGES.profile1,
-    common: '2 Groups Common • Montgom..',
-    connected: false,
-    tileTime: true,
-  },
-  {
-    id: 6,
-    name: 'Jamie Anderson',
-    profile: IMAGES.profile1,
-    common: '2 Groups Common • Montgom..',
-    connected: false,
-    tileTime: true,
-  },
-  {
-    id: 7,
-    name: 'Jamie Anderson',
-    profile: IMAGES.profile1,
-    common: '2 Groups Common • Montgom..',
-    connected: false,
-    tileTime: true,
-  },
-  {
-    id: 8,
-    name: 'Jamie Anderson',
-    profile: IMAGES.profile1,
-    common: '2 Groups Common • Montgom..',
-    connected: false,
-    tileTime: true,
-  },
-
-  {
-    id: 9,
-    name: 'Jamie Anderson',
-    profile: IMAGES.profile1,
-    common: '2 Groups Common • Montgom..',
-    connected: false,
-    tileTime: true,
-  },
-  {
-    id: 10,
-    name: 'Jamie Anderson',
-    profile: IMAGES.profile1,
-    common: '2 Groups Common • Montgom..',
-    connected: false,
-    tileTime: true,
-  },
 ];
 
 const SelectPlayers = ({ navigation }: any) => {
   const [selectedContacts, setSelectedContacts] = useState<number[]>([]);
   const [quuery, setQuery] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
 
   const toggleContact = (id: number) => {
     setSelectedContacts(prev =>
@@ -210,9 +163,18 @@ const SelectPlayers = ({ navigation }: any) => {
       </ScrollView>
       <View style={styles.bottomBar}>
         <View style={styles.bottomContent}>
-          <CustomButton title="Save And Next" onPress={() => {}} />
+          <CustomButton
+            title="Save And Next"
+            onPress={() => navigation.navigate("GuidedPlay", {players: true, groups: false , link : false})}
+          />
         </View>
       </View>
+
+      {/* Modal */}
+      <EventLive
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+      />
     </View>
   );
 };

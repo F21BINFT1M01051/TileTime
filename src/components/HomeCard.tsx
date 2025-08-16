@@ -12,11 +12,17 @@ interface Props {
   date: string;
   distance: string;
   profile: any;
+  free?: boolean;
 }
 
 const HomeCard = (props: Props) => {
   return (
     <View style={styles.container}>
+      {
+        props.free && (
+          <Image source={ICONS.free} resizeMode='contain' style={{width:RFPercentage(5), height:RFPercentage(5), position:'absolute', left:0, top:0, zIndex:99}} />
+        )
+      }
       <View style={styles.imageContainer}>
         <View style={styles.borderWrapper}>
           <Image
@@ -39,7 +45,7 @@ const HomeCard = (props: Props) => {
       <View style={styles.contentContainer}>
         <Text style={styles.title}>{props.title}</Text>
         <Text style={styles.subtitle}>{props.subTitle}</Text>
-        <View style={{ marginTop: RFPercentage(0.8) }}>
+        <View style={{ marginTop: RFPercentage(0.4) }}>
           <View style={styles.chipRow}>
             <View style={styles.dateChip}>
               <Image
@@ -123,13 +129,13 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(2),
     color: COLORS.primary,
     fontFamily: FONTS.bold,
-    lineHeight: RFPercentage(2.7),
+    lineHeight: RFPercentage(2.1),
   },
   subtitle: {
     fontSize: RFPercentage(2),
     color: COLORS.primary,
     fontFamily: FONTS.bold,
-    lineHeight: RFPercentage(2.7),
+    lineHeight: RFPercentage(2.1),
   },
   chipRow: {
     marginTop: RFPercentage(1),

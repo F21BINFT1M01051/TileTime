@@ -1,4 +1,11 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS, IMAGES } from '../config/theme';
@@ -6,26 +13,28 @@ import { useNavigation } from '@react-navigation/native';
 
 interface Props {
   name: string;
-  icon: any;
-  navigation: string;
-  color: string;
+  icon?: any;
+  navigation?: string;
+  color?: string;
   borderColor?: string;
   connected?: boolean;
+  onPress?: () => void;
+  style?: object;
+  textStyle?: object;
 }
 
 const SocialField = (props: Props) => {
-  const navigation = useNavigation();
-
   return (
     <TouchableOpacity
       activeOpacity={0.8}
-      onPress={() => {}}
+      onPress={props.onPress}
       style={[
         styles.container,
         {
           borderColor: props.borderColor || COLORS.borderColor,
-          height: props.connected ? RFPercentage(8.5) : RFPercentage(6.2),
+          height: props.connected ? RFPercentage(8.5) : RFPercentage(6),
         },
+        props.style
       ]}
     >
       {props.connected ? (
@@ -61,7 +70,7 @@ const SocialField = (props: Props) => {
             />
           )}
 
-          <Text style={[styles.text, { color: props.color || COLORS.black }]}>
+          <Text style={[styles.text, { color: props.color || COLORS.black }, props.textStyle]}>
             {props.name}
           </Text>
         </View>
@@ -75,7 +84,6 @@ export default SocialField;
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: RFPercentage(6),
     backgroundColor: COLORS.white,
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.borderColor,

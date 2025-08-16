@@ -48,8 +48,9 @@ export const COLORS = {
   date: '#E4F7F6',
   location: '#FFEDE2',
   dashedBorder: '#A2A2A2',
-  lightYellow : "#FFFFE1",
-  darkYeloow : "#929212"
+  lightYellow: '#FFFFE1',
+  darkYeloow: '#929212',
+  grey7: '#D8D8D8',
 };
 
 export const IMAGES = {
@@ -163,6 +164,22 @@ export const ICONS = {
   upload: require('../assets/icons/uploadImg.png'),
   cl: require('../assets/icons/cl.png'),
   clock: require('../assets/icons/clock.png'),
+  gp1: require('../assets/icons/gp1.png'),
+  gp2: require('../assets/icons/gp2.png'),
+  gp3: require('../assets/icons/gp3.png'),
+  qr: require('../assets/icons/qr.png'),
+  copy: require('../assets/icons/copy.png'),
+  mail22: require('../assets/icons/mail22.png'),
+  insta22: require('../assets/icons/insta22.png'),
+  ct22: require('../assets/icons/ct22.png'),
+  schedule: require('../assets/icons/schedule.png'),
+  arrow55: require('../assets/icons/arrow55.png'),
+  share: require('../assets/icons/share.png'),
+  attach: require('../assets/icons/attach.png'),
+  event33: require('../assets/icons/event33.png'),
+  loc: require('../assets/icons/loc.png'),
+  x: require('../assets/icons/red-x.png'),
+  free: require('../assets/icons/free.png'),
 };
 
 export const FONTS = {

@@ -14,7 +14,7 @@ const Insights = (props :Props) => {
       style={{
         width: '100%',
         backgroundColor: COLORS.white,
-        borderRadius: RFPercentage(2.5),
+        borderRadius: RFPercentage(2.3),
         borderWidth: RFPercentage(0.1),
         borderBottomWidth: RFPercentage(0.5),
         borderColor: COLORS.lightWhite,

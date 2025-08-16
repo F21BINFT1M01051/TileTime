@@ -35,7 +35,7 @@ export default CustomButton;
 const styles = StyleSheet.create({
   button: {
     width: '100%',
-    height: RFPercentage(5.5),
+    height: RFPercentage(5.8),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: COLORS.primary,

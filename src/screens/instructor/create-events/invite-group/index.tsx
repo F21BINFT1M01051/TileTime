@@ -52,7 +52,9 @@ const InviteGroup = ({ navigation }: any) => {
                   onPress={() => setSelectedGroup(item.id)}
                   style={[
                     styles.groupItem,
-                    { borderColor: isSelected ? COLORS.pink : COLORS.lightWhite },
+                    {
+                      borderColor: isSelected ? COLORS.pink : COLORS.lightWhite,
+                    },
                   ]}
                 >
                   <View style={styles.groupContent}>
@@ -92,7 +94,16 @@ const InviteGroup = ({ navigation }: any) => {
       </View>
       <View style={styles.bottomBar}>
         <View style={styles.bottomContent}>
-          <CustomButton title="Save And Next" onPress={() => {}} />
+          <CustomButton
+            title="Save And Next"
+            onPress={() =>
+              navigation.navigate('GuidedPlay', {
+                players: false,
+                groups: true,
+                link: false,
+              })
+            }
+          />
         </View>
       </View>
     </View>
