@@ -53,7 +53,8 @@ export const COLORS = {
   grey7: '#D8D8D8',
   yellow2 : "#FFF9E2",
   blue2 : "#ECF1FF",
-  green3 : "#ECFFE5"
+  green3 : "#ECFFE5",
+  tab2 : "rgba(206, 206, 206, 0)"
 };
 
 export const IMAGES = {

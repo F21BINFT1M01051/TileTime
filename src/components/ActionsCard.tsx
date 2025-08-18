@@ -95,7 +95,7 @@ const ActionsCard = () => {
   });
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingBottom: expanded ? RFPercentage(0) : RFPercentage(2),}]}>
       <TouchableOpacity onPress={toggleExpand} style={styles.header}>
         <View>
           <Text style={styles.headerTitle}>Getting Started</Text>
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     borderWidth: RFPercentage(0.1),
     borderBottomWidth: RFPercentage(0.5),
     borderColor: COLORS.lightWhite,
-    paddingBottom: RFPercentage(2),
+   
   },
   header: {
     width: '90%',

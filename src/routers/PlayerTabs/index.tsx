@@ -19,7 +19,7 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({
 }) => {
   return (
     <LinearGradient
-      colors={['rgba(255, 255, 255, 1)', 'rgba(206, 206, 206, 0)']}
+      colors={[COLORS.white,COLORS.tab2]}
       style={{ height: RFPercentage(13) }}
     >
       <View style={styles.tabContainer}>
@@ -101,7 +101,7 @@ export default function PlayerTabs() {
       <Tab.Screen
         name="Events"
         component={Events}
-        options={{ title: 'My Events' }}
+        options={{ title: 'Events' }}
       />
 
       <Tab.Screen

@@ -94,14 +94,13 @@ const GuidedPlay = ({ route }: any) => {
   const [price, setPrice] = useState('');
   const [seats, setSeats] = useState('');
   const [selectedGroup, setSelectedGroup] = useState('');
-
+  const [varient, setVarient] = useState(null);
   const [showPicker, setShowPicker] = useState(false);
   const [showPicker2, setShowPicker2] = useState(false);
   const [showPicker3, setShowPicker3] = useState(false);
   const [showPicker4, setShowPicker4] = useState(false);
   const [showPicker5, setShowPicker5] = useState(false);
   const [endOn, setEndOn] = useState(new Date());
-
   const [applies, setApplies] = useState([]);
 
   const onChange = (event, selectedDate) => {
@@ -159,6 +158,7 @@ const GuidedPlay = ({ route }: any) => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollViewContent}
       >
+        {/* Header */}
         <AuthHeader
           title="Create Guided Play"
           right={true}
@@ -166,6 +166,7 @@ const GuidedPlay = ({ route }: any) => {
         />
 
         <View style={styles.innerWrapper}>
+          {/* Steps */}
           <View style={styles.stepBarContainer}>
             {steps.map((_, index) => (
               <View
@@ -560,7 +561,7 @@ const GuidedPlay = ({ route }: any) => {
                   <TouchableOpacity
                     onPress={() => setSelectedGroup('never')}
                     activeOpacity={0.8}
-                    style={styles.radioRow}
+                    style={[styles.radioRow, { marginTop: RFPercentage(2) }]}
                   >
                     <TouchableOpacity
                       onPress={() => setSelectedGroup('never')}
@@ -628,6 +629,12 @@ const GuidedPlay = ({ route }: any) => {
                         value={endOn}
                         mode="date"
                         onChange={endOnDate}
+                        style={{
+                          position: 'absolute',
+                          bottom: RFPercentage(5),
+                          right: RFPercentage(6.5),
+                          zIndex: 999,
+                        }}
                       />
                     )}
                   </View>
@@ -712,8 +719,8 @@ const GuidedPlay = ({ route }: any) => {
           <DropdownField
             placeholder="Choose game variant"
             data={['American', 'War Mahjong', 'Hong Kong', 'Mahjong Titans']}
-            selectedValue={refund}
-            onValueChange={(val: any) => setRefund(val)}
+            selectedValue={varient}
+            onValueChange={(val: any) => setVarient(val)}
             isDropdownVisible={isDropdownVisible2}
             setIsDropdownVisible={setIsDropdownVisible2}
           />
@@ -722,12 +729,14 @@ const GuidedPlay = ({ route }: any) => {
 
       <View style={styles.footer}>
         <View style={styles.footerButtonWrapper}>
-          <CustomButton title="Save And Next" onPress={() => setModalVisible(true)} />
+          <CustomButton
+            title="Save And Next"
+            onPress={() => setModalVisible(true)}
+          />
         </View>
       </View>
 
-
-        <EventLive
+      <EventLive
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
       />
@@ -1031,7 +1040,6 @@ const styles = StyleSheet.create({
   radioRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: RFPercentage(1.6),
   },
   radioButton: {
     width: RFPercentage(2.5),

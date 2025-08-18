@@ -115,12 +115,11 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: COLORS.lightWhite,
     alignItems: 'center',
-    paddingVertical: RFPercentage(3),
+    paddingBottom: RFPercentage(4),
     paddingTop:RFPercentage(2)
   },
   buttonWrapper: {
     width: '90%',
     alignSelf: 'center',
-    paddingBottom:RFPercentage(2)
   },
 });

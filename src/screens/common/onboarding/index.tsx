@@ -19,6 +19,7 @@ const data = [
     name: 'Continue With Email Address',
     navigationScreen: '',
     color: COLORS.black,
+    navigateTo : "LoginSignUp"
   },
   {
     id: 2,
@@ -26,6 +27,7 @@ const data = [
     navigationScreen: '',
     icon: ICONS.google,
     color: COLORS.black,
+     navigateTo : ""
   },
   {
     id: 3,
@@ -33,6 +35,7 @@ const data = [
     navigationScreen: '',
     icon: ICONS.apple,
     color: COLORS.black,
+     navigateTo : ""
   },
   {
     id: 4,
@@ -40,6 +43,7 @@ const data = [
     navigationScreen: '',
     icon: ICONS.facebook,
     color: COLORS.skyBlue,
+     navigateTo : ""
   },
 ];
 
@@ -77,6 +81,7 @@ const OnBoarding = ({ navigation }: any) => {
                   name={item.name}
                   navigation={item.navigationScreen}
                   color={item.color}
+                  onPress={()=> navigation.navigate(item.navigateTo)}
                 />
               )}
             />
@@ -105,7 +110,7 @@ const styles = StyleSheet.create({
   logoContainer: {
     width: '100%',
     alignItems: 'center',
-    paddingTop: RFPercentage(6),
+    paddingTop: RFPercentage(8),
   },
   logo: {
     width: RFPercentage(8),
@@ -135,7 +140,7 @@ const styles = StyleSheet.create({
   contentWrapper: {
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(3.5),
+    marginTop: RFPercentage(1.8),
   },
   getStartedText: {
     color: COLORS.primary,

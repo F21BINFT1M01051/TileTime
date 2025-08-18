@@ -92,6 +92,7 @@ const EventLive = ({ visible, onClose }) => {
                     icon={<Image source={ICONS.copy} resizeMode="contain" style={styles.copyIcon} />}
                     value="tiletime.com/events/1124-adde"
                     defaultColor={COLORS.focused}
+                    copy ={true}
                   />
                 </View>
 
@@ -102,7 +103,7 @@ const EventLive = ({ visible, onClose }) => {
                     <Text style={styles.qrText}>
                       {`Share This QR To Friends Or Your\nGroups`}
                     </Text>
-                    <TouchableOpacity style={styles.shareBtn}>
+                    <TouchableOpacity activeOpacity={0.8} style={styles.shareBtn}>
                       <Text style={styles.shareBtnText}>Share/Save to Gallery</Text>
                     </TouchableOpacity>
                   </View>
@@ -117,7 +118,7 @@ const EventLive = ({ visible, onClose }) => {
                   columnWrapperStyle={styles.flatListColumn}
                   renderItem={({ item }) => (
                     <View style={styles.listItem}>
-                      <TouchableOpacity style={styles.shareOption}>
+                      <TouchableOpacity activeOpacity={0.8} style={styles.shareOption}>
                         <Image source={item.icon} resizeMode="contain" style={styles.shareIcon} />
                         <Text style={styles.shareText}>{item.name}</Text>
                       </TouchableOpacity>

@@ -91,8 +91,11 @@ const Dashboard = ({ navigation }: any) => {
     <View style={styles.container}>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}>
+        contentContainerStyle={styles.scrollContent}
+      >
         <TopNavigation title="My Dashboard" noVector={true} />
+
+        {/* Quick Actions */}
         {dashboard.length > 0 ? (
           <>
             <View style={styles.section}>
@@ -109,7 +112,10 @@ const Dashboard = ({ navigation }: any) => {
                   return (
                     <TouchableOpacity
                       activeOpacity={0.8}
-                      style={[styles.quickCard, { borderBottomColor: item.color }]}
+                      style={[
+                        styles.quickCard,
+                        { borderBottomColor: item.color },
+                      ]}
                     >
                       <View style={styles.quickCardInner}>
                         <Image
@@ -128,6 +134,8 @@ const Dashboard = ({ navigation }: any) => {
                   );
                 }}
               />
+
+              {/* Insights */}
               <View style={styles.innerWrapper}>
                 <View style={styles.insightsSection}>
                   <Text style={styles.quickText}>Insights</Text>
@@ -155,9 +163,12 @@ const Dashboard = ({ navigation }: any) => {
           </>
         ) : (
           <>
+            {/* Empty Content */}
             <View style={styles.innerWrapper}>
               <View style={styles.wrap}>
-                <Text style={styles.head}>{`The table's\nwaiting for you`}</Text>
+                <Text
+                  style={styles.head}
+                >{`The table's\nwaiting for you`}</Text>
                 <Text style={styles.sub}>
                   Once you start hosting or joining sessions, your dashboard
                   will come alive.

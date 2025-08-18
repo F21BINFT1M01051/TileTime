@@ -189,11 +189,11 @@ const PlayerHome = ({ navigation }: any) => {
           <View style={styles.groupSection}>
             <View style={styles.rowCenter}>
               <Text style={styles.sectionTitle}>Instructor Recommended</Text>
-              <Image
+              {/* <Image
                 source={ICONS.star}
                 resizeMode="contain"
                 style={styles.iconStar}
-              />
+              /> */}
             </View>
             <Text style={styles.descriptionText}>
               Events you may want to join as an Instructor

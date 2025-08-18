@@ -110,6 +110,7 @@ const MyProfilePlayer = ({ navigation }: any) => {
       >
         <TopNavigation title="My Profile" />
 
+        {/* User Info */}
         <View style={styles.profileContainer}>
           <View style={styles.profileHeader}>
             <Image
@@ -129,12 +130,12 @@ const MyProfilePlayer = ({ navigation }: any) => {
               />
             </View>
           </View>
-
           <Text style={styles.bioText}>
             Mahjong instrucsdsdstor focused on strategy, community, and fun.
             Open to all skill levels - join the table and play your way.
           </Text>
 
+          {/* Social Connects */}
           <FlatList
             data={connects}
             scrollEnabled={false}
@@ -164,6 +165,7 @@ const MyProfilePlayer = ({ navigation }: any) => {
             )}
           />
 
+          {/* Invite Friends */}
           <View>
             <View style={styles.stepRow}>
               <View style={styles.stepLeft}>
@@ -174,13 +176,17 @@ const MyProfilePlayer = ({ navigation }: any) => {
                 />
                 <Text style={styles.stepName}>Invite Friends</Text>
               </View>
-
-              <TouchableOpacity activeOpacity={0.8} style={styles.stepButton} onPress={()=> navigation.navigate("InviteFriends")}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.stepButton}
+                onPress={() => navigation.navigate('InviteFriends')}
+              >
                 <Text style={styles.stepButtonText}>Invite</Text>
               </TouchableOpacity>
             </View>
           </View>
 
+          {/* Private Profile */}
           <View style={styles.toggleRow}>
             <Text style={styles.toggleLabel}>Keep My Profile Private</Text>
             <ToggleSwitch
@@ -192,6 +198,7 @@ const MyProfilePlayer = ({ navigation }: any) => {
             />
           </View>
 
+          {/* Premium Modal */}
           <View style={styles.premiumBox}>
             <ImageBackground
               source={ICONS.modal}
@@ -212,7 +219,6 @@ const MyProfilePlayer = ({ navigation }: any) => {
                   />
                 </View>
               </View>
-
               <View style={styles.upgradeHeader}>
                 <Image
                   source={ICONS.stars2}
@@ -226,12 +232,10 @@ const MyProfilePlayer = ({ navigation }: any) => {
                   style={styles.borderIcon}
                 />
               </View>
-
               <Text style={styles.upgradeDescription}>
                 Host games, grow your audience, and get discovered by players
                 near you.
               </Text>
-
               <CustomButton
                 title="Upgrade Now"
                 style={styles.upgradeBtn}
@@ -242,6 +246,7 @@ const MyProfilePlayer = ({ navigation }: any) => {
         </View>
       </ScrollView>
 
+      {/* Instructor Modal */}
       <Modal
         visible={isModalVisible}
         transparent
@@ -418,6 +423,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginTop: RFPercentage(3),
     marginVertical: RFPercentage(2),
   },
   toggleLabel: {

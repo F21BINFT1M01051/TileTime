@@ -204,7 +204,7 @@ const InviteFriends = () => {
           <CustomButton
             title={
               activeTab === 'All'
-                ? `Invite ${selectedContacts.length} People`
+                ?  selectedContacts.length > 0 ? `Invite  ${selectedContacts.length } People` : `Invite`
                 : 'Resend Invites'
             }
             onPress={() => {
@@ -212,6 +212,7 @@ const InviteFriends = () => {
                 setVisible(true);
               }
             }}
+            style={{backgroundColor : selectedContacts.length > 0 ? COLORS.primary: COLORS.disabled}}
           />
         </View>
       </View>

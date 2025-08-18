@@ -114,7 +114,10 @@ const InviteGroup = ({ navigation }: any) => {
               })
             }
             disabled={selectedGroups.length === 0}
-            style={{backgroundColor : selectedGroups.length > 0 ? COLORS.primary : COLORS.disabled}}
+            style={{
+              backgroundColor:
+                selectedGroups.length > 0 ? COLORS.primary : COLORS.disabled,
+            }}
           />
         </View>
       </View>
@@ -165,14 +168,18 @@ const styles = StyleSheet.create({
     width: RFPercentage(7),
     height: RFPercentage(7),
     backgroundColor: COLORS.yellow,
-    borderRadius: RFPercentage(100),
+    borderTopRightRadius: RFPercentage(100),
+    borderTopLeftRadius: RFPercentage(100),
+    borderBottomRightRadius: RFPercentage(100),
     alignItems: 'center',
     justifyContent: 'center',
   },
   avatarImage: {
     width: RFPercentage(7),
     height: RFPercentage(7),
-    borderRadius: RFPercentage(100),
+    borderTopRightRadius: RFPercentage(100),
+    borderTopLeftRadius: RFPercentage(100),
+    borderBottomRightRadius: RFPercentage(100),
     right: RFPercentage(0.4),
   },
   textContainer: {

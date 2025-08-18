@@ -8,7 +8,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { COLORS, IMAGES, FONTS, ICONS } from '../../../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -17,8 +17,16 @@ import DetailComponent from '../../../../../../components/DetailComponent';
 import AdminCard from '../../../../../../components/AdminCard';
 import SettingsButton from '../../../../../../components/SettingsButton';
 import SocialField from '../../../../../../components/SocialField';
+import CreateEvent from '../../../../../../components/CreateEvent';
 
 const GroupDetails = ({ navigation }: any) => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedType, setSelectedType] = useState('');
+
+  const openModal = () => {
+    setIsModalVisible(true);
+  };
+
   return (
     <View style={styles.safeArea}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -95,7 +103,7 @@ const GroupDetails = ({ navigation }: any) => {
                 title="Create Event"
                 icon={ICONS.calender}
                 style={styles.customButton}
-                onPress={() => {}}
+                onPress={openModal}
               />
             </View>
           </View>
@@ -148,6 +156,18 @@ const GroupDetails = ({ navigation }: any) => {
           />
         </View>
       </ScrollView>
+
+      <CreateEvent
+        visible={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+        title="Select Event Type"
+        selectedValue={selectedType}
+        onSelect={setSelectedType}
+        onConfirm={() => {
+          setIsModalVisible(false);
+          navigation.navigate('InvitePlayer');
+        }}
+      />
     </View>
   );
 };

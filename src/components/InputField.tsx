@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Platform,
+  Clipboard,
 } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS } from '../config/theme';
@@ -15,14 +16,14 @@ import Feather from 'react-native-vector-icons/Feather';
 interface Props {
   placeholder: string;
   value: string;
-  onChangeText: (text: string) => void;
+  onChangeText?: (text: string) => void;
   password?: boolean;
   icon?: any;
   style?: object;
   type?: string;
   autoFocus?: boolean;
   handleBlur?: (event: any) => void;
-
+  copy?: boolean;
   defaultColor?: string;
   focusedColor?: string;
   errorColor?: string;
@@ -39,6 +40,7 @@ const InputField: React.FC<Props> = ({
   type,
   autoFocus,
   handleBlur,
+  copy,
   defaultColor = COLORS.placeholder,
   focusedColor = COLORS.focused,
   errorColor = COLORS.red,
@@ -56,6 +58,10 @@ const InputField: React.FC<Props> = ({
 
   const animatedIsFocused = useRef(new Animated.Value(value ? 1 : 0)).current;
 
+  const copyToClipboard = () => {
+    Clipboard.setString(value);
+  };
+
   useEffect(() => {
     Animated.timing(animatedIsFocused, {
       toValue: isFocused || value ? 1 : 0,
@@ -68,7 +74,10 @@ const InputField: React.FC<Props> = ({
     ...styles.label,
     top: animatedIsFocused.interpolate({
       inputRange: [0, 1],
-      outputRange: [Platform.OS === 'ios' ? RFPercentage(6)/3.3 : RFPercentage(7) / 3.2, RFPercentage(0.6)],
+      outputRange: [
+        Platform.OS === 'ios' ? RFPercentage(6) / 3.3 : RFPercentage(7) / 3.2,
+        RFPercentage(0.6),
+      ],
     }),
     fontSize: animatedIsFocused.interpolate({
       inputRange: [0, 1],
@@ -115,7 +124,19 @@ const InputField: React.FC<Props> = ({
             </TouchableOpacity>
           )}
 
-          {icon && <View style={styles.iconContainer}>{icon}</View>}
+          {icon && (
+            <TouchableWithoutFeedback
+              onPress={() => {
+                if (copy) {
+                  copyToClipboard();
+                } else {
+                }
+              }}
+              style={styles.iconContainer}
+            >
+              {icon}
+            </TouchableWithoutFeedback>
+          )}
         </View>
       </View>
     </TouchableWithoutFeedback>

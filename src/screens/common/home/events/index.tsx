@@ -10,7 +10,6 @@ import {
   Image,
   Animated,
   Dimensions,
-  
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { COLORS, FONTS, IMAGES, ICONS } from '../../../../config/theme';
@@ -150,12 +149,7 @@ const Events = ({ navigation }: any) => {
           resizeMode="cover"
           style={styles.imageBackground}
         >
-          <TopNavigation
-            title="My Events"
-            right
-            text="Saved Drafts"
-            onPress={() => navigation.navigate('CreateGroup')}
-          />
+          <TopNavigation title="My Events" right text="Saved Draft" />
 
           {events.length > 0 ? (
             <View style={styles.searchContainer}>
@@ -320,7 +314,15 @@ const Events = ({ navigation }: any) => {
         onSelect={setSelectedType}
         onConfirm={() => {
           setIsModalVisible(false);
-          navigation.navigate('InvitePlayer');
+          if (selectedType === 'Open Play') {
+            navigation.navigate('InvitePlayer');
+          } else {
+            navigation.navigate('GuidedPlay', {
+              players: false,
+              groups: false,
+              link: true,
+            });
+          }
         }}
       />
     </LinearGradient>
@@ -356,6 +358,7 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(2),
     marginTop: RFPercentage(1.5),
     textAlign: 'center',
+    lineHeight: RFPercentage(2.7),
   },
   wrap: {
     width: '100%',
@@ -365,7 +368,7 @@ const styles = StyleSheet.create({
   head: {
     fontFamily: FONTS.headline,
     color: COLORS.primary,
-    fontSize: RFPercentage(2.6),
+    fontSize: RFPercentage(2.8),
     textAlign: 'center',
   },
   monthButton: {

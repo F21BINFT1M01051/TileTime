@@ -89,10 +89,8 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
       if (formikRef.current) {
         formikRef.current.setTouched({
           name: true,
-          // businessName: true,
           city: true,
           phoneNumber: true,
-          // checked: formikRef.current.values.checked,
         });
         return formikRef.current.validateForm();
       }
@@ -118,23 +116,7 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
     });
   };
 
-  useEffect(() => {
-    if (formikRef.current && setFormValid) {
-      const { errors, touched, values } = formikRef.current;
-      const isNameValid = !errors.name && touched.name;
-      const isCityValid = !errors.city && touched.city;
-      const isPhoneValid = !errors.phoneNumber && touched.phoneNumber;
-      // const isBusinessValid =
-      //   !values.checked || (touched.businessName && !errors.businessName);
-      const isValid = isNameValid && isCityValid && isPhoneValid;
-      // && isBusinessValid;
-      setFormValid(isValid);
-    }
-  }, [
-    formikRef.current?.errors,
-    formikRef.current?.touched,
-    formikRef.current?.values,
-  ]);
+ 
 
   return (
     <TouchableWithoutFeedback
@@ -192,10 +174,10 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
             phoneNumber: '',
           }}
           validationSchema={validationSchema}
-          onSubmit={values => {
-          }}
+          onSubmit={values => {}}
           validateOnBlur={true}
           validateOnChange={true}
+          validateOnMount={true} 
         >
           {({
             handleChange,
@@ -204,220 +186,232 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
             errors,
             touched,
             setFieldValue,
-          }) => (
-            <>
-              <View style={{ marginTop: RFPercentage(2.5) }}>
-                <InputField
-                  placeholder="Full Name"
-                  onChangeText={handleChange('name')}
-                  handleBlur={handleBlur('name')}
-                  value={values.name}
-                  password={false}
-                  hasError={touched.name && errors.name ? true : false}
-                  defaultColor={COLORS.placeholder}
-                  focusedColor={COLORS.focused}
-                  errorColor={COLORS.red}
-                  style={{
-                    borderColor:
-                      touched.name && errors.name
-                        ? COLORS.red
-                        : COLORS.fieldBorder,
-                  }}
-                />
-                {touched.name && errors.name && (
-                  <View style={{ marginTop: RFPercentage(0.6) }}>
-                    <Text style={styles.error}>{errors?.name}</Text>
-                  </View>
-                )}
-              </View>
+            isValid,
+          }) => {
+            useEffect(() => {
+              if (setFormValid) {
+                setFormValid(isValid);
+              }
+            }, [isValid]);
 
-              <TouchableOpacity
-                style={styles.checkWrap}
-                activeOpacity={0.8}
-                onPress={() => setChecked(!checked)}
-              >
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  onPress={() => setChecked(!checked)}
-                >
-                  <Image
-                    source={checked ? ICONS.checked : ICONS.uncheck}
-                    resizeMode="contain"
-                    style={{ width: RFPercentage(3), height: RFPercentage(3) }}
-                  />
-                </TouchableOpacity>
-                <Text style={styles.business}>Doing business as</Text>
-              </TouchableOpacity>
-              {checked && (
-                <>
+            return (
+              <>
+                <View style={{ marginTop: RFPercentage(2.5) }}>
                   <InputField
-                    placeholder="Enter Business Name"
-                    value={businessName}
-                    onChangeText={setBusinessName}
+                    placeholder="Full Name"
+                    onChangeText={handleChange('name')}
+                    handleBlur={handleBlur('name')}
+                    value={values.name}
                     password={false}
+                    hasError={touched.name && errors.name ? true : false}
                     defaultColor={COLORS.placeholder}
                     focusedColor={COLORS.focused}
                     errorColor={COLORS.red}
+                    style={{
+                      borderColor:
+                        touched.name && errors.name
+                          ? COLORS.red
+                          : COLORS.fieldBorder,
+                    }}
                   />
-                </>
-              )}
+                  {touched.name && errors.name && (
+                    <View style={{ marginTop: RFPercentage(0.6) }}>
+                      <Text style={styles.error}>{errors?.name}</Text>
+                    </View>
+                  )}
+                </View>
 
-              <View style={styles.bioWrapper}>
-                <View style={styles.bioContainer}>
-                  <View style={{ width: '90%', alignSelf: 'center' }}>
-                    <View style={styles.bioHeader}>
-                      <Text style={styles.bioLabel}>Add Bio</Text>
+                <TouchableOpacity
+                  style={styles.checkWrap}
+                  activeOpacity={0.8}
+                  onPress={() => setChecked(!checked)}
+                >
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() => setChecked(!checked)}
+                  >
+                    <Image
+                      source={checked ? ICONS.checked : ICONS.uncheck}
+                      resizeMode="contain"
+                      style={{
+                        width: RFPercentage(3),
+                        height: RFPercentage(3),
+                      }}
+                    />
+                  </TouchableOpacity>
+                  <Text style={styles.business}>Doing business as</Text>
+                </TouchableOpacity>
+                {checked && (
+                  <>
+                    <InputField
+                      placeholder="Enter Business Name"
+                      value={businessName}
+                      onChangeText={setBusinessName}
+                      password={false}
+                      defaultColor={COLORS.placeholder}
+                      focusedColor={COLORS.focused}
+                      errorColor={COLORS.red}
+                    />
+                  </>
+                )}
+
+                <View style={styles.bioWrapper}>
+                  <View style={styles.bioContainer}>
+                    <View style={{ width: '90%', alignSelf: 'center' }}>
+                      <View style={styles.bioHeader}>
+                        <Text style={styles.bioLabel}>Add Bio</Text>
+                        <Image
+                          source={ICONS.user2}
+                          resizeMode="contain"
+                          style={{
+                            width: RFPercentage(2),
+                            height: RFPercentage(2),
+                          }}
+                        />
+                      </View>
+                      <TextInput
+                        placeholder="Tell us about yourself..."
+                        placeholderTextColor={COLORS.placeholder}
+                        style={styles.bioInput}
+                        multiline={true}
+                        maxLength={MAX_LENGTH}
+                        value={bio}
+                        onChangeText={setBio}
+                      />
+                      <View style={styles.end}>
+                        <Image
+                          source={ICONS.bars}
+                          resizeMode="contain"
+                          style={{
+                            width: RFPercentage(1.5),
+                            height: RFPercentage(1.5),
+                          }}
+                        />
+                      </View>
+                    </View>
+                  </View>
+                </View>
+                <Text style={styles.bottom}>
+                  {MAX_LENGTH - bio.length} characters left
+                </Text>
+
+                <View style={{ marginTop: RFPercentage(2) }}>
+                  <Text style={styles.conduct}>Cities you serve</Text>
+                </View>
+                <View style={styles.dropdowns}>
+                  <View style={{ width: '48%' }}>
+                    <InputField
+                      placeholder="City"
+                      value={values.city}
+                      onChangeText={handleChange('city')}
+                      handleBlur={handleBlur('city')}
+                      hasError={touched.city && errors.city ? true : false}
+                      defaultColor={COLORS.placeholder}
+                      focusedColor={COLORS.focused}
+                      errorColor={COLORS.red}
+                      style={{
+                        borderColor:
+                          touched.city && errors.city
+                            ? COLORS.red
+                            : COLORS.fieldBorder,
+                        paddingHorizontal: RFPercentage(0.7),
+                      }}
+                      password={false}
+                    />
+                    {touched.city && errors.city && (
+                      <View style={{ marginTop: RFPercentage(0.6) }}>
+                        <Text style={styles.error}>{errors?.city}</Text>
+                      </View>
+                    )}
+
+                    <TouchableOpacity activeOpacity={0.8} style={styles.add}>
                       <Image
-                        source={ICONS.user2}
+                        source={ICONS.plus5}
+                        tintColor={COLORS.primary}
                         resizeMode="contain"
                         style={{
                           width: RFPercentage(2),
                           height: RFPercentage(2),
                         }}
                       />
-                    </View>
-                    <TextInput
-                      placeholder="Tell us about yourself..."
-                      placeholderTextColor={COLORS.placeholder}
-                      style={styles.bioInput}
-                      multiline={true}
-                      maxLength={MAX_LENGTH}
-                      value={bio}
-                      onChangeText={setBio}
+                      <Text style={styles.another}>Add Another City</Text>
+                    </TouchableOpacity>
+                  </View>
+
+                  <View style={{ width: '48%' }}>
+                    <DropdownField
+                      placeholder="State"
+                      data={['Beijing', 'Shanghai', 'Guangdong', 'Sichuan']}
+                      selectedValue={state}
+                      onValueChange={(val: any) => setState(val)}
+                      isDropdownVisible={isDropdownVisible2}
+                      setIsDropdownVisible={setIsDropdownVisible2}
+                      style={{ paddingHorizontal: RFPercentage(1) }}
                     />
-                    <View style={styles.end}>
-                      <Image
-                        source={ICONS.bars}
-                        resizeMode="contain"
-                        style={{
-                          width: RFPercentage(1.5),
-                          height: RFPercentage(1.5),
-                        }}
-                      />
-                    </View>
                   </View>
                 </View>
-              </View>
-              <Text style={styles.bottom}>
-                {MAX_LENGTH - bio.length} characters left
-              </Text>
 
-              <View style={{ marginTop: RFPercentage(2) }}>
-                <Text style={styles.conduct}>Cities you serve</Text>
-              </View>
-              <View style={styles.dropdowns}>
-                <View style={{ width: '48%' }}>
-                  <InputField
-                    placeholder="City"
-                    value={values.city}
-                    onChangeText={handleChange('city')}
-                    handleBlur={handleBlur('city')}
-                    hasError={touched.city && errors.city ? true : false}
-                    defaultColor={COLORS.placeholder}
-                    focusedColor={COLORS.focused}
-                    errorColor={COLORS.red}
-                    style={{
-                      borderColor:
-                        touched.city && errors.city
-                          ? COLORS.red
-                          : COLORS.fieldBorder,
-                      paddingHorizontal: RFPercentage(0.7),
-                    }}
-                    password={false}
-                  />
-                  {touched.city && errors.city && (
-                    <View style={{ marginTop: RFPercentage(0.6) }}>
-                      <Text style={styles.error}>{errors?.city}</Text>
-                    </View>
-                  )}
-
-                  <TouchableOpacity activeOpacity={0.8} style={styles.add}>
-                    <Image
-                      source={ICONS.plus5}
-                      tintColor={COLORS.primary}
-                      resizeMode="contain"
+                <View style={{ marginTop: RFPercentage(1.5) }}>
+                  <View>
+                    <InputField
+                      placeholder="Phone Number (Required)"
+                      value={values.phoneNumber}
+                      onChangeText={handleChange('phoneNumber')}
+                      handleBlur={handleBlur('phoneNumber')}
+                      hasError={
+                        touched.phoneNumber && errors.phoneNumber ? true : false
+                      }
+                      defaultColor={COLORS.placeholder}
+                      focusedColor={COLORS.focused}
+                      errorColor={COLORS.red}
                       style={{
-                        width: RFPercentage(2),
-                        height: RFPercentage(2),
+                        borderColor:
+                          touched.phoneNumber && errors.phoneNumber
+                            ? COLORS.red
+                            : COLORS.fieldBorder,
                       }}
+                      password={false}
+                      type="phone-pad"
+                      icon={
+                        <Image
+                          source={ICONS.phone}
+                          resizeMode="contain"
+                          style={{
+                            width: RFPercentage(2.2),
+                            height: RFPercentage(2.2),
+                          }}
+                        />
+                      }
                     />
-                    <Text style={styles.another}>Add Another City</Text>
-                  </TouchableOpacity>
-                </View>
+                    {touched.phoneNumber && errors.phoneNumber && (
+                      <View style={{ marginTop: RFPercentage(0.6) }}>
+                        <Text style={styles.error}>{errors?.phoneNumber}</Text>
+                      </View>
+                    )}
+                  </View>
 
-                <View style={{ width: '48%' }}>
-                  <DropdownField
-                    placeholder="State"
-                    data={['Beijing', 'Shanghai', 'Guangdong', 'Sichuan']}
-                    selectedValue={state}
-                    onValueChange={(val: any) => setState(val)}
-                    isDropdownVisible={isDropdownVisible2}
-                    setIsDropdownVisible={setIsDropdownVisible2}
-                    style={{ paddingHorizontal: RFPercentage(1) }}
-                  />
+                  <View>
+                    <InputField
+                      placeholder="Your Website URL"
+                      value={website}
+                      onChangeText={setWebsite}
+                      password={false}
+                      icon={
+                        <Image
+                          source={ICONS.globe}
+                          resizeMode="contain"
+                          style={{
+                            width: RFPercentage(2.3),
+                            height: RFPercentage(2.3),
+                          }}
+                        />
+                      }
+                    />
+                  </View>
                 </View>
-              </View>
-
-              <View style={{ marginTop: RFPercentage(1.5) }}>
-                <View>
-                  <InputField
-                    placeholder="Phone Number (Required)"
-                    value={values.phoneNumber}
-                    onChangeText={handleChange('phoneNumber')}
-                    handleBlur={handleBlur('phoneNumber')}
-                    hasError={
-                      touched.phoneNumber && errors.phoneNumber ? true : false
-                    }
-                    defaultColor={COLORS.placeholder}
-                    focusedColor={COLORS.focused}
-                    errorColor={COLORS.red}
-                    style={{
-                      borderColor:
-                        touched.phoneNumber && errors.phoneNumber
-                          ? COLORS.red
-                          : COLORS.fieldBorder,
-                    }}
-                    password={false}
-                    type="phone-pad"
-                    icon={
-                      <Image
-                        source={ICONS.phone}
-                        resizeMode="contain"
-                        style={{
-                          width: RFPercentage(2.2),
-                          height: RFPercentage(2.2),
-                        }}
-                      />
-                    }
-                  />
-                  {touched.phoneNumber && errors.phoneNumber && (
-                    <View style={{ marginTop: RFPercentage(0.6) }}>
-                      <Text style={styles.error}>{errors?.phoneNumber}</Text>
-                    </View>
-                  )}
-                </View>
-
-                <View>
-                  <InputField
-                    placeholder="Your Website URL"
-                    value={website}
-                    onChangeText={setWebsite}
-                    password={false}
-                    icon={
-                      <Image
-                        source={ICONS.globe}
-                        resizeMode="contain"
-                        style={{
-                          width: RFPercentage(2.3),
-                          height: RFPercentage(2.3),
-                        }}
-                      />
-                    }
-                  />
-                </View>
-              </View>
-            </>
-          )}
+              </>
+            );
+          }}
         </Formik>
         <View style={styles.inputContainer}>
           <FlatList

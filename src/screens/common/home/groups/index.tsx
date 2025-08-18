@@ -178,7 +178,6 @@ const styles = StyleSheet.create({
   groupImage: {
     width: RFPercentage(50),
     height: RFPercentage(30),
-    marginTop: RFPercentage(2),
   },
   buttonWrapper: {
     width: '90%',

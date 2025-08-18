@@ -151,7 +151,10 @@ const AdminCard = (props: Props) => {
           <View style={styles.toolTipBox}>
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={() => navigation.navigate('PlayerProfile')}
+              onPress={() => {
+                props.setVisibleTooltipId(null);
+                navigation.navigate('PlayerProfile');
+              }}
             >
               <Text style={styles.view}>View Profile</Text>
             </TouchableOpacity>
