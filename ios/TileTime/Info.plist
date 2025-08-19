@@ -2,87 +2,128 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
-	<key>CFBundleDisplayName</key>
-	<string>TileTime</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>$(MARKETING_VERSION)</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<false/>
-		<key>NSAllowsLocalNetworking</key>
-		<true/>
-	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
-	<key>RCTNewArchEnabled</key>
-	<true/>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Caprasimo-Regular.ttf</string>
-		<string>PublicSans-Bold.ttf</string>
-		<string>PublicSans-ExtraBold.ttf</string>
-		<string>PublicSans-Light.ttf</string>
-		<string>PublicSans-Medium.ttf</string>
-		<string>PublicSans-Regular.ttf</string>
-		<string>PublicSans-SemiBold.ttf</string>
-		<string>SplineSans-Bold.ttf</string>
-		<string>SplineSans-Light.ttf</string>
-		<string>SplineSans-Medium.ttf</string>
-		<string>SplineSans-Regular.ttf</string>
-		<string>SplineSans-SemiBold.ttf</string>
-		<string>AntDesign.ttf</string>
-		<string>Entypo.ttf</string>
-		<string>EvilIcons.ttf</string>
-		<string>Feather.ttf</string>
-		<string>FontAwesome.ttf</string>
-		<string>FontAwesome5_Brands.ttf</string>
-		<string>FontAwesome5_Regular.ttf</string>
-		<string>FontAwesome5_Solid.ttf</string>
-		<string>Foundation.ttf</string>
-		<string>Ionicons.ttf</string>
-		<string>MaterialIcons.ttf</string>
-		<string>MaterialCommunityIcons.ttf</string>
-		<string>Octicons.ttf</string>
-		<string>SimpleLineIcons.ttf</string>
-		<string>Zocial.ttf</string>
-		<string>SchibstedGrotesk-Bold.ttf</string>
-		<string>SchibstedGrotesk-ExtraBoldItalic.ttf</string>
-		<string>SchibstedGrotesk-Medium.ttf</string>
-		<string>SchibstedGrotesk-SemiBold.ttf</string>
-		<string>ShadowsIntoLight-Regular.ttf</string>
-	</array>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
-	<key>UIRequiredDeviceCapabilities</key>
-	<array>
-		<string>arm64</string>
-	</array>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+  <!-- App Identity -->
+  <key>CFBundleDevelopmentRegion</key>
+  <string>en</string>
+  <key>CFBundleDisplayName</key>
+  <string>TileTime</string>
+  <key>CFBundleExecutable</key>
+  <string>$(EXECUTABLE_NAME)</string>
+  <key>CFBundleIdentifier</key>
+  <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+  <key>CFBundleInfoDictionaryVersion</key>
+  <string>6.0</string>
+  <key>CFBundleName</key>
+  <string>$(PRODUCT_NAME)</string>
+  <key>CFBundlePackageType</key>
+  <string>APPL</string>
+  <key>CFBundleShortVersionString</key>
+  <string>$(MARKETING_VERSION)</string>
+  <key>CFBundleSignature</key>
+  <string>????</string>
+  <key>CFBundleVersion</key>
+  <string>$(CURRENT_PROJECT_VERSION)</string>
+  <key>LSRequiresIPhoneOS</key>
+  <true/>
+
+  <!-- App Icons -->
+  <key>CFBundleIcons</key>
+  <dict>
+    <key>CFBundlePrimaryIcon</key>
+    <dict>
+      <key>CFBundleIconFiles</key>
+      <array>
+        <string>AppIcon</string>
+      </array>
+      <key>UIPrerenderedIcon</key>
+      <false/>
+    </dict>
+  </dict>
+
+  <!-- Network Security -->
+  <key>NSAppTransportSecurity</key>
+  <dict>
+    <key>NSAllowsArbitraryLoads</key>
+    <false/>
+    <key>NSAllowsLocalNetworking</key>
+    <true/>
+  </dict>
+
+  <!-- ✅ Required Privacy Usage Descriptions -->
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>This app requires access to your photo library to let you select and upload photos.</string>
+  <key>NSCameraUsageDescription</key>
+  <string>This app requires access to your camera to allow you to take photos.</string>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>This app requires access to your microphone when recording videos with sound.</string>
+  <key>NSLocationWhenInUseUsageDescription</key>
+  <string>This app may use your location to improve the experience while in use.</string>
+
+  <!-- ✅ Export Compliance -->
+  <key>ITSAppUsesNonExemptEncryption</key>
+  <false/>
+
+  <!-- React Native New Architecture -->
+  <key>RCTNewArchEnabled</key>
+  <true/>
+
+  <!-- Fonts -->
+  <key>UIAppFonts</key>
+  <array>
+    <string>Caprasimo-Regular.ttf</string>
+    <string>PublicSans-Bold.ttf</string>
+    <string>PublicSans-ExtraBold.ttf</string>
+    <string>PublicSans-Light.ttf</string>
+    <string>PublicSans-Medium.ttf</string>
+    <string>PublicSans-Regular.ttf</string>
+    <string>PublicSans-SemiBold.ttf</string>
+    <string>SplineSans-Bold.ttf</string>
+    <string>SplineSans-Light.ttf</string>
+    <string>SplineSans-Medium.ttf</string>
+    <string>SplineSans-Regular.ttf</string>
+    <string>SplineSans-SemiBold.ttf</string>
+    <string>AntDesign.ttf</string>
+    <string>Entypo.ttf</string>
+    <string>EvilIcons.ttf</string>
+    <string>Feather.ttf</string>
+    <string>FontAwesome.ttf</string>
+    <string>FontAwesome5_Brands.ttf</string>
+    <string>FontAwesome5_Regular.ttf</string>
+    <string>FontAwesome5_Solid.ttf</string>
+    <string>Foundation.ttf</string>
+    <string>Ionicons.ttf</string>
+    <string>MaterialIcons.ttf</string>
+    <string>MaterialCommunityIcons.ttf</string>
+    <string>Octicons.ttf</string>
+    <string>SimpleLineIcons.ttf</string>
+    <string>Zocial.ttf</string>
+    <string>SchibstedGrotesk-Bold.ttf</string>
+    <string>SchibstedGrotesk-ExtraBoldItalic.ttf</string>
+    <string>SchibstedGrotesk-Medium.ttf</string>
+    <string>SchibstedGrotesk-SemiBold.ttf</string>
+    <string>ShadowsIntoLight-Regular.ttf</string>
+  </array>
+
+  <!-- Launch Screen -->
+  <key>UILaunchStoryboardName</key>
+  <string>LaunchScreen</string>
+
+  <!-- Device Capabilities -->
+  <key>UIRequiredDeviceCapabilities</key>
+  <array>
+    <string>arm64</string>
+  </array>
+
+  <!-- Orientations -->
+  <key>UISupportedInterfaceOrientations</key>
+  <array>
+    <string>UIInterfaceOrientationPortrait</string>
+    <string>UIInterfaceOrientationLandscapeLeft</string>
+    <string>UIInterfaceOrientationLandscapeRight</string>
+  </array>
+
+  <!-- Status Bar -->
+  <key>UIViewControllerBasedStatusBarAppearance</key>
+  <false/>
 </dict>
 </plist>
