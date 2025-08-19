@@ -51,10 +51,10 @@ export const COLORS = {
   lightYellow: '#FFFFE1',
   darkYeloow: '#929212',
   grey7: '#D8D8D8',
-  yellow2 : "#FFF9E2",
-  blue2 : "#ECF1FF",
-  green3 : "#ECFFE5",
-  tab2 : "rgba(206, 206, 206, 0)"
+  yellow2: '#FFF9E2',
+  blue2: '#ECF1FF',
+  green3: '#ECFFE5',
+  tab2: 'rgba(206, 206, 206, 0)',
 };
 
 export const IMAGES = {
@@ -184,6 +184,12 @@ export const ICONS = {
   loc: require('../assets/icons/loc.png'),
   x: require('../assets/icons/red-x.png'),
   free: require('../assets/icons/free.png'),
+  attach22: require('../assets/icons/attach22.png'),
+  publish: require('../assets/icons/publish.png'),
+  blur: require('../assets/icons/blur.png'),
+  bank: require('../assets/icons/bank.png'),
+  paypal: require('../assets/icons/paypal.png'),
+  cross2: require('../assets/icons/x2.png'),
 };
 
 export const FONTS = {

@@ -6,11 +6,11 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import { COLORS, FONTS } from '../../../../config/theme';
-import AuthHeader from '../../../../components/AuthHeader';
+import { COLORS, FONTS } from '../../../../../../config/theme';
+import AuthHeader from '../../../../../../components/AuthHeader';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import NextCard from '../../../../components/NextCard';
-import CustomButton from '../../../../components/CustomButton';
+import NextCard from '../../../../../../components/NextCard';
+import CustomButton from '../../../../../../components/CustomButton';
 
 const types = [
   {
@@ -118,6 +118,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     paddingTop: RFPercentage(2),
     paddingBottom: RFPercentage(4),
+        backgroundColor:COLORS.white
+
   },
   bottomContent: {
     width: '85%',

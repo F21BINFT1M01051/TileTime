@@ -6,7 +6,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 import SocialField from '../../../components/SocialField';
 import CustomButton from '../../../components/CustomButton';
 
-const PayoutsInstructor = () => {
+const PayoutsInstructor = ({ navigation }: any) => {
   const [deleteCard, setDeleteCard] = useState(false);
 
   return (
@@ -22,10 +22,18 @@ const PayoutsInstructor = () => {
                 your hosted events and sessions—fast, secure, and fully
                 trackable.
               </Text>
-              <Image source={ICONS.border} resizeMode="contain" style={styles.borderImg} />
+              <Image
+                source={ICONS.border}
+                resizeMode="contain"
+                style={styles.borderImg}
+              />
             </View>
 
-            <Image source={ICONS.payouts} resizeMode="contain" style={styles.payoutImg} />
+            <Image
+              source={ICONS.payouts}
+              resizeMode="contain"
+              style={styles.payoutImg}
+            />
           </>
         ) : (
           <>
@@ -33,14 +41,25 @@ const PayoutsInstructor = () => {
             <View style={styles.linkedAccountWrapper}>
               <View style={styles.accountContainer}>
                 <View style={styles.accountLeft}>
-                  <Image source={ICONS.stripe} resizeMode="contain" style={styles.stripeImg} />
+                  <Image
+                    source={ICONS.stripe}
+                    resizeMode="contain"
+                    style={styles.stripeImg}
+                  />
                   <View style={styles.accountTextWrapper}>
                     <Text style={styles.accountTitle}>Stripe</Text>
                     <Text style={styles.accountNumber}>xxxxxxxx91082</Text>
                   </View>
                 </View>
-                <TouchableOpacity activeOpacity={0.8} onPress={() => setDeleteCard(true)}>
-                  <Image source={ICONS.del} resizeMode="contain" style={styles.deleteIcon} />
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => setDeleteCard(true)}
+                >
+                  <Image
+                    source={ICONS.del}
+                    resizeMode="contain"
+                    style={styles.deleteIcon}
+                  />
                 </TouchableOpacity>
               </View>
             </View>
@@ -50,14 +69,22 @@ const PayoutsInstructor = () => {
       <View style={[styles.footerWrapper, deleteCard && styles.footerBorder]}>
         <View style={styles.footerInner}>
           {deleteCard ? (
-            <CustomButton title="Add Payout Account" icon={ICONS.plus} onPress={()=> {}} />
+            <CustomButton
+              title="Add Payout Account"
+              icon={ICONS.plus}
+              onPress={() => {
+                navigation.navigate('Payouts');
+              }}
+            />
           ) : (
             <SocialField
               name="Add Payout Account"
               color={COLORS.primary}
               icon={ICONS.plus5}
               borderColor={COLORS.primary}
-              navigation=""
+              onPress={() => {
+                navigation.navigate('Payouts');
+              }}
             />
           )}
         </View>
@@ -100,6 +127,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontSize: RFPercentage(2.1),
     marginTop: RFPercentage(2),
+    lineHeight:RFPercentage(3)
   },
   borderImg: {
     width: RFPercentage(12),

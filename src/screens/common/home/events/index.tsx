@@ -22,6 +22,8 @@ import EventCard from '../../../../components/EventCard';
 import NewEvent from '../../../../components/NewEvent';
 import CustomButton from '../../../../components/CustomButton';
 import CreateEvent from '../../../../components/CreateEvent';
+import { useDispatch, useSelector } from 'react-redux';
+import { setEventType } from '../../../../redux/event-type/Actions';
 
 const avatars = [
   { id: 1, profile: ICONS.avatar },
@@ -80,6 +82,8 @@ const Events = ({ navigation }: any) => {
   const events = [];
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedType, setSelectedType] = useState('');
+  const dispatch = useDispatch();
+  const role = useSelector(state => state.userFlow.userFlow);
 
   const openModal = () => {
     setIsModalVisible(true);
@@ -136,10 +140,6 @@ const Events = ({ navigation }: any) => {
       </View>
     );
   };
-
-  const slideAnim = useRef(
-    new Animated.Value(Dimensions.get('window').height),
-  ).current;
 
   return (
     <LinearGradient colors={[COLORS.white, COLORS.white]} style={{ flex: 1 }}>
@@ -311,11 +311,21 @@ const Events = ({ navigation }: any) => {
         onClose={() => setIsModalVisible(false)}
         title="Select Event Type"
         selectedValue={selectedType}
-        onSelect={setSelectedType}
+        onSelect={(value: any) => {
+          setSelectedType(value);
+          dispatch(setEventType(value));
+        }}
         onConfirm={() => {
           setIsModalVisible(false);
           if (selectedType === 'Open Play') {
             navigation.navigate('InvitePlayer');
+          } else if (
+            selectedType === 'Mahjong Lessons' &&
+            role === 'Instructor'
+          ) {
+            navigation.navigate('SelectPlayersInstructor');
+          } else if (selectedType === 'Mahjong Lessons' && role === 'Player') {
+            navigation.navigate('CreateLessonPlayer');
           } else {
             navigation.navigate('GuidedPlay', {
               players: false,

@@ -17,64 +17,41 @@ interface Props {
 const AuthHeader = (props: Props) => {
   const navigation = useNavigation();
   return (
-    <View
-      style={[
-        {
-          backgroundColor: COLORS.white,
-          width: '100%',
-          height: RFPercentage(13),
-          justifyContent: 'flex-end',
-          borderBottomWidth: RFPercentage(0.1),
-          borderBottomColor: COLORS.lightWhite,
-          paddingBottom: RFPercentage(1.5),
-        },
-        props.wrapStyle,
-      ]}
-    >
+    <View style={[styles.container, props.wrapStyle]}>
       <View style={styles.auth}>
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={props.onPress ? props.onPress : () => navigation.goBack()}
+          style={styles.backBtn}
         >
           <Image
             source={ICONS.back}
             resizeMode="contain"
-            style={{ width: RFPercentage(2.5), height: RFPercentage(2.5) }}
+            style={styles.backIcon}
           />
+          <Text style={[styles.getStartedText, props.style]}>
+            {props.title}
+          </Text>
         </TouchableOpacity>
-        <Text style={[styles.getStartedText, props.style]}>{props.title}</Text>
+
         {props.right && (
           <>
             {props.rightText ? (
-              <>
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  style={{ position: 'absolute', right: 0 }}
-                >
-                  <Text
-                    style={{
-                      color: COLORS.icon,
-                      fontFamily: FONTS.bold,
-                      fontSize: RFPercentage(1.7),
-                    }}
-                  >
-                    {props.rightText}
-                  </Text>
-                </TouchableOpacity>
-              </>
+              <TouchableOpacity activeOpacity={0.8} style={styles.rightBtn}>
+                <Text style={styles.rightText}>{props.rightText}</Text>
+              </TouchableOpacity>
             ) : (
-              <>
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  style={{ position: 'absolute', right: 0 }}
-                >
-                  <Image
-                    source={props.rightIcon}
-                    resizeMode="contain"
-                    style={{ width: RFPercentage(2.5), height: RFPercentage(2.5) }}
-                  />
-                </TouchableOpacity>
-              </>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => navigation.goBack()}
+                style={styles.rightBtn}
+              >
+                <Image
+                  source={props.rightIcon}
+                  resizeMode="contain"
+                  style={styles.rightIcon}
+                />
+              </TouchableOpacity>
             )}
           </>
         )}
@@ -86,16 +63,46 @@ const AuthHeader = (props: Props) => {
 export default AuthHeader;
 
 const styles = StyleSheet.create({
-  getStartedText: {
-    color: COLORS.primary,
-    fontFamily: FONTS.headline,
-    fontSize: RFPercentage(2.6),
-    marginLeft: RFPercentage(1),
+  container: {
+    backgroundColor: COLORS.white,
+    width: '100%',
+    height: RFPercentage(13),
+    justifyContent: 'flex-end',
+    borderBottomWidth: RFPercentage(0.1),
+    borderBottomColor: COLORS.lightWhite,
+    paddingBottom: RFPercentage(1.5),
   },
   auth: {
     width: '90%',
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'center',
+  },
+  backBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  backIcon: {
+    width: RFPercentage(2.5),
+    height: RFPercentage(2.5),
+  },
+  getStartedText: {
+    color: COLORS.primary,
+    fontFamily: FONTS.headline,
+    fontSize: RFPercentage(2.6),
+    marginLeft: RFPercentage(1),
+  },
+  rightBtn: {
+    position: 'absolute',
+    right: 0,
+  },
+  rightText: {
+    color: COLORS.icon,
+    fontFamily: FONTS.bold,
+    fontSize: RFPercentage(1.7),
+  },
+  rightIcon: {
+    width: RFPercentage(2),
+    height: RFPercentage(2),
   },
 });

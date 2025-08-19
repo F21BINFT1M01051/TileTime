@@ -27,12 +27,17 @@ import PlayerProfile from '../../screens/common/home/search/profiles/player-prof
 import InstructorProfile from '../../screens/common/home/search/profiles/instructor-profile';
 import PayoutsInstructor from '../../screens/instructor/payouts';
 import InviteFriends from '../../screens/common/home/invite-friends';
-import InvitePlayer from '../../screens/instructor/create-events/invite-player';
-import InviteGroup from '../../screens/instructor/create-events/invite-group';
-import SelectPlayers from '../../screens/instructor/create-events/select-players';
-import GuidedPlay from '../../screens/instructor/create-events/guided-play';
 import Dashboard from '../../screens/instructor/dashboard';
 import EventDetails from '../../screens/common/home/events/event-details';
+import InvitePlayer from '../../screens/common/home/events/create-events/invite-player';
+import InviteGroup from '../../screens/common/home/events/create-events/invite-group';
+import SelectPlayers from '../../screens/common/home/events/create-events/select-players';
+import GuidedPlay from '../../screens/common/home/events/create-events/guided-play';
+import SelectPlayersInstructor from '../../screens/instructor/create-lessons';
+import CreateLessonInstructor from '../../screens/instructor/create-lessons/lesson';
+import CreateLessonPlayer from '../../screens/player/create-lesson';
+import SelectLessonInstructors from '../../screens/player/create-lesson/select-instructor';
+import Payouts from '../../screens/common/home/payouts';
 
 export type RootStackParamList = {
   OnBoarding: undefined;
@@ -65,7 +70,12 @@ export type RootStackParamList = {
   SelectPlayers: undefined;
   GuidedPlay: undefined;
   Dashboard: undefined;
-  EventDetails:undefined
+  EventDetails: undefined;
+  SelectPlayersInstructor: undefined;
+  CreateLessonInstructor: undefined;
+  CreateLessonPlayer: undefined;
+  SelectLessonInstructors: undefined;
+  Payouts: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -78,7 +88,6 @@ const Navigator: React.FC = () => {
           headerShown: false,
         }}
       >
-        
         {/* ----------------Common Flow----------- */}
         <Stack.Screen name="OnBoarding" component={OnBoarding} />
         <Stack.Screen name="LoginSignUp" component={LoginSignUp} />
@@ -101,6 +110,25 @@ const Navigator: React.FC = () => {
         <Stack.Screen name="GuidedPlay" component={GuidedPlay} />
         <Stack.Screen name="Dashboard" component={Dashboard} />
         <Stack.Screen name="EventDetails" component={EventDetails} />
+        <Stack.Screen name="Payouts" component={Payouts} />
+
+        <Stack.Screen
+          name="SelectPlayersInstructor"
+          component={SelectPlayersInstructor}
+        />
+        <Stack.Screen
+          name="CreateLessonInstructor"
+          component={CreateLessonInstructor}
+        />
+
+        <Stack.Screen
+          name="CreateLessonPlayer"
+          component={CreateLessonPlayer}
+        />
+        <Stack.Screen
+          name="SelectLessonInstructors"
+          component={SelectLessonInstructors}
+        />
 
         {/* --------------------Player Flow-------------------- */}
         <Stack.Screen name="PlayerTabs" component={PlayerTabs} />

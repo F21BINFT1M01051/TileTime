@@ -10,20 +10,16 @@ import {
   FlatList,
 } from 'react-native';
 import React, { useState } from 'react';
-import { COLORS, FONTS, ICONS } from '../../../../config/theme';
-import AuthHeader from '../../../../components/AuthHeader';
+import { COLORS, FONTS, ICONS } from '../../../../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { launchImageLibrary } from 'react-native-image-picker';
-import InputField from '../../../../components/InputField';
-import CustomButton from '../../../../components/CustomButton';
-import FocusedSelection from '../../../../components/FocusedSelection';
+import InputField from '../../../../../../../components/InputField';
+import FocusedSelection from '../../../../../../../components/FocusedSelection';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import ToggleSwitch from 'toggle-switch-react-native';
-import DropdownField from '../../../../components/DropDown';
+import DropdownField from '../../../../../../../components/DropDown';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import EventLive from '../../components/EventLive';
 
-const steps = ['basics'];
 
 const experience = [
   {
@@ -71,10 +67,7 @@ const Days = [
   },
 ];
 
-const GuidedPlay = ({ route }: any) => {
-  const { players, groups, link } = route.params;
-  const [modalVisible, setModalVisible] = useState(false);
-  const [stepIndex, setStepIndex] = useState(0);
+const GuidedPlayBasic = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
@@ -103,43 +96,37 @@ const GuidedPlay = ({ route }: any) => {
   const [endOn, setEndOn] = useState(new Date());
   const [applies, setApplies] = useState([]);
 
-  const onChange = (event, selectedDate) => {
+  const onChange = ({event, selectedDate}:any) => {
     setShowPicker(false);
     if (selectedDate) setDate(selectedDate);
   };
 
-  const onChangeDate = (event, selectedDate) => {
+  const onChangeDate = ({event, selectedDate}:any) => {
     setShowPicker2(false);
     if (selectedDate) seteEndDate(selectedDate);
   };
 
-  const onChangeStartTime = (event, selectedDate) => {
+  const onChangeStartTime = ({event, selectedDate}:any) => {
     setShowPicker3(false);
     if (selectedDate) setStartTime(selectedDate);
   };
 
-  const onChangeEndTime = (event, selectedDate) => {
+  const onChangeEndTime = ({event, selectedDate}:any) => {
     setShowPicker4(false);
     if (selectedDate) setEndTime(selectedDate);
   };
 
-  const endOnDate = (event, selectedDate) => {
+  const endOnDate = ({event, selectedDate}:any) => {
     setShowPicker5(false);
     if (selectedDate) setEndOn(selectedDate);
-  };
-
-  const getBarColor = (index: any) => {
-    if (index < stepIndex) return COLORS.green;
-    if (index === stepIndex) return COLORS.pink;
-    return COLORS.fieldColor;
   };
 
   const [imageUri, setImageUri] = useState(null);
 
   const pickImage = () => {
     launchImageLibrary({ mediaType: 'photo', quality: 1 }, response => {
-      if (response.assets?.length > 0) {
-        setImageUri(response.assets[0].uri);
+      if (response?.assets?.length > 0) {
+        setImageUri(response?.assets[0].uri);
       }
     });
   };
@@ -158,30 +145,7 @@ const GuidedPlay = ({ route }: any) => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollViewContent}
       >
-        {/* Header */}
-        <AuthHeader
-          title="Create Guided Play"
-          right={true}
-          rightText="Save Draft"
-        />
-
         <View style={styles.innerWrapper}>
-          {/* Steps */}
-          <View style={styles.stepBarContainer}>
-            {steps.map((_, index) => (
-              <View
-                key={index}
-                style={[
-                  styles.stepBar,
-                  {
-                    backgroundColor: getBarColor(index),
-                    marginLeft: index === 0 ? 0 : RFPercentage(0.7),
-                  },
-                ]}
-              />
-            ))}
-          </View>
-
           <View style={styles.sectionHeader}>
             <Text style={styles.eventTitle}>Event Basics</Text>
             <Text style={styles.eventSubtitle}>
@@ -293,7 +257,7 @@ const GuidedPlay = ({ route }: any) => {
           <FocusedSelection
             placeholder="Event Date"
             selectedText={date.toDateString()}
-            onPress={() => setShowPicker(true)}
+            onPress={() => setShowPicker(!showPicker)}
             icon={
               <Image
                 source={ICONS.cl}
@@ -303,7 +267,13 @@ const GuidedPlay = ({ route }: any) => {
             }
           />
           {showPicker && (
-            <DateTimePicker value={date} mode="date" onChange={onChange} />
+            <DateTimePicker
+              value={date}
+              mode="date"
+              onChange={onChange}
+              display={Platform.OS === 'ios' ? 'inline' : 'default'}
+              style={{ alignSelf: 'center' }}
+            />
           )}
 
           {/* Multi Day */}
@@ -346,6 +316,8 @@ const GuidedPlay = ({ route }: any) => {
                     value={endDate}
                     mode="date"
                     onChange={onChangeDate}
+                    display={Platform.OS === 'ios' ? 'inline' : 'default'}
+                    style={{ alignSelf: 'center' }}
                   />
                 )}
 
@@ -369,6 +341,8 @@ const GuidedPlay = ({ route }: any) => {
                     value={startTime}
                     mode="time"
                     onChange={onChangeStartTime}
+                    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                    style={{ alignSelf: 'center' }}
                   />
                 )}
 
@@ -392,6 +366,8 @@ const GuidedPlay = ({ route }: any) => {
                     value={endTime}
                     mode="time"
                     onChange={onChangeEndTime}
+                    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                    style={{ alignSelf: 'center' }}
                   />
                 )}
               </View>
@@ -726,25 +702,11 @@ const GuidedPlay = ({ route }: any) => {
           />
         </View>
       </ScrollView>
-
-      <View style={styles.footer}>
-        <View style={styles.footerButtonWrapper}>
-          <CustomButton
-            title="Save And Next"
-            onPress={() => setModalVisible(true)}
-          />
-        </View>
-      </View>
-
-      <EventLive
-        visible={modalVisible}
-        onClose={() => setModalVisible(false)}
-      />
     </View>
   );
 };
 
-export default GuidedPlay;
+export default GuidedPlayBasic;
 
 // Main container styles
 const styles = StyleSheet.create({
@@ -758,9 +720,9 @@ const styles = StyleSheet.create({
   },
   // Inner wrapper for content
   innerWrapper: {
-    width: '90%',
+    width: '100%',
     alignSelf: 'center',
-    marginTop: RFPercentage(2),
+    marginTop: RFPercentage(1),
   },
   // Step bar navigation styles
   stepBarContainer: {
@@ -785,7 +747,7 @@ const styles = StyleSheet.create({
     color: COLORS.lightGrey,
     fontSize: RFPercentage(1.7),
     fontFamily: FONTS.regular,
-    marginTop: RFPercentage(2.5),
+    marginTop: RFPercentage(2),
   },
   // Image upload box styles
   imageUploadBox: {
@@ -1125,7 +1087,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   badgeContent: {
-    paddingHorizontal: RFPercentage(2),
+    // paddingHorizontal: RFPercentage(2),
   },
   experienceBadge: {
     height: RFPercentage(4.5),
@@ -1144,20 +1106,9 @@ const styles = StyleSheet.create({
   },
   // Dropdown wrapper for game variant
   dropdownWrapper: {
-    width: '90%',
+    width: '100%',
     alignSelf: 'center',
     marginTop: RFPercentage(-1),
   },
-  // Footer styles
-  footer: {
-    width: '100%',
-    borderTopWidth: RFPercentage(0.1),
-    borderTopColor: COLORS.lightWhite,
-    paddingTop: RFPercentage(2),
-    paddingBottom: RFPercentage(4),
-  },
-  footerButtonWrapper: {
-    width: '90%',
-    alignSelf: 'center',
-  },
+ 
 });

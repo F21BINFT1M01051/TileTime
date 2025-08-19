@@ -7,10 +7,10 @@ import {
   View,
 } from 'react-native';
 import React, { useState } from 'react';
-import { COLORS, FONTS, IMAGES } from '../../../../config/theme';
-import AuthHeader from '../../../../components/AuthHeader';
+import { COLORS, FONTS, IMAGES } from '../../../../../../config/theme';
+import AuthHeader from '../../../../../../components/AuthHeader';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import CustomButton from '../../../../components/CustomButton';
+import CustomButton from '../../../../../../components/CustomButton';
 
 const groups = [
   {

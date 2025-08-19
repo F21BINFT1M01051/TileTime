@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import TopNavigation from '../../../routers/TopBar';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../config/theme';
@@ -17,6 +17,9 @@ import CustomButton from '../../../components/CustomButton';
 import ActionsCard from '../../../components/ActionsCard';
 import HomeCard from '../../../components/HomeCard';
 import HomeGroupCard from '../../../components/HomeGroupCard';
+import { useDispatch, useSelector } from 'react-redux';
+import CreateEvent from '../../../components/CreateEvent';
+import { setEventType } from '../../../redux/event-type/Actions';
 
 const Groups = [
   {
@@ -88,6 +91,13 @@ const Cards2 = [
 
 const PlayerHome = ({ navigation }: any) => {
   const actions = ['1'];
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedType, setSelectedType] = useState('');
+  const dispatch = useDispatch();
+
+  const openModal = () => {
+    setIsModalVisible(true);
+  };
 
   return (
     <LinearGradient
@@ -158,7 +168,7 @@ const PlayerHome = ({ navigation }: any) => {
                   title="Create Event"
                   icon={ICONS.calender}
                   style={styles.createEventButton}
-                  onPress={() => {}}
+                  onPress={openModal}
                 />
               </View>
             </View>
@@ -259,6 +269,31 @@ const PlayerHome = ({ navigation }: any) => {
           </View>
         </View>
       </ScrollView>
+
+      <CreateEvent
+        visible={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+        title="Select Event Type"
+        selectedValue={selectedType}
+        onSelect={(value: any) => {
+          setSelectedType(value);
+          dispatch(setEventType(value));
+        }}
+        onConfirm={() => {
+          setIsModalVisible(false);
+          if (selectedType === 'Open Play') {
+            navigation.navigate('InvitePlayer');
+          } else if (selectedType === 'Mahjong Lessons') {
+            navigation.navigate('CreateLessonPlayer');
+          } else {
+            navigation.navigate('GuidedPlay', {
+              players: false,
+              groups: false,
+              link: true,
+            });
+          }
+        }}
+      />
     </LinearGradient>
   );
 };

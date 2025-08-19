@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 interface Props {
   title: string;
   style?: object;
-  onPress? : ()=> void
+  onPress?: () => void;
 }
 
 const Nav = (props: Props) => {
@@ -16,16 +16,14 @@ const Nav = (props: Props) => {
   return (
     <View style={styles.auth}>
       <View style={styles.content}>
-        <TouchableOpacity
-          onPress={props.onPress}
-        >
+        <TouchableOpacity onPress={props.onPress} activeOpacity={0.8} style={{flexDirection:"row", alignItems:"center"}}>
           <AntDesign
             name="arrowleft"
             size={RFPercentage(2.6)}
             color={COLORS.grey}
           />
+          <Text style={[styles.headerText, props.style]}>{props.title}</Text>
         </TouchableOpacity>
-        <Text style={[styles.headerText, props.style]}>{props.title}</Text>
       </View>
     </View>
   );

@@ -83,6 +83,8 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
   const [checked, setChecked] = useState(false);
   const formikRef = useRef<any>(null);
   const [businessName, setBusinessName] = useState('');
+  const [anotherCity, setAnotherCity] = useState(false);
+  const [otherCity, setOtherCity] = useState("")
 
   useImperativeHandle(ref, () => ({
     validateForm: () => {
@@ -115,8 +117,6 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
       }
     });
   };
-
- 
 
   return (
     <TouchableWithoutFeedback
@@ -177,7 +177,7 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
           onSubmit={values => {}}
           validateOnBlur={true}
           validateOnChange={true}
-          validateOnMount={true} 
+          validateOnMount={true}
         >
           {({
             handleChange,
@@ -323,19 +323,26 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
                         <Text style={styles.error}>{errors?.city}</Text>
                       </View>
                     )}
-
-                    <TouchableOpacity activeOpacity={0.8} style={styles.add}>
-                      <Image
-                        source={ICONS.plus5}
-                        tintColor={COLORS.primary}
-                        resizeMode="contain"
-                        style={{
-                          width: RFPercentage(2),
-                          height: RFPercentage(2),
-                        }}
-                      />
-                      <Text style={styles.another}>Add Another City</Text>
-                    </TouchableOpacity>
+                    {!anotherCity && (
+                      <>
+                        <TouchableOpacity
+                          activeOpacity={0.8}
+                          onPress={() => setAnotherCity(true)}
+                          style={styles.add}
+                        >
+                          <Image
+                            source={ICONS.plus5}
+                            tintColor={COLORS.primary}
+                            resizeMode="contain"
+                            style={{
+                              width: RFPercentage(2),
+                              height: RFPercentage(2),
+                            }}
+                          />
+                          <Text style={styles.another}>Add Another City</Text>
+                        </TouchableOpacity>
+                      </>
+                    )}
                   </View>
 
                   <View style={{ width: '48%' }}>
@@ -350,8 +357,18 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
                     />
                   </View>
                 </View>
+                {anotherCity && (
+                  <>
+                    <InputField
+                      placeholder="Add Another City"
+                      value={otherCity}
+                      onChangeText={setOtherCity}
+                      password={false}
+                    />
+                  </>
+                )}
 
-                <View style={{ marginTop: RFPercentage(1.5) }}>
+                <View style={{  marginTop: anotherCity ? 0 :  RFPercentage(1.5) }}>
                   <View>
                     <InputField
                       placeholder="Phone Number (Required)"

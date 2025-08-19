@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: RFPercentage(0.1),
     width: '100%',
-    height: Platform.OS === 'ios' ? RFPercentage(6) : RFPercentage(7),
+    height: Platform.OS === 'ios' ? RFPercentage(6.5) : RFPercentage(7),
     backgroundColor: COLORS.fieldColor,
     borderColor: COLORS.fieldBorder,
     borderRadius: RFPercentage(1.3),
@@ -185,7 +185,10 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     maxHeight: RFPercentage(25),
     zIndex: 999999,
-    marginTop: RFPercentage(1),
+    marginTop:RFPercentage(1),
+    // position: 'absolute',
+    width: '100%',
+    // top: RFPercentage(9),
   },
   dropdownItem: {
     paddingVertical: RFPercentage(2.5),

@@ -8,6 +8,7 @@ import {
   TouchableWithoutFeedback,
   Platform,
   Clipboard,
+  KeyboardTypeOptions
 } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS } from '../config/theme';
@@ -15,12 +16,12 @@ import Feather from 'react-native-vector-icons/Feather';
 
 interface Props {
   placeholder: string;
-  value: string;
+  value: any;
   onChangeText?: (text: string) => void;
   password?: boolean;
   icon?: any;
   style?: object;
-  type?: string;
+  type?: KeyboardTypeOptions;
   autoFocus?: boolean;
   handleBlur?: (event: any) => void;
   copy?: boolean;
@@ -75,7 +76,7 @@ const InputField: React.FC<Props> = ({
     top: animatedIsFocused.interpolate({
       inputRange: [0, 1],
       outputRange: [
-        Platform.OS === 'ios' ? RFPercentage(6) / 3.3 : RFPercentage(7) / 3.2,
+        Platform.OS === 'ios' ? RFPercentage(6.5) / 3.1 : RFPercentage(7) / 3.2,
         RFPercentage(0.6),
       ],
     }),
@@ -149,7 +150,7 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: RFPercentage(0.1),
     width: '100%',
-    height: Platform.OS === 'ios' ? RFPercentage(6) : RFPercentage(7),
+    height: Platform.OS === 'ios' ? RFPercentage(6.5) : RFPercentage(7),
     backgroundColor: COLORS.fieldColor,
     borderColor: COLORS.fieldBorder,
     borderRadius: RFPercentage(1.3),
@@ -164,7 +165,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: Platform.OS === 'ios' ? RFPercentage(6) : RFPercentage(7),
+    height: Platform.OS === 'ios' ? RFPercentage(6.5) : RFPercentage(7),
   },
   input: {
     color: COLORS.inputColor,
@@ -181,6 +182,6 @@ const styles = StyleSheet.create({
   },
   eyeIcon: {
     right: 0,
-    top: 0,
+    top: RFPercentage(0.1),
   },
 });

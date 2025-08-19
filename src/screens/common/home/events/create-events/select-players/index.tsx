@@ -8,11 +8,11 @@ import {
   View,
 } from 'react-native';
 import React, { useState, useMemo } from 'react';
-import { COLORS, FONTS, ICONS, IMAGES } from '../../../../config/theme';
-import AuthHeader from '../../../../components/AuthHeader';
+import { COLORS, FONTS, ICONS, IMAGES } from '../../../../../../config/theme';
+import AuthHeader from '../../../../../../components/AuthHeader';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import CustomButton from '../../../../components/CustomButton';
-import SearchField from '../../../../components/SearchField';
+import CustomButton from '../../../../../../components/CustomButton';
+import SearchField from '../../../../../../components/SearchField';
 
 const players = [
   {

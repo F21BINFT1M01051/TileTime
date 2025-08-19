@@ -20,6 +20,8 @@ import HomeCard from '../../../components/HomeCard';
 import HomeGroupCard from '../../../components/HomeGroupCard';
 import EventCalendar from '../../../components/EventCalendar';
 import CreateEvent from '../../../components/CreateEvent';
+import { useDispatch } from 'react-redux';
+import { setEventType } from '../../../redux/event-type/Actions';
 
 const Groups = [
   {
@@ -93,6 +95,7 @@ const InstructorHome = ({ navigation }: any) => {
   const actions = ['1'];
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedType, setSelectedType] = useState('');
+  const dispatch = useDispatch();
 
   const openModal = () => {
     setIsModalVisible(true);
@@ -275,10 +278,23 @@ const InstructorHome = ({ navigation }: any) => {
         onClose={() => setIsModalVisible(false)}
         title="Select Event Type"
         selectedValue={selectedType}
-        onSelect={setSelectedType}
+        onSelect={(value: any) => {
+          setSelectedType(value);
+          dispatch(setEventType(value));
+        }}
         onConfirm={() => {
           setIsModalVisible(false);
-          navigation.navigate('InvitePlayer');
+          if (selectedType === 'Open Play') {
+            navigation.navigate('InvitePlayer');
+          } else if (selectedType === 'Mahjong Lessons') {
+            navigation.navigate('SelectPlayersInstructor');
+          } else {
+            navigation.navigate('GuidedPlay', {
+              players: false,
+              groups: false,
+              link: true,
+            });
+          }
         }}
       />
     </LinearGradient>

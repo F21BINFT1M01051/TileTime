@@ -2,7 +2,6 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { useState } from 'react';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS, ICONS } from '../config/theme';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import ToggleSwitch from 'toggle-switch-react-native';
 
 interface Props {
@@ -24,9 +23,7 @@ const SettingsButton = (props: Props) => {
       style={[styles.container, props.style]}
     >
       <Image source={props.icon} resizeMode="contain" style={styles.icon} />
-      <Text style={[styles.titleText, props.textStyle]}>
-        {props.title}
-      </Text>
+      <Text style={[styles.titleText, props.textStyle]}>{props.title}</Text>
       {props.switch ? (
         <ToggleSwitch
           isOn={isOn}
@@ -38,7 +35,11 @@ const SettingsButton = (props: Props) => {
         />
       ) : (
         <TouchableOpacity style={styles.arrowButton}>
-          <AntDesign name="right" color={COLORS.grey} size={RFPercentage(2)} />
+          <Image
+            source={ICONS.right}
+            resizeMode="contain"
+            style={{ width: RFPercentage(1.5), height: RFPercentage(1.5) }}
+          />
         </TouchableOpacity>
       )}
     </TouchableOpacity>
@@ -50,7 +51,7 @@ export default SettingsButton;
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: RFPercentage(6),
+    height: RFPercentage(6.2),
     backgroundColor: COLORS.white,
     borderRadius: RFPercentage(2.6),
     borderWidth: RFPercentage(0.1),

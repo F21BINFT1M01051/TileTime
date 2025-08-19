@@ -17,17 +17,8 @@ import { useNavigation } from '@react-navigation/native';
 import SocialField from '../../../components/SocialField';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS, ICONS } from '../../../config/theme';
-import InputField from '../../../components/InputField';
 
-const share = [
-  { id: 1, name: 'Share on Facebook', icon: ICONS.facebook },
-  { id: 2, name: 'Share on Instagram', icon: ICONS.insta22 },
-  { id: 3, name: 'Invite Via Email', icon: ICONS.mail22 },
-  { id: 4, name: 'Invite your contacts', icon: ICONS.ct22 },
-  { id: 5, name: 'Share in your TileTime groups', icon: ICONS.tab4 },
-];
-
-const EventLive = ({ visible, onClose , style}: any) => {
+const EventLiveLessons = ({ visible, onClose, title, subtitle }: any) => {
   const navigation = useNavigation();
   const slideAnim = useRef(
     new Animated.Value(Dimensions.get('window').height),
@@ -88,7 +79,7 @@ const EventLive = ({ visible, onClose , style}: any) => {
                       style={styles.greenCheck}
                     />
                     <View style={styles.liveTextContainer}>
-                      <Text style={styles.liveText}>Your Event Is Live!</Text>
+                      <Text style={styles.liveText}>{title}</Text>
                       <Image
                         source={ICONS.stars2}
                         resizeMode="contain"
@@ -104,77 +95,12 @@ const EventLive = ({ visible, onClose , style}: any) => {
                 </View>
 
                 {/* Subtext */}
-                <Text style={styles.subText}>
-                  {`Your Event Has Been Shared With\n8 Chosen Members.`}
-                </Text>
+                <Text style={styles.subText}>{subtitle}</Text>
 
                 <Image
                   source={ICONS.gp2}
                   resizeMode="contain"
                   style={styles.gp2}
-                />
-
-                {/* InputField */}
-                <View style={styles.inputWrapper}>
-                  <InputField
-                    placeholder="Event link"
-                    icon={
-                      <Image
-                        source={ICONS.copy}
-                        resizeMode="contain"
-                        style={styles.copyIcon}
-                      />
-                    }
-                    value="tiletime.com/events/1124-adde"
-                    defaultColor={COLORS.focused}
-                    copy={true}
-                  />
-                </View>
-
-                {/* QR Section */}
-                <View style={styles.qrSection}>
-                  <Image
-                    source={ICONS.qr}
-                    resizeMode="contain"
-                    style={styles.qrImage}
-                  />
-                  <View style={styles.qrTextWrapper}>
-                    <Text style={styles.qrText}>
-                      {`Share This QR To Friends Or Your\nGroups`}
-                    </Text>
-                    <TouchableOpacity
-                      activeOpacity={0.8}
-                      style={styles.shareBtn}
-                    >
-                      <Text style={styles.shareBtnText}>
-                        Share/Save to Gallery
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-
-                {/* Share List */}
-                <FlatList
-                  data={share}
-                  keyExtractor={item => item.id.toString()}
-                  numColumns={2}
-                  contentContainerStyle={styles.flatListContainer}
-                  columnWrapperStyle={styles.flatListColumn}
-                  renderItem={({ item }) => (
-                    <View style={styles.listItem}>
-                      <TouchableOpacity
-                        activeOpacity={0.8}
-                        style={styles.shareOption}
-                      >
-                        <Image
-                          source={item.icon}
-                          resizeMode="contain"
-                          style={styles.shareIcon}
-                        />
-                        <Text style={styles.shareText}>{item.name}</Text>
-                      </TouchableOpacity>
-                    </View>
-                  )}
                 />
               </View>
 
@@ -198,7 +124,7 @@ const EventLive = ({ visible, onClose , style}: any) => {
   );
 };
 
-export default EventLive;
+export default EventLiveLessons;
 
 const styles = StyleSheet.create({
   overLay2: {
@@ -210,7 +136,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: RFPercentage(2),
     borderTopRightRadius: RFPercentage(2),
     paddingBottom: RFPercentage(4),
-    height: '90%',
+    height: '50%',
   },
   modalInnerContent: {
     width: '90%',
@@ -231,11 +157,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   greenCheck: {
-    width: RFPercentage(6.5),
-    height: RFPercentage(6.5),
+    width: RFPercentage(8.5),
+    height: RFPercentage(8.5),
   },
   liveTextContainer: {
-    marginTop: RFPercentage(1),
+    marginTop: RFPercentage(3),
   },
   liveText: {
     textAlign: 'center',
@@ -247,8 +173,8 @@ const styles = StyleSheet.create({
     width: RFPercentage(3.5),
     height: RFPercentage(3.5),
     position: 'absolute',
-    right: RFPercentage(-3),
-    bottom: 0,
+    right: RFPercentage(-2),
+    bottom: RFPercentage(-1),
   },
   gpImageRight: {
     width: RFPercentage(8),
@@ -260,84 +186,16 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular,
     color: COLORS.lightGrey,
     fontSize: RFPercentage(1.7),
-    marginTop: RFPercentage(1),
+    marginTop: RFPercentage(2),
   },
   gp2: {
     width: RFPercentage(8),
     height: RFPercentage(8),
-    bottom: RFPercentage(5),
-    alignSelf: 'flex-end',
+    alignSelf: 'center',
+    left: RFPercentage(5),
+    bottom: RFPercentage(2),
   },
-  inputWrapper: {
-    marginTop: RFPercentage(-6.4),
-  },
-  copyIcon: {
-    width: RFPercentage(2.5),
-    height: RFPercentage(2.5),
-  },
-  qrSection: {
-    flexDirection: 'row',
-    marginTop: RFPercentage(5),
-  },
-  qrImage: {
-    width: RFPercentage(9),
-    height: RFPercentage(9),
-  },
-  qrTextWrapper: {
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    marginLeft: RFPercentage(1.3),
-  },
-  qrText: {
-    fontFamily: FONTS.regular,
-    color: COLORS.primary,
-    fontSize: RFPercentage(1.7),
-  },
-  shareBtn: {
-    width: RFPercentage(16.5),
-    height: RFPercentage(4),
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: COLORS.primary,
-    borderRadius: RFPercentage(100),
-  },
-  shareBtnText: {
-    color: COLORS.white,
-    fontFamily: FONTS.medium,
-    fontSize: RFPercentage(1.4),
-  },
-  flatListContainer: {
-    marginTop: RFPercentage(5),
-  },
-  flatListColumn: {
-    justifyContent: 'space-between',
-    gap: RFPercentage(1.4),
-  },
-  listItem: {
-    flex: 1,
-  },
-  shareOption: {
-    width: '100%',
-    height: RFPercentage(5.4),
-    backgroundColor: COLORS.white,
-    alignItems: 'center',
-    flexDirection: 'row',
-    borderWidth: RFPercentage(0.1),
-    borderColor: COLORS.lightWhite,
-    borderRadius: RFPercentage(2.1),
-    paddingHorizontal: RFPercentage(1.5),
-    marginTop: RFPercentage(1.9),
-  },
-  shareIcon: {
-    width: RFPercentage(2),
-    height: RFPercentage(2),
-  },
-  shareText: {
-    fontSize: RFPercentage(1.6),
-    fontFamily: FONTS.semiBold,
-    color: COLORS.primary,
-    marginLeft: RFPercentage(0.7),
-  },
+
   modalFooter: {
     borderTopWidth: RFPercentage(0.1),
     borderTopColor: COLORS.lightWhite,

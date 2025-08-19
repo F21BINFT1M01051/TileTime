@@ -5,10 +5,13 @@ import { COLORS, FONTS, IMAGES, ICONS } from '../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import CustomButton from '../../../../components/CustomButton';
 import Selection from '../../../../components/Selection';
+import { useDispatch } from 'react-redux';
+import { setUserFlow } from '../../../../redux/userRole-slice/Actions';
 
 const RoleSelection = ({ navigation }: any) => {
   const [selected, setSelected] = useState('');
- 
+  const dispatch = useDispatch();
+
   return (
     <LinearGradient
       colors={[COLORS.gradient1, COLORS.gradient2]}
@@ -28,14 +31,20 @@ const RoleSelection = ({ navigation }: any) => {
               title="As Instructor"
               subTitle="Share your expertise, connect with players, and grow your teaching presence in the Tile Time community."
               isSelected={selected === 'Instructor'}
-              onSelect={() => setSelected('Instructor')}
+              onSelect={() => {
+                setSelected('Instructor');
+                dispatch(setUserFlow('Instructor'));
+              }}
               icon={ICONS.teacher}
             />
             <Selection
               title="As Player"
               subTitle="Join exciting games, improve your skills, and connect with instructors and fellow players."
               isSelected={selected === 'Player'}
-              onSelect={() => setSelected('Player')}
+              onSelect={() => {
+                setSelected('Player');
+                dispatch(setUserFlow('Player'));
+              }}
               icon={ICONS.user6}
             />
           </View>
@@ -116,7 +125,7 @@ const styles = StyleSheet.create({
     borderTopColor: COLORS.lightWhite,
     alignItems: 'center',
     paddingBottom: RFPercentage(4),
-    paddingTop:RFPercentage(2)
+    paddingTop: RFPercentage(2),
   },
   buttonWrapper: {
     width: '90%',

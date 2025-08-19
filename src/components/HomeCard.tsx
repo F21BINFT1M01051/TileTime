@@ -1,7 +1,8 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View, Dimensions } from 'react-native';
+import { Image, StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS, ICONS, IMAGES } from '../config/theme';
+import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 
@@ -16,8 +17,9 @@ interface Props {
 }
 
 const HomeCard = (props: Props) => {
+  const navigation = useNavigation()
   return (
-    <View style={styles.container}>
+    <TouchableOpacity activeOpacity={0.8} onPress={()=> navigation.navigate("EventDetails")} style={styles.container}>
       {
         props.free && (
           <Image source={ICONS.free} resizeMode='contain' style={{width:RFPercentage(5), height:RFPercentage(5), position:'absolute', left:0, top:0, zIndex:99}} />
@@ -69,7 +71,7 @@ const HomeCard = (props: Props) => {
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
