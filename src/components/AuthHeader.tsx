@@ -12,6 +12,7 @@ interface Props {
   right?: boolean;
   rightText?: string;
   rightIcon?: any;
+  onPress2 ? : () => void
 }
 
 const AuthHeader = (props: Props) => {
@@ -43,7 +44,7 @@ const AuthHeader = (props: Props) => {
             ) : (
               <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={() => navigation.goBack()}
+                onPress={props.onPress2}
                 style={styles.rightBtn}
               >
                 <Image

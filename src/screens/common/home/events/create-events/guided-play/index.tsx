@@ -219,41 +219,41 @@ const GuidedPlay = ({ route }: any) => {
           <View style={styles.contentWrapper}>{renderStepContent()}</View>
         </View>
       </ScrollView>
-
-      {stepIndex === 0 ? (
-        <View style={styles.footer}>
-          <View style={styles.footerButtonWrapper}>
-            <CustomButton title="Save And Next" onPress={handleNext} />
+      {!keyboardIsVisible &&
+        (stepIndex === 0 ? (
+          <View style={styles.footer}>
+            <View style={styles.footerButtonWrapper}>
+              <CustomButton title="Save And Next" onPress={handleNext} />
+            </View>
           </View>
-        </View>
-      ) : (
-        <View style={styles.bottomBar}>
-          <View style={styles.bottomContent}>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => {
-                stepIndex === 0
-                  ? navigation.goBack()
-                  : setStepIndex(stepIndex - 1);
-              }}
-              style={styles.backButton}
-            >
-              <Text style={styles.backButtonText}>Back</Text>
-            </TouchableOpacity>
-            <CustomButton
-              title={
-                stepIndex === finalSteps.length - 1
-                  ? 'Publish Event'
-                  : finalSteps[stepIndex] === 'instuctorSelection'
-                  ? 'Send Requests and Publish'
-                  : 'Save And Next'
-              }
-              style={styles.saveButton}
-              onPress={handleNext}
-            />
+        ) : (
+          <View style={styles.bottomBar}>
+            <View style={styles.bottomContent}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => {
+                  stepIndex === 0
+                    ? navigation.goBack()
+                    : setStepIndex(stepIndex - 1);
+                }}
+                style={styles.backButton}
+              >
+                <Text style={styles.backButtonText}>Back</Text>
+              </TouchableOpacity>
+              <CustomButton
+                title={
+                  stepIndex === finalSteps.length - 1
+                    ? 'Publish Event'
+                    : finalSteps[stepIndex] === 'instuctorSelection'
+                    ? 'Send Requests and Publish'
+                    : 'Save And Next'
+                }
+                style={styles.saveButton}
+                onPress={handleNext}
+              />
+            </View>
           </View>
-        </View>
-      )}
+        ))}
 
       <EventLive
         visible={modalVisible}

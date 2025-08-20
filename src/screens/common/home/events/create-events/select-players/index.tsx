@@ -6,8 +6,9 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Keyboard,
 } from 'react-native';
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../../../../config/theme';
 import AuthHeader from '../../../../../../components/AuthHeader';
 import { RFPercentage } from 'react-native-responsive-fontsize';
@@ -50,6 +51,7 @@ const players = [
 const SelectPlayers = ({ navigation }: any) => {
   const [selectedContacts, setSelectedContacts] = useState<number[]>([]);
   const [query, setQuery] = useState('');
+  const [keyboardIsVisible, setKeyboardIsVisible] = useState(false);
 
   const toggleContact = (id: number) => {
     setSelectedContacts(prev =>
@@ -65,6 +67,20 @@ const SelectPlayers = ({ navigation }: any) => {
         (item.common?.toLowerCase() || '').includes(query.toLowerCase()),
     );
   }, [query]);
+
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
+      setKeyboardIsVisible(true);
+    });
+    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardIsVisible(false);
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -179,25 +195,29 @@ const SelectPlayers = ({ navigation }: any) => {
           </View>
         </View>
       </ScrollView>
-      <View style={styles.bottomBar}>
-        <View style={styles.bottomContent}>
-          <CustomButton
-            title="Save And Next"
-            disabled={selectedContacts.length === 0}
-            style={{
-              backgroundColor:
-                selectedContacts.length > 0 ? COLORS.primary : COLORS.disabled,
-            }}
-            onPress={() =>
-              navigation.navigate('GuidedPlay', {
-                players: true,
-                groups: false,
-                link: false,
-              })
-            }
-          />
+      {!keyboardIsVisible && (
+        <View style={styles.bottomBar}>
+          <View style={styles.bottomContent}>
+            <CustomButton
+              title="Save And Next"
+              disabled={selectedContacts.length === 0}
+              style={{
+                backgroundColor:
+                  selectedContacts.length > 0
+                    ? COLORS.primary
+                    : COLORS.disabled,
+              }}
+              onPress={() =>
+                navigation.navigate('GuidedPlay', {
+                  players: true,
+                  groups: false,
+                  link: false,
+                })
+              }
+            />
+          </View>
         </View>
-      </View>
+      )}
     </View>
   );
 };

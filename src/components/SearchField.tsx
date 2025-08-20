@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: RFPercentage(0.1),
     width: '100%',
-    height: Platform.OS === 'ios' ? RFPercentage(5.5) : RFPercentage(6),
+    height: RFPercentage(6),
     backgroundColor: COLORS.fieldColor,
     borderColor: COLORS.fieldBorder,
     borderRadius: RFPercentage(1.3),

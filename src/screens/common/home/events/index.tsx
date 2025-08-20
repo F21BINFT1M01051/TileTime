@@ -18,21 +18,13 @@ import TopNavigation from '../../../../routers/TopBar';
 import SearchField from '../../../../components/SearchField';
 import Feather from 'react-native-vector-icons/Feather';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
-import EventCard from '../../../../components/EventCard';
-import NewEvent from '../../../../components/NewEvent';
 import CustomButton from '../../../../components/CustomButton';
 import CreateEvent from '../../../../components/CreateEvent';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEventType } from '../../../../redux/event-type/Actions';
-
-const avatars = [
-  { id: 1, profile: ICONS.avatar },
-  { id: 2, profile: ICONS.avatar },
-  { id: 3, profile: ICONS.avatar },
-  { id: 4, profile: ICONS.avatar },
-  { id: 5, profile: ICONS.avatar },
-  { id: 6, profile: ICONS.avatar },
-];
+import ToggleSwitch from 'toggle-switch-react-native';
+import EventCalendar from '../../../../components/EventCalendar';
+import TodayEvents from '../../../instructor/components/TodayEvents';
 
 LocaleConfig.locales['en'] = {
   monthNames: [
@@ -84,6 +76,7 @@ const Events = ({ navigation }: any) => {
   const [selectedType, setSelectedType] = useState('');
   const dispatch = useDispatch();
   const role = useSelector(state => state.userFlow.userFlow);
+  const [isOn, setIsOn] = useState(false);
 
   const openModal = () => {
     setIsModalVisible(true);
@@ -91,59 +84,9 @@ const Events = ({ navigation }: any) => {
 
   const toggleCalendar = () => setCalendarVisible(!isCalendarVisible);
 
-  const getSevenDayRow = () => {
-    const days = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-    const today = new Date();
-    return [...Array(7)].map((_, i) => {
-      const offset = i - 3;
-      const date = new Date();
-      date.setDate(today.getDate() + offset);
-      return {
-        day: days[date.getDay()],
-        date: date.getDate(),
-        isToday: offset === 0,
-      };
-    });
-  };
-
-  const renderTimeLabels = (times: string[]) =>
-    times.map((time, i) => (
-      <Text
-        key={i}
-        style={[styles.timeLabel, { marginTop: i === 0 ? 0 : RFPercentage(3) }]}
-      >
-        {time}
-      </Text>
-    ));
-
-  const renderAvatars = () => {
-    const visible = avatars.slice(0, 2);
-    const remaining = avatars.length - visible.length;
-    return (
-      <View style={styles.avatarContainer}>
-        {visible.map((item, index) => (
-          <View
-            key={item.id}
-            style={[
-              styles.avatarWrapper,
-              { marginLeft: index === 0 ? 0 : -10 },
-            ]}
-          >
-            <Image source={item.profile} style={styles.avatarImage} />
-          </View>
-        ))}
-        {remaining > 0 && (
-          <View style={[styles.avatarWrapper, styles.remainingWrapper]}>
-            <Text style={styles.remainingText}>+{remaining}</Text>
-          </View>
-        )}
-      </View>
-    );
-  };
-
   return (
     <LinearGradient colors={[COLORS.white, COLORS.white]} style={{ flex: 1 }}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <ImageBackground
           source={IMAGES.background}
           resizeMode="cover"
@@ -168,93 +111,48 @@ const Events = ({ navigation }: any) => {
         </ImageBackground>
         {events.length > 0 ? (
           <View style={styles.monthSelectorContainer}>
-            <TouchableOpacity
-              style={styles.monthButton}
-              onPress={toggleCalendar}
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
             >
-              <Text style={styles.monthText}>August</Text>
-              <Feather
-                name="chevron-down"
-                color={COLORS.icon}
-                size={RFPercentage(2.6)}
-                style={styles.chevronIcon}
-              />
-            </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.monthButton}
+                onPress={toggleCalendar}
+              >
+                <Text style={styles.monthText}>August</Text>
+                <Feather
+                  name="chevron-down"
+                  color={COLORS.icon}
+                  size={RFPercentage(2.6)}
+                  style={styles.chevronIcon}
+                />
+              </TouchableOpacity>
 
-            <View style={styles.weekRow}>
-              {getSevenDayRow().map((day, index) => (
-                <View
-                  key={index}
-                  style={[
-                    styles.dayContainer,
-                    day.isToday && styles.todayContainer,
-                  ]}
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Text
+                  style={{
+                    fontFamily: FONTS.regular,
+                    color: COLORS.primary,
+                    fontSize: RFPercentage(1.8),
+                    marginRight: RFPercentage(1),
+                  }}
                 >
-                  <Text
-                    style={[styles.dayDate, day.isToday && styles.todayText]}
-                  >
-                    {day.date}
-                  </Text>
-                  <Text
-                    style={[styles.dayName, day.isToday && styles.todayText]}
-                  >
-                    {day.day}
-                  </Text>
-                </View>
-              ))}
-            </View>
-
-            <Text style={styles.scheduleText}>Schedule Today</Text>
-
-            <View style={styles.timeBlock}>
-              <View>{renderTimeLabels(['08.00', '10.00'])}</View>
-              <View style={styles.timeBlockRight}>
-                <EventCard />
+                  List View
+                </Text>
+                <ToggleSwitch
+                  isOn={isOn}
+                  onColor={COLORS.pink}
+                  offColor={COLORS.switch}
+                  size="small"
+                  onToggle={() => setIsOn(!isOn)}
+                />
               </View>
             </View>
 
-            <View style={styles.timeBlock}>
-              <View>{renderTimeLabels(['12.00'])}</View>
-              <View style={styles.timeBlockRight}>
-                <View
-                  style={[
-                    styles.eventBox,
-                    {
-                      backgroundColor: 'rgba(17, 54, 239, 0.14)',
-                      height: RFPercentage(5),
-                    },
-                  ]}
-                >
-                  <View style={styles.eventRow}>
-                    <Text style={styles.eventText}>
-                      Four Winds: Community Mahjong Session
-                    </Text>
-                    {renderAvatars()}
-                    <Image
-                      source={ICONS.event}
-                      resizeMode="contain"
-                      style={styles.eventImageSmall}
-                    />
-                  </View>
-                </View>
-              </View>
-            </View>
-
-            <View style={styles.timeBlock}>
-              <View>
-                {renderTimeLabels([
-                  '14.00',
-                  '16.00',
-                  '18.00',
-                  '20.00',
-                  '22.00',
-                ])}
-              </View>
-              <View style={{ marginLeft: RFPercentage(2) }}>
-                <NewEvent />
-                <View>{/* <CustomButton /> */}</View>
-              </View>
-            </View>
+            <TodayEvents />
           </View>
         ) : (
           <View style={styles.wrap2}>
@@ -355,7 +253,7 @@ const styles = StyleSheet.create({
   monthSelectorContainer: {
     width: '90%',
     alignSelf: 'center',
-    bottom: RFPercentage(5),
+    bottom: RFPercentage(6.5),
   },
   nativeModalWrapper: {
     flex: 1,

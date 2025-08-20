@@ -88,6 +88,7 @@ const Navigator: React.FC = () => {
           headerShown: false,
         }}
       >
+
         {/* ----------------Common Flow----------- */}
         <Stack.Screen name="OnBoarding" component={OnBoarding} />
         <Stack.Screen name="LoginSignUp" component={LoginSignUp} />

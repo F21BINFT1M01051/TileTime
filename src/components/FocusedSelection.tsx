@@ -42,7 +42,9 @@ const FocusedSelection: React.FC<Props> = ({
     return defaultColor;
   };
 
-  const animatedIsFocused = useRef(new Animated.Value(hasValue ? 1 : 0)).current;
+  const animatedIsFocused = useRef(
+    new Animated.Value(hasValue ? 1 : 0),
+  ).current;
 
   useEffect(() => {
     Animated.timing(animatedIsFocused, {
@@ -56,10 +58,7 @@ const FocusedSelection: React.FC<Props> = ({
     ...styles.label,
     top: animatedIsFocused.interpolate({
       inputRange: [0, 1],
-      outputRange: [
-        Platform.OS === 'ios' ? RFPercentage(6) / 3.3 : RFPercentage(7) / 3.2,
-        RFPercentage(0.6),
-      ],
+      outputRange: [RFPercentage(7) / 3.1, RFPercentage(0.6)],
     }),
     fontSize: animatedIsFocused.interpolate({
       inputRange: [0, 1],
@@ -80,9 +79,7 @@ const FocusedSelection: React.FC<Props> = ({
       <View style={[styles.container, style]}>
         <View style={styles.wrap}>
           <Animated.Text style={labelStyle}>{placeholder}</Animated.Text>
-          <Text style={styles.valueText}>
-            {selectedText || ''}
-          </Text>
+          <Text style={styles.valueText}>{selectedText || ''}</Text>
           {icon && <View style={styles.iconContainer}>{icon}</View>}
         </View>
       </View>
@@ -96,7 +93,7 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: RFPercentage(0.1),
     width: '100%',
-    height: Platform.OS === 'ios' ? RFPercentage(6) : RFPercentage(7),
+    height: RFPercentage(7),
     backgroundColor: COLORS.fieldColor,
     borderColor: COLORS.fieldBorder,
     borderRadius: RFPercentage(1.3),
@@ -111,7 +108,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: Platform.OS === 'ios' ? RFPercentage(6) : RFPercentage(7),
+    height: RFPercentage(7),
   },
   valueText: {
     color: COLORS.inputColor,

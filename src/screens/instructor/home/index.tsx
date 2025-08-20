@@ -143,8 +143,10 @@ const InstructorHome = ({ navigation }: any) => {
               </View>
             </>
           )}
+          <View style={{width:"90%", alignSelf:"center"}}>
+            <EventCalendar onPress={openModal} />
+          </View>
 
-          <EventCalendar onPress={openModal} />
           <ImageBackground
             source={IMAGES.home_pic}
             resizeMode="contain"

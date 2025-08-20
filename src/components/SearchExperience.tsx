@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: RFPercentage(0.1),
     width: '100%',
-    height: RFPercentage(6.5),
+    height: RFPercentage(7),
     borderRadius: RFPercentage(1.3),
     justifyContent: 'center',
     zIndex: 1,
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
   },
   dropdownContainer: {
     position: 'absolute',
-    top: RFPercentage(6.6) + RFPercentage(1), // input height + margin
+    top: RFPercentage(7) + RFPercentage(1), // input height + margin
     left: 0,
     width: '100%',
     backgroundColor: COLORS.white,

@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import { COLORS, FONTS, ICONS } from '../config/theme';
+import { COLORS, FONTS, ICONS } from '../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import CustomButton from './CustomButton';
+import EventCard from '../../../components/EventCard';
 
 // Mock avatars (if needed)
 const avatars = [
@@ -29,7 +29,7 @@ const getSevenDayRow = () => {
   });
 };
 
-const EventCalendar = ({ onPress, events = [] }: any) => {
+const TodayEvents = ({ onPress, events = [] }: any) => {
   const renderTimeLabels = (times: string[]) =>
     times.map((time, i) => (
       <Text
@@ -67,7 +67,6 @@ const EventCalendar = ({ onPress, events = [] }: any) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Your Event Calendar</Text>
 
       {/* Week Row */}
       <View style={styles.weekRow}>
@@ -98,13 +97,7 @@ const EventCalendar = ({ onPress, events = [] }: any) => {
             {renderTimeLabels(['08.00', '10.00', '12.00', '14.00'])}
           </View>
           <View style={styles.eventColumn}>
-            <Text style={styles.noEventText}>No events for this date</Text>
-            <CustomButton
-              onPress={onPress}
-              title="Create Event"
-              icon={ICONS.calender}
-              style={styles.button}
-            />
+           <EventCard />
           </View>
         </View>
       ) : (
@@ -130,12 +123,12 @@ const EventCalendar = ({ onPress, events = [] }: any) => {
   );
 };
 
-export default EventCalendar;
+export default TodayEvents;
 
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    marginTop: RFPercentage(3),
+    marginTop: RFPercentage(1),
     alignSelf: 'center',
   },
   header: {
@@ -189,8 +182,7 @@ const styles = StyleSheet.create({
   eventColumn: {
     marginLeft: RFPercentage(2),
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+   
   },
   timeLabel: {
     color: COLORS.lightGrey,

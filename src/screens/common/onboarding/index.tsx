@@ -140,7 +140,6 @@ const styles = StyleSheet.create({
   contentWrapper: {
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(1.8),
   },
   getStartedText: {
     color: COLORS.primary,

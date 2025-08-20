@@ -75,15 +75,10 @@ const InstructorProfileSetup = ({ navigation }: any) => {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      style={{ flex: 1 }}
-    >
+    <View style={{ flex: 1, backgroundColor: COLORS.white }}>
       <ScrollView
-        ref={scrollViewRef}
         style={{ flex: 1, backgroundColor: COLORS.white }}
         contentContainerStyle={{ flexGrow: 1, paddingBottom: RFPercentage(3) }}
-        keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
         <AuthHeader
@@ -115,21 +110,20 @@ const InstructorProfileSetup = ({ navigation }: any) => {
 
       {!keyboardIsVisible && (
         <>
-          <View>
-            {stepIndex !== 0 && (
-              <View style={{ width: '100%', backgroundColor: COLORS.white }}>
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  onPress={() => {
-                    navigation.navigate('BottomTabs');
-                  }}
-                  style={styles.skip}
-                >
-                  <Text style={styles.skipText}>Skip For Now</Text>
-                </TouchableOpacity>
-              </View>
-            )}
-          </View>
+          {stepIndex !== 0 && (
+            <View style={{ width: '100%', backgroundColor: COLORS.white }}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => {
+                  navigation.navigate('BottomTabs');
+                }}
+                style={styles.skip}
+              >
+                <Text style={styles.skipText}>Skip For Now</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+
           <View style={styles.bottomWrapper}>
             <View style={styles.buttonContainer}>
               <CustomButton
@@ -147,7 +141,7 @@ const InstructorProfileSetup = ({ navigation }: any) => {
           </View>
         </>
       )}
-    </KeyboardAvoidingView>
+    </View>
   );
 };
 
@@ -186,7 +180,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: COLORS.lightWhite,
     backgroundColor: COLORS.white,
-    paddingBottom:RFPercentage(4)
+    paddingBottom: RFPercentage(4),
   },
   buttonContainer: {
     width: '90%',
