@@ -38,6 +38,9 @@ import CreateLessonInstructor from '../../screens/instructor/create-lessons/less
 import CreateLessonPlayer from '../../screens/player/create-lesson';
 import SelectLessonInstructors from '../../screens/player/create-lesson/select-instructor';
 import Payouts from '../../screens/common/home/payouts';
+import OpenPlayEventDetail from '../../screens/instructor/manage-events/open-play/event-detail';
+import EventAttendees from '../../screens/instructor/manage-events/attendees';
+import EventInsights from '../../screens/instructor/manage-events/insights';
 
 export type RootStackParamList = {
   OnBoarding: undefined;
@@ -76,6 +79,9 @@ export type RootStackParamList = {
   CreateLessonPlayer: undefined;
   SelectLessonInstructors: undefined;
   Payouts: undefined;
+  OpenPlayEventDetail: undefined;
+  EventAttendees:undefined;
+  EventInsights:undefined
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -88,6 +94,7 @@ const Navigator: React.FC = () => {
           headerShown: false,
         }}
       >
+        <Stack.Screen name="InstructorTabs" component={InstructorTabs} />
 
         {/* ----------------Common Flow----------- */}
         <Stack.Screen name="OnBoarding" component={OnBoarding} />
@@ -145,7 +152,7 @@ const Navigator: React.FC = () => {
         />
 
         {/* ------------------------Instructor Flow------------------- */}
-        <Stack.Screen name="InstructorTabs" component={InstructorTabs} />
+        {/* <Stack.Screen name="InstructorTabs" component={InstructorTabs} /> */}
         <Stack.Screen
           name="InstructorProfileSetup"
           component={InstructorProfileSetup}
@@ -156,6 +163,18 @@ const Navigator: React.FC = () => {
         />
         <Stack.Screen name="InstructorProfile" component={InstructorProfile} />
         <Stack.Screen name="PayoutsInstructor" component={PayoutsInstructor} />
+        <Stack.Screen
+          name="OpenPlayEventDetail"
+          component={OpenPlayEventDetail}
+        />
+        <Stack.Screen
+          name="EventAttendees"
+          component={EventAttendees}
+        />
+         <Stack.Screen
+          name="EventInsights"
+          component={EventInsights}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

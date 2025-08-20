@@ -9,7 +9,8 @@ import {
   Modal,
   Image,
   Animated,
-  Dimensions,
+  TouchableWithoutFeedback,
+  SectionList,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { COLORS, FONTS, IMAGES, ICONS } from '../../../../config/theme';
@@ -25,6 +26,11 @@ import { setEventType } from '../../../../redux/event-type/Actions';
 import ToggleSwitch from 'toggle-switch-react-native';
 import EventCalendar from '../../../../components/EventCalendar';
 import TodayEvents from '../../../instructor/components/TodayEvents';
+import { BlurView } from '@react-native-community/blur';
+import moment from 'moment';
+import EventCard from '../../../../components/EventCard';
+
+const today = moment().format('YYYY-MM-DD');
 
 LocaleConfig.locales['en'] = {
   monthNames: [
@@ -69,20 +75,74 @@ LocaleConfig.locales['en'] = {
 };
 LocaleConfig.defaultLocale = 'en';
 
+const upcoming = [
+  {
+    id: 1,
+    name: 'Four Winds: Community Mahjong Session',
+    host: 'Akshay and Nikita',
+    profile: ICONS.event,
+    date: 'Wed, 6 Aug',
+  },
+  {
+    id: 2,
+    name: 'Four Winds: Community Mahjong Session',
+    host: 'Akshay and Nikita',
+    profile: ICONS.event,
+    date: 'Sat, 9 Aug',
+  },
+  {
+    id: 3,
+    name: 'Four Winds: Community Mahjong Session',
+    host: 'Akshay and Nikita',
+    profile: ICONS.event,
+    date: 'Sat, 16 Aug',
+  },
+  {
+    id: 4,
+    name: 'Four Winds: Community Mahjong Session',
+    host: 'Akshay and Nikita',
+    profile: ICONS.event,
+    date: 'Fri, 29 Aug',
+  },
+  {
+    id: 5,
+    name: 'Four Winds: Community Mahjong Session',
+    host: 'Akshay and Nikita',
+    profile: ICONS.event,
+    date: 'Fri, 31 Aug',
+  },
+];
+
+const groupByDate = events => {
+  const grouped = events.reduce((acc, event) => {
+    if (!acc[event.date]) {
+      acc[event.date] = [];
+    }
+    acc[event.date].push(event);
+    return acc;
+  }, {});
+
+  return Object.keys(grouped).map(date => ({
+    title: date,
+    data: grouped[date],
+  }));
+};
+
 const Events = ({ navigation }: any) => {
   const [isCalendarVisible, setCalendarVisible] = useState(false);
-  const events = [];
+  const events = ['7'];
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedType, setSelectedType] = useState('');
   const dispatch = useDispatch();
   const role = useSelector(state => state.userFlow.userFlow);
   const [isOn, setIsOn] = useState(false);
+  const [query, setQuery] = useState('');
 
   const openModal = () => {
     setIsModalVisible(true);
   };
-
   const toggleCalendar = () => setCalendarVisible(!isCalendarVisible);
+  const groupedUpcoming = groupByDate(upcoming);
 
   return (
     <LinearGradient colors={[COLORS.white, COLORS.white]} style={{ flex: 1 }}>
@@ -96,7 +156,11 @@ const Events = ({ navigation }: any) => {
 
           {events.length > 0 ? (
             <View style={styles.searchContainer}>
-              <SearchField placeholder="Search events" />
+              <SearchField
+                placeholder="Search events"
+                value={query}
+                onChangeText={setQuery}
+              />
             </View>
           ) : (
             <View style={styles.wrap}>
@@ -151,8 +215,49 @@ const Events = ({ navigation }: any) => {
                 />
               </View>
             </View>
-
-            <TodayEvents />
+            {isOn ? (
+              <View>
+                <Text
+                  style={{
+                    fontFamily: FONTS.semiBold,
+                    fontSize: RFPercentage(1.8),
+                    marginTop: RFPercentage(3),
+                    color: COLORS.primary,
+                  }}
+                >
+                  Upcoming Events
+                </Text>
+                <SectionList
+                  sections={groupedUpcoming}
+                  keyExtractor={(item, index) => item.id.toString() + index}
+                  
+                  renderSectionHeader={({ section: { title } }) => (
+                    <Text
+                      style={{
+                        fontFamily: FONTS.inter_semiBold,
+                        fontSize: RFPercentage(1.6),
+                        color: COLORS.primary,
+                        marginTop:RFPercentage(2),
+                        fontWeight:'600'
+                      }}
+                    >
+                      {title}
+                    </Text>
+                  )}
+                  renderItem={({ item }) => (
+                    <EventCard
+                      name={item.name}
+                      host={item.host}
+                      profile={item.profile}
+                      onPress={()=> navigation.navigate("OpenPlayEventDetail")}
+                    />
+                  )}
+                  contentContainerStyle={{ marginVertical:RFPercentage(1) }}
+                />
+              </View>
+            ) : (
+              <TodayEvents />
+            )}
           </View>
         ) : (
           <View style={styles.wrap2}>
@@ -178,29 +283,46 @@ const Events = ({ navigation }: any) => {
         animationType="slide"
         transparent
       >
-        <View style={styles.nativeModalWrapper}>
-          <View style={styles.calendarContainer}>
-            <Calendar
-              style={styles.calendar}
-              hideExtraDays
-              theme={{
-                backgroundColor: '#ffffff',
-                calendarBackground: '#ffffff',
-                textSectionTitleColor: '#b6c1cd',
-                selectedDayBackgroundColor: COLORS.pink,
-                selectedDayTextColor: '#ffffff',
-                todayTextColor: COLORS.pink,
-                dayTextColor: '#666666',
-                textDayFontFamily: FONTS.medium,
-                textMonthFontFamily: FONTS.semiBold,
-                textDayFontSize: RFPercentage(2.3),
-                textMonthFontSize: RFPercentage(2),
-                textDayHeaderFontSize: RFPercentage(2),
-                textDayHeaderFontFamily: FONTS.medium,
-              }}
-            />
-          </View>
-        </View>
+        <BlurView
+          style={StyleSheet.absoluteFill}
+          blurType="dark"
+          blurAmount={5}
+          reducedTransparencyFallbackColor="white"
+        >
+          <TouchableWithoutFeedback onPress={() => setCalendarVisible(false)}>
+            <View style={styles.nativeModalWrapper}>
+              <View style={styles.calendarContainer}>
+                <Calendar
+                  style={styles.calendar}
+                  hideExtraDays
+                  markedDates={{
+                    [today]: {
+                      selected: true,
+                      selectedColor: COLORS.pink,
+                      selectedTextColor: COLORS.white,
+                    },
+                  }}
+                  theme={{
+                    backgroundColor: '#ffffff',
+                    calendarBackground: '#ffffff',
+                    textSectionTitleColor: COLORS.primary,
+                    selectedDayBackgroundColor: COLORS.pink,
+                    selectedDayTextColor: '#ffffff',
+                    todayTextColor: COLORS.pink,
+                    dayTextColor: COLORS.primary,
+                    textDayFontFamily: FONTS.inter_semiBold,
+                    textMonthFontFamily: FONTS.inter,
+                    textDayFontSize: RFPercentage(2.3),
+                    textMonthFontSize: RFPercentage(2),
+                    textDayHeaderFontSize: RFPercentage(2),
+                    textDayHeaderFontFamily: FONTS.inter_semiBold,
+                    arrowColor: COLORS.primary,
+                  }}
+                />
+              </View>
+            </View>
+          </TouchableWithoutFeedback>
+        </BlurView>
       </Modal>
 
       {/* Event Modal */}
@@ -258,7 +380,6 @@ const styles = StyleSheet.create({
   nativeModalWrapper: {
     flex: 1,
     justifyContent: 'flex-end',
-    backgroundColor: 'rgba(0,0,0,0.4)',
   },
   sub: {
     color: COLORS.primary,
@@ -301,7 +422,9 @@ const styles = StyleSheet.create({
     maxHeight: '60%',
   },
   dragHandle: {},
-  calendar: {},
+  calendar: {
+    height: '70%',
+  },
 
   weekRow: {
     flexDirection: 'row',

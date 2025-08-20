@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS, ICONS } from '../config/theme';
@@ -12,36 +12,37 @@ const avatars = [
   { id: 6, profile: ICONS.avatar },
 ];
 
-const EventCard = () => {
+const EventCard = ({name, host, profile, onPress}) => {
   const visibleAvatars = avatars.slice(0, 2);
   const remainingCount = avatars.length - visibleAvatars.length;
 
   return (
-    <View style={styles.card}>
+    <TouchableOpacity  activeOpacity={0.8}  onPress={onPress} style={styles.card}>
       <View style={styles.header}>
-        <View style={{ width: RFPercentage(16) }}>
+        <View style={{ width: RFPercentage(25) }}>
           <Text
             style={{
               fontFamily: FONTS.medium,
               color: COLORS.primary,
-              fontSize: RFPercentage(1.7),
+              fontSize: RFPercentage(1.6),
             }}
           >
-            Four Winds:
+           {name}
           </Text>
-          <Text
+           <Text
             style={{
-              fontFamily: FONTS.medium,
-              color: COLORS.primary,
-              fontSize: RFPercentage(1.7),
+              fontFamily: FONTS.regular,
+              color: COLORS.lightGrey,
+              fontSize: RFPercentage(1.4),
+              marginTop:RFPercentage(0.5)
             }}
           >
-            Community Mahjong Session
+           Hosted by: {host}
           </Text>
         </View>
         <View>
           <Image
-            source={ICONS.event}
+            source={profile}
             resizeMode="contain"
             style={styles.eventImage}
           />
@@ -67,7 +68,7 @@ const EventCard = () => {
           </View>
         )}
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -76,16 +77,18 @@ export default EventCard;
 const styles = StyleSheet.create({
   card: {
     width: '100%',
-    height: RFPercentage(11),
-    backgroundColor: 'rgba(182, 239, 17, 0.14)',
-    borderRadius: RFPercentage(2),
+    height: RFPercentage(9),
+    backgroundColor: '#FFF0FA',
+    borderRadius: RFPercentage(1.5),
     justifyContent: 'center',
+    marginTop:RFPercentage(1)
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '90%',
     alignSelf: 'center',
+    alignItems: 'center',
   },
   eventImage: {
     width: RFPercentage(8),
@@ -96,14 +99,14 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(1),
     alignItems: 'center',
     position: 'absolute',
-    bottom: RFPercentage(1),
-    right: RFPercentage(1),
+    right: RFPercentage(1.6),
+    bottom:RFPercentage(0.5)
   },
   avatarWrapper: {
-    width: RFPercentage(3.5),
-    height: RFPercentage(3.5),
+    width: RFPercentage(3),
+    height: RFPercentage(3),
     borderRadius: RFPercentage(2),
-    borderWidth: 1.5,
+    borderWidth: RFPercentage(0.2),
     borderColor: COLORS.white,
     overflow: 'hidden',
     backgroundColor: COLORS.white,

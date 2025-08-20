@@ -55,6 +55,9 @@ export const COLORS = {
   blue2: '#ECF1FF',
   green3: '#ECFFE5',
   tab2: 'rgba(206, 206, 206, 0)',
+  line: '#E3E3E3',
+  red2 : "#D30505",
+  green4 : "#00B8B7"
 };
 
 export const IMAGES = {
@@ -77,6 +80,7 @@ export const IMAGES = {
   home_bottom: require('../assets/images/home-bottom.png'),
   home_pic: require('../assets/images/home11.png'),
   event22: require('../assets/images/event22.png'),
+  detail22: require('../assets/images/detail22.png'),
 };
 
 export const ICONS = {
@@ -190,6 +194,15 @@ export const ICONS = {
   bank: require('../assets/icons/bank.png'),
   paypal: require('../assets/icons/paypal.png'),
   cross2: require('../assets/icons/x2.png'),
+  copy2: require('../assets/icons/Copy2.png'),
+  Eye: require('../assets/icons/Eye.png'),
+  eventChat: require('../assets/icons/eventChat.png'),
+  locked: require('../assets/icons/locked.png'),
+  dots: require('../assets/icons/dots22.png'),
+  share22: require('../assets/icons/share22.png'),
+  msg: require('../assets/icons/msg.png'),
+    upload2: require('../assets/icons/Upload.png'),
+
 };
 
 export const FONTS = {
@@ -204,4 +217,6 @@ export const FONTS = {
   bold2: 'PublicSans-Bold',
   tab: 'SchibstedGrotesk-SemiBold',
   stylish: 'ShadowsIntoLight',
+  inter: 'Inter_24pt-Medium',
+  inter_semiBold: 'Inter_18pt-SemiBold',
 };

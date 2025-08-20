@@ -273,7 +273,7 @@ const EventDetails = () => {
               <CustomButton onPress={() => {}} title="Invite Friends" />
 
               <SocialField
-                name=" Not Attending, Cancel"
+                name="Not Attending, Cancel"
                 icon={ICONS.x}
                 borderColor={COLORS.red}
                 color={COLORS.red}

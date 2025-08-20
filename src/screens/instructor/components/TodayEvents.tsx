@@ -1,21 +1,13 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
-import { COLORS, FONTS, ICONS } from '../../../config/theme';
+import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import EventCard from '../../../components/EventCard';
+import { COLORS, FONTS, ICONS } from '../../../config/theme';
 
-// Mock avatars (if needed)
-const avatars = [
-  { id: 1, profile: ICONS.avatar },
-  { id: 2, profile: ICONS.avatar },
-  { id: 3, profile: ICONS.avatar },
-  { id: 4, profile: ICONS.avatar },
-];
-
+// Week row helper
 const getSevenDayRow = () => {
   const days = ['Mo', 'Tu', 'Wed', 'Th', 'Fr', 'Sa', 'Su'];
   const today = new Date();
-  const dayOfWeek = today.getDay(); // 0 (Sun) - 6 (Sat)
+  const dayOfWeek = today.getDay();
   const diffToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
 
   return [...Array(7)].map((_, i) => {
@@ -29,54 +21,74 @@ const getSevenDayRow = () => {
   });
 };
 
-const TodayEvents = ({ onPress, events = [] }: any) => {
-  const renderTimeLabels = (times: string[]) =>
-    times.map((time, i) => (
-      <Text
-        key={i}
-        style={[styles.timeLabel, { marginTop: i === 0 ? 0 : RFPercentage(4) }]}
-      >
-        {time}
-      </Text>
-    ));
+// Timeline slots (even hours only)
+const timeSlots = [
+  '08:00',
+  '10:00',
+  '12:00',
+  '14:00',
+  '16:00',
+  '18:00',
+  '20:00',
+  '22:00',
+];
 
-  const renderAvatars = () => {
-    const visible = avatars.slice(0, 2);
-    const remaining = avatars.length - visible.length;
-    return (
-      <View style={styles.avatarContainer}>
-        {visible.map((item, index) => (
-          <View
-            key={item.id}
-            style={[
-              styles.avatarWrapper,
-              { marginLeft: index === 0 ? 0 : -10 },
-            ]}
-          >
-            <Image source={item.profile} style={styles.avatarImage} />
-          </View>
-        ))}
-        {remaining > 0 && (
-          <View style={[styles.avatarWrapper, styles.remainingWrapper]}>
-            <Text style={styles.remainingText}>+{remaining}</Text>
-          </View>
-        )}
-      </View>
-    );
-  };
+// Events
+const events = [
+  {
+    id: 1,
+    title: 'Morning Session',
+    start: '08:00',
+    end: '10:00',
+  },
+  {
+    id: 2,
+    title: 'Lunch Meetup',
+    start: '12:00',
+    end: '13:00',
+  },
+  {
+    id: 3,
+    title: 'Evening Workshop',
+    start: '14:00',
+    end: '22:00',
+  },
+];
+
+const avatars = [
+  { id: 1, profile: ICONS.avatar },
+  { id: 2, profile: ICONS.avatar },
+  { id: 3, profile: ICONS.avatar },
+  { id: 4, profile: ICONS.avatar },
+  { id: 5, profile: ICONS.avatar },
+  { id: 6, profile: ICONS.avatar },
+];
+
+// helper: index of time in slots
+const getTimeIndex = time => timeSlots.indexOf(time);
+
+// helper: event position & height
+const getEventStyle = (start, end) => {
+  const slotHeight = RFPercentage(7); // height of each time slot
+  const startIndex = getTimeIndex(start);
+  const endIndex = getTimeIndex(end);
+  const top = startIndex * slotHeight;
+  const height = (endIndex - startIndex) * slotHeight + 20;
+  return { top, height };
+};
+
+export default function TodayEvents() {
+  const visibleAvatars = avatars.slice(0, 2);
+  const remainingCount = avatars.length - visibleAvatars.length;
 
   return (
-    <View style={styles.container}>
-
+    <ScrollView style={styles.container}>
       {/* Week Row */}
       <View style={styles.weekRow}>
         {getSevenDayRow().map((day, index) => (
           <View
             key={index}
-            style={[
-              styles.dayContainer,
-              day.isToday && styles.todayContainer,
-            ]}
+            style={[styles.dayContainer, day.isToday && styles.todayContainer]}
           >
             <Text style={[styles.dayDate, day.isToday && styles.todayText]}>
               {day.date}
@@ -90,56 +102,122 @@ const TodayEvents = ({ onPress, events = [] }: any) => {
 
       <Text style={styles.scheduleText}>Schedule Today</Text>
 
-      {/* Events vs Empty */}
-      {events.length === 0 ? (
-        <View style={styles.timeBlock}>
-          <View style={styles.timeColumn}>
-            {renderTimeLabels(['08.00', '10.00', '12.00', '14.00'])}
-          </View>
-          <View style={styles.eventColumn}>
-           <EventCard />
-          </View>
-        </View>
-      ) : (
-        <>
-          {/* Example: Event at 10:00 */}
-          <View style={styles.timeBlock}>
-            <View>{renderTimeLabels(['10.00'])}</View>
-            <View style={styles.eventBox}>
-              <Text style={styles.eventText}>
-                {events[0].title || 'Community Mahjong Session'}
-              </Text>
-              {renderAvatars()}
-              <Image
-                source={ICONS.event}
-                resizeMode="contain"
-                style={styles.eventImageSmall}
-              />
+      {/* Timeline + Events */}
+      <View style={{ flexDirection: 'row', marginTop: RFPercentage(1) }}>
+        {/* Time column */}
+        <View style={styles.timeline}>
+          {timeSlots.map((time, index) => (
+            <View key={index} style={styles.timeSlot}>
+              <Text style={styles.timeText}>{time}</Text>
             </View>
-          </View>
-        </>
-      )}
-    </View>
-  );
-};
+          ))}
+        </View>
 
-export default TodayEvents;
+        {/* Events container */}
+        <View style={styles.eventsContainer}>
+          {events.map(event => {
+            const { top, height } = getEventStyle(event.start, event.end);
+            return (
+              <View
+                key={event.id}
+                style={[styles.event, { height, marginTop: RFPercentage(2) }]}
+              >
+                <View style={styles.header}>
+                  <View style={{ width: RFPercentage(16) }}>
+                    <Text
+                      style={{
+                        fontFamily: FONTS.medium,
+                        color: COLORS.primary,
+                        fontSize:
+                          event.id === 2
+                            ? RFPercentage(1.3)
+                            : RFPercentage(1.6),
+                      }}
+                    >
+                      Four Winds:
+                    </Text>
+                    <Text
+                      style={{
+                        fontFamily: FONTS.medium,
+                        color: COLORS.primary,
+                        fontSize:
+                          event.id === 2
+                            ? RFPercentage(1.3)
+                            : RFPercentage(1.6),
+                      }}
+                    >
+                      Community Mahjong Session
+                    </Text>
+                  </View>
+                  <View>
+                    <Image
+                      source={ICONS.event}
+                      resizeMode="contain"
+                      style={[
+                        event.id === 2
+                          ? { width: RFPercentage(3), height: RFPercentage(3) }
+                          : styles.eventImage,
+                      ]}
+                    />
+                  </View>
+
+                  {/* Horizontal Avatar List */}
+                  <View
+                    style={[
+                      event.id === 2
+                        ? {
+                            flexDirection: 'row',
+                            marginTop: RFPercentage(1),
+                            alignItems: 'center',
+                            position: 'absolute',
+                            right: RFPercentage(5),
+                          }
+                        : styles.avatarContainer,
+                    ]}
+                  >
+                    {visibleAvatars.map((item, index) => (
+                      <View
+                        key={item.id}
+                        style={[
+                          styles.avatarWrapper,
+                          { marginLeft: index === 0 ? 0 : -10 },
+                        ]}
+                      >
+                        <Image
+                          source={item.profile}
+                          style={styles.avatarImage}
+                        />
+                      </View>
+                    ))}
+                    {remainingCount > 0 && (
+                      <View
+                        style={[styles.avatarWrapper, styles.remainingWrapper]}
+                      >
+                        <Text style={styles.remainingText}>
+                          +{remainingCount}
+                        </Text>
+                      </View>
+                    )}
+                  </View>
+                </View>
+              </View>
+            );
+          })}
+        </View>
+      </View>
+    </ScrollView>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    marginTop: RFPercentage(1),
-    alignSelf: 'center',
+    flex: 1,
+    marginTop: RFPercentage(2),
   },
-  header: {
-    color: COLORS.primary,
-    fontFamily: FONTS.semiBold,
-    fontSize: RFPercentage(1.8),
-  },
+  // Week row styles
   weekRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: RFPercentage(1.5),
   },
   dayContainer: {
     alignItems: 'center',
@@ -155,7 +233,6 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular,
     fontSize: RFPercentage(1.5),
     color: COLORS.lightGrey,
-    top: RFPercentage(0.3),
   },
   dayDate: {
     fontFamily: FONTS.semiBold,
@@ -166,83 +243,83 @@ const styles = StyleSheet.create({
     color: COLORS.pink,
   },
   scheduleText: {
-    color: COLORS.primary,
     fontFamily: FONTS.medium,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
+    color: COLORS.primary,
     marginTop: RFPercentage(2),
   },
-  timeBlock: {
-    flexDirection: 'row',
-    marginTop: RFPercentage(2),
+  // Timeline
+  timeline: {
+    width: RFPercentage(5),
   },
-  timeColumn: {
-    paddingLeft: RFPercentage(1),
-    marginTop: RFPercentage(1),
+  timeSlot: {
+    height: RFPercentage(6.5),
+    justifyContent: 'center',
   },
-  eventColumn: {
-    marginLeft: RFPercentage(2),
-    flex: 1,
-   
-  },
-  timeLabel: {
-    color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.5),
-    fontFamily: FONTS.regular,
-  },
-  noEventText: {
-    color: COLORS.primary,
-    fontFamily: FONTS.medium,
-    fontSize: RFPercentage(1.7),
-  },
-  button: {
-    width: RFPercentage(22),
-    borderRadius: RFPercentage(1.4),
-    marginTop: RFPercentage(1),
-  },
-  eventBox: {
-    marginLeft: RFPercentage(2),
-    padding: RFPercentage(1),
-    backgroundColor: 'rgba(17, 54, 239, 0.14)',
-    borderRadius: RFPercentage(1),
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: RFPercentage(1),
-  },
-  eventText: {
-    flex: 1,
-    color: COLORS.primary,
-    fontFamily: FONTS.medium,
+  timeText: {
     fontSize: RFPercentage(1.6),
+    color: COLORS.lightGrey,
+  },
+  // Events
+  eventsContainer: {
+    flex: 1,
+    marginLeft: RFPercentage(2),
+    position: 'relative',
+  },
+  event: {
+    backgroundColor: 'rgba(182, 239, 17, 0.14)',
+    width: '100%',
+    borderRadius: RFPercentage(1),
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: RFPercentage(0.5),
+  },
+  eventTitle: {
+    fontWeight: 'bold',
+    fontSize: RFPercentage(1.8),
   },
   avatarContainer: {
     flexDirection: 'row',
+    marginTop: RFPercentage(1),
     alignItems: 'center',
+    position: 'absolute',
+    bottom: 0,
+    right: RFPercentage(-1),
   },
   avatarWrapper: {
     width: RFPercentage(3.5),
     height: RFPercentage(3.5),
     borderRadius: RFPercentage(2),
+    borderWidth: 1.5,
+    borderColor: COLORS.white,
     overflow: 'hidden',
     backgroundColor: COLORS.white,
-    borderWidth: 1,
-    borderColor: COLORS.lightGrey,
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   avatarImage: {
     width: '100%',
     height: '100%',
+    borderRadius: RFPercentage(2.25),
   },
   remainingWrapper: {
-    backgroundColor: COLORS.lightGrey,
+    backgroundColor: '#FFE5F6',
+    right: RFPercentage(1),
   },
   remainingText: {
-    fontSize: RFPercentage(1.3),
+    color: COLORS.pink,
+    fontSize: RFPercentage(1.6),
     fontFamily: FONTS.medium,
-    color: COLORS.white,
   },
-  eventImageSmall: {
-    width: RFPercentage(2.5),
-    height: RFPercentage(2.5),
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '90%',
+    alignSelf: 'center',
+    alignItems: 'center',
+  },
+  eventImage: {
+    width: RFPercentage(8),
+    height: RFPercentage(8),
   },
 });

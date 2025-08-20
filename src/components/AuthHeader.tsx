@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(1.7),
   },
   rightIcon: {
-    width: RFPercentage(2),
-    height: RFPercentage(2),
+    width: RFPercentage(2.5),
+    height: RFPercentage(2.5),
   },
 });

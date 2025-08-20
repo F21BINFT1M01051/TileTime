@@ -7,7 +7,7 @@ import {
   Image,
 } from 'react-native';
 import React from 'react';
-import { COLORS, FONTS, IMAGES } from '../config/theme';
+import { COLORS, FONTS, ICONS, IMAGES } from '../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
@@ -39,6 +39,7 @@ interface Props {
   media?: boolean;
   title: string;
   onPress: () => void;
+  subTitle ? : string
 }
 
 const DetailComponent = (props: Props) => {
@@ -57,7 +58,7 @@ const DetailComponent = (props: Props) => {
         <View>
           <Text style={styles.title}>{props.title}</Text>
           <Text style={styles.subtitle}>
-            {props.media ? `${media.length} files` : `${data.length} Members`}
+            {props.media ? `${media.length} files` : props.subTitle ? props.subTitle  : `${data.length} Members`}
           </Text>
 
           <View style={styles.profileRow}>
@@ -107,11 +108,7 @@ const DetailComponent = (props: Props) => {
         </View>
         <View>
           <TouchableOpacity>
-            <AntDesign
-              name="right"
-              color={COLORS.icon}
-              size={RFPercentage(2)}
-            />
+           <Image source={ICONS.right} resizeMode='contain' style={{width:RFPercentage(1.6), height:RFPercentage(1.6)}} />
           </TouchableOpacity>
         </View>
       </View>
