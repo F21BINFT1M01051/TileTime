@@ -82,6 +82,7 @@ const upcoming = [
     host: 'Akshay and Nikita',
     profile: ICONS.event,
     date: 'Wed, 6 Aug',
+    type: 'Open Play',
   },
   {
     id: 2,
@@ -89,6 +90,7 @@ const upcoming = [
     host: 'Akshay and Nikita',
     profile: ICONS.event,
     date: 'Sat, 9 Aug',
+    type: 'Guided Play',
   },
   {
     id: 3,
@@ -96,6 +98,7 @@ const upcoming = [
     host: 'Akshay and Nikita',
     profile: ICONS.event,
     date: 'Sat, 16 Aug',
+    type: 'Lessons',
   },
   {
     id: 4,
@@ -103,6 +106,7 @@ const upcoming = [
     host: 'Akshay and Nikita',
     profile: ICONS.event,
     date: 'Fri, 29 Aug',
+    type: 'Guided Play',
   },
   {
     id: 5,
@@ -110,10 +114,11 @@ const upcoming = [
     host: 'Akshay and Nikita',
     profile: ICONS.event,
     date: 'Fri, 31 Aug',
+    type: 'Open Play',
   },
 ];
 
-const groupByDate = events => {
+const groupByDate = (events: any) => {
   const grouped = events.reduce((acc, event) => {
     if (!acc[event.date]) {
       acc[event.date] = [];
@@ -200,7 +205,7 @@ const Events = ({ navigation }: any) => {
                   style={{
                     fontFamily: FONTS.regular,
                     color: COLORS.primary,
-                    fontSize: RFPercentage(1.8),
+                    fontSize: RFPercentage(1.7),
                     marginRight: RFPercentage(1),
                   }}
                 >
@@ -230,15 +235,14 @@ const Events = ({ navigation }: any) => {
                 <SectionList
                   sections={groupedUpcoming}
                   keyExtractor={(item, index) => item.id.toString() + index}
-                  
                   renderSectionHeader={({ section: { title } }) => (
                     <Text
                       style={{
                         fontFamily: FONTS.inter_semiBold,
-                        fontSize: RFPercentage(1.6),
+                        fontSize: RFPercentage(1.7),
                         color: COLORS.primary,
-                        marginTop:RFPercentage(2),
-                        fontWeight:'600'
+                        marginTop: RFPercentage(2.5),
+                        fontWeight: '700',
                       }}
                     >
                       {title}
@@ -249,10 +253,14 @@ const Events = ({ navigation }: any) => {
                       name={item.name}
                       host={item.host}
                       profile={item.profile}
-                      onPress={()=> navigation.navigate("OpenPlayEventDetail")}
+                      onPress={() =>
+                        navigation.navigate('InstructorEventDetail', {
+                          type: item.type,
+                        })
+                      }
                     />
                   )}
-                  contentContainerStyle={{ marginVertical:RFPercentage(1) }}
+                  contentContainerStyle={{ marginVertical: RFPercentage(1) }}
                 />
               </View>
             ) : (
@@ -280,7 +288,7 @@ const Events = ({ navigation }: any) => {
       <Modal
         visible={isCalendarVisible}
         onRequestClose={toggleCalendar}
-        animationType="slide"
+        animationType="fade"
         transparent
       >
         <BlurView
@@ -303,11 +311,11 @@ const Events = ({ navigation }: any) => {
                     },
                   }}
                   theme={{
-                    backgroundColor: '#ffffff',
-                    calendarBackground: '#ffffff',
+                    backgroundColor: COLORS.white,
+                    calendarBackground: COLORS.white,
                     textSectionTitleColor: COLORS.primary,
                     selectedDayBackgroundColor: COLORS.pink,
-                    selectedDayTextColor: '#ffffff',
+                    selectedDayTextColor: COLORS.white,
                     todayTextColor: COLORS.pink,
                     dayTextColor: COLORS.primary,
                     textDayFontFamily: FONTS.inter_semiBold,
@@ -375,7 +383,7 @@ const styles = StyleSheet.create({
   monthSelectorContainer: {
     width: '90%',
     alignSelf: 'center',
-    bottom: RFPercentage(6.5),
+    bottom: RFPercentage(6),
   },
   nativeModalWrapper: {
     flex: 1,

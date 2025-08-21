@@ -17,13 +17,15 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import LinearGradient from 'react-native-linear-gradient';
 import CustomButton from '../../../../../components/CustomButton';
 import DetailComponent from '../../../../../components/DetailComponent';
-import Details from '../details';
+import Details from '../details-tab';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 import ToggleSwitch from 'toggle-switch-react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 import EditEventDetails from '../../../components/EditEventDetails';
+import ShareEvent from '../../../components/ShareEvent';
 
-const OpenPlayEventDetail = ({ navigation }: any) => {
+const InstructorEventDetail = ({ navigation, route }: any) => {
+  const { type } = route.params;
   const [tab, setTab] = useState('Details');
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
@@ -34,6 +36,12 @@ const OpenPlayEventDetail = ({ navigation }: any) => {
     setIsModalVisible(true);
   };
 
+  const [isModalVisible2, setIsModalVisible2] = useState(false);
+
+  const openModal2 = () => {
+    setIsModalVisible2(true);
+  };
+
   const scrollViewRef = useRef(null);
 
   useEffect(() => {
@@ -42,6 +50,7 @@ const OpenPlayEventDetail = ({ navigation }: any) => {
     }
   }, [messages]);
 
+  // Image Picker
   const handleImagePick = () => {
     launchImageLibrary(
       {
@@ -81,6 +90,7 @@ const OpenPlayEventDetail = ({ navigation }: any) => {
           paddingBottom: tab === 'Details' ? RFPercentage(4) : 0,
         }}
       >
+        {/* Header */}
         <ImageBackground
           source={IMAGES.detail22}
           resizeMode="cover"
@@ -119,6 +129,29 @@ const OpenPlayEventDetail = ({ navigation }: any) => {
               </View>
             </View>
           </View>
+
+          {/* Badge */}
+          {type === 'Guided Play' && (
+            <View
+              style={{
+                width: '90%',
+                alignSelf: 'center',
+                position: 'absolute',
+                top: RFPercentage(10),
+              }}
+            >
+              <Image
+                source={ICONS.badge2}
+                style={{
+                  width: RFPercentage(16),
+                  height: RFPercentage(10),
+                }}
+                resizeMode="contain"
+              />
+            </View>
+          )}
+
+          {/* Event Info */}
           <LinearGradient
             colors={['rgba(255, 255, 255, 0.5)', COLORS.white]}
             style={styles.linearGradient}
@@ -167,6 +200,8 @@ const OpenPlayEventDetail = ({ navigation }: any) => {
             </View>
           </LinearGradient>
         </ImageBackground>
+
+        {/* Buttons */}
         <View style={styles.wrapper90}>
           <View style={styles.bottomContent}>
             <TouchableOpacity
@@ -179,9 +214,11 @@ const OpenPlayEventDetail = ({ navigation }: any) => {
             <CustomButton
               title={'Share Event'}
               style={styles.saveButton}
-              onPress={() => {}}
+              onPress={openModal2}
             />
           </View>
+
+          {/* Attendees */}
           <DetailComponent
             title="Attendees"
             subTitle="26 confirmed attendees, 2 cancelled"
@@ -189,6 +226,8 @@ const OpenPlayEventDetail = ({ navigation }: any) => {
               navigation.navigate('EventAttendees');
             }}
           />
+
+          {/* Insights */}
           <TouchableOpacity
             activeOpacity={0.8}
             style={styles.insightBox}
@@ -209,6 +248,8 @@ const OpenPlayEventDetail = ({ navigation }: any) => {
             </View>
           </TouchableOpacity>
         </View>
+
+        {/* Tabs */}
         <View style={styles.tabBar}>
           <View style={styles.tabRow}>
             <TouchableOpacity
@@ -245,9 +286,11 @@ const OpenPlayEventDetail = ({ navigation }: any) => {
             </TouchableOpacity>
           </View>
         </View>
+
+        {/* Tab Content */}
         <View style={{ width: '100%', alignSelf: 'center' }}>
           {tab === 'Details' ? (
-            <Details />
+            <Details type={type} />
           ) : isOn ? (
             <ImageBackground
               source={ICONS.eventChat}
@@ -283,24 +326,8 @@ const OpenPlayEventDetail = ({ navigation }: any) => {
                               height: RFPercentage(4),
                             }}
                           />
-                          <Text
-                            style={{
-                              fontFamily: FONTS.semiBold,
-                              color: COLORS.primary,
-                              fontSize: RFPercentage(1.8),
-                              marginLeft: RFPercentage(1),
-                            }}
-                          >
-                            You
-                          </Text>
-                          <Text
-                            style={{
-                              fontFamily: FONTS.regular,
-                              color: COLORS.lightGrey,
-                              fontSize: RFPercentage(1.7),
-                              marginLeft: RFPercentage(1),
-                            }}
-                          >
+                          <Text style={styles.name}>You</Text>
+                          <Text style={styles.time}>
                             {moment(msg.createdAt).fromNow()}
                           </Text>
                         </View>
@@ -319,15 +346,7 @@ const OpenPlayEventDetail = ({ navigation }: any) => {
               </View>
             </ImageBackground>
           ) : (
-            <View
-              style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginVertical: RFPercentage(3),
-                width: '80%',
-                alignSelf: 'center',
-              }}
-            >
+            <View style={styles.wrap2}>
               <Image
                 source={ICONS.locked}
                 resizeMode="contain"
@@ -336,26 +355,10 @@ const OpenPlayEventDetail = ({ navigation }: any) => {
                   height: RFPercentage(10),
                 }}
               />
-              <Text
-                style={{
-                  color: COLORS.primary,
-                  fontFamily: FONTS.semiBold,
-                  fontSize: RFPercentage(1.8),
-                  textAlign: 'center',
-                  marginTop: RFPercentage(2),
-                }}
-              >
+              <Text style={styles.chatEmpty}>
                 Discussion is Off for This Event
               </Text>
-              <Text
-                style={{
-                  color: COLORS.lightGrey,
-                  fontFamily: FONTS.regular,
-                  fontSize: RFPercentage(1.6),
-                  textAlign: 'center',
-                  marginTop: RFPercentage(2),
-                }}
-              >
+              <Text style={styles.detail}>
                 Once enabled, you and your attendees can chat, ask questions,
                 and stay updated, all in one place.
               </Text>
@@ -419,15 +422,22 @@ const OpenPlayEventDetail = ({ navigation }: any) => {
         </View>
       )}
 
+      {/* Edit Modal */}
       <EditEventDetails
         visible={isModalVisible}
         onClose={() => setIsModalVisible(false)}
+      />
+
+      {/* Share Modal */}
+      <ShareEvent
+        visible={isModalVisible2}
+        onClose={() => setIsModalVisible2(false)}
       />
     </View>
   );
 };
 
-export default OpenPlayEventDetail;
+export default InstructorEventDetail;
 
 const styles = StyleSheet.create({
   container: {
@@ -447,6 +457,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: RFPercentage(8),
   },
+  chatEmpty: {
+    color: COLORS.primary,
+    fontFamily: FONTS.semiBold,
+    fontSize: RFPercentage(1.8),
+    textAlign: 'center',
+    marginTop: RFPercentage(2),
+  },
   dotsButton: {
     position: 'absolute',
     right: 0,
@@ -458,11 +475,18 @@ const styles = StyleSheet.create({
   },
   groupImage: {
     width: '100%',
-    height: RFPercentage(35),
+    height: RFPercentage(36),
+  },
+  wrap2: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: RFPercentage(3),
+    width: '80%',
+    alignSelf: 'center',
   },
   linearGradient: {
     width: '100%',
-    marginTop: RFPercentage(2),
+    marginTop: RFPercentage(3.5),
     paddingVertical: RFPercentage(2),
     height: '100%',
   },
@@ -473,6 +497,25 @@ const styles = StyleSheet.create({
   rowCenter: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  name: {
+    fontFamily: FONTS.semiBold,
+    color: COLORS.primary,
+    fontSize: RFPercentage(1.8),
+    marginLeft: RFPercentage(1),
+  },
+  time: {
+    fontFamily: FONTS.regular,
+    color: COLORS.lightGrey,
+    fontSize: RFPercentage(1.7),
+    marginLeft: RFPercentage(1),
+  },
+  detail: {
+    color: COLORS.lightGrey,
+    fontFamily: FONTS.regular,
+    fontSize: RFPercentage(1.6),
+    textAlign: 'center',
+    marginTop: RFPercentage(2),
   },
   imageWrapper: {
     width: RFPercentage(15),
@@ -684,7 +727,7 @@ const styles = StyleSheet.create({
   },
   messageRow: {
     alignSelf: 'flex-start', // all messages on left side
-    width: '90%',
+    width: '100%',
     paddingVertical: RFPercentage(1),
     marginTop: RFPercentage(1),
     borderBottomWidth: RFPercentage(0.1),

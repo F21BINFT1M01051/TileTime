@@ -203,6 +203,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: '100%',
     paddingBottom: RFPercentage(4),
+    backgroundColor: COLORS.white,
   },
   modalFooterInner: {
     width: '90%',

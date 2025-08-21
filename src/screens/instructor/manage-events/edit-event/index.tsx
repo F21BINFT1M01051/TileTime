@@ -1,0 +1,153 @@
+import { StyleSheet, Image, View, Platform, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { COLORS, FONTS, ICONS } from '../../../../config/theme';
+import AuthHeader from '../../../../components/AuthHeader';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+import DropdownField from '../../../../components/DropDown';
+import InputField from '../../../../components/InputField';
+import FocusedSelection from '../../../../components/FocusedSelection';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import CustomButton from '../../../../components/CustomButton';
+
+const EditEventBasic = () => {
+  const [Title, setTitle] = useState('');
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const [type, setType] = useState(null);
+  const [location, setLocation] = useState('');
+  const [date, setDate] = useState(new Date());
+  const [showPicker, setShowPicker] = useState(false);
+  const [startTime, setStartTime] = useState(new Date());
+  const [showPicker3, setShowPicker3] = useState(false);
+
+  const onChange = ({ event, selectedDate }: any) => {
+    setShowPicker(false);
+    if (selectedDate) setDate(selectedDate);
+  };
+
+  const onChangeStartTime = ({ event, selectedDate }: any) => {
+    setShowPicker3(false);
+    if (selectedDate) setStartTime(selectedDate);
+  };
+
+  return (
+    <View style={{ flex: 1, backgroundColor: COLORS.white }}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <AuthHeader
+          title="Edit Basics"
+          style={{ fontFamily: FONTS.semiBold, fontSize: RFPercentage(1.9) }}
+        />
+        <View style={{ width: '90%', alignSelf: 'center' }}>
+          <InputField
+            placeholder="Event Title"
+            value={Title}
+            onChangeText={setTitle}
+          />
+          <DropdownField
+            placeholder="Event Type"
+            data={[
+              'Coaching Session',
+              'Coaching Session',
+              'Coaching Session',
+              'Coaching Session',
+            ]}
+            selectedValue={type}
+            onValueChange={(val: any) => setType(val)}
+            isDropdownVisible={isDropdownVisible}
+            setIsDropdownVisible={setIsDropdownVisible}
+          />
+          <InputField
+            placeholder="Location"
+            value={location}
+            onChangeText={setLocation}
+            icon={
+              <Image
+                source={ICONS.location}
+                resizeMode="contain"
+                style={styles.locationIcon}
+              />
+            }
+          />
+
+          <FocusedSelection
+            placeholder="Event Date"
+            selectedText={date.toDateString()}
+            onPress={() => setShowPicker(!showPicker)}
+            icon={
+              <Image
+                source={ICONS.cl}
+                resizeMode="contain"
+                style={styles.dateIcon}
+              />
+            }
+          />
+          {showPicker && (
+            <DateTimePicker
+              value={date}
+              mode="date"
+              onChange={onChange}
+              display={Platform.OS === 'ios' ? 'inline' : 'default'}
+              style={{ alignSelf: 'center' }}
+            />
+          )}
+
+          <FocusedSelection
+            placeholder="Start Time"
+            selectedText={startTime.toLocaleTimeString([], {
+              hour: '2-digit',
+              minute: '2-digit',
+            })}
+            onPress={() => setShowPicker3(true)}
+            icon={
+              <Image
+                source={ICONS.clock}
+                resizeMode="contain"
+                style={styles.dateIcon}
+              />
+            }
+          />
+          {showPicker3 && (
+            <DateTimePicker
+              value={startTime}
+              mode="time"
+              onChange={onChangeStartTime}
+              display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+              style={{ alignSelf: 'center' }}
+            />
+          )}
+        </View>
+      </ScrollView>
+      <View style={styles.bottomBar}>
+        <View style={styles.bottomContent}>
+          <CustomButton title="Save And Next" onPress={() => {}} />
+        </View>
+      </View>
+    </View>
+  );
+};
+
+export default EditEventBasic;
+
+const styles = StyleSheet.create({
+  locationIcon: {
+    width: RFPercentage(2.5),
+    height: RFPercentage(2.5),
+  },
+  dateIcon: {
+    width: RFPercentage(2),
+    height: RFPercentage(2),
+  },
+   bottomBar: {
+    width: '100%',
+    borderTopWidth: RFPercentage(0.1),
+    borderTopColor: COLORS.lightWhite,
+    position: 'absolute',
+    bottom: 0,
+    paddingTop: RFPercentage(2),
+    paddingBottom: RFPercentage(4),
+    backgroundColor: COLORS.white,
+  },
+  bottomContent: {
+    width: '90%',
+    alignSelf: 'center',
+  },
+});

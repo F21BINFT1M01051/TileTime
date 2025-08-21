@@ -56,8 +56,8 @@ export const COLORS = {
   green3: '#ECFFE5',
   tab2: 'rgba(206, 206, 206, 0)',
   line: '#E3E3E3',
-  red2 : "#D30505",
-  green4 : "#00B8B7"
+  red2: '#D30505',
+  green4: '#00B8B7',
 };
 
 export const IMAGES = {
@@ -201,8 +201,10 @@ export const ICONS = {
   dots: require('../assets/icons/dots22.png'),
   share22: require('../assets/icons/share22.png'),
   msg: require('../assets/icons/msg.png'),
-    upload2: require('../assets/icons/Upload.png'),
-
+  upload2: require('../assets/icons/Upload.png'),
+  eventShare: require('../assets/icons/eventShare.png'),
+  badge2: require('../assets/icons/badge2.png'),
+  pen3: require('../assets/icons/pen3.png'),
 };
 
 export const FONTS = {

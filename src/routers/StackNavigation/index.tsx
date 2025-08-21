@@ -38,9 +38,10 @@ import CreateLessonInstructor from '../../screens/instructor/create-lessons/less
 import CreateLessonPlayer from '../../screens/player/create-lesson';
 import SelectLessonInstructors from '../../screens/player/create-lesson/select-instructor';
 import Payouts from '../../screens/common/home/payouts';
-import OpenPlayEventDetail from '../../screens/instructor/manage-events/open-play/event-detail';
 import EventAttendees from '../../screens/instructor/manage-events/attendees';
 import EventInsights from '../../screens/instructor/manage-events/insights';
+import EditEventBasic from '../../screens/instructor/manage-events/edit-event';
+import InstructorEventDetail from '../../screens/instructor/manage-events/event/event-detail';
 
 export type RootStackParamList = {
   OnBoarding: undefined;
@@ -79,9 +80,10 @@ export type RootStackParamList = {
   CreateLessonPlayer: undefined;
   SelectLessonInstructors: undefined;
   Payouts: undefined;
-  OpenPlayEventDetail: undefined;
+  InstructorEventDetail: undefined;
   EventAttendees:undefined;
-  EventInsights:undefined
+  EventInsights:undefined;
+  EditEventBasic:undefined
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -94,7 +96,7 @@ const Navigator: React.FC = () => {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="InstructorTabs" component={InstructorTabs} />
+        {/* <Stack.Screen name="InstructorTabs" component={InstructorTabs} /> */}
 
         {/* ----------------Common Flow----------- */}
         <Stack.Screen name="OnBoarding" component={OnBoarding} />
@@ -137,6 +139,10 @@ const Navigator: React.FC = () => {
           name="SelectLessonInstructors"
           component={SelectLessonInstructors}
         />
+          <Stack.Screen
+          name="EditEventBasic"
+          component={EditEventBasic}
+        />
 
         {/* --------------------Player Flow-------------------- */}
         <Stack.Screen name="PlayerTabs" component={PlayerTabs} />
@@ -152,7 +158,7 @@ const Navigator: React.FC = () => {
         />
 
         {/* ------------------------Instructor Flow------------------- */}
-        {/* <Stack.Screen name="InstructorTabs" component={InstructorTabs} /> */}
+        <Stack.Screen name="InstructorTabs" component={InstructorTabs} />
         <Stack.Screen
           name="InstructorProfileSetup"
           component={InstructorProfileSetup}
@@ -164,8 +170,8 @@ const Navigator: React.FC = () => {
         <Stack.Screen name="InstructorProfile" component={InstructorProfile} />
         <Stack.Screen name="PayoutsInstructor" component={PayoutsInstructor} />
         <Stack.Screen
-          name="OpenPlayEventDetail"
-          component={OpenPlayEventDetail}
+          name="InstructorEventDetail"
+          component={InstructorEventDetail}
         />
         <Stack.Screen
           name="EventAttendees"

@@ -1,5 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS, ICONS } from '../../../config/theme';
 
@@ -35,24 +42,9 @@ const timeSlots = [
 
 // Events
 const events = [
-  {
-    id: 1,
-    title: 'Morning Session',
-    start: '08:00',
-    end: '10:00',
-  },
-  {
-    id: 2,
-    title: 'Lunch Meetup',
-    start: '12:00',
-    end: '13:00',
-  },
-  {
-    id: 3,
-    title: 'Evening Workshop',
-    start: '14:00',
-    end: '22:00',
-  },
+  { id: 1, title: 'Morning Session', start: '08:00', end: '10:00' },
+  { id: 2, title: 'Lunch Meetup', start: '12:00', end: '13:00' },
+  { id: 3, title: 'Evening Workshop', start: '14:00', end: '22:00' },
 ];
 
 const avatars = [
@@ -69,7 +61,7 @@ const getTimeIndex = time => timeSlots.indexOf(time);
 
 // helper: event position & height
 const getEventStyle = (start, end) => {
-  const slotHeight = RFPercentage(7); // height of each time slot
+  const slotHeight = RFPercentage(5.8); // height of each time slot
   const startIndex = getTimeIndex(start);
   const endIndex = getTimeIndex(end);
   const top = startIndex * slotHeight;
@@ -103,7 +95,7 @@ export default function TodayEvents() {
       <Text style={styles.scheduleText}>Schedule Today</Text>
 
       {/* Timeline + Events */}
-      <View style={{ flexDirection: 'row', marginTop: RFPercentage(1) }}>
+      <View style={styles.timelineRow}>
         {/* Time column */}
         <View style={styles.timeline}>
           {timeSlots.map((time, index) => (
@@ -116,37 +108,21 @@ export default function TodayEvents() {
         {/* Events container */}
         <View style={styles.eventsContainer}>
           {events.map(event => {
-            const { top, height } = getEventStyle(event.start, event.end);
+            const { height } = getEventStyle(event.start, event.end);
             return (
               <View
                 key={event.id}
-                style={[styles.event, { height, marginTop: RFPercentage(2) }]}
+                style={[styles.event, { height, marginTop: RFPercentage(2.3) }]}
               >
                 <View style={styles.header}>
-                  <View style={{ width: RFPercentage(16) }}>
+                  <View style={styles.eventTitleWrapper}>
                     <Text
-                      style={{
-                        fontFamily: FONTS.medium,
-                        color: COLORS.primary,
-                        fontSize:
-                          event.id === 2
-                            ? RFPercentage(1.3)
-                            : RFPercentage(1.6),
-                      }}
+                      style={[
+                        styles.eventTitleText,
+                        event.id === 2 && styles.smallEventText,
+                      ]}
                     >
-                      Four Winds:
-                    </Text>
-                    <Text
-                      style={{
-                        fontFamily: FONTS.medium,
-                        color: COLORS.primary,
-                        fontSize:
-                          event.id === 2
-                            ? RFPercentage(1.3)
-                            : RFPercentage(1.6),
-                      }}
-                    >
-                      Community Mahjong Session
+                      Four Winds: Community Mahjong Session
                     </Text>
                   </View>
                   <View>
@@ -155,7 +131,7 @@ export default function TodayEvents() {
                       resizeMode="contain"
                       style={[
                         event.id === 2
-                          ? { width: RFPercentage(3), height: RFPercentage(3) }
+                          ? styles.smallEventImage
                           : styles.eventImage,
                       ]}
                     />
@@ -165,13 +141,7 @@ export default function TodayEvents() {
                   <View
                     style={[
                       event.id === 2
-                        ? {
-                            flexDirection: 'row',
-                            marginTop: RFPercentage(1),
-                            alignItems: 'center',
-                            position: 'absolute',
-                            right: RFPercentage(5),
-                          }
+                        ? styles.smallAvatarRow
                         : styles.avatarContainer,
                     ]}
                   >
@@ -180,7 +150,17 @@ export default function TodayEvents() {
                         key={item.id}
                         style={[
                           styles.avatarWrapper,
-                          { marginLeft: index === 0 ? 0 : -10 },
+                          {
+                            marginLeft: index === 0 ? 0 : -10,
+                            width:
+                              event.id === 2
+                                ? RFPercentage(2.5)
+                                : RFPercentage(3),
+                            height:
+                              event.id === 2
+                                ? RFPercentage(2.5)
+                                : RFPercentage(3),
+                          },
                         ]}
                       >
                         <Image
@@ -191,7 +171,20 @@ export default function TodayEvents() {
                     ))}
                     {remainingCount > 0 && (
                       <View
-                        style={[styles.avatarWrapper, styles.remainingWrapper]}
+                        style={[
+                          styles.avatarWrapper,
+                          styles.remainingWrapper,
+                          {
+                            width:
+                              event.id === 2
+                                ? RFPercentage(2.5)
+                                : RFPercentage(3),
+                            height:
+                              event.id === 2
+                                ? RFPercentage(2.5)
+                                : RFPercentage(3),
+                          },
+                        ]}
                       >
                         <Text style={styles.remainingText}>
                           +{remainingCount}
@@ -200,6 +193,19 @@ export default function TodayEvents() {
                     )}
                   </View>
                 </View>
+                {event.id === events.length && (
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    style={styles.newEventButton}
+                  >
+                    <Image
+                      source={ICONS.plus}
+                      resizeMode="contain"
+                      style={styles.newEventIcon}
+                    />
+                    <Text style={styles.newEventText}>New Event</Text>
+                  </TouchableOpacity>
+                )}
               </View>
             );
           })}
@@ -243,17 +249,23 @@ const styles = StyleSheet.create({
     color: COLORS.pink,
   },
   scheduleText: {
-    fontFamily: FONTS.medium,
+    fontFamily: FONTS.semiBold,
     fontSize: RFPercentage(1.8),
     color: COLORS.primary,
     marginTop: RFPercentage(2),
   },
-  // Timeline
+  // Timeline row
+  timelineRow: {
+    flexDirection: 'row',
+    marginTop: RFPercentage(1),
+    width: '95%',
+    alignSelf: 'center',
+  },
   timeline: {
     width: RFPercentage(5),
   },
   timeSlot: {
-    height: RFPercentage(6.5),
+    height: RFPercentage(5.8),
     justifyContent: 'center',
   },
   timeText: {
@@ -267,16 +279,38 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   event: {
-    backgroundColor: 'rgba(182, 239, 17, 0.14)',
+    backgroundColor: 'rgba(182, 139, 255, 0.14)',
     width: '100%',
-    borderRadius: RFPercentage(1),
+    borderRadius: RFPercentage(1.5),
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: RFPercentage(0.5),
   },
-  eventTitle: {
-    fontWeight: 'bold',
-    fontSize: RFPercentage(1.8),
+  eventTitleWrapper: {
+    width: RFPercentage(16),
+  },
+  eventTitleText: {
+    fontFamily: FONTS.medium,
+    color: COLORS.primary,
+    fontSize: RFPercentage(1.5),
+  },
+  smallEventText: {
+    fontSize: RFPercentage(1.2),
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '90%',
+    alignSelf: 'center',
+    alignItems: 'center',
+  },
+  eventImage: {
+    width: RFPercentage(7),
+    height: RFPercentage(7),
+  },
+  smallEventImage: {
+    width: RFPercentage(3),
+    height: RFPercentage(3),
   },
   avatarContainer: {
     flexDirection: 'row',
@@ -286,9 +320,15 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: RFPercentage(-1),
   },
+  smallAvatarRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    position: 'absolute',
+    right: RFPercentage(4),
+  },
   avatarWrapper: {
-    width: RFPercentage(3.5),
-    height: RFPercentage(3.5),
+    width: RFPercentage(3),
+    height: RFPercentage(3),
     borderRadius: RFPercentage(2),
     borderWidth: 1.5,
     borderColor: COLORS.white,
@@ -311,15 +351,27 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(1.6),
     fontFamily: FONTS.medium,
   },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '90%',
-    alignSelf: 'center',
+  // New Event Button
+  newEventButton: {
+    position: 'absolute',
+    bottom: RFPercentage(-0.5),
+    right: RFPercentage(-0.8),
+    width: RFPercentage(12),
+    height: RFPercentage(4.3),
     alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: COLORS.pink,
+    borderRadius: RFPercentage(1),
+    flexDirection: 'row',
   },
-  eventImage: {
-    width: RFPercentage(8),
-    height: RFPercentage(8),
+  newEventIcon: {
+    width: RFPercentage(2),
+    height: RFPercentage(2),
+  },
+  newEventText: {
+    color: COLORS.white,
+    fontFamily: FONTS.semiBold,
+    fontSize: RFPercentage(1.5),
+    marginLeft: RFPercentage(0.4),
   },
 });

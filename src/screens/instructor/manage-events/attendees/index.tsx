@@ -47,7 +47,7 @@ const attendees = [
     name: 'Sophia Lee',
     since: '4 Sep 2021',
     profile: IMAGES.chatProfile,
-    status: 'In Waitlist',
+    status: 'Waitlist',
   },
   {
     id: 4,
@@ -59,25 +59,25 @@ const attendees = [
 ];
 
 const buttons = [
-    {
-        id : 1,
-        name : "Resend Invite",
-        icon : ICONS.share22,
-        color : COLORS.primary
-    },
-     {
-        id : 2,
-        name : "Send Message",
-        icon : ICONS.msg,
-        color : COLORS.primary
-    },
-     {
-        id : 3,
-        name : "Remove Attendee",
-        icon : ICONS.trash,
-        color : COLORS.red
-    },
-]
+  {
+    id: 1,
+    name: 'Resend Invite',
+    icon: ICONS.share22,
+    color: COLORS.primary,
+  },
+  {
+    id: 2,
+    name: 'Send Message',
+    icon: ICONS.msg,
+    color: COLORS.primary,
+  },
+  {
+    id: 3,
+    name: 'Remove Attendee',
+    icon: ICONS.trash,
+    color: COLORS.red,
+  },
+];
 
 const EventAttendees = () => {
   const [activeFilter, setActiveFilter] = useState('All');
@@ -86,9 +86,9 @@ const EventAttendees = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [isModalVisible, setModalVisible] = useState(false);
 
-  const translateY = useRef(new Animated.Value(height)).current; // start hidden below screen
+  const translateY = useRef(new Animated.Value(height)).current;
 
-  const openModal = user => {
+  const openModal = (user: any) => {
     setSelectedUser(user);
     setModalVisible(true);
     Animated.timing(translateY, {
@@ -109,21 +109,25 @@ const EventAttendees = () => {
     });
   };
 
+  // 🔎 Filtering Logic
+  const filteredAttendees = attendees.filter(item => {
+    const matchesSearch = item.name.toLowerCase().includes(query.toLowerCase());
+    const matchesFilter =
+      activeFilter === 'All' ||
+      item.status.toLowerCase() === activeFilter.toLowerCase();
+    return matchesSearch && matchesFilter;
+  });
+
   return (
-    <View style={{ flex: 1, backgroundColor: COLORS.white }}>
+    <View style={styles.container}>
       <AuthHeader
         title="Attendees"
         style={styles.headerTitle}
         right={true}
         rightIcon={ICONS.upload2}
       />
-      <View
-        style={{
-          width: '90%',
-          alignSelf: 'center',
-          marginTop: RFPercentage(3),
-        }}
-      >
+
+      <View style={styles.searchWrapper}>
         <SearchField
           placeholder="Search by name"
           value={query}
@@ -138,7 +142,7 @@ const EventAttendees = () => {
           keyExtractor={item => item.id.toString()}
           horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: RFPercentage(2) }}
+          contentContainerStyle={styles.filterList}
           renderItem={({ item }) => (
             <TouchableOpacity
               activeOpacity={0.8}
@@ -170,95 +174,36 @@ const EventAttendees = () => {
       </View>
 
       {/* Attendees List */}
-      <View
-        style={{
-          width: '90%',
-          alignSelf: 'center',
-          marginTop: RFPercentage(2),
-        }}
-      >
+      <View style={styles.attendeesWrapper}>
         <FlatList
-          data={attendees}
+          data={filteredAttendees}
           keyExtractor={item => item.id.toString()}
           renderItem={({ item }) => (
-            <View
-              style={{
-                width: '100%',
-                height: RFPercentage(9),
-                backgroundColor: COLORS.white,
-                borderWidth: RFPercentage(0.1),
-                borderColor: COLORS.lightWhite,
-                borderRadius: RFPercentage(2),
-                justifyContent: 'center',
-                marginTop: RFPercentage(2),
-              }}
-            >
-              <View
-                style={{
-                  width: '90%',
-                  alignSelf: 'center',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}
-              >
-                <View
-                  style={{
-                    width: RFPercentage(5.5),
-                    height: RFPercentage(5.5),
-                    borderTopLeftRadius: RFPercentage(100),
-                    borderTopRightRadius: RFPercentage(100),
-                    backgroundColor: COLORS.pink6,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
+            <View style={styles.attendeeCard}>
+              <View style={styles.attendeeRow}>
+                <View style={styles.profileWrapper}>
                   <Image
-                    source={IMAGES.chatProfile}
+                    source={item.profile}
                     resizeMode="contain"
-                    style={{
-                      width: RFPercentage(5.5),
-                      height: RFPercentage(5.5),
-                      borderTopLeftRadius: RFPercentage(100),
-                      borderTopRightRadius: RFPercentage(100),
-                      right: RFPercentage(0.1),
-                      bottom: RFPercentage(0.2),
-                    }}
+                    style={styles.profileImage}
                   />
                 </View>
-                <View style={{ marginLeft: RFPercentage(1.6) }}>
-                  <Text
-                    style={{
-                      color: COLORS.primary,
-                      fontFamily: FONTS.medium,
-                      fontSize: RFPercentage(1.8),
-                    }}
-                  >
-                    {item.name}
-                  </Text>
-                  <Text
-                    style={{
-                      color: COLORS.lightGrey,
-                      fontFamily: FONTS.regular,
-                      fontSize: RFPercentage(1.5),
-                      marginTop: RFPercentage(0.5),
-                    }}
-                  >
-                    {item.status}
-                    <Text style={{ fontFamily: FONTS.medium }}>
-                      {` `}
-                      {item.since}
-                    </Text>
+                <View style={styles.attendeeInfo}>
+                  <Text style={styles.attendeeName}>{item.name}</Text>
+                  <Text style={styles.attendeeStatus}>
+                    {item.status}{' '}
+                    <Text style={styles.attendeeSince}>{item.since}</Text>
                   </Text>
                 </View>
                 <TouchableOpacity
                   activeOpacity={0.8}
-                  style={{ position: 'absolute', right: 0 }}
+                  style={styles.dotsButton}
                   onPress={() => openModal(item)}
                 >
                   <Image
                     source={ICONS.dots}
                     resizeMode="contain"
-                    style={{ width: RFPercentage(2), height: RFPercentage(2) }}
+                    style={styles.dotsIcon}
                   />
                 </TouchableOpacity>
               </View>
@@ -276,94 +221,58 @@ const EventAttendees = () => {
           reducedTransparencyFallbackColor="black"
         />
         <TouchableWithoutFeedback onPress={closeModal}>
-          <View style={{ flex: 1 }}>
+          <View style={styles.modalOverlay}>
             <Animated.View
               style={[styles.bottomSheet, { transform: [{ translateY }] }]}
             >
-              <View
-                style={{
-                  width: '90%',
-                  alignSelf: 'center',
-                  marginTop: RFPercentage(3),
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: COLORS.primary,
-                      fontFamily: FONTS.semiBold,
-                      fontSize: RFPercentage(1.9),
-                    }}
-                  >
-                    Attendee Actions
-                  </Text>
+              <View style={styles.modalContent}>
+                <View style={styles.modalHeader}>
+                  <Text style={styles.modalTitle}>Attendee Actions</Text>
                   <TouchableOpacity
                     activeOpacity={0.8}
-                    style={{ position: 'absolute', right: 0 }}
-                    onPress={() => closeModal()}
+                    style={styles.modalCloseBtn}
+                    onPress={closeModal}
                   >
                     <Image
                       source={ICONS.cross2}
                       resizeMode="contain"
-                      style={{
-                        width: RFPercentage(1.6),
-                        height: RFPercentage(1.6),
-                      }}
+                      style={styles.modalCloseIcon}
                     />
                   </TouchableOpacity>
                 </View>
-                {selectedUser && (
-                  <>
-                    <View
-                      style={{ flexDirection: 'row', alignItems: 'center', marginTop:RFPercentage(3) }}
-                    >
-                      <View
-                        style={{
-                          width: RFPercentage(10),
-                          height: RFPercentage(10),
-                          borderTopRightRadius: RFPercentage(100),
-                          borderTopLeftRadius: RFPercentage(100),
-                          backgroundColor: COLORS.pink6,
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <Image
-                          source={selectedUser?.profile}
-                          resizeMode="cover"
-                          style={{
-                            width: RFPercentage(10),
-                            height: RFPercentage(10),
-                            borderTopRightRadius: RFPercentage(100),
-                            borderTopLeftRadius: RFPercentage(100),
-                            bottom:RFPercentage(0.2),
-                            right:RFPercentage(0.2)
-                          }}
-                        />
-                      </View>
-                      <View style={{marginLeft:RFPercentage(2)}}>
-                        <Text style={styles.modalName}>{selectedUser.name}</Text>
-                        <TouchableOpacity activeOpacity={0.8}>
-                            <Text style={{color:COLORS.pink, fontFamily:FONTS.semiBold, fontSize:RFPercentage(1.7), marginTop:RFPercentage(1)}}>View Profile</Text>
-                        </TouchableOpacity>
-                      </View>
-                    </View>
 
-                 
-                  </>
+                {selectedUser && (
+                  <View style={styles.modalUserRow}>
+                    <View style={styles.modalProfileWrapper}>
+                      <Image
+                        source={selectedUser?.profile}
+                        resizeMode="cover"
+                        style={styles.modalProfileImage}
+                      />
+                    </View>
+                    <View style={styles.modalUserInfo}>
+                      <Text style={styles.modalName}>{selectedUser.name}</Text>
+                      <TouchableOpacity activeOpacity={0.8}>
+                        <Text style={styles.viewProfile}>View Profile</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
                 )}
-                <View style={{marginTop:RFPercentage(3)}}>
-                    <FlatList data={buttons} keyExtractor={(item)=> item.id.toString()} renderItem={({item})=> {
-                        return (
-                            <SocialField name={item.name} icon={item.icon} color={item.color} borderColor={item.color} style={{marginTop:RFPercentage(1.5)}} />
-                        )
-                    }} />
+
+                <View style={styles.actionsWrapper}>
+                  <FlatList
+                    data={buttons}
+                    keyExtractor={item => item.id.toString()}
+                    renderItem={({ item }) => (
+                      <SocialField
+                        name={item.name}
+                        icon={item.icon}
+                        color={item.color}
+                        borderColor={item.color}
+                        style={styles.actionItem}
+                      />
+                    )}
+                  />
                 </View>
               </View>
             </Animated.View>
@@ -377,8 +286,15 @@ const EventAttendees = () => {
 export default EventAttendees;
 
 const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: COLORS.white },
   headerTitle: { fontFamily: FONTS.semiBold, fontSize: RFPercentage(2) },
+  searchWrapper: {
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: RFPercentage(3),
+  },
   filterContainer: { width: '100%', alignSelf: 'center' },
+  filterList: { paddingHorizontal: RFPercentage(2) },
   filterButton: {
     height: RFPercentage(4.5),
     paddingHorizontal: RFPercentage(2),
@@ -389,6 +305,62 @@ const styles = StyleSheet.create({
     marginRight: RFPercentage(1),
   },
   filterText: { fontFamily: FONTS.medium, fontSize: RFPercentage(1.7) },
+  attendeesWrapper: {
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: RFPercentage(2),
+  },
+  attendeeCard: {
+    width: '100%',
+    height: RFPercentage(9),
+    backgroundColor: COLORS.white,
+    borderWidth: RFPercentage(0.1),
+    borderColor: COLORS.lightWhite,
+    borderRadius: RFPercentage(2),
+    justifyContent: 'center',
+    marginTop: RFPercentage(2),
+  },
+  attendeeRow: {
+    width: '90%',
+    alignSelf: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  profileWrapper: {
+    width: RFPercentage(5.5),
+    height: RFPercentage(5.5),
+    borderTopRightRadius: RFPercentage(100),
+    borderTopLeftRadius: RFPercentage(100),
+    backgroundColor: COLORS.pink6,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  profileImage: {
+    width: RFPercentage(5.5),
+    height: RFPercentage(5.5),
+    borderTopRightRadius: RFPercentage(100),
+    borderTopLeftRadius: RFPercentage(100),
+    right: RFPercentage(0.1),
+    bottom: RFPercentage(0.2),
+  },
+  attendeeInfo: { marginLeft: RFPercentage(1.6) },
+  attendeeName: {
+    color: COLORS.primary,
+    fontFamily: FONTS.medium,
+    fontSize: RFPercentage(1.8),
+  },
+  attendeeStatus: {
+    color: COLORS.lightGrey,
+    fontFamily: FONTS.regular,
+    fontSize: RFPercentage(1.5),
+    marginTop: RFPercentage(0.5),
+  },
+  attendeeSince: { fontFamily: FONTS.medium },
+  dotsButton: { position: 'absolute', right: 0 },
+  dotsIcon: { width: RFPercentage(2), height: RFPercentage(2) },
+
+  // Modal
+  modalOverlay: { flex: 1 },
   bottomSheet: {
     position: 'absolute',
     bottom: 0,
@@ -396,24 +368,59 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     borderTopLeftRadius: RFPercentage(3),
     borderTopRightRadius: RFPercentage(3),
-
     minHeight: height * 0.5,
   },
-  modalProfile: {
-    width: RFPercentage(8),
-    height: RFPercentage(8),
-    borderRadius: RFPercentage(5),
-    marginBottom: RFPercentage(2),
+  modalContent: {
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: RFPercentage(3),
   },
+  modalHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  modalTitle: {
+    color: COLORS.primary,
+    fontFamily: FONTS.semiBold,
+    fontSize: RFPercentage(1.9),
+  },
+  modalCloseBtn: { position: 'absolute', right: 0 },
+  modalCloseIcon: { width: RFPercentage(1.6), height: RFPercentage(1.6) },
+  modalUserRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: RFPercentage(3),
+  },
+  modalProfileWrapper: {
+    width: RFPercentage(10),
+    height: RFPercentage(10),
+    borderTopRightRadius: RFPercentage(100),
+    borderTopLeftRadius: RFPercentage(100),
+    backgroundColor: COLORS.pink6,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  modalProfileImage: {
+    width: RFPercentage(10),
+    height: RFPercentage(10),
+    borderTopRightRadius: RFPercentage(100),
+    borderTopLeftRadius: RFPercentage(100),
+    bottom: RFPercentage(0.2),
+    right: RFPercentage(0.2),
+  },
+  modalUserInfo: { marginLeft: RFPercentage(2) },
   modalName: {
     fontFamily: FONTS.semiBold,
     fontSize: RFPercentage(2.3),
     color: COLORS.primary,
   },
-  modalText: {
-    fontFamily: FONTS.regular,
+  viewProfile: {
+    color: COLORS.pink,
+    fontFamily: FONTS.semiBold,
     fontSize: RFPercentage(1.7),
-    color: COLORS.grey4,
-    marginTop: RFPercentage(0.5),
+    marginTop: RFPercentage(1),
   },
+  actionsWrapper: { marginTop: RFPercentage(3) },
+  actionItem: { marginTop: RFPercentage(1.5) },
 });

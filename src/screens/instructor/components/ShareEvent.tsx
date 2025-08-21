@@ -22,12 +22,12 @@ import InputField from '../../../components/InputField';
 const share = [
   { id: 1, name: 'Share on Facebook', icon: ICONS.facebook },
   { id: 2, name: 'Share on Instagram', icon: ICONS.insta22 },
-  { id: 3, name: 'Invite Via Email', icon: ICONS.mail22 },
+  { id: 3, name: 'Share in your TileTime groups', icon: ICONS.tab4 },
   { id: 4, name: 'Invite your contacts', icon: ICONS.ct22 },
-  { id: 5, name: 'Share in your TileTime groups', icon: ICONS.tab4 },
+  { id: 5, name: 'Invite Via Email', icon: ICONS.mail22 },
 ];
 
-const EventLive = ({ visible, onClose , style}: any) => {
+const ShareEvent = ({ visible, onClose, style }: any) => {
   const navigation = useNavigation();
   const slideAnim = useRef(
     new Animated.Value(Dimensions.get('window').height),
@@ -83,12 +83,12 @@ const EventLive = ({ visible, onClose , style}: any) => {
                   />
                   <View style={styles.centerContent}>
                     <Image
-                      source={ICONS.greenCheck}
+                      source={ICONS.eventShare}
                       resizeMode="contain"
                       style={styles.greenCheck}
                     />
                     <View style={styles.liveTextContainer}>
-                      <Text style={styles.liveText}>Your Event Is Live!</Text>
+                      <Text style={styles.liveText}>Share Your Event</Text>
                       <Image
                         source={ICONS.stars2}
                         resizeMode="contain"
@@ -105,7 +105,7 @@ const EventLive = ({ visible, onClose , style}: any) => {
 
                 {/* Subtext */}
                 <Text style={styles.subText}>
-                  {`Your Event Has Been Shared With\n8 Chosen Members.`}
+                  {`The Table Is Set - Time To Spread The Word And\nFill Those Seats.`}
                 </Text>
 
                 <Image
@@ -131,49 +131,28 @@ const EventLive = ({ visible, onClose , style}: any) => {
                   />
                 </View>
 
-                {/* QR Section */}
-                <View style={styles.qrSection}>
-                  <Image
-                    source={ICONS.qr}
-                    resizeMode="contain"
-                    style={styles.qrImage}
-                  />
-                  <View style={styles.qrTextWrapper}>
-                    <Text style={styles.qrText}>
-                      {`Share This QR To Friends Or Your\nGroups`}
-                    </Text>
-                    <TouchableOpacity
-                      activeOpacity={0.8}
-                      style={styles.shareBtn}
-                    >
-                      <Text style={styles.shareBtnText}>
-                        Share/Save to Gallery
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-
                 {/* Share List */}
                 <FlatList
                   data={share}
                   keyExtractor={item => item.id.toString()}
-                  numColumns={2}
                   contentContainerStyle={styles.flatListContainer}
-                  columnWrapperStyle={styles.flatListColumn}
                   renderItem={({ item }) => (
-                    <View style={styles.listItem}>
-                      <TouchableOpacity
-                        activeOpacity={0.8}
-                        style={styles.shareOption}
-                      >
-                        <Image
-                          source={item.icon}
-                          resizeMode="contain"
-                          style={styles.shareIcon}
-                        />
-                        <Text style={styles.shareText}>{item.name}</Text>
-                      </TouchableOpacity>
-                    </View>
+                    <TouchableOpacity
+                      activeOpacity={0.8}
+                      style={styles.shareOption}
+                    >
+                      <Image
+                        source={item.icon}
+                        resizeMode="contain"
+                        style={styles.shareIcon}
+                      />
+                      <Text style={styles.shareText}>{item.name}</Text>
+                      <Image
+                        source={ICONS.right}
+                        resizeMode="contain"
+                        style={{width:RFPercentage(1.5), height:RFPercentage(1.5), position:"absolute", right:RFPercentage(2)}}
+                      />
+                    </TouchableOpacity>
                   )}
                 />
               </View>
@@ -182,10 +161,9 @@ const EventLive = ({ visible, onClose , style}: any) => {
               <View style={styles.modalFooter}>
                 <View style={styles.modalFooterInner}>
                   <SocialField
-                    name="Go to Dashboard"
+                    name="Go Back"
                     onPress={() => {
                       onClose();
-                      navigation.navigate('Dashboard');
                     }}
                   />
                 </View>
@@ -198,7 +176,7 @@ const EventLive = ({ visible, onClose , style}: any) => {
   );
 };
 
-export default EventLive;
+export default ShareEvent;
 
 const styles = StyleSheet.create({
   overLay2: {
@@ -231,8 +209,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   greenCheck: {
-    width: RFPercentage(6.5),
-    height: RFPercentage(6.5),
+    width: RFPercentage(8.5),
+    height: RFPercentage(8.5),
   },
   liveTextContainer: {
     marginTop: RFPercentage(1),
@@ -307,7 +285,7 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(1.4),
   },
   flatListContainer: {
-    marginTop: RFPercentage(5),
+    marginTop: RFPercentage(2),
   },
   flatListColumn: {
     justifyContent: 'space-between',
@@ -318,7 +296,7 @@ const styles = StyleSheet.create({
   },
   shareOption: {
     width: '100%',
-    height: RFPercentage(5.4),
+    height: RFPercentage(6.2),
     backgroundColor: COLORS.white,
     alignItems: 'center',
     flexDirection: 'row',
@@ -329,14 +307,14 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(1.9),
   },
   shareIcon: {
-    width: RFPercentage(2),
-    height: RFPercentage(2),
+    width: RFPercentage(2.2),
+    height: RFPercentage(2.2),
   },
   shareText: {
-    fontSize: RFPercentage(1.6),
-    fontFamily: FONTS.semiBold,
+    fontSize: RFPercentage(1.8),
+    fontFamily: FONTS.bold,
     color: COLORS.primary,
-    marginLeft: RFPercentage(0.7),
+    marginLeft: RFPercentage(1.8),
   },
   modalFooter: {
     borderTopWidth: RFPercentage(0.1),
@@ -345,7 +323,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: '100%',
     paddingBottom: RFPercentage(4),
-      backgroundColor:COLORS.white
+    backgroundColor: COLORS.white,
   },
   modalFooterInner: {
     width: '90%',
