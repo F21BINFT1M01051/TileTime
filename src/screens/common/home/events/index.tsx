@@ -135,7 +135,7 @@ const groupByDate = (events: any) => {
 
 const Events = ({ navigation }: any) => {
   const [isCalendarVisible, setCalendarVisible] = useState(false);
-  const events = [];
+  const events = ['5'];
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedType, setSelectedType] = useState('');
   const dispatch = useDispatch();

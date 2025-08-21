@@ -8,8 +8,9 @@ import {
   View,
   TextInput,
   Platform,
+  Keyboard,
 } from 'react-native';
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import CustomButton from '../../../components/CustomButton';
@@ -69,6 +70,22 @@ const CreateLessonPlayer = ({ navigation }: any) => {
   const [showPicker4, setShowPicker4] = useState(false);
   const [showPicker5, setShowPicker5] = useState(false);
   const [endOn, setEndOn] = useState(new Date());
+
+  const [keyboardIsVisible, setKeyboardIsVisible] = useState(false);
+
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
+      setKeyboardIsVisible(true);
+    });
+    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardIsVisible(false);
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, []);
 
   const onChange = ({ event, selectedDate }: any) => {
     setShowPicker(false);
@@ -477,16 +494,18 @@ const CreateLessonPlayer = ({ navigation }: any) => {
       </ScrollView>
 
       {/* Bottom Button */}
-      <View style={styles.bottomBar}>
-        <View style={styles.bottomContent}>
-          <CustomButton
-            title="Save And Next"
-            onPress={() => {
-              navigation.navigate('SelectLessonInstructors');
-            }}
-          />
+      {!keyboardIsVisible && (
+        <View style={styles.bottomBar}>
+          <View style={styles.bottomContent}>
+            <CustomButton
+              title="Save And Next"
+              onPress={() => {
+                navigation.navigate('SelectLessonInstructors');
+              }}
+            />
+          </View>
         </View>
-      </View>
+      )}
     </View>
   );
 };
