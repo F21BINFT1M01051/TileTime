@@ -8,8 +8,9 @@ import {
   FlatList,
   Modal,
   TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../../config/theme';
 import AuthHeader from '../../../../components/AuthHeader';
 import { RFPercentage } from 'react-native-responsive-fontsize';
@@ -40,6 +41,21 @@ const InviteFriends = () => {
   const [selectedContacts, setSelectedContacts] = useState<number[]>([]);
   const [visible, setVisible] = useState(false);
   const [query, setQuery] = useState('');
+  const [keyboardIsVisible, setKeyboardIsVisible] = useState(false);
+
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
+      setKeyboardIsVisible(true);
+    });
+    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardIsVisible(false);
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, []);
 
   const toggleContact = (id: number) => {
     setSelectedContacts(prev =>
@@ -49,13 +65,15 @@ const InviteFriends = () => {
 
   const filteredContacts =
     activeTab === 'All'
-      ? contacts.filter(item =>
-          item.name.toLowerCase().includes(query.toLowerCase()) ||
-          item.phone.toLowerCase().includes(query.toLowerCase()),
+      ? contacts.filter(
+          item =>
+            item.name.toLowerCase().includes(query.toLowerCase()) ||
+            item.phone.toLowerCase().includes(query.toLowerCase()),
         )
-      : invited.filter(item =>
-          item.name.toLowerCase().includes(query.toLowerCase()) ||
-          item.phone.toLowerCase().includes(query.toLowerCase()),
+      : invited.filter(
+          item =>
+            item.name.toLowerCase().includes(query.toLowerCase()) ||
+            item.phone.toLowerCase().includes(query.toLowerCase()),
         );
 
   return (
@@ -146,8 +164,8 @@ const InviteFriends = () => {
                     textAlign: 'center',
                     color: COLORS.lightGrey,
                     marginTop: RFPercentage(5),
-                    fontFamily:FONTS.regular,
-                    fontSize:RFPercentage(1.8)
+                    fontFamily: FONTS.regular,
+                    fontSize: RFPercentage(1.8),
                   }}
                 >
                   No results found
@@ -199,23 +217,32 @@ const InviteFriends = () => {
       </ScrollView>
 
       {/* Bottom Bar */}
-      <View style={styles.bottomBar}>
-        <View style={{ width: '90%', alignSelf: 'center' }}>
-          <CustomButton
-            title={
-              activeTab === 'All'
-                ?  selectedContacts.length > 0 ? `Invite  ${selectedContacts.length } People` : `Invite`
-                : 'Resend Invites'
-            }
-            onPress={() => {
-              if (activeTab === 'All' && selectedContacts.length > 0) {
-                setVisible(true);
+      {!keyboardIsVisible && (
+        <View style={styles.bottomBar}>
+          <View style={{ width: '90%', alignSelf: 'center' }}>
+            <CustomButton
+              title={
+                activeTab === 'All'
+                  ? selectedContacts.length > 0
+                    ? `Invite  ${selectedContacts.length} People`
+                    : `Invite`
+                  : 'Resend Invites'
               }
-            }}
-            style={{backgroundColor : selectedContacts.length > 0 ? COLORS.primary: COLORS.disabled}}
-          />
+              onPress={() => {
+                if (activeTab === 'All' && selectedContacts.length > 0) {
+                  setVisible(true);
+                }
+              }}
+              style={{
+                backgroundColor:
+                  selectedContacts.length > 0
+                    ? COLORS.primary
+                    : COLORS.disabled,
+              }}
+            />
+          </View>
         </View>
-      </View>
+      )}
 
       {/* Modal */}
       <Modal
@@ -257,7 +284,6 @@ const InviteFriends = () => {
     </View>
   );
 };
-
 
 export default InviteFriends;
 

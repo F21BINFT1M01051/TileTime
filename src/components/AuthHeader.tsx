@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, Platform } from 'react-native';
 import React from 'react';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS, ICONS } from '../config/theme';
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.white,
     width: '100%',
-    height: RFPercentage(13),
+    height: Platform.OS === 'ios' ?  RFPercentage(13) : RFPercentage(10),
     justifyContent: 'flex-end',
     borderBottomWidth: RFPercentage(0.1),
     borderBottomColor: COLORS.lightWhite,

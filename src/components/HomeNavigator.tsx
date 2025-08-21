@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, Platform } from 'react-native';
 import React from 'react';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS, ICONS } from '../config/theme';
@@ -19,7 +19,7 @@ const HomeNavigator = (props: Props) => {
         {
           backgroundColor: COLORS.white,
           width: '100%',
-          height: RFPercentage(13),
+          height: Platform.OS === 'android' ? RFPercentage(10) : RFPercentage(13),
           justifyContent: 'flex-end',
           borderBottomWidth: RFPercentage(0.1),
           borderBottomColor: COLORS.lightWhite,

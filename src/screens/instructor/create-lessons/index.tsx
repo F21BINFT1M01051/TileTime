@@ -6,8 +6,9 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Keyboard,
 } from 'react-native';
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import CustomButton from '../../../components/CustomButton';
@@ -50,6 +51,21 @@ const players = [
 const SelectPlayersInstructor = ({ navigation }: any) => {
   const [selectedContacts, setSelectedContacts] = useState<number[]>([]);
   const [query, setQuery] = useState('');
+  const [keyboardIsVisible, setKeyboardIsVisible] = useState(false);
+
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
+      setKeyboardIsVisible(true);
+    });
+    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardIsVisible(false);
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, []);
 
   const toggleContact = (id: number) => {
     setSelectedContacts(prev =>
@@ -197,21 +213,25 @@ const SelectPlayersInstructor = ({ navigation }: any) => {
       </ScrollView>
 
       {/* Bottom Button */}
-      <View style={styles.bottomBar}>
-        <View style={styles.bottomContent}>
-          <CustomButton
-            title="Save And Next"
-            disabled={selectedContacts.length === 0}
-            style={{
-              backgroundColor:
-                selectedContacts.length > 0 ? COLORS.primary : COLORS.disabled,
-            }}
-            onPress={() => {
-              navigation.navigate('CreateLessonInstructor');
-            }}
-          />
+      {!keyboardIsVisible && (
+        <View style={styles.bottomBar}>
+          <View style={styles.bottomContent}>
+            <CustomButton
+              title="Save And Next"
+              disabled={selectedContacts.length === 0}
+              style={{
+                backgroundColor:
+                  selectedContacts.length > 0
+                    ? COLORS.primary
+                    : COLORS.disabled,
+              }}
+              onPress={() => {
+                navigation.navigate('CreateLessonInstructor');
+              }}
+            />
+          </View>
         </View>
-      </View>
+      )}
     </View>
   );
 };

@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Image, BackHandler, Keyboard } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS, ICONS } from '../../config/theme';
@@ -9,6 +9,8 @@ import Events from '../../screens/common/home/events';
 import Groups from '../../screens/common/home/groups';
 import PlayerHome from '../../screens/player/home';
 import MyProfilePlayer from '../../screens/player/my-profile';
+import { useIsFocused } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,6 +19,48 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({
   descriptors,
   navigation,
 }) => {
+
+    const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+    const screenFocused = useIsFocused();
+    const insets = useSafeAreaInsets();
+  
+    useEffect(() => {
+      const backAction = () => {
+        if (screenFocused) {
+          navigation.goBack();
+          return true;
+        }
+        return false;
+      };
+      const backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        backAction,
+      );
+      return () => backHandler.remove();
+    }, [screenFocused, navigation]);
+  
+    useEffect(() => {
+      const keyboardDidShowListener = Keyboard.addListener(
+        'keyboardDidShow',
+        () => {
+          setKeyboardVisible(true);
+        },
+      );
+      const keyboardDidHideListener = Keyboard.addListener(
+        'keyboardDidHide',
+        () => {
+          setKeyboardVisible(false);
+        },
+      );
+      return () => {
+        keyboardDidShowListener.remove();
+        keyboardDidHideListener.remove();
+      };
+    }, []);
+  
+    if (isKeyboardVisible) return null;
+
+
   return (
     <LinearGradient
       colors={[COLORS.white,COLORS.tab2]}

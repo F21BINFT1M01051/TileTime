@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
   Share,
+  Platform,
 } from 'react-native';
 import React, { useState, useRef } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -344,9 +345,10 @@ const styles = StyleSheet.create({
   },
   homeTopBackground: {
     width: '100%',
-    height: RFPercentage(85),
+    height: RFPercentage(84),
     marginTop: RFPercentage(5),
     paddingBottom: RFPercentage(2),
+    marginVertical:Platform.OS === 'android' ? RFPercentage(2) : 0
   },
   homeTopContent: {
     width: '90%',

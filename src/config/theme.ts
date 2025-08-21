@@ -1,3 +1,7 @@
+
+import { Platform } from "react-native";
+
+
 export const COLORS = {
   gradient1: '#C64998',
   gradient2: '#661348',
@@ -218,7 +222,7 @@ export const FONTS = {
   semiBold2: 'PublicSans-SemiBold',
   bold2: 'PublicSans-Bold',
   tab: 'SchibstedGrotesk-SemiBold',
-  stylish: 'ShadowsIntoLight',
+  stylish:  Platform.OS === 'ios' ? 'ShadowsIntoLight' : 'ShadowsIntoLight-Regular',
   inter: 'Inter_24pt-Medium',
   inter_semiBold: 'Inter_18pt-SemiBold',
 };

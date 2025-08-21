@@ -361,30 +361,34 @@ const GuidedPlay = ({ route }: any) => {
                 </View>
 
                 {/* Footer */}
-                <View style={styles.modalFooter}>
-                  <View style={styles.modalFooterInner}>
-                    <CustomButton
-                      title={
-                        selectedContacts.length > 0
-                          ? `Add ${selectedContacts.length} Co-Hosts`
-                          : `Add Co-Hosts`
-                      }
-                      onPress={() => {
-                        handleSelectedContacts(
-                          coHosts.filter(c => selectedContacts.includes(c.id)),
-                        );
-                        setModalVisible2(false);
-                      }}
-                      disabled={selectedContacts.length === 0}
-                      style={{
-                        backgroundColor:
+                {!keyboardIsVisible && (
+                  <View style={styles.modalFooter}>
+                    <View style={styles.modalFooterInner}>
+                      <CustomButton
+                        title={
                           selectedContacts.length > 0
-                            ? COLORS.primary
-                            : COLORS.disabled,
-                      }}
-                    />
+                            ? `Add ${selectedContacts.length} Co-Hosts`
+                            : `Add Co-Hosts`
+                        }
+                        onPress={() => {
+                          handleSelectedContacts(
+                            coHosts.filter(c =>
+                              selectedContacts.includes(c.id),
+                            ),
+                          );
+                          setModalVisible2(false);
+                        }}
+                        disabled={selectedContacts.length === 0}
+                        style={{
+                          backgroundColor:
+                            selectedContacts.length > 0
+                              ? COLORS.primary
+                              : COLORS.disabled,
+                        }}
+                      />
+                    </View>
                   </View>
-                </View>
+                )}
               </Animated.View>
             </TouchableWithoutFeedback>
           </View>
@@ -534,6 +538,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: '100%',
     paddingBottom: RFPercentage(4),
+    backgroundColor:COLORS.white
   },
   modalFooterInner: {
     width: '90%',

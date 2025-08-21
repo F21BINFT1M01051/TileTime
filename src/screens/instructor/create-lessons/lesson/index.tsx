@@ -8,8 +8,9 @@ import {
   View,
   TextInput,
   Platform,
+  Keyboard,
 } from 'react-native';
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import CustomButton from '../../../../components/CustomButton';
@@ -80,6 +81,21 @@ const CreateLessonInstructor = ({ navigation }: any) => {
   const [showPicker5, setShowPicker5] = useState(false);
   const [endOn, setEndOn] = useState(new Date());
   const [modalVisible, setModalVisible] = useState(false);
+  const [keyboardIsVisible, setKeyboardIsVisible] = useState(false);
+
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
+      setKeyboardIsVisible(true);
+    });
+    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardIsVisible(false);
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, []);
 
   const onChange = ({ event, selectedDate }: any) => {
     setShowPicker(false);
@@ -564,14 +580,16 @@ const CreateLessonInstructor = ({ navigation }: any) => {
       </ScrollView>
 
       {/* Bottom Button */}
-      <View style={styles.bottomBar}>
-        <View style={styles.bottomContent}>
-          <CustomButton
-            title="Save And Next"
-            onPress={() => setModalVisible(true)}
-          />
+      {!keyboardIsVisible && (
+        <View style={styles.bottomBar}>
+          <View style={styles.bottomContent}>
+            <CustomButton
+              title="Save And Next"
+              onPress={() => setModalVisible(true)}
+            />
+          </View>
         </View>
-      </View>
+      )}
 
       {/* Modal */}
       <EventLiveLessons

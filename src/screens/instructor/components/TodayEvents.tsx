@@ -65,7 +65,7 @@ const getEventStyle = (start, end) => {
   const startIndex = getTimeIndex(start);
   const endIndex = getTimeIndex(end);
   const top = startIndex * slotHeight;
-  const height = (endIndex - startIndex) * slotHeight + 20;
+  const height = (endIndex - startIndex) * slotHeight + RFPercentage(3);
   return { top, height };
 };
 
@@ -112,7 +112,7 @@ export default function TodayEvents() {
             return (
               <View
                 key={event.id}
-                style={[styles.event, { height, marginTop: RFPercentage(2.3) }]}
+                style={[styles.event, { height, marginTop: RFPercentage(2) }]}
               >
                 <View style={styles.header}>
                   <View style={styles.eventTitleWrapper}>

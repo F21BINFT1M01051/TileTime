@@ -10,24 +10,24 @@ import {
 import React, { useState } from 'react';
 import { COLORS, FONTS, ICONS } from '../../../../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import DocumentPicker, {
-  DocumentPickerResponse,
-} from 'react-native-document-picker';
+import { pick } from '@react-native-documents/picker'
 
 const GuidedPlayAttachments = () => {
-  const [attachments, setAttachments] = useState<DocumentPickerResponse[]>([]);
+  const [attachments, setAttachments] = useState([]);
 
-  // Pick Image or Document
-  const pickDocument = async () => {
+   const pickDocument = async () => {
     try {
-      const res = await DocumentPicker.pickSingle({
-        type: [DocumentPicker.types.images, DocumentPicker.types.pdf],
+      const res = await pick({
+        type: ['image/*', 'application/pdf'], // allow images + pdf
+        allowMultiSelection: false, // set true if you want multiple
         copyTo: 'cachesDirectory',
       });
 
-      setAttachments(prev => [...prev, res]);
+      if (res && res.length > 0) {
+        setAttachments(prev => [...prev, ...res]);
+      }
     } catch (err) {
-      if (DocumentPicker.isCancel(err)) {
+      if (err?.message?.includes('cancelled')) {
         console.log('User cancelled');
       } else {
         console.log('Error: ', err);
@@ -65,6 +65,7 @@ const GuidedPlayAttachments = () => {
             <FlatList
               data={attachments}
               keyExtractor={(item, index) => index.toString()}
+              contentContainerStyle={{marginTop:RFPercentage(2)}}
               renderItem={({ item, index }) => (
                 <TouchableOpacity
                   activeOpacity={0.8}
@@ -79,12 +80,12 @@ const GuidedPlayAttachments = () => {
                           style={styles.fileImage}
                         />
                       ) : (
-                        <Image source={ICONS.attach} style={styles.fileImage} />
+                        <Image source={ICONS.attach} style={[styles.fileImage, {top:RFPercentage(0.2)}]} resizeMode='contain' />
                       )}
                     </View>
 
                     <View style={styles.fileTextWrapper}>
-                      <Text style={styles.fileName}>{item?.name}</Text>
+                      <Text style={styles.fileName}>{item?.name.length > 25 ? item.name.slice(0,25) + `...` : item.name}</Text>
                       <Text style={styles.fileHint}>Tap to View</Text>
                     </View>
 
@@ -105,7 +106,9 @@ const GuidedPlayAttachments = () => {
             />
 
             <View style={styles.addMoreWrapper}>
-              <TouchableOpacity activeOpacity={0.8} onPress={pickDocument}>
+              <TouchableOpacity activeOpacity={0.8}
+               onPress={pickDocument}
+               >
                 <Text style={styles.addMoreText}>Add Attachment(s)</Text>
               </TouchableOpacity>
             </View>
@@ -155,11 +158,11 @@ const styles = StyleSheet.create({
   fileCard: {
     width: '100%',
     borderRadius: RFPercentage(2.5),
-    height: RFPercentage(10),
+    height: RFPercentage(11),
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.lightWhite,
     borderBottomWidth: RFPercentage(0.4),
-    marginTop: RFPercentage(1),
+    marginTop: RFPercentage(1.5),
     justifyContent: 'center',
   },
   fileRow: {
@@ -174,18 +177,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: COLORS.fieldColor,
-    borderRadius: RFPercentage(2),
+    borderRadius: RFPercentage(1.2),
   },
   fileImage: {
-    width: RFPercentage(5),
-    height: RFPercentage(6),
-    borderRadius: RFPercentage(1),
+    width: RFPercentage(5.5),
+    height: RFPercentage(6.5),
+    borderRadius: RFPercentage(0.8),
   },
   fileTextWrapper: { marginLeft: RFPercentage(1.6) },
   fileName: {
     color: COLORS.primary,
     fontSize: RFPercentage(1.8),
-    fontFamily: FONTS.bold,
+    fontFamily: FONTS.semiBold,
   },
   fileHint: {
     color: COLORS.grey3,
