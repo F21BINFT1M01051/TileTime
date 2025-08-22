@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.white,
     width: '100%',
-    height: Platform.OS === 'ios' ?  RFPercentage(13) : RFPercentage(10),
+    height: Platform.OS === 'ios' ?  RFPercentage(13) : RFPercentage(11),
     justifyContent: 'flex-end',
     borderBottomWidth: RFPercentage(0.1),
     borderBottomColor: COLORS.lightWhite,

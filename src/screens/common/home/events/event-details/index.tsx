@@ -442,7 +442,7 @@ const styles = StyleSheet.create({
   },
   locationCard: {
     width: '100%',
-    height: RFPercentage(16),
+    height: RFPercentage(16.5),
     backgroundColor: COLORS.white,
     borderColor: COLORS.lightWhite,
     borderWidth: RFPercentage(0.1),
@@ -508,7 +508,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     top: RFPercentage(0.3),
   },
-  locationDetails: { width: RFPercentage(18) },
+  locationDetails: { width: RFPercentage(20) },
   locationAddress: {
     color: COLORS.primary,
     fontFamily: FONTS.regular,
