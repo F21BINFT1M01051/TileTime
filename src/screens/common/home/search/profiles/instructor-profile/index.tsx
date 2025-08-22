@@ -66,7 +66,7 @@ const InstructorProfile = ({ navigation }: any) => {
         <View style={{ width: '100%' }}>
           <ImageBackground
             source={IMAGES.single}
-            resizeMode="contain"
+            resizeMode="repeat"
             style={styles.backgroundImage}
           >
             <View style={styles.headerBorder}>
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     width: '100%',
-    height: RFPercentage(26),
+    height: RFPercentage(21),
   },
   mainContent: {
     width: '90%',

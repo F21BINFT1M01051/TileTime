@@ -1,5 +1,5 @@
 // components/AddToGroupModal.js
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
   Modal,
   StyleSheet,
@@ -11,6 +11,7 @@ import {
   Animated,
   Dimensions,
   TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 import { BlurView } from '@react-native-community/blur';
 import { RFPercentage } from 'react-native-responsive-fontsize';
@@ -45,6 +46,22 @@ const AddToGroupModal = ({
       }).start();
     }
   }, [isVisible]);
+
+  const [keyboardIsVisible, setKeyboardIsVisible] = useState(false);
+
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
+      setKeyboardIsVisible(true);
+    });
+    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardIsVisible(false);
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, []);
 
   return (
     <Modal visible={isVisible} transparent animationType="none">
@@ -139,21 +156,27 @@ const AddToGroupModal = ({
               </View>
 
               {/* Footer */}
-              <View style={styles.modalFooter}>
-                <View style={styles.modalFooterInner}>
-                  <CustomButton
-                    title={selectedContacts.length > 0 ? `Add Sophie To ${selectedContacts.length} Groups` : `Add Sophie To Groups`}
-                    onPress={onClose}
-                    disabled={selectedContacts.length === 0}
-                    style={{
-                      backgroundColor:
+              {!keyboardIsVisible && (
+                <View style={styles.modalFooter}>
+                  <View style={styles.modalFooterInner}>
+                    <CustomButton
+                      title={
                         selectedContacts.length > 0
-                          ? COLORS.primary
-                          : COLORS.disabled,
-                    }}
-                  />
+                          ? `Add Sophie To ${selectedContacts.length} Groups`
+                          : `Add Sophie To Groups`
+                      }
+                      onPress={onClose}
+                      disabled={selectedContacts.length === 0}
+                      style={{
+                        backgroundColor:
+                          selectedContacts.length > 0
+                            ? COLORS.primary
+                            : COLORS.disabled,
+                      }}
+                    />
+                  </View>
                 </View>
-              </View>
+              )}
             </Animated.View>
           </TouchableWithoutFeedback>
         </View>

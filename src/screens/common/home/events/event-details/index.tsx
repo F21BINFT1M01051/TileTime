@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
+  Share,
 } from 'react-native';
 import React from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../../../config/theme';
@@ -36,7 +37,7 @@ const Cards2 = [
     profile: IMAGES.customProfile,
     date: 'April 30, 2025',
     distance: '32 mi away',
-    free : true
+    free: true,
   },
   {
     id: 2,
@@ -58,7 +59,28 @@ const Cards2 = [
   },
 ];
 
-const EventDetails = () => {
+const EventDetails = ({navigation}: any) => {
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: 'Check out this awesome content! 🚀',
+        url: 'https://example.com',
+      });
+
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          console.log('Shared with activity type: ', result.activityType);
+        } else {
+          console.log('Shared successfully');
+        }
+      } else if (result.action === Share.dismissedAction) {
+        console.log('Dismissed');
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -70,6 +92,7 @@ const EventDetails = () => {
           style={styles.headerTitle}
           right={true}
           rightIcon={ICONS.share}
+          onPress2={onShare}
         />
 
         <View style={styles.innerContainer}>
@@ -270,7 +293,7 @@ const EventDetails = () => {
               </View>
             </View>
             <View style={{ marginTop: RFPercentage(2) }}>
-              <CustomButton onPress={() => {}} title="Invite Friends" />
+              <CustomButton onPress={() => {navigation.navigate("InviteFriends")}} title="Invite Friends" />
 
               <SocialField
                 name="Not Attending, Cancel"

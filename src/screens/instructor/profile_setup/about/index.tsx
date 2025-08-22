@@ -84,7 +84,7 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
   const formikRef = useRef<any>(null);
   const [businessName, setBusinessName] = useState('');
   const [anotherCity, setAnotherCity] = useState(false);
-  const [otherCity, setOtherCity] = useState("")
+  const [otherCity, setOtherCity] = useState('');
 
   useImperativeHandle(ref, () => ({
     validateForm: () => {
@@ -108,7 +108,10 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
   const pickImage = () => {
     const options = {
       mediaType: 'photo',
-      quality: 1,
+      quality: 1, 
+      includeBase64: false,
+      maxWidth: 9999, 
+      maxHeight: 9999, 
     };
 
     launchImageLibrary(options, response => {
@@ -368,7 +371,9 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
                   </>
                 )}
 
-                <View style={{  marginTop: anotherCity ? 0 :  RFPercentage(1.5) }}>
+                <View
+                  style={{ marginTop: anotherCity ? 0 : RFPercentage(1.5) }}
+                >
                   <View>
                     <InputField
                       placeholder="Phone Number (Required)"

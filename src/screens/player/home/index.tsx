@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Platform,
 } from 'react-native';
 import React, { useState } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -237,7 +238,7 @@ const PlayerHome = ({ navigation }: any) => {
               />
             </View>
 
-            <TouchableOpacity style={styles.viewAllButton}>
+            <TouchableOpacity activeOpacity={0.8} style={styles.viewAllButton}>
               <Text style={styles.viewAllText}>View All</Text>
             </TouchableOpacity>
 
@@ -331,7 +332,7 @@ const styles = StyleSheet.create({
   },
   actionsWrapper: {
     width: '100%',
-    bottom: RFPercentage(7),
+    bottom: Platform.OS === 'android' ? RFPercentage(8) : RFPercentage(6),
   },
   actionsCardWrapper: {
     width: '90%',

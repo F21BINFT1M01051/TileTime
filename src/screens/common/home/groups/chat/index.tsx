@@ -103,7 +103,10 @@ const ChatScreen = ({ route }: any) => {
     launchImageLibrary(
       {
         mediaType: 'photo',
-        quality: 0.7,
+        quality: 1,
+        includeBase64: false,
+        maxWidth: 9999,
+        maxHeight: 9999,
       },
       response => {
         if (
@@ -291,7 +294,7 @@ const ChatScreen = ({ route }: any) => {
             <>
               <TouchableOpacity
                 style={styles.dotsButton}
-                onPress={() => navigation.navigate('UserDetails')}
+                onPress={() => {}}
               >
                 <Image
                   source={ICONS.calender2}
@@ -707,7 +710,7 @@ const styles = StyleSheet.create({
     height: RFPercentage(6),
     width: '90%',
     alignSelf: 'center',
-    bottom:RFPercentage(1)
+    bottom: RFPercentage(1),
   },
   plusIcon: {
     width: RFPercentage(3),

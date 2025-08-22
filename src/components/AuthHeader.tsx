@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, Platform } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  Platform,
+} from 'react-native';
 import React from 'react';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS, ICONS } from '../config/theme';
@@ -12,7 +19,8 @@ interface Props {
   right?: boolean;
   rightText?: string;
   rightIcon?: any;
-  onPress2 ? : () => void
+  onPress2?: () => void;
+  rightIconStyle?: object;
 }
 
 const AuthHeader = (props: Props) => {
@@ -50,7 +58,7 @@ const AuthHeader = (props: Props) => {
                 <Image
                   source={props.rightIcon}
                   resizeMode="contain"
-                  style={styles.rightIcon}
+                  style={[styles.rightIcon, props.rightIconStyle]}
                 />
               </TouchableOpacity>
             )}
@@ -67,7 +75,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.white,
     width: '100%',
-    height: Platform.OS === 'ios' ?  RFPercentage(13) : RFPercentage(11),
+    height: Platform.OS === 'ios' ? RFPercentage(13) : RFPercentage(12),
     justifyContent: 'flex-end',
     borderBottomWidth: RFPercentage(0.1),
     borderBottomColor: COLORS.lightWhite,

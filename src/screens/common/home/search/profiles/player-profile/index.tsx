@@ -66,7 +66,7 @@ const PlayerProfile = ({ navigation }: any) => {
         <View style={styles.fullWidth}>
           <ImageBackground
             source={IMAGES.single}
-            resizeMode="contain"
+            resizeMode="repeat"
             style={styles.backgroundImage}
           >
             <View style={styles.headerBorder}>
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
   safeArea: { backgroundColor: COLORS.white, flex: 1 },
   fullWidth: { width: '100%' },
   zIndexHigh: { zIndex: 999999 },
-  backgroundImage: { width: '100%', height: RFPercentage(26) },
+  backgroundImage: { width: '100%', height: RFPercentage(21) },
   headerBorder: {
     borderBottomWidth: 1,
     borderBottomColor: COLORS.fieldBorder,

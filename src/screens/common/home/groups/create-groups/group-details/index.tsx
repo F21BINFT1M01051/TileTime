@@ -31,7 +31,7 @@ const GroupDetails = ({ navigation }: any) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <ImageBackground
           source={IMAGES.groupDetail}
-          resizeMode="contain"
+          resizeMode="repeat"
           style={styles.groupImage}
         >
           <View style={styles.headerBorder}>
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(8),
+    marginTop: RFPercentage(6),
   },
   dotsButton: {
     position: 'absolute',
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
   },
   groupImage: {
     width: '100%',
-    height: RFPercentage(26),
+    height: RFPercentage(24),
   },
   contentContainer: {
     width: '90%',

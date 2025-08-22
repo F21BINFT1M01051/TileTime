@@ -23,10 +23,10 @@ const payouts = [
   },
 ];
 
-const Payouts = () => {
+const Payouts = ({navigation}: any) => {
   return (
     <View style={styles.container}>
-      <AuthHeader title="Setup Payouts" right={true} rightIcon={ICONS.cross2} />
+      <AuthHeader title="Setup Payouts" right={true} rightIcon={ICONS.cross2} rightIconStyle={{width:RFPercentage(1.5),height:RFPercentage(1.5)}}  onPress2={()=> navigation.goBack()} />
       <View style={styles.innerContainer}>
         <Text style={styles.title}>Choose Your Payout Method</Text>
         <Text style={styles.subtitle}>

@@ -16,10 +16,11 @@ const GuidedPlayAttachments = () => {
   const [attachments, setAttachments] = useState([]);
 
    const pickDocument = async () => {
+    console.log("hi")
     try {
       const res = await pick({
-        type: ['image/*', 'application/pdf'], // allow images + pdf
-        allowMultiSelection: false, // set true if you want multiple
+        type: ['image/*', 'application/pdf'], 
+        allowMultiSelection: false, 
         copyTo: 'cachesDirectory',
       });
 

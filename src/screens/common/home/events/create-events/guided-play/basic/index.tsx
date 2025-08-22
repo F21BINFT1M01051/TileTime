@@ -20,7 +20,6 @@ import ToggleSwitch from 'toggle-switch-react-native';
 import DropdownField from '../../../../../../../components/DropDown';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-
 const experience = [
   {
     id: 1,
@@ -96,27 +95,27 @@ const GuidedPlayBasic = () => {
   const [endOn, setEndOn] = useState(new Date());
   const [applies, setApplies] = useState([]);
 
-  const onChange = ({event, selectedDate}:any) => {
+  const onChange = ({ event, selectedDate }: any) => {
     setShowPicker(false);
     if (selectedDate) setDate(selectedDate);
   };
 
-  const onChangeDate = ({event, selectedDate}:any) => {
+  const onChangeDate = ({ event, selectedDate }: any) => {
     setShowPicker2(false);
     if (selectedDate) seteEndDate(selectedDate);
   };
 
-  const onChangeStartTime = ({event, selectedDate}:any) => {
+  const onChangeStartTime = ({ event, selectedDate }: any) => {
     setShowPicker3(false);
     if (selectedDate) setStartTime(selectedDate);
   };
 
-  const onChangeEndTime = ({event, selectedDate}:any) => {
+  const onChangeEndTime = ({ event, selectedDate }: any) => {
     setShowPicker4(false);
     if (selectedDate) setEndTime(selectedDate);
   };
 
-  const endOnDate = ({event, selectedDate}:any) => {
+  const endOnDate = ({ event, selectedDate }: any) => {
     setShowPicker5(false);
     if (selectedDate) setEndOn(selectedDate);
   };
@@ -124,11 +123,20 @@ const GuidedPlayBasic = () => {
   const [imageUri, setImageUri] = useState(null);
 
   const pickImage = () => {
-    launchImageLibrary({ mediaType: 'photo', quality: 1 }, response => {
-      if (response?.assets?.length > 0) {
-        setImageUri(response?.assets[0].uri);
-      }
-    });
+    launchImageLibrary(
+      {
+        mediaType: 'photo',
+        quality: 1,
+        includeBase64: false,
+        maxWidth: 9999,
+        maxHeight: 9999,
+      },
+      response => {
+        if (response?.assets?.length > 0) {
+          setImageUri(response?.assets[0].uri);
+        }
+      },
+    );
   };
 
   const toggleSelection = (id: any) => {
@@ -1110,5 +1118,4 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: RFPercentage(-1),
   },
- 
 });

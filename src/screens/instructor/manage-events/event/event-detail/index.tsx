@@ -8,6 +8,8 @@ import {
   Image,
   TextInput,
   Keyboard,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import moment from 'moment';
 import React, { useState, useRef, useEffect } from 'react';
@@ -55,7 +57,10 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
     launchImageLibrary(
       {
         mediaType: 'photo',
-        quality: 0.7,
+        quality: 1,
+        includeBase64: false,
+        maxWidth: 9999,
+        maxHeight: 9999,
       },
       response => {
         if (
@@ -83,357 +88,371 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
   };
 
   return (
-    <View style={styles.container}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          paddingBottom: tab === 'Details' ? RFPercentage(4) : 0,
-        }}
-      >
-        {/* Header */}
-        <ImageBackground
-          source={IMAGES.detail22}
-          resizeMode="cover"
-          style={styles.groupImage}
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      // keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
+    >
+      <View style={styles.container}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={{
+            paddingBottom: tab === 'Details' ? RFPercentage(4) : 0,
+          }}
         >
-          <View style={styles.headerBorder}>
-            <View style={styles.headerContainer}>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => navigation.goBack()}
-              >
-                <AntDesign
-                  name="arrowleft"
-                  color={COLORS.grey}
-                  size={RFPercentage(2.5)}
-                />
-              </TouchableOpacity>
+          {/* Header */}
+          <ImageBackground
+            source={IMAGES.detail22}
+            resizeMode="cover"
+            style={styles.groupImage}
+          >
+            <View style={styles.headerBorder}>
+              <View style={styles.headerContainer}>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => navigation.goBack()}
+                >
+                  <AntDesign
+                    name="arrowleft"
+                    color={COLORS.grey}
+                    size={RFPercentage(2.5)}
+                  />
+                </TouchableOpacity>
 
-              <View style={styles.dotsButton}>
-                <View style={styles.editButton}>
-                  <TouchableOpacity activeOpacity={0.8}>
-                    <Image
-                      source={ICONS.Eye}
-                      resizeMode="contain"
-                      style={styles.iconSmall}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity activeOpacity={0.8}>
-                    <Image
-                      source={ICONS.copy2}
-                      resizeMode="contain"
-                      style={styles.iconSmall}
-                    />
-                  </TouchableOpacity>
+                <View style={styles.dotsButton}>
+                  <View style={styles.editButton}>
+                    <TouchableOpacity activeOpacity={0.8}>
+                      <Image
+                        source={ICONS.Eye}
+                        resizeMode="contain"
+                        style={styles.iconSmall}
+                      />
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={0.8}>
+                      <Image
+                        source={ICONS.copy2}
+                        resizeMode="contain"
+                        style={styles.iconSmall}
+                      />
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             </View>
-          </View>
 
-          {/* Badge */}
-          {type === 'Guided Play' && (
-            <View
-              style={{
-                width: '90%',
-                alignSelf: 'center',
-                position: 'absolute',
-                top: RFPercentage(10),
-              }}
-            >
-              <Image
-                source={ICONS.badge2}
+            {/* Badge */}
+            {type === 'Guided Play' && (
+              <View
                 style={{
-                  width: RFPercentage(16),
-                  height: RFPercentage(10),
+                  width: '90%',
+                  alignSelf: 'center',
+                  position: 'absolute',
+                  top: RFPercentage(8),
                 }}
-                resizeMode="contain"
-              />
-            </View>
-          )}
+              >
+                <Image
+                  source={ICONS.badge2}
+                  style={{
+                    width: RFPercentage(16),
+                    height: RFPercentage(10),
+                  }}
+                  resizeMode="contain"
+                />
+              </View>
+            )}
 
-          {/* Event Info */}
-          <LinearGradient
-            colors={['rgba(255, 255, 255, 0.5)', COLORS.white]}
-            style={styles.linearGradient}
-          >
-            <View style={styles.innerWrapper}>
-              <View style={styles.rowCenter}>
-                <View style={styles.imageWrapper}>
-                  <Image
-                    source={ICONS.event33}
-                    style={styles.eventImage}
-                    resizeMode="cover"
-                  />
-                </View>
-                <View style={styles.contentContainer}>
-                  <Text style={styles.title}>
-                    {'Four Winds: Community Mahjong Session'}
-                  </Text>
+            {/* Event Info */}
+            <LinearGradient
+              colors={['rgba(255, 255, 255, 0.5)', COLORS.white]}
+              style={styles.linearGradient}
+            >
+              <View style={styles.innerWrapper}>
+                <View style={styles.rowCenter}>
+                  <View style={styles.imageWrapper}>
+                    <Image
+                      source={ICONS.event33}
+                      style={styles.eventImage}
+                      resizeMode="cover"
+                    />
+                  </View>
+                  <View style={styles.contentContainer}>
+                    <Text style={styles.title}>
+                      {'Four Winds: Community Mahjong Session'}
+                    </Text>
 
-                  <View style={styles.topMargin}>
-                    <View style={styles.chipRow}>
-                      <View style={styles.dateChip}>
-                        <Image
-                          source={ICONS.calender3}
-                          resizeMode="contain"
-                          style={styles.chipIconImg}
-                        />
-                        <Text style={styles.chipText}>{'April 30, 2025'}</Text>
+                    <View style={styles.topMargin}>
+                      <View style={styles.chipRow}>
+                        <View style={styles.dateChip}>
+                          <Image
+                            source={ICONS.calender3}
+                            resizeMode="contain"
+                            style={styles.chipIconImg}
+                          />
+                          <Text style={styles.chipText}>
+                            {'April 30, 2025'}
+                          </Text>
+                        </View>
                       </View>
-                    </View>
 
-                    <View style={styles.chipRow}>
-                      <View style={styles.locationChip}>
-                        <Image
-                          source={ICONS.map2}
-                          resizeMode="contain"
-                          style={styles.chipIconImg}
-                        />
-                        <Text style={styles.chipText}>
-                          {'Community Center'}
-                        </Text>
+                      <View style={styles.chipRow}>
+                        <View style={styles.locationChip}>
+                          <Image
+                            source={ICONS.map2}
+                            resizeMode="contain"
+                            style={styles.chipIconImg}
+                          />
+                          <Text style={styles.chipText}>
+                            {'Community Center'}
+                          </Text>
+                        </View>
                       </View>
                     </View>
                   </View>
                 </View>
               </View>
-            </View>
-          </LinearGradient>
-        </ImageBackground>
+            </LinearGradient>
+          </ImageBackground>
 
-        {/* Buttons */}
-        <View style={styles.wrapper90}>
-          <View style={styles.bottomContent}>
+          {/* Buttons */}
+          <View style={styles.wrapper90}>
+            <View style={styles.bottomContent}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={openModal}
+                style={styles.backButton}
+              >
+                <Text style={styles.backButtonText}>Edit</Text>
+              </TouchableOpacity>
+              <CustomButton
+                title={'Share Event'}
+                style={styles.saveButton}
+                onPress={openModal2}
+              />
+            </View>
+
+            {/* Attendees */}
+            <DetailComponent
+              title="Attendees"
+              subTitle="26 confirmed attendees, 2 cancelled"
+              onPress={() => {
+                navigation.navigate('EventAttendees');
+              }}
+            />
+
+            {/* Insights */}
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={openModal}
-              style={styles.backButton}
+              style={styles.insightBox}
+              onPress={() => navigation.navigate('EventInsights')}
             >
-              <Text style={styles.backButtonText}>Edit</Text>
+              <View style={styles.insightContent}>
+                <View>
+                  <Text style={styles.insightTitle}>Event Insights</Text>
+                  <Text style={styles.insightSub}>
+                    56% drop offs, 1.1k views
+                  </Text>
+                </View>
+                <TouchableOpacity>
+                  <Image
+                    source={ICONS.right}
+                    resizeMode="contain"
+                    style={styles.rightIcon}
+                  />
+                </TouchableOpacity>
+              </View>
             </TouchableOpacity>
-            <CustomButton
-              title={'Share Event'}
-              style={styles.saveButton}
-              onPress={openModal2}
-            />
           </View>
 
-          {/* Attendees */}
-          <DetailComponent
-            title="Attendees"
-            subTitle="26 confirmed attendees, 2 cancelled"
-            onPress={() => {
-              navigation.navigate('EventAttendees');
-            }}
-          />
+          {/* Tabs */}
+          <View style={styles.tabBar}>
+            <View style={styles.tabRow}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => setTab('Details')}
+                style={[
+                  styles.tabButton,
+                  tab === 'Details' && styles.activeTab,
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.tabText,
+                    tab === 'Details' && styles.activeTabText,
+                  ]}
+                >
+                  Event Details
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => setTab('Discussion')}
+                style={[
+                  styles.tabButton,
+                  styles.tabMargin,
+                  tab === 'Discussion' && styles.activeTab,
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.tabText,
+                    tab === 'Discussion' && styles.activeTabText,
+                  ]}
+                >
+                  Discussion
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
 
-          {/* Insights */}
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={styles.insightBox}
-            onPress={() => navigation.navigate('EventInsights')}
-          >
-            <View style={styles.insightContent}>
-              <View>
-                <Text style={styles.insightTitle}>Event Insights</Text>
-                <Text style={styles.insightSub}>56% drop offs, 1.1k views</Text>
-              </View>
-              <TouchableOpacity>
+          {/* Tab Content */}
+          <View style={{ width: '100%', alignSelf: 'center' }}>
+            {tab === 'Details' ? (
+              <Details type={type} />
+            ) : isOn ? (
+              <ImageBackground
+                source={ICONS.eventChat}
+                resizeMode="cover"
+                style={{
+                  maxHeight: RFPercentage(60),
+                  minHeight: RFPercentage(40),
+                }}
+              >
+                <View>
+                  {/* Messages Scroll */}
+                  <ScrollView
+                    ref={scrollViewRef}
+                    contentContainerStyle={{
+                      padding: RFPercentage(2),
+                    }}
+                    showsVerticalScrollIndicator={false}
+                  >
+                    {messages.map((msg, index) => (
+                      <View key={index} style={styles.messageRow}>
+                        <View style={styles.messageBubble}>
+                          <View
+                            style={{
+                              flexDirection: 'row',
+                              alignItems: 'center',
+                            }}
+                          >
+                            <Image
+                              source={IMAGES.chatProfile}
+                              resizeMode="contain"
+                              style={{
+                                width: RFPercentage(4),
+                                height: RFPercentage(4),
+                              }}
+                            />
+                            <Text style={styles.name}>You</Text>
+                            <Text style={styles.time}>
+                              {moment(msg.createdAt).fromNow()}
+                            </Text>
+                          </View>
+                          {msg.image ? (
+                            <Image
+                              source={{ uri: msg.image }}
+                              style={styles.messageImage}
+                            />
+                          ) : (
+                            <Text style={styles.messageText}>{msg.text}</Text>
+                          )}
+                        </View>
+                      </View>
+                    ))}
+                  </ScrollView>
+                </View>
+              </ImageBackground>
+            ) : (
+              <View style={styles.wrap2}>
                 <Image
-                  source={ICONS.right}
+                  source={ICONS.locked}
                   resizeMode="contain"
-                  style={styles.rightIcon}
+                  style={{
+                    width: RFPercentage(10),
+                    height: RFPercentage(10),
+                  }}
+                />
+                <Text style={styles.chatEmpty}>
+                  Discussion is Off for This Event
+                </Text>
+                <Text style={styles.detail}>
+                  Once enabled, you and your attendees can chat, ask questions,
+                  and stay updated, all in one place.
+                </Text>
+              </View>
+            )}
+          </View>
+        </ScrollView>
+        {tab === 'Discussion' && (
+          <View style={styles.inputToolbarContainer}>
+            <View style={styles.toggleRow}>
+              <Text style={styles.toggleLabel}>
+                Turn On Discussion for This Event
+              </Text>
+              <ToggleSwitch
+                isOn={isOn}
+                onColor={COLORS.pink}
+                offColor={COLORS.switch}
+                size="small"
+                onToggle={() => setIsOn(!isOn)}
+              />
+            </View>
+
+            <View style={styles.inputBar}>
+              <TouchableOpacity onPress={handleImagePick}>
+                <Image
+                  source={ICONS.plus6}
+                  style={styles.plusIcon}
+                  resizeMode="contain"
+                />
+              </TouchableOpacity>
+
+              <TextInput
+                style={styles.messageInput}
+                placeholder="Type your message here"
+                placeholderTextColor={COLORS.search}
+                value={message}
+                onChangeText={setMessage}
+                editable={isOn}
+              />
+
+              <TouchableOpacity
+                onPress={() => {
+                  if (message.trim()) {
+                    const newMessage = {
+                      _id: Date.now(),
+                      text: message,
+                    };
+                    setMessages(prev => [...prev, newMessage]);
+                    setMessage('');
+                    Keyboard.dismiss();
+                  }
+                }}
+              >
+                <Image
+                  source={ICONS.send}
+                  style={styles.sendButtonIcon}
+                  resizeMode="contain"
                 />
               </TouchableOpacity>
             </View>
-          </TouchableOpacity>
-        </View>
-
-        {/* Tabs */}
-        <View style={styles.tabBar}>
-          <View style={styles.tabRow}>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => setTab('Details')}
-              style={[styles.tabButton, tab === 'Details' && styles.activeTab]}
-            >
-              <Text
-                style={[
-                  styles.tabText,
-                  tab === 'Details' && styles.activeTabText,
-                ]}
-              >
-                Event Details
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => setTab('Discussion')}
-              style={[
-                styles.tabButton,
-                styles.tabMargin,
-                tab === 'Discussion' && styles.activeTab,
-              ]}
-            >
-              <Text
-                style={[
-                  styles.tabText,
-                  tab === 'Discussion' && styles.activeTabText,
-                ]}
-              >
-                Discussion
-              </Text>
-            </TouchableOpacity>
           </View>
-        </View>
+        )}
 
-        {/* Tab Content */}
-        <View style={{ width: '100%', alignSelf: 'center' }}>
-          {tab === 'Details' ? (
-            <Details type={type} />
-          ) : isOn ? (
-            <ImageBackground
-              source={ICONS.eventChat}
-              resizeMode="cover"
-              style={{
-                maxHeight: RFPercentage(60),
-                minHeight: RFPercentage(40),
-              }}
-            >
-              <View>
-                {/* Messages Scroll */}
-                <ScrollView
-                  ref={scrollViewRef}
-                  contentContainerStyle={{
-                    padding: RFPercentage(2),
-                  }}
-                  showsVerticalScrollIndicator={false}
-                >
-                  {messages.map((msg, index) => (
-                    <View key={index} style={styles.messageRow}>
-                      <View style={styles.messageBubble}>
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                          }}
-                        >
-                          <Image
-                            source={IMAGES.chatProfile}
-                            resizeMode="contain"
-                            style={{
-                              width: RFPercentage(4),
-                              height: RFPercentage(4),
-                            }}
-                          />
-                          <Text style={styles.name}>You</Text>
-                          <Text style={styles.time}>
-                            {moment(msg.createdAt).fromNow()}
-                          </Text>
-                        </View>
-                        {msg.image ? (
-                          <Image
-                            source={{ uri: msg.image }}
-                            style={styles.messageImage}
-                          />
-                        ) : (
-                          <Text style={styles.messageText}>{msg.text}</Text>
-                        )}
-                      </View>
-                    </View>
-                  ))}
-                </ScrollView>
-              </View>
-            </ImageBackground>
-          ) : (
-            <View style={styles.wrap2}>
-              <Image
-                source={ICONS.locked}
-                resizeMode="contain"
-                style={{
-                  width: RFPercentage(10),
-                  height: RFPercentage(10),
-                }}
-              />
-              <Text style={styles.chatEmpty}>
-                Discussion is Off for This Event
-              </Text>
-              <Text style={styles.detail}>
-                Once enabled, you and your attendees can chat, ask questions,
-                and stay updated, all in one place.
-              </Text>
-            </View>
-          )}
-        </View>
-      </ScrollView>
-      {tab === 'Discussion' && (
-        <View style={styles.inputToolbarContainer}>
-          <View style={styles.toggleRow}>
-            <Text style={styles.toggleLabel}>
-              Turn On Discussion for This Event
-            </Text>
-            <ToggleSwitch
-              isOn={isOn}
-              onColor={COLORS.pink}
-              offColor={COLORS.switch}
-              size="small"
-              onToggle={() => setIsOn(!isOn)}
-            />
-          </View>
+        {/* Edit Modal */}
+        <EditEventDetails
+          visible={isModalVisible}
+          onClose={() => setIsModalVisible(false)}
+        />
 
-          <View style={styles.inputBar}>
-            <TouchableOpacity onPress={handleImagePick}>
-              <Image
-                source={ICONS.plus6}
-                style={styles.plusIcon}
-                resizeMode="contain"
-              />
-            </TouchableOpacity>
-
-            <TextInput
-              style={styles.messageInput}
-              placeholder="Type your message here"
-              placeholderTextColor={COLORS.search}
-              value={message}
-              onChangeText={setMessage}
-              editable={isOn}
-            />
-
-            <TouchableOpacity
-              onPress={() => {
-                if (message.trim()) {
-                  const newMessage = {
-                    _id: Date.now(),
-                    text: message,
-                  };
-                  setMessages(prev => [...prev, newMessage]);
-                  setMessage('');
-                  Keyboard.dismiss();
-                }
-              }}
-            >
-              <Image
-                source={ICONS.send}
-                style={styles.sendButtonIcon}
-                resizeMode="contain"
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
-      )}
-
-      {/* Edit Modal */}
-      <EditEventDetails
-        visible={isModalVisible}
-        onClose={() => setIsModalVisible(false)}
-      />
-
-      {/* Share Modal */}
-      <ShareEvent
-        visible={isModalVisible2}
-        onClose={() => setIsModalVisible2(false)}
-      />
-    </View>
+        {/* Share Modal */}
+        <ShareEvent
+          visible={isModalVisible2}
+          onClose={() => setIsModalVisible2(false)}
+        />
+      </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -455,7 +474,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(8),
+    marginTop: RFPercentage(6),
   },
   chatEmpty: {
     color: COLORS.primary,
@@ -486,7 +505,7 @@ const styles = StyleSheet.create({
   },
   linearGradient: {
     width: '100%',
-    marginTop: RFPercentage(3.5),
+    marginTop: RFPercentage(5.5),
     paddingVertical: RFPercentage(2),
     height: '100%',
   },
@@ -503,6 +522,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontSize: RFPercentage(1.8),
     marginLeft: RFPercentage(1),
+    lineHeight: RFPercentage(2),
   },
   time: {
     fontFamily: FONTS.regular,
@@ -539,7 +559,7 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(2),
     color: COLORS.primary,
     fontFamily: FONTS.bold,
-    lineHeight: RFPercentage(2.1),
+    lineHeight: RFPercentage(2.3),
   },
   topMargin: {
     marginTop: RFPercentage(0.6),
@@ -583,7 +603,7 @@ const styles = StyleSheet.create({
   wrapper90: {
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(1),
+    marginTop: RFPercentage(0),
   },
   bottomContent: {
     width: '100%',

@@ -63,7 +63,13 @@ const EditProfile = () => {
   const [phone, setPhone] = useState('0309-8454-670');
 
   const pickImage = () => {
-    const options = { mediaType: 'photo', quality: 1 };
+    const options = {
+      mediaType: 'photo',
+      quality: 1,
+      includeBase64: false,
+      maxWidth: 9999,
+      maxHeight: 9999,
+    };
     launchImageLibrary(options, response => {
       if (response.assets && response.assets.length > 0) {
         setImageUri(response.assets[0].uri);
@@ -199,7 +205,7 @@ const EditProfile = () => {
                   focusedColor={COLORS.focused}
                   errorColor={COLORS.red}
                   password={false}
-                  style={{paddingHorizontal:RFPercentage(1)}}
+                  style={{ paddingHorizontal: RFPercentage(1) }}
                 />
               </View>
 
@@ -445,8 +451,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: COLORS.white,
-    paddingVertical:RFPercentage(2),
-    paddingBottom:RFPercentage(4)
+    paddingVertical: RFPercentage(2),
+    paddingBottom: RFPercentage(4),
   },
   buttonContainer: {
     width: '90%',

@@ -243,7 +243,7 @@ const InstructorHome = ({ navigation }: any) => {
               />
             </View>
 
-            <TouchableOpacity style={styles.viewAllButton}>
+            <TouchableOpacity activeOpacity={0.8} style={styles.viewAllButton}>
               <Text style={styles.viewAllText}>View All</Text>
             </TouchableOpacity>
 
@@ -337,7 +337,7 @@ const styles = StyleSheet.create({
   },
   actionsWrapper: {
     width: '100%',
-    bottom: RFPercentage(6),
+    bottom: Platform.OS === 'android' ? RFPercentage(8) : RFPercentage(6),
   },
   actionsCardWrapper: {
     width: '90%',

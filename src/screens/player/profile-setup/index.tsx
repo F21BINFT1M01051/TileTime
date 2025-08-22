@@ -74,6 +74,9 @@ const PlayerProfileSetup = ({ navigation }: any) => {
     const options = {
       mediaType: 'photo',
       quality: 1,
+      includeBase64: false,
+      maxWidth: 9999,
+      maxHeight: 9999,
     };
 
     launchImageLibrary(options, response => {
@@ -369,7 +372,14 @@ const PlayerProfileSetup = ({ navigation }: any) => {
                 <View style={styles.button}>
                   <CustomButton
                     title="Save"
-                    style={{ width: '90%', alignSelf: 'center' , bottom:RFPercentage(2) ,  backgroundColor: values.name || values.city || values.phoneNumber ? COLORS.primary : COLORS.disabled,
+                    style={{
+                      width: '90%',
+                      alignSelf: 'center',
+                      bottom: RFPercentage(2),
+                      backgroundColor:
+                        values.name || values.city || values.phoneNumber
+                          ? COLORS.primary
+                          : COLORS.disabled,
                     }}
                     onPress={handleSubmit}
                   />
@@ -498,8 +508,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: COLORS.white,
-    paddingVertical:RFPercentage(3),
-    paddingTop:RFPercentage(4)
+    paddingVertical: RFPercentage(3),
+    paddingTop: RFPercentage(4),
   },
   bioWrapper: {
     marginTop: RFPercentage(3),

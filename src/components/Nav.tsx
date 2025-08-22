@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   auth: {
     width: '100%',
-    height: RFPercentage(11),
+    height: RFPercentage(9),
     justifyContent: 'flex-end',
     borderBottomWidth: RFPercentage(0.1),
     borderBottomColor: COLORS.fieldBorder,

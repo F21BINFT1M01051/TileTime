@@ -66,7 +66,7 @@ const DropdownField: React.FC<Props> = ({
     position: 'absolute' as const,
     top: animatedIsFocused.interpolate({
       inputRange: [0, 1],
-      outputRange: [0, RFPercentage(-1)],
+      outputRange: [0, RFPercentage(-1.5)],
     }),
     fontSize: animatedIsFocused.interpolate({
       inputRange: [0, 1],
@@ -123,8 +123,10 @@ const DropdownField: React.FC<Props> = ({
             data={data}
             keyExtractor={(item, index) => index.toString()}
             scrollEnabled={true}
+            nestedScrollEnabled={true}
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
+            style={{ maxHeight: RFPercentage(25) }}
             renderItem={({ item, index }) => {
               const isLastItem = index === data.length - 1;
               return (
@@ -160,7 +162,7 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: RFPercentage(0.1),
     width: '100%',
-    height:  RFPercentage(7),
+    height: RFPercentage(7),
     backgroundColor: COLORS.fieldColor,
     borderColor: COLORS.fieldBorder,
     borderRadius: RFPercentage(1.3),
@@ -183,13 +185,11 @@ const styles = StyleSheet.create({
     borderColor: COLORS.fieldBorder,
     borderRadius: RFPercentage(1.5),
     backgroundColor: COLORS.white,
-    maxHeight: RFPercentage(25),
     zIndex: 999999,
-    marginTop:RFPercentage(1),
-    // position: 'absolute',
+    marginTop: RFPercentage(1),
     width: '100%',
-    // top: RFPercentage(9),
   },
+
   dropdownItem: {
     paddingVertical: RFPercentage(2.5),
     marginHorizontal: RFPercentage(2),

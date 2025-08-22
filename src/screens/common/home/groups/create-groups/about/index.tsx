@@ -43,6 +43,9 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
     const options = {
       mediaType: 'photo',
       quality: 1,
+      includeBase64: false,
+      maxWidth: 9999,
+      maxHeight: 9999,
     };
 
     launchImageLibrary(options, response => {
