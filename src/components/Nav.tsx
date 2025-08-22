@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Platform } from 'react-native';
 import React from 'react';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS } from '../config/theme';
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   auth: {
     width: '100%',
-    height: RFPercentage(9),
+    height:  Platform.OS === 'ios' ? RFPercentage(12) : RFPercentage(9),
     justifyContent: 'flex-end',
     borderBottomWidth: RFPercentage(0.1),
     borderBottomColor: COLORS.fieldBorder,

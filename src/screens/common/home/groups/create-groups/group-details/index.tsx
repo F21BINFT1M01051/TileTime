@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  Platform,
 } from 'react-native';
 import React, { useState } from 'react';
 import { COLORS, IMAGES, FONTS, ICONS } from '../../../../../../config/theme';
@@ -189,7 +190,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(6),
+    marginTop: Platform.OS === 'ios' ? RFPercentage(8) : RFPercentage(6),
   },
   dotsButton: {
     position: 'absolute',
@@ -210,7 +211,7 @@ const styles = StyleSheet.create({
   },
   groupImage: {
     width: '100%',
-    height: RFPercentage(24),
+    height: RFPercentage(25.7),
   },
   contentContainer: {
     width: '90%',

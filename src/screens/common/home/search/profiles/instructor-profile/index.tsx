@@ -198,8 +198,9 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     width: '100%',
-    height: RFPercentage(21),
+    height: Platform.OS === 'android' ? RFPercentage(22) : RFPercentage(25.7),
   },
+
   mainContent: {
     width: '90%',
     alignSelf: 'center',

@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
   safeArea: { backgroundColor: COLORS.white, flex: 1 },
   fullWidth: { width: '100%' },
   zIndexHigh: { zIndex: 999999 },
-  backgroundImage: { width: '100%', height: RFPercentage(21) },
+  backgroundImage: { width: '100%', height: Platform.OS ===  'android' ? RFPercentage(22) : RFPercentage(25.7) },
   headerBorder: {
     borderBottomWidth: 1,
     borderBottomColor: COLORS.fieldBorder,
