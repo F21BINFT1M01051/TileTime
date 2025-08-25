@@ -28,8 +28,20 @@ const validationSchema = yup.object().shape({
   city: yup.string().required('City is required'),
   phoneNumber: yup
     .string()
+    .transform(value => {
+      if (!value) return value;
+      let digits = value.replace(/\D/g, '');
+      if (digits.startsWith('1')) digits = digits.slice(1);
+      if (digits.startsWith('0')) digits = digits.slice(1);
+      digits = digits.slice(-10);
+      if (digits.length < 10) return value;
+      const area = digits.slice(0, 3);
+      const prefix = digits.slice(3, 6);
+      const line = digits.slice(6, 10);
+      return `+1-${area}-${prefix}-${line}`;
+    })
     .required('Phone number is required')
-    .matches(/^[0-9]{10,15}$/, 'Enter a valid phone number'),
+    .matches(/^\+1-\d{3}-\d{3}-\d{4}$/, 'Enter a valid phone number'),
 });
 
 const data = [
@@ -108,6 +120,18 @@ const PlayerProfileSetup = ({ navigation }: any) => {
     }
   };
 
+  const formatPhoneNumber = (raw: string = ''): string => {
+    let digits = raw.replace(/\D/g, '');
+    if (digits.startsWith('1')) digits = digits.slice(1);
+    if (digits.startsWith('0')) digits = digits.slice(1);
+    digits = digits.slice(-10);
+    if (digits.length < 10) return `+1-${digits}`;
+    const area = digits.slice(0, 3);
+    const prefix = digits.slice(3, 6);
+    const line = digits.slice(6, 10);
+    return `+1-${area}-${prefix}-${line}`;
+  };
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -140,13 +164,11 @@ const PlayerProfileSetup = ({ navigation }: any) => {
             touched,
           }) => (
             <>
+              <AuthHeader title="Set Up Your Profile" />
               <ScrollView
                 style={{ flex: 1, backgroundColor: COLORS.white }}
                 showsVerticalScrollIndicator={false}
               >
-                <View>
-                  <AuthHeader title="Set Up Your Profile" />
-                </View>
                 <View style={styles.container}>
                   <Text style={styles.title}>Enter Your Personal Details</Text>
                   <TouchableOpacity
@@ -297,7 +319,10 @@ const PlayerProfileSetup = ({ navigation }: any) => {
                       <InputField
                         placeholder="Phone Number (Required)"
                         value={values.phoneNumber}
-                        onChangeText={handleChange('phoneNumber')}
+                        onChangeText={text => {
+                          const formatted = formatPhoneNumber(text);
+                          handleChange('phoneNumber')(formatted);
+                        }}
                         handleBlur={handleBlur('phoneNumber')}
                         hasError={
                           touched.phoneNumber && errors.phoneNumber

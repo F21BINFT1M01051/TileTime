@@ -60,7 +60,7 @@ const EditProfile = () => {
   const [keyboardIsVisible, setKeyboardIsVisible] = useState(false);
   const [name, setName] = useState('Alexender');
   const [city, setCity] = useState('Paris');
-  const [phone, setPhone] = useState('0309-8454-670');
+  const [phone, setPhone] = useState('+1-343-433-6370');
 
   const pickImage = () => {
     const options = {
@@ -91,6 +91,18 @@ const EditProfile = () => {
     };
   }, []);
 
+  const formatPhoneNumber = (raw: string = ''): string => {
+    let digits = raw.replace(/\D/g, '');
+    if (digits.startsWith('1')) digits = digits.slice(1);
+    if (digits.startsWith('0')) digits = digits.slice(1);
+    digits = digits.slice(-10);
+    if (digits.length < 10) return `+1-${digits}`;
+    const area = digits.slice(0, 3);
+    const prefix = digits.slice(3, 6);
+    const line = digits.slice(6, 10);
+    return `+1-${area}-${prefix}-${line}`;
+  };
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -102,13 +114,12 @@ const EditProfile = () => {
       }}
     >
       <>
+        <AuthHeader title="Edit Profile" style={styles.headerTitle} />
         <ScrollView
           style={styles.scrollContainer}
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
-          <AuthHeader title="Edit Profile" style={styles.headerTitle} />
-
           <View style={styles.container}>
             <Text style={styles.title}>Basic Details</Text>
 
@@ -231,7 +242,10 @@ const EditProfile = () => {
                 focusedColor={COLORS.focused}
                 errorColor={COLORS.red}
                 value={phone}
-                onChangeText={setPhone}
+                onChangeText={text => {
+                  const formatted = formatPhoneNumber(text);
+                  setPhone(formatted);
+                }}
                 type="phone-pad"
                 icon={
                   <Image

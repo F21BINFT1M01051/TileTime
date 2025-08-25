@@ -98,7 +98,7 @@ const InsightsData = [
     name: 'Total Events hosted',
     subText: '1,039',
   },
- 
+
   {
     id: 6,
     name: 'Average RSVP count',
@@ -121,12 +121,11 @@ const MyProfileInstructor = ({ navigation }: any) => {
 
   return (
     <View style={styles.container}>
+      <TopNavigation title="My Profile" />
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        <TopNavigation title="My Profile" />
-
         <View style={styles.innerContainer}>
           <View style={styles.profileRow}>
             <ImageBackground
@@ -196,7 +195,11 @@ const MyProfileInstructor = ({ navigation }: any) => {
             </View>
           </View>
           <View style={{ marginTop: RFPercentage(2.5) }}>
-            <SettingsButton title="Payouts" icon={ICONS.arrow22} onPress={()=> navigation.navigate("PayoutsInstructor")} />
+            <SettingsButton
+              title="Payouts"
+              icon={ICONS.arrow22}
+              onPress={() => navigation.navigate('PayoutsInstructor')}
+            />
           </View>
 
           <View>
@@ -240,14 +243,26 @@ const MyProfileInstructor = ({ navigation }: any) => {
                 <Text style={styles.stepName}>Invite Friends</Text>
               </View>
 
-              <TouchableOpacity activeOpacity={0.8} style={styles.stepButton} onPress={()=>navigation.navigate("InviteFriends")}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.stepButton}
+                onPress={() => navigation.navigate('InviteFriends')}
+              >
                 <Text style={styles.stepButtonText}>Invite</Text>
               </TouchableOpacity>
             </View>
           </View>
 
-          <View style={{ flex: 1 , marginTop:RFPercentage(4)}}>
-            <Text style={{color:COLORS.primary, fontSize:RFPercentage(1.8), fontFamily:FONTS.semiBold}}>Insights</Text>
+          <View style={{ flex: 1, marginTop: RFPercentage(4) }}>
+            <Text
+              style={{
+                color: COLORS.primary,
+                fontSize: RFPercentage(1.8),
+                fontFamily: FONTS.semiBold,
+              }}
+            >
+              Insights
+            </Text>
             <FlatList
               data={InsightsData}
               keyExtractor={item => item.id.toString()}
@@ -263,7 +278,7 @@ const MyProfileInstructor = ({ navigation }: any) => {
                     flex: 1,
                   }}
                 >
-                  <Insights name={item.name} subText={item.subText}  />
+                  <Insights name={item.name} subText={item.subText} />
                 </View>
               )}
             />

@@ -94,6 +94,39 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
       // keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
     >
       <View style={styles.container}>
+        <View style={styles.headerBorder}>
+          <View style={styles.headerContainer}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => navigation.goBack()}
+            >
+              <AntDesign
+                name="arrowleft"
+                color={COLORS.grey}
+                size={RFPercentage(2.5)}
+              />
+            </TouchableOpacity>
+
+            <View style={styles.dotsButton}>
+              <View style={styles.editButton}>
+                <TouchableOpacity activeOpacity={0.8}>
+                  <Image
+                    source={ICONS.Eye}
+                    resizeMode="contain"
+                    style={styles.iconSmall}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity activeOpacity={0.8}>
+                  <Image
+                    source={ICONS.copy2}
+                    resizeMode="contain"
+                    style={styles.iconSmall}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </View>
         <ScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
@@ -107,40 +140,6 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
             resizeMode="cover"
             style={styles.groupImage}
           >
-            <View style={styles.headerBorder}>
-              <View style={styles.headerContainer}>
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  onPress={() => navigation.goBack()}
-                >
-                  <AntDesign
-                    name="arrowleft"
-                    color={COLORS.grey}
-                    size={RFPercentage(2.5)}
-                  />
-                </TouchableOpacity>
-
-                <View style={styles.dotsButton}>
-                  <View style={styles.editButton}>
-                    <TouchableOpacity activeOpacity={0.8}>
-                      <Image
-                        source={ICONS.Eye}
-                        resizeMode="contain"
-                        style={styles.iconSmall}
-                      />
-                    </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.8}>
-                      <Image
-                        source={ICONS.copy2}
-                        resizeMode="contain"
-                        style={styles.iconSmall}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-            </View>
-
             {/* Badge */}
             {type === 'Guided Play' && (
               <View
@@ -148,7 +147,7 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
                   width: '90%',
                   alignSelf: 'center',
                   position: 'absolute',
-                  top: RFPercentage(8),
+                  top: RFPercentage(-2),
                 }}
               >
                 <Image
@@ -474,7 +473,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(6),
+    marginTop: RFPercentage(7),
   },
   chatEmpty: {
     color: COLORS.primary,
@@ -494,7 +493,7 @@ const styles = StyleSheet.create({
   },
   groupImage: {
     width: '100%',
-    height: RFPercentage(36),
+    height: RFPercentage(27),
   },
   wrap2: {
     alignItems: 'center',

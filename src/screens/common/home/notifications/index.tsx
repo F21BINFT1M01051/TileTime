@@ -33,7 +33,7 @@ const notificationData = [
   },
   {
     id: 3,
-    notification: "New feature: You can now message attendees before sessions.",
+    notification: 'New feature: You can now message attendees before sessions.',
     time: '12h',
     profile: IMAGES.customProfile,
     unread: false,
@@ -72,8 +72,9 @@ const Notifications = ({ navigation }: any) => {
 
   return (
     <View style={styles.container}>
+      <HomeNavigator title="Notifications" />
+
       <ScrollView showsVerticalScrollIndicator={false}>
-        <HomeNavigator title="Notifications" />
         <View style={styles.filterContainer}>
           <FlatList
             data={Filters}
@@ -195,7 +196,7 @@ const styles = StyleSheet.create({
   notificationListContainer: {
     width: '90%',
     alignSelf: 'center',
-    marginTop:RFPercentage(1)
+    marginTop: RFPercentage(1),
   },
   notificationList: {
     paddingVertical: RFPercentage(0.3),

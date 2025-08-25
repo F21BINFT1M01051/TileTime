@@ -62,28 +62,27 @@ const InstructorProfile = ({ navigation }: any) => {
 
   return (
     <View style={styles.safeArea}>
+      <View style={styles.headerBorder}>
+        <View style={styles.headerContainer}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigation.goBack()}
+          >
+            <AntDesign
+              name="arrowleft"
+              color={COLORS.grey}
+              size={RFPercentage(3)}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ width: '100%' }}>
           <ImageBackground
             source={IMAGES.single}
             resizeMode="repeat"
             style={styles.backgroundImage}
-          >
-            <View style={styles.headerBorder}>
-              <View style={styles.headerContainer}>
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  onPress={() => navigation.goBack()}
-                >
-                  <AntDesign
-                    name="arrowleft"
-                    color={COLORS.grey}
-                    size={RFPercentage(3)}
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
-          </ImageBackground>
+          />
         </View>
         <View style={styles.mainContent}>
           <View style={styles.nonMemberAvatarWrapper}>
@@ -199,12 +198,13 @@ const styles = StyleSheet.create({
   backgroundImage: {
     width: '100%',
     height: Platform.OS === 'android' ? RFPercentage(22) : RFPercentage(25.7),
+    top: RFPercentage(-13),
   },
 
   mainContent: {
     width: '90%',
     alignSelf: 'center',
-    bottom: RFPercentage(8),
+    bottom: RFPercentage(19),
   },
   nonMemberAvatarWrapper: {
     width: RFPercentage(10),

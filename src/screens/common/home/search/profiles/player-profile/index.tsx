@@ -62,29 +62,28 @@ const PlayerProfile = ({ navigation }: any) => {
 
   return (
     <View style={styles.safeArea}>
+      <View style={styles.headerBorder}>
+        <View style={styles.headerContainer}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigation.goBack()}
+            style={styles.zIndexHigh}
+          >
+            <AntDesign
+              name="arrowleft"
+              color={COLORS.grey}
+              size={RFPercentage(3)}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.fullWidth}>
           <ImageBackground
             source={IMAGES.single}
             resizeMode="repeat"
             style={styles.backgroundImage}
-          >
-            <View style={styles.headerBorder}>
-              <View style={styles.headerContainer}>
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  onPress={() => navigation.goBack()}
-                  style={styles.zIndexHigh}
-                >
-                  <AntDesign
-                    name="arrowleft"
-                    color={COLORS.grey}
-                    size={RFPercentage(3)}
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
-          </ImageBackground>
+          />
         </View>
 
         {/* User Info */}
@@ -180,7 +179,11 @@ const styles = StyleSheet.create({
   safeArea: { backgroundColor: COLORS.white, flex: 1 },
   fullWidth: { width: '100%' },
   zIndexHigh: { zIndex: 999999 },
-  backgroundImage: { width: '100%', height: Platform.OS ===  'android' ? RFPercentage(22) : RFPercentage(25.7) },
+  backgroundImage: {
+    width: '100%',
+    height: Platform.OS === 'android' ? RFPercentage(22) : RFPercentage(25.7),
+    top: RFPercentage(-13),
+  },
   headerBorder: {
     borderBottomWidth: 1,
     borderBottomColor: COLORS.fieldBorder,
@@ -194,7 +197,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: Platform.OS === 'android' ? RFPercentage(5) : RFPercentage(7.6),
   },
-  mainContent: { width: '90%', alignSelf: 'center', bottom: RFPercentage(8) },
+  mainContent: { width: '90%', alignSelf: 'center', bottom: RFPercentage(19) },
   avatarOuterLayer: {
     width: RFPercentage(11),
     height: RFPercentage(12.5),

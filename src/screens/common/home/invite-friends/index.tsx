@@ -78,11 +78,11 @@ const InviteFriends = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
+      <AuthHeader title="Invite Friends" />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: RFPercentage(2) }}
       >
-        <AuthHeader title="Invite Friends" />
         <View style={{ width: '90%', alignSelf: 'center' }}>
           <Text style={styles.title}>Invite friends to join</Text>
           <Text style={styles.subtitle}>

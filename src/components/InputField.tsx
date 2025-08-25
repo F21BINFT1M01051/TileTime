@@ -29,6 +29,7 @@ interface Props {
   focusedColor?: string;
   errorColor?: string;
   hasError?: boolean;
+  length? : number
 }
 
 const InputField: React.FC<Props> = ({
@@ -46,6 +47,7 @@ const InputField: React.FC<Props> = ({
   focusedColor = COLORS.focused,
   errorColor = COLORS.red,
   hasError = false,
+  length,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [secureText, setSecureText] = useState(password);
@@ -98,6 +100,7 @@ const InputField: React.FC<Props> = ({
             onChangeText={onChangeText}
             onFocus={() => setIsFocused(true)}
             keyboardType={type}
+            maxLength={length}
             onBlur={event => {
               if (!value) {
                 setIsFocused(false);

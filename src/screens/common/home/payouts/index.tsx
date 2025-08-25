@@ -38,6 +38,7 @@ const Payouts = ({navigation}: any) => {
           <FlatList
             data={payouts}
             keyExtractor={(item) => item.id.toString()}
+            scrollEnabled={false}
             renderItem={({ item }) => {
               return (
                 <View style={styles.listItem}>

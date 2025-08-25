@@ -6,6 +6,9 @@ import {
   TouchableOpacity,
   Keyboard,
   TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
 } from 'react-native';
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -46,167 +49,170 @@ const SignUp = ({ navigation }: any) => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <LinearGradient
-        colors={[COLORS.gradient1, COLORS.gradient2]}
-        style={styles.gradient}
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <View style={styles.logoContainer}>
-          <Image
-            source={IMAGES.logo}
-            resizeMode="contain"
-            style={styles.logo}
-          />
+        <ScrollView style={{ backgroundColor: COLORS.white, flex: 1 }}>
+          <LinearGradient
+            colors={[COLORS.gradient1, COLORS.gradient2]}
+            style={styles.gradient}
+          >
+            <View style={styles.logoContainer}>
+              <Image
+                source={IMAGES.logo}
+                resizeMode="contain"
+                style={styles.logo}
+              />
 
-          <Image
-            source={IMAGES.headline}
-            resizeMode="contain"
-            style={styles.headlineImage}
-          />
-        </View>
-
-        <View style={styles.whiteContainer}>
-          <AuthHeader
-            title="Create Your Account"
-            wrapStyle={{
-              height: RFPercentage(5),
-              borderBottomWidth: 0,
-              marginTop: RFPercentage(2.5),
-            }}
-          />
-          <View style={styles.contentWrapper}>
-            <Formik
-              initialValues={{
-                email: '',
-                password: '',
-              }}
-              validationSchema={validationSchema}
-              onSubmit={values => handleSignUp(values)}
-            >
-              {({
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                values,
-                errors,
-                touched,
-                setFieldTouched,
-              }) => (
-                <>
-                  <View style={styles.inputMarginTop}>
-                    <InputField
-                      placeholder="Email Address"
-                      onChangeText={handleChange('email')}
-                      handleBlur={handleBlur('email')}
-                      value={values.email}
-                      password={false}
-                      hasError={touched.email && errors.email ? true : false}
-                      defaultColor={COLORS.placeholder}
-                      focusedColor={COLORS.focused}
-                      errorColor={COLORS.red}
-                      style={{
-                        borderColor:
-                          touched.email && errors.email
-                            ? COLORS.red
-                            : COLORS.fieldBorder,
-                      }}
-                    />
-                    {touched.email && errors.email && (
-                      <View style={{ marginTop: RFPercentage(0.6) }}>
-                        <Text
-                          style={{
-                            color: COLORS.red,
-                            fontFamily: FONTS.regular,
-                            fontSize: RFPercentage(1.7),
-                          }}
-                        >
-                          {errors?.email}
-                        </Text>
-                      </View>
-                    )}
-                  </View>
-
-                  <View>
-                    <InputField
-                      placeholder="Ceate Your Password"
-                      onChangeText={text => {
-                        // setFieldTouched('password', true);
-                        handleChange('password')(text);
-                      }}
-                      handleBlur={handleBlur('password')}
-                      value={values.password}
-                      password={true}
-                      hasError={
-                        touched.password && errors.password ? true : false
-                      }
-                      defaultColor={COLORS.placeholder}
-                      focusedColor={COLORS.focused}
-                      errorColor={COLORS.red}
-                      style={{
-                        borderColor:
-                          touched.password && errors.password
-                            ? COLORS.red
-                            : COLORS.fieldBorder,
-                      }}
-                    />
-                    {touched.password && errors.password && (
-                      <View style={{ marginTop: RFPercentage(0.6) }}>
-                        <Text
-                          style={{
-                            color: COLORS.red,
-                            fontFamily: FONTS.regular,
-                            fontSize: RFPercentage(1.7),
-                          }}
-                        >
-                          {errors?.password}
-                        </Text>
-                      </View>
-                    )}
-                  </View>
-
-                  <View style={styles.buttonWrapper}>
-                    <CustomButton
-                      title="Sign Up"
-                      onPress={handleSubmit}
-                      // disabled={
-                      //   !values.email ||
-                      //   !!errors.email ||
-                      //   !values.password ||
-                      //   !!errors.password
-                      // }
-                      style={{
-                        backgroundColor:
-                          !values.email ||
-                          !!errors.email ||
-                          !values.password ||
-                          !!errors.password
-                            ? COLORS.disabled
-                            : COLORS.primary,
-                      }}
-                    />
-                  </View>
-                </>
-              )}
-            </Formik>
-
-            <View style={styles.footerLinkContainer}>
-              <Text style={styles.footerTextGray}>Have An Account?</Text>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate('Login');
-                }}
-              >
-                <Text style={styles.signInLink}>Log In</Text>
-              </TouchableOpacity>
+              <Image
+                source={IMAGES.headline}
+                resizeMode="contain"
+                style={styles.headlineImage}
+              />
             </View>
-            <TouchableOpacity>
-              <Text style={styles.footerText}>Privacy & Terms</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={styles.footerText}>Contact Us</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </LinearGradient>
+
+            <View style={styles.whiteContainer}>
+              <AuthHeader
+                title="Create Your Account"
+                wrapStyle={{
+                  height: RFPercentage(5),
+                  borderBottomWidth: 0,
+                  marginTop: RFPercentage(2.5),
+                }}
+              />
+              <View style={styles.contentWrapper}>
+                <Formik
+                  initialValues={{
+                    email: '',
+                    password: '',
+                  }}
+                  validationSchema={validationSchema}
+                  onSubmit={values => handleSignUp(values)}
+                >
+                  {({
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    values,
+                    errors,
+                    touched,
+                    setFieldTouched,
+                  }) => (
+                    <>
+                      <View style={styles.inputMarginTop}>
+                        <InputField
+                          placeholder="Email Address"
+                          onChangeText={handleChange('email')}
+                          handleBlur={handleBlur('email')}
+                          value={values.email}
+                          password={false}
+                          hasError={
+                            touched.email && errors.email ? true : false
+                          }
+                          defaultColor={COLORS.placeholder}
+                          focusedColor={COLORS.focused}
+                          errorColor={COLORS.red}
+                          style={{
+                            borderColor:
+                              touched.email && errors.email
+                                ? COLORS.red
+                                : COLORS.fieldBorder,
+                          }}
+                        />
+                        {touched.email && errors.email && (
+                          <View style={{ marginTop: RFPercentage(0.6) }}>
+                            <Text
+                              style={{
+                                color: COLORS.red,
+                                fontFamily: FONTS.regular,
+                                fontSize: RFPercentage(1.7),
+                              }}
+                            >
+                              {errors?.email}
+                            </Text>
+                          </View>
+                        )}
+                      </View>
+
+                      <View>
+                        <InputField
+                          placeholder="Create Your Password"
+                          onChangeText={text => {
+                            // setFieldTouched('password', true);
+                            handleChange('password')(text);
+                          }}
+                          handleBlur={handleBlur('password')}
+                          value={values.password}
+                          password={true}
+                          hasError={
+                            touched.password && errors.password ? true : false
+                          }
+                          defaultColor={COLORS.placeholder}
+                          focusedColor={COLORS.focused}
+                          errorColor={COLORS.red}
+                          style={{
+                            borderColor:
+                              touched.password && errors.password
+                                ? COLORS.red
+                                : COLORS.fieldBorder,
+                          }}
+                        />
+                        {touched.password && errors.password && (
+                          <View style={{ marginTop: RFPercentage(0.6) }}>
+                            <Text
+                              style={{
+                                color: COLORS.red,
+                                fontFamily: FONTS.regular,
+                                fontSize: RFPercentage(1.7),
+                              }}
+                            >
+                              {errors?.password}
+                            </Text>
+                          </View>
+                        )}
+                      </View>
+
+                      <View style={styles.buttonWrapper}>
+                        <CustomButton
+                          title="Sign Up"
+                          onPress={handleSubmit}
+                          style={{
+                            backgroundColor:
+                              !values.email ||
+                              !!errors.email ||
+                              !values.password ||
+                              !!errors.password
+                                ? COLORS.disabled
+                                : COLORS.primary,
+                          }}
+                        />
+                      </View>
+                    </>
+                  )}
+                </Formik>
+
+                <View style={styles.footerLinkContainer}>
+                  <Text style={styles.footerTextGray}>Have An Account?</Text>
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate('Login');
+                    }}
+                  >
+                    <Text style={styles.signInLink}>Log In</Text>
+                  </TouchableOpacity>
+                </View>
+                <TouchableOpacity>
+                  <Text style={styles.footerText}>Privacy & Terms</Text>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Text style={styles.footerText}>Contact Us</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </LinearGradient>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
 };
@@ -247,8 +253,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 
-  inputMarginTop: {
-  },
+  inputMarginTop: {},
 
   buttonWrapper: {
     width: '100%',

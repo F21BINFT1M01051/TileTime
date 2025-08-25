@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
   },
   subSectionSpacing: {
     marginTop: RFPercentage(1),
+    flex:1
   },
   bottomWrapper: {
     width: '100%',

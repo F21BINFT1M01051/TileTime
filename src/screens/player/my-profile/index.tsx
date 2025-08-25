@@ -104,12 +104,11 @@ const MyProfilePlayer = ({ navigation }: any) => {
 
   return (
     <View style={styles.container}>
+      <TopNavigation title="My Profile" />
       <ScrollView
         contentContainerStyle={styles.scrollViewContent}
         showsVerticalScrollIndicator={false}
       >
-        <TopNavigation title="My Profile" />
-
         {/* User Info */}
         <View style={styles.profileContainer}>
           <View style={styles.profileHeader}>

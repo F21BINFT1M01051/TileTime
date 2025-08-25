@@ -40,8 +40,20 @@ const validationSchema = yup.object().shape({
   city: yup.string().required('City is required'),
   phoneNumber: yup
     .string()
+    .transform(value => {
+      if (!value) return value;
+      let digits = value.replace(/\D/g, '');
+      if (digits.startsWith('1')) digits = digits.slice(1);
+      if (digits.startsWith('0')) digits = digits.slice(1);
+      digits = digits.slice(-10);
+      if (digits.length < 10) return value; 
+      const area = digits.slice(0, 3);
+      const prefix = digits.slice(3, 6);
+      const line = digits.slice(6, 10);
+      return `+1-${area}-${prefix}-${line}`;
+    })
     .required('Phone number is required')
-    .matches(/^[0-9]{10,15}$/, 'Enter a valid phone number'),
+    .matches(/^\+1-\d{3}-\d{3}-\d{4}$/, 'Enter a valid phone number'),
 });
 
 const data = [
@@ -85,6 +97,8 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
   const [businessName, setBusinessName] = useState('');
   const [anotherCity, setAnotherCity] = useState(false);
   const [otherCity, setOtherCity] = useState('');
+  const [state2, setState2] = useState(null);
+  const [isDropdownVisible3, setIsDropdownVisible3] = useState(false);
 
   useImperativeHandle(ref, () => ({
     validateForm: () => {
@@ -108,10 +122,10 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
   const pickImage = () => {
     const options = {
       mediaType: 'photo',
-      quality: 1, 
+      quality: 1,
       includeBase64: false,
-      maxWidth: 9999, 
-      maxHeight: 9999, 
+      maxWidth: 9999,
+      maxHeight: 9999,
     };
 
     launchImageLibrary(options, response => {
@@ -119,6 +133,18 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
         setImageUri(response?.assets[0].uri);
       }
     });
+  };
+
+  const formatPhoneNumber = (raw: string = ''): string => {
+    let digits = raw.replace(/\D/g, '');
+    if (digits.startsWith('1')) digits = digits.slice(1);
+    if (digits.startsWith('0')) digits = digits.slice(1);
+    digits = digits.slice(-10);
+    if (digits.length < 10) return `+1-${digits}`;
+    const area = digits.slice(0, 3);
+    const prefix = digits.slice(3, 6);
+    const line = digits.slice(6, 10);
+    return `+1-${area}-${prefix}-${line}`;
   };
 
   return (
@@ -362,12 +388,36 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
                 </View>
                 {anotherCity && (
                   <>
-                    <InputField
-                      placeholder="Add Another City"
-                      value={otherCity}
-                      onChangeText={setOtherCity}
-                      password={false}
-                    />
+                    <View style={styles.dropdowns}>
+                      <View style={{ width: '48%' }}>
+                        <InputField
+                          placeholder="Another City"
+                          value={otherCity}
+                          onChangeText={setOtherCity}
+                          style={{
+                            paddingHorizontal: RFPercentage(0.7),
+                          }}
+                          password={false}
+                        />
+                        {touched.city && errors.city && (
+                          <View style={{ marginTop: RFPercentage(0.6) }}>
+                            <Text style={styles.error}>{errors?.city}</Text>
+                          </View>
+                        )}
+                      </View>
+
+                      <View style={{ width: '48%' }}>
+                        <DropdownField
+                          placeholder="State"
+                          data={['Beijing', 'Shanghai', 'Guangdong', 'Sichuan']}
+                          selectedValue={state2}
+                          onValueChange={(val: any) => setState2(val)}
+                          isDropdownVisible={isDropdownVisible3}
+                          setIsDropdownVisible={setIsDropdownVisible3}
+                          style={{ paddingHorizontal: RFPercentage(1) }}
+                        />
+                      </View>
+                    </View>
                   </>
                 )}
 
@@ -378,8 +428,12 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
                     <InputField
                       placeholder="Phone Number (Required)"
                       value={values.phoneNumber}
-                      onChangeText={handleChange('phoneNumber')}
+                      onChangeText={text => {
+                        const formatted = formatPhoneNumber(text);
+                        handleChange('phoneNumber')(formatted);
+                      }}
                       handleBlur={handleBlur('phoneNumber')}
+                      length={15}
                       hasError={
                         touched.phoneNumber && errors.phoneNumber ? true : false
                       }

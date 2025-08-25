@@ -151,14 +151,14 @@ const Events = ({ navigation }: any) => {
 
   return (
     <LinearGradient colors={[COLORS.white, COLORS.white]} style={{ flex: 1 }}>
+      <TopNavigation title="My Events" right text="Saved Draft" />
+
       <ScrollView showsVerticalScrollIndicator={false}>
         <ImageBackground
           source={IMAGES.background}
           resizeMode="cover"
           style={styles.imageBackground}
         >
-          <TopNavigation title="My Events" right text="Saved Draft" />
-
           {events.length > 0 ? (
             <View style={styles.searchContainer}>
               <SearchField
@@ -372,7 +372,7 @@ export default Events;
 const styles = StyleSheet.create({
   imageBackground: {
     width: '100%',
-    height: RFPercentage(32),
+    height: RFPercentage(18),
     alignItems: 'center',
   },
   searchContainer: {

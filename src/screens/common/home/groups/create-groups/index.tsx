@@ -74,21 +74,20 @@ const CreateGroup = ({ navigation }: any) => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      style={{ flex: 1 }}
+      style={{ flex: 1,backgroundColor: COLORS.white }}
     >
+      <Nav
+        title="Create Group"
+        onPress={() => {
+          stepIndex === 0 ? navigation.goBack() : setStepIndex(stepIndex - 1);
+        }}
+      />
       <ScrollView
         style={{ flex: 1, backgroundColor: COLORS.white }}
         contentContainerStyle={{ flexGrow: 1, paddingBottom: RFPercentage(2) }}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
-        <Nav
-          title="Create Group"
-          onPress={() => {
-            stepIndex === 0 ? navigation.goBack() : setStepIndex(stepIndex - 1);
-          }}
-        />
-
         {/* Step Bars */}
         <View style={styles.stepBarContainer}>
           {steps.map((_, index) => (

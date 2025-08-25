@@ -79,9 +79,9 @@ const SearchScreen = ({ navigation }: any) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <HomeNavigator title="Search Players and Groups" />
+      <HomeNavigator title="Search Players and Groups" />
 
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.searchWrapper}>
           <SearchField
             placeholder="Search by name"
@@ -95,7 +95,15 @@ const SearchScreen = ({ navigation }: any) => {
             contentContainerStyle={styles.flatListContent}
             scrollEnabled={false}
             ListEmptyComponent={
-              <Text style={{ textAlign: 'center', color: COLORS.lightGrey , fontFamily:FONTS.regular, fontSize:RFPercentage(1.8), marginTop:RFPercentage(5)}}>
+              <Text
+                style={{
+                  textAlign: 'center',
+                  color: COLORS.lightGrey,
+                  fontFamily: FONTS.regular,
+                  fontSize: RFPercentage(1.8),
+                  marginTop: RFPercentage(5),
+                }}
+              >
                 No results found
               </Text>
             }

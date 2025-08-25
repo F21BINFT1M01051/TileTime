@@ -185,20 +185,19 @@ const GuidedPlay = ({ route }: any) => {
 
   return (
     <View style={styles.mainContainer}>
+      {/* Header */}
+      <AuthHeader
+        title={role === 'Instructor' ? 'Create Guided Play' : 'Create Event'}
+        right={true}
+        rightText="Save Draft"
+        onPress={() => {
+          stepIndex === 0 ? navigation.goBack() : setStepIndex(stepIndex - 1);
+        }}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollViewContent}
       >
-        {/* Header */}
-        <AuthHeader
-          title={role === 'Instructor' ? 'Create Guided Play' : 'Create Event'}
-          right={true}
-          rightText="Save Draft"
-          onPress={() => {
-            stepIndex === 0 ? navigation.goBack() : setStepIndex(stepIndex - 1);
-          }}
-        />
-
         <View style={styles.innerWrapper}>
           {/* Steps */}
           <View style={styles.stepBarContainer}>
@@ -538,7 +537,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: '100%',
     paddingBottom: RFPercentage(4),
-    backgroundColor:COLORS.white
+    backgroundColor: COLORS.white,
   },
   modalFooterInner: {
     width: '90%',

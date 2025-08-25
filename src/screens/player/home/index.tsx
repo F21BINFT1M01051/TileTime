@@ -105,20 +105,19 @@ const PlayerHome = ({ navigation }: any) => {
       colors={[COLORS.offWhite2, COLORS.white]}
       style={styles.gradientContainer}
     >
+      <TopNavigation
+        title="Home"
+        right={true}
+        home={true}
+        onPress2={() => navigation.navigate('SearchScreen')}
+        onPress3={() => navigation.navigate('Notifications')}
+      />
       <ScrollView showsVerticalScrollIndicator={false}>
         <ImageBackground
           source={IMAGES.background}
           resizeMode="cover"
           style={styles.imageBackground}
         >
-          <TopNavigation
-            title="Home"
-            right={true}
-            home={true}
-            onPress2={() => navigation.navigate('SearchScreen')}
-            onPress3={() => navigation.navigate('Notifications')}
-          />
-
           {actions.length > 0 ? (
             <View style={styles.titleContainer}>
               <Text style={styles.mainTitle}>
@@ -318,7 +317,7 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     width: '100%',
-    height: RFPercentage(35),
+    height: RFPercentage(22),
   },
   titleContainer: {},
   mainTitle: {

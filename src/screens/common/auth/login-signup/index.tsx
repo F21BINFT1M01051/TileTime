@@ -7,6 +7,8 @@ import {
   ScrollView,
   Keyboard,
   TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import React, { useState } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -39,105 +41,121 @@ const LoginSignUp = ({ navigation }: any) => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <LinearGradient
-        colors={[COLORS.gradient1, COLORS.gradient2]}
-        style={styles.gradient}
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <View style={styles.logoContainer}>
-          <Image
-            source={IMAGES.logo}
-            resizeMode="contain"
-            style={styles.logo}
-          />
-          <Image
-            source={IMAGES.headline}
-            resizeMode="contain"
-            style={styles.headlineImage}
-          />
-        </View>
-
-        <View style={styles.whiteContainer}>
-          <AuthHeader title="Log In/Sign up with Email"  wrapStyle={{height:RFPercentage(5), borderBottomWidth:0, marginTop:RFPercentage(2.5)}} />
-
-          <View style={styles.contentWrapper}>
-            <Formik
-              initialValues={{ email: '' }}
-              validationSchema={validationSchema}
-              onSubmit={handleNext}
-            >
-              {({
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                values,
-                errors,
-                touched,
-              }) => (
-                <>
-                  <View style={styles.emailField}>
-                    <InputField
-                      placeholder="Email Address"
-                      onChangeText={handleChange('email')}
-                      handleBlur={handleBlur('email')}
-                      value={values.email}
-                      password={false}
-                      autoFocus={true}
-                      hasError={touched.email && errors.email ? true : false}
-                      defaultColor={COLORS.placeholder}
-                      focusedColor={COLORS.focused}
-                      errorColor={COLORS.red}
-                      style={{
-                        borderColor:
-                          touched.email && errors.email
-                            ? COLORS.red
-                            : COLORS.fieldBorder,
-                      }}
-                    />
-                    {touched.email && errors.email && (
-                      <View style={{ marginTop: RFPercentage(0.6) }}>
-                        <Text
-                          style={{
-                            color: COLORS.red,
-                            fontFamily: FONTS.regular,
-                            fontSize: RFPercentage(1.6),
-                          }}
-                        >
-                          {errors?.email}
-                        </Text>
-                      </View>
-                    )}
-                  </View>
-
-                  <View style={styles.buttonWrapper}>
-                    <CustomButton
-                      title="Continue"
-                      onPress={handleSubmit}
-                      disabled={!values.email || !!errors.email}
-                      style={{
-                        backgroundColor:
-                          !values.email || !!errors.email
-                            ? COLORS.disabled
-                            : COLORS.primary,
-                      }}
-                    />
-                  </View>
-                </>
-              )}
-            </Formik>
-            <View style={styles.signupContainer}>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate('OnBoarding');
-                }}
-              >
-                <Text style={styles.signupText}>
-                  Continue With Other Options
-                </Text>
-              </TouchableOpacity>
+        <ScrollView style={{ backgroundColor: COLORS.white, flex: 1 }}>
+          <LinearGradient
+            colors={[COLORS.gradient1, COLORS.gradient2]}
+            style={styles.gradient}
+          >
+            <View style={styles.logoContainer}>
+              <Image
+                source={IMAGES.logo}
+                resizeMode="contain"
+                style={styles.logo}
+              />
+              <Image
+                source={IMAGES.headline}
+                resizeMode="contain"
+                style={styles.headlineImage}
+              />
             </View>
-          </View>
-        </View>
-      </LinearGradient>
+
+            <View style={styles.whiteContainer}>
+              <AuthHeader
+                title="Log In/Sign up with Email"
+                wrapStyle={{
+                  height: RFPercentage(5),
+                  borderBottomWidth: 0,
+                  marginTop: RFPercentage(2.5),
+                }}
+              />
+
+              <View style={styles.contentWrapper}>
+                <Formik
+                  initialValues={{ email: '' }}
+                  validationSchema={validationSchema}
+                  onSubmit={handleNext}
+                >
+                  {({
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    values,
+                    errors,
+                    touched,
+                  }) => (
+                    <>
+                      <View style={styles.emailField}>
+                        <InputField
+                          placeholder="Email Address"
+                          onChangeText={handleChange('email')}
+                          handleBlur={handleBlur('email')}
+                          value={values.email}
+                          password={false}
+                          autoFocus={true}
+                          hasError={
+                            touched.email && errors.email ? true : false
+                          }
+                          defaultColor={COLORS.placeholder}
+                          focusedColor={COLORS.focused}
+                          errorColor={COLORS.red}
+                          style={{
+                            borderColor:
+                              touched.email && errors.email
+                                ? COLORS.red
+                                : COLORS.fieldBorder,
+                          }}
+                        />
+                        {touched.email && errors.email && (
+                          <View style={{ marginTop: RFPercentage(0.6) }}>
+                            <Text
+                              style={{
+                                color: COLORS.red,
+                                fontFamily: FONTS.regular,
+                                fontSize: RFPercentage(1.6),
+                              }}
+                            >
+                              {errors?.email}
+                            </Text>
+                          </View>
+                        )}
+                      </View>
+
+                      <View style={styles.buttonWrapper}>
+                        <CustomButton
+                          title="Continue"
+                          onPress={handleSubmit}
+                          disabled={!values.email || !!errors.email}
+                          style={{
+                            backgroundColor:
+                              !values.email || !!errors.email
+                                ? COLORS.disabled
+                                : COLORS.primary,
+                          }}
+                        />
+                      </View>
+                    </>
+                  )}
+                </Formik>
+                <View style={styles.signupContainer}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate('OnBoarding');
+                    }}
+                  >
+                    <Text style={styles.signupText}>
+                      Continue With Other Options
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </LinearGradient>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
 };
@@ -178,8 +196,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 
-  emailField: {
-  },
+  emailField: {},
 
   buttonWrapper: {
     width: '100%',

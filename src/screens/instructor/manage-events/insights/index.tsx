@@ -4,6 +4,7 @@ import {
   View,
   TouchableOpacity,
   FlatList,
+  ScrollView,
 } from 'react-native';
 import React from 'react';
 import { COLORS, IMAGES, FONTS, ICONS } from '../../../../config/theme';
@@ -53,54 +54,55 @@ const EventInsights = ({ navigation }: any) => {
           </TouchableOpacity>
         </View>
       </View>
-
-      <View style={styles.contentContainer}>
-        <View>
-          <FlatList
-            data={InsightsData}
-            keyExtractor={item => item.id.toString()}
-            numColumns={2}
-            scrollEnabled={false}
-            columnWrapperStyle={styles.flatListColumn}
-            renderItem={({ item }) => (
-              <View style={styles.flexOne}>
-                <Insights name={item.name} subText={item.subText} />
-              </View>
-            )}
-          />
-        </View>
-
-        <View style={styles.paymentCard}>
-          <View style={styles.innerCard}>
-            <Text style={styles.paymentTitle}>Payment Completion Rate</Text>
-            <ProgressBar
-              progress={0.4}
-              color={COLORS.green}
-              style={styles.progress}
-              animatedValue={0.4}
+      <ScrollView>
+        <View style={styles.contentContainer}>
+          <View>
+            <FlatList
+              data={InsightsData}
+              keyExtractor={item => item.id.toString()}
+              numColumns={2}
+              scrollEnabled={false}
+              columnWrapperStyle={styles.flatListColumn}
+              renderItem={({ item }) => (
+                <View style={styles.flexOne}>
+                  <Insights name={item.name} subText={item.subText} />
+                </View>
+              )}
             />
-            <View style={styles.paymentRow}>
-              <Text style={styles.paymentText}>26% Confirmed</Text>
-              <Text style={styles.paymentText}>Dropped</Text>
+          </View>
+
+          <View style={styles.paymentCard}>
+            <View style={styles.innerCard}>
+              <Text style={styles.paymentTitle}>Payment Completion Rate</Text>
+              <ProgressBar
+                progress={0.4}
+                color={COLORS.green}
+                style={styles.progress}
+                animatedValue={0.4}
+              />
+              <View style={styles.paymentRow}>
+                <Text style={styles.paymentText}>26% Confirmed</Text>
+                <Text style={styles.paymentText}>Dropped</Text>
+              </View>
             </View>
           </View>
-        </View>
 
-        <View style={styles.bottomList}>
-          <FlatList
-            data={InsightsData2}
-            scrollEnabled={false}
-            keyExtractor={item => item.id.toString()}
-            numColumns={2}
-            columnWrapperStyle={styles.flatListColumn}
-            renderItem={({ item }) => (
-              <View style={styles.flexOne}>
-                <Insights name={item.name} subText={item.subText} />
-              </View>
-            )}
-          />
+          <View style={styles.bottomList}>
+            <FlatList
+              data={InsightsData2}
+              scrollEnabled={false}
+              keyExtractor={item => item.id.toString()}
+              numColumns={2}
+              columnWrapperStyle={styles.flatListColumn}
+              renderItem={({ item }) => (
+                <View style={styles.flexOne}>
+                  <Insights name={item.name} subText={item.subText} />
+                </View>
+              )}
+            />
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };

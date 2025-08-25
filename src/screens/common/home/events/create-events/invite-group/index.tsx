@@ -1,6 +1,7 @@
 import {
   FlatList,
   Image,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -46,62 +47,70 @@ const InviteGroup = ({ navigation }: any) => {
   return (
     <View style={styles.container}>
       <AuthHeader title="Invite a Group" rightText="Save Draft" right={true} />
-      <View style={styles.contentContainer}>
-        <Text style={styles.headingText}>
-          Choose a Group for This Open Play
-        </Text>
-        <View style={styles.listContainer}>
-          <FlatList
-            data={groups}
-            keyExtractor={item => item.id}
-            renderItem={({ item }) => {
-              const isSelected = selectedGroups.includes(item.id);
-              return (
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  onPress={() => toggleGroupSelection(item.id)}
-                  style={[
-                    styles.groupItem,
-                    {
-                      borderColor: isSelected ? COLORS.pink : COLORS.lightWhite,
-                    },
-                  ]}
-                >
-                  <View style={styles.groupContent}>
-                    <View style={styles.groupLeft}>
-                      <View style={styles.avatarContainer}>
-                        <Image
-                          source={IMAGES.customProfile}
-                          resizeMode="cover"
-                          style={styles.avatarImage}
-                        />
+      <ScrollView>
+        <View style={styles.contentContainer}>
+          <Text style={styles.headingText}>
+            Choose a Group for This Open Play
+          </Text>
+          <View style={styles.listContainer}>
+            <FlatList
+              data={groups}
+              keyExtractor={item => item.id}
+              renderItem={({ item }) => {
+                const isSelected = selectedGroups.includes(item.id);
+                return (
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() => toggleGroupSelection(item.id)}
+                    style={[
+                      styles.groupItem,
+                      {
+                        borderColor: isSelected
+                          ? COLORS.pink
+                          : COLORS.lightWhite,
+                      },
+                    ]}
+                  >
+                    <View style={styles.groupContent}>
+                      <View style={styles.groupLeft}>
+                        <View style={styles.avatarContainer}>
+                          <Image
+                            source={IMAGES.customProfile}
+                            resizeMode="cover"
+                            style={styles.avatarImage}
+                          />
+                        </View>
+                        <View style={styles.textContainer}>
+                          <Text style={styles.groupTitle}>{item.title}</Text>
+                          <Text style={styles.groupMembers}>
+                            {item.members}
+                          </Text>
+                        </View>
                       </View>
-                      <View style={styles.textContainer}>
-                        <Text style={styles.groupTitle}>{item.title}</Text>
-                        <Text style={styles.groupMembers}>{item.members}</Text>
-                      </View>
+                      <TouchableOpacity
+                        onPress={() => toggleGroupSelection(item.id)}
+                        style={[
+                          styles.radioButton,
+                          {
+                            borderColor: isSelected
+                              ? COLORS.pink
+                              : COLORS.radio,
+                            backgroundColor: isSelected
+                              ? 'transparent'
+                              : COLORS.radio2,
+                          },
+                        ]}
+                      >
+                        {isSelected && <View style={styles.radioDot} />}
+                      </TouchableOpacity>
                     </View>
-                    <TouchableOpacity
-                      onPress={() => toggleGroupSelection(item.id)}
-                      style={[
-                        styles.radioButton,
-                        {
-                          borderColor: isSelected ? COLORS.pink : COLORS.radio,
-                          backgroundColor: isSelected
-                            ? 'transparent'
-                            : COLORS.radio2,
-                        },
-                      ]}
-                    >
-                      {isSelected && <View style={styles.radioDot} />}
-                    </TouchableOpacity>
-                  </View>
-                </TouchableOpacity>
-              );
-            }}
-          />
+                  </TouchableOpacity>
+                );
+              }}
+            />
+          </View>
         </View>
-      </View>
+      </ScrollView>
       <View style={styles.bottomBar}>
         <View style={styles.bottomContent}>
           <CustomButton

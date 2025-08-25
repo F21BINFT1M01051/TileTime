@@ -61,8 +61,12 @@ const EditProfileInstructor = () => {
   const [Credential, setCredential] = useState('');
   const [name, setName] = useState('Alexender');
   const [city, setCity] = useState('Paris');
-  const [phone, setPhone] = useState('0309-8454-670');
+  const [phone, setPhone] = useState('+1-343-433-6370');
   const [business, setBusiness] = useState('');
+  const [anotherCity, setAnotherCity] = useState(false);
+  const [otherCity, setOtherCity] = useState('');
+  const [state2, setState2] = useState(null);
+  const [isDropdownVisible3, setIsDropdownVisible3] = useState(false);
 
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -78,6 +82,18 @@ const EditProfileInstructor = () => {
     };
   }, []);
 
+  const formatPhoneNumber = (raw: string = ''): string => {
+    let digits = raw.replace(/\D/g, '');
+    if (digits.startsWith('1')) digits = digits.slice(1);
+    if (digits.startsWith('0')) digits = digits.slice(1);
+    digits = digits.slice(-10);
+    if (digits.length < 10) return `+1-${digits}`;
+    const area = digits.slice(0, 3);
+    const prefix = digits.slice(3, 6);
+    const line = digits.slice(6, 10);
+    return `+1-${area}-${prefix}-${line}`;
+  };
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -89,13 +105,12 @@ const EditProfileInstructor = () => {
       }}
     >
       <>
+        <AuthHeader title="Edit Profile" style={styles.authHeaderText} />
         <ScrollView
           style={styles.mainWrapper}
           contentContainerStyle={styles.scrollWrapper}
           showsVerticalScrollIndicator={false}
         >
-          <AuthHeader title="Edit Profile" style={styles.authHeaderText} />
-
           <View style={styles.container}>
             <Text style={styles.title}>Basic Details</Text>
             <View style={styles.inputSpacing}>
@@ -184,25 +199,26 @@ const EditProfileInstructor = () => {
                   focusedColor={COLORS.focused}
                   errorColor={COLORS.red}
                   password={false}
-                  style={{ paddingHorizontal: RFPercentage(1) }}
+                  style={{ paddingHorizontal: RFPercentage(0.7) }}
                 />
-
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  style={styles.addLocation}
-                >
-                  <Image
-                    source={ICONS.plus5}
-                    tintColor={COLORS.primary}
-                    resizeMode="contain"
-                    style={styles.plusIcon}
-                  />
-                  <Text style={styles.addLocationText}>
-                    Add Another Location
-                  </Text>
-                </TouchableOpacity>
+                {!anotherCity && (
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    style={styles.addLocation}
+                    onPress={() => setAnotherCity(true)}
+                  >
+                    <Image
+                      source={ICONS.plus5}
+                      tintColor={COLORS.primary}
+                      resizeMode="contain"
+                      style={styles.plusIcon}
+                    />
+                    <Text style={styles.addLocationText}>
+                      Add Another Location
+                    </Text>
+                  </TouchableOpacity>
+                )}
               </View>
-
               <View style={styles.dropdownHalf}>
                 <DropdownField
                   placeholder="State"
@@ -215,6 +231,36 @@ const EditProfileInstructor = () => {
                 />
               </View>
             </View>
+
+            {anotherCity && (
+              <>
+                <View style={styles.dropdowns}>
+                  <View style={{ width: '48%' }}>
+                    <InputField
+                      placeholder="Another City"
+                      value={otherCity}
+                      onChangeText={setOtherCity}
+                      style={{
+                        paddingHorizontal: RFPercentage(0.7),
+                      }}
+                      password={false}
+                    />
+                  </View>
+
+                  <View style={{ width: '48%' }}>
+                    <DropdownField
+                      placeholder="State"
+                      data={['Beijing', 'Shanghai', 'Guangdong', 'Sichuan']}
+                      selectedValue={state2}
+                      onValueChange={(val: any) => setState2(val)}
+                      isDropdownVisible={isDropdownVisible3}
+                      setIsDropdownVisible={setIsDropdownVisible3}
+                      style={{ paddingHorizontal: RFPercentage(1) }}
+                    />
+                  </View>
+                </View>
+              </>
+            )}
 
             <View style={styles.sectionWrapper}>
               <Text style={styles.sectionTitle}>
@@ -258,7 +304,10 @@ const EditProfileInstructor = () => {
               <InputField
                 placeholder="Phone Number"
                 value={phone}
-                onChangeText={setPhone}
+                onChangeText={text => {
+                  const formatted = formatPhoneNumber(text);
+                  setPhone(formatted);
+                }}
                 defaultColor={COLORS.focused}
                 focusedColor={COLORS.focused}
                 errorColor={COLORS.red}

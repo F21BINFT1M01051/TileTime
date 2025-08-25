@@ -37,6 +37,10 @@ const CreateInstructorProfile = ({ navigation }: any) => {
   const [name, setName] = useState('');
   const [city, setCity] = useState('');
   const [business, setBusiness] = useState('');
+  const [anotherCity, setAnotherCity] = useState(false);
+  const [otherCity, setOtherCity] = useState('');
+  const [state2, setState2] = useState(null);
+  const [isDropdownVisible3, setIsDropdownVisible3] = useState(false);
 
   const slideAnim = useRef(
     new Animated.Value(Dimensions.get('window').height),
@@ -88,13 +92,12 @@ const CreateInstructorProfile = ({ navigation }: any) => {
       }}
     >
       <>
+        <AuthHeader title="Aditional Details" />
         <ScrollView
           contentContainerStyle={styles.scrollViewContent}
           style={styles.scrollView}
           showsVerticalScrollIndicator={false}
         >
-          <AuthHeader title="Aditional Details" />
-
           <View style={styles.container}>
             <Text style={styles.title}>Build Your Instructor Profile</Text>
 
@@ -151,24 +154,29 @@ const CreateInstructorProfile = ({ navigation }: any) => {
                   password={false}
                   value={city}
                   onChangeText={setCity}
+                  style={{
+                    paddingHorizontal: RFPercentage(0.7),
+                  }}
                 />
 
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  style={styles.addLocationRow}
-                >
-                  <Image
-                    source={ICONS.plus5}
-                    tintColor={COLORS.primary}
-                    resizeMode="contain"
-                    style={styles.plusIcon}
-                  />
-                  <Text style={styles.addLocationText}>
-                    Add Another Location
-                  </Text>
-                </TouchableOpacity>
+                {!anotherCity && (
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    style={styles.addLocationRow}
+                    onPress={() => setAnotherCity(true)}
+                  >
+                    <Image
+                      source={ICONS.plus5}
+                      tintColor={COLORS.primary}
+                      resizeMode="contain"
+                      style={styles.plusIcon}
+                    />
+                    <Text style={styles.addLocationText}>
+                      Add Another Location
+                    </Text>
+                  </TouchableOpacity>
+                )}
               </View>
-
               <View style={styles.dropdownHalf}>
                 <DropdownField
                   placeholder="State"
@@ -181,6 +189,35 @@ const CreateInstructorProfile = ({ navigation }: any) => {
                 />
               </View>
             </View>
+            {anotherCity && (
+              <>
+                <View style={styles.dropdowns}>
+                  <View style={{ width: '48%' }}>
+                    <InputField
+                      placeholder="Another City"
+                      value={otherCity}
+                      onChangeText={setOtherCity}
+                      style={{
+                        paddingHorizontal: RFPercentage(0.7),
+                      }}
+                      password={false}
+                    />
+                  </View>
+
+                  <View style={{ width: '48%' }}>
+                    <DropdownField
+                      placeholder="State"
+                      data={['Beijing', 'Shanghai', 'Guangdong', 'Sichuan']}
+                      selectedValue={state2}
+                      onValueChange={(val: any) => setState2(val)}
+                      isDropdownVisible={isDropdownVisible3}
+                      setIsDropdownVisible={setIsDropdownVisible3}
+                      style={{ paddingHorizontal: RFPercentage(1) }}
+                    />
+                  </View>
+                </View>
+              </>
+            )}
 
             <View style={styles.marginTop4}>
               <Text style={styles.sectionHeading}>Add your website</Text>

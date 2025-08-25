@@ -107,20 +107,19 @@ const InstructorHome = ({ navigation }: any) => {
       colors={[COLORS.offWhite2, COLORS.white]}
       style={styles.gradientContainer}
     >
+      <TopNavigation
+        title="Home"
+        right={true}
+        home={true}
+        onPress2={() => navigation.navigate('SearchScreen')}
+        onPress3={() => navigation.navigate('Notifications')}
+      />
       <ScrollView showsVerticalScrollIndicator={false}>
         <ImageBackground
           source={IMAGES.background}
           resizeMode="cover"
           style={styles.imageBackground}
         >
-          <TopNavigation
-            title="Home"
-            right={true}
-            home={true}
-            onPress2={() => navigation.navigate('SearchScreen')}
-            onPress3={() => navigation.navigate('Notifications')}
-          />
-
           {actions.length > 0 ? (
             <View style={styles.titleContainer}>
               <Text style={styles.mainTitle}>
@@ -144,7 +143,7 @@ const InstructorHome = ({ navigation }: any) => {
               </View>
             </>
           )}
-          <View style={{width:"90%", alignSelf:"center"}}>
+          <View style={{ width: '90%', alignSelf: 'center' }}>
             <EventCalendar onPress={openModal} />
           </View>
 
@@ -323,7 +322,7 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     width: '100%',
-    height: RFPercentage(35),
+    height: RFPercentage(20),
   },
   titleContainer: {},
   mainTitle: {
@@ -348,7 +347,7 @@ const styles = StyleSheet.create({
     height: RFPercentage(84),
     marginTop: RFPercentage(5),
     paddingBottom: RFPercentage(2),
-    marginVertical:Platform.OS === 'android' ? RFPercentage(2) : 0
+    marginVertical: Platform.OS === 'android' ? RFPercentage(2) : 0,
   },
   homeTopContent: {
     width: '90%',

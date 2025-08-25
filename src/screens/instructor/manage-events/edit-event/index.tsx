@@ -10,10 +10,10 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import CustomButton from '../../../../components/CustomButton';
 
 const EditEventBasic = () => {
-  const [Title, setTitle] = useState('');
+  const [Title, setTitle] = useState('Beginner Mahjong Bootcamp');
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const [type, setType] = useState(null);
-  const [location, setLocation] = useState('');
+  const [type, setType] = useState('Coaching Session');
+  const [location, setLocation] = useState('413, Snow Dr, Gregg, TN, 33211');
   const [date, setDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
   const [startTime, setStartTime] = useState(new Date());
@@ -31,11 +31,11 @@ const EditEventBasic = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
+      <AuthHeader
+        title="Edit Basics"
+        style={{ fontFamily: FONTS.semiBold, fontSize: RFPercentage(1.9) }}
+      />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <AuthHeader
-          title="Edit Basics"
-          style={{ fontFamily: FONTS.semiBold, fontSize: RFPercentage(1.9) }}
-        />
         <View style={{ width: '90%', alignSelf: 'center' }}>
           <InputField
             placeholder="Event Title"
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     width: RFPercentage(2),
     height: RFPercentage(2),
   },
-   bottomBar: {
+  bottomBar: {
     width: '100%',
     borderTopWidth: RFPercentage(0.1),
     borderTopColor: COLORS.lightWhite,

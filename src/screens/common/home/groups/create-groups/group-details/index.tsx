@@ -29,48 +29,47 @@ const GroupDetails = ({ navigation }: any) => {
 
   return (
     <View style={styles.safeArea}>
+      <View style={styles.headerBorder}>
+        <View style={styles.headerContainer}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigation.goBack()}
+          >
+            <AntDesign
+              name="arrowleft"
+              color={COLORS.grey}
+              size={RFPercentage(2.5)}
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.dotsButton}
+            onPress={() => {
+              navigation.navigate('GroupDetails');
+            }}
+          >
+            <View style={styles.editButton}>
+              <Image
+                source={ICONS.pen}
+                resizeMode="contain"
+                style={{
+                  width: RFPercentage(2.5),
+                  height: RFPercentage(2.5),
+                  marginRight: RFPercentage(0.7),
+                }}
+              />
+              <Text style={styles.editText}>Edit</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <ImageBackground
           source={IMAGES.groupDetail}
           resizeMode="repeat"
           style={styles.groupImage}
-        >
-          <View style={styles.headerBorder}>
-            <View style={styles.headerContainer}>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => navigation.goBack()}
-              >
-                <AntDesign
-                  name="arrowleft"
-                  color={COLORS.grey}
-                  size={RFPercentage(2.5)}
-                />
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                activeOpacity={0.8}
-                style={styles.dotsButton}
-                onPress={() => {
-                  navigation.navigate('GroupDetails');
-                }}
-              >
-                <View style={styles.editButton}>
-                  <Image
-                    source={ICONS.pen}
-                    resizeMode="contain"
-                    style={{
-                      width: RFPercentage(2.5),
-                      height: RFPercentage(2.5),
-                      marginRight: RFPercentage(0.7),
-                    }}
-                  />
-                  <Text style={styles.editText}>Edit</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </ImageBackground>
+        />
 
         <View style={styles.contentContainer}>
           <View style={styles.largeGroupIconContainer}>
@@ -211,7 +210,7 @@ const styles = StyleSheet.create({
   },
   groupImage: {
     width: '100%',
-    height: RFPercentage(25.7),
+    height: RFPercentage(15),
   },
   contentContainer: {
     width: '90%',

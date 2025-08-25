@@ -9,6 +9,9 @@ import {
   Keyboard,
   TextInput,
   Platform,
+  Modal,
+  TouchableWithoutFeedback,
+  FlatList,
 } from 'react-native';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -18,6 +21,10 @@ import moment from 'moment';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import CustomButton from '../../../../../components/CustomButton';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { pick } from '@react-native-documents/picker';
+import Contacts from 'react-native-contacts';
 
 moment.updateLocale('en', {
   relativeTime: {
@@ -43,6 +50,7 @@ const ChatScreen = ({ route }: any) => {
   const [message, setMessage] = useState('');
   const navigation = useNavigation();
   const { isGroup, isNew } = route.params;
+  const [attachmentModalVisible, setAttachmentModalVisible] = useState(false);
 
   useEffect(() => {
     const testMessage = {
@@ -217,6 +225,87 @@ const ChatScreen = ({ route }: any) => {
     );
   };
 
+  // Document picker
+  const pickDocument = async () => {
+    try {
+      const res = await pick({
+        type: ['application/pdf', 'public.item'], 
+        allowMultiSelection: false,
+        copyTo: 'cachesDirectory',
+      });
+
+      if (res && res[0]) {
+        const newMessage = {
+          _id: Date.now(),
+          createdAt: new Date(),
+          user: {
+            _id: 1,
+            name: 'You',
+            avatar: 'https://placeimg.com/140/140/any',
+          },
+          text: `📄 Document: ${res[0].name}`, 
+        };
+        setMessages(prev => GiftedChat.append(prev, [newMessage]));
+      }
+    } catch (err) {
+      if (err?.message?.includes('cancelled')) {
+        console.log('User cancelled');
+      } else {
+        console.log('Error picking doc: ', err);
+      }
+    }
+  };
+
+  // Contact picker
+  const pickContact = async () => {
+    try {
+      const granted = await Contacts.requestPermission();
+      if (granted === 'authorized') {
+        const contacts = await Contacts.getAll();
+        if (contacts.length > 0) {
+          const contact = contacts[0]; 
+          const newMessage = {
+            _id: Date.now(),
+            createdAt: new Date(),
+            user: {
+              _id: 1,
+              name: 'You',
+              avatar: 'https://placeimg.com/140/140/any',
+            },
+            text: `👤 Contact: ${contact.givenName} ${contact.familyName}`,
+          };
+          setMessages(prev => GiftedChat.append(prev, [newMessage]));
+        }
+      }
+    } catch (err) {
+      console.log('Error picking contact: ', err);
+    }
+  };
+
+  const ShareOptions = [
+    {
+      id: 1,
+      name: 'Gallery',
+      icon: 'images',
+      color: COLORS.green,
+      onPress: () => handleImagePick(),
+    },
+    {
+      id: 2,
+      name: 'Documents',
+      icon: 'documents',
+      color: COLORS.pink,
+      onPress:  () => pickDocument(),
+    },
+    {
+      id: 3,
+      name: 'Contacts',
+      icon: 'contacts',
+      color: COLORS.skyBlue,
+      onPress:  () => pickContact(),
+    },
+  ];
+
   return (
     <View style={styles.container}>
       {/* Header */}
@@ -292,10 +381,7 @@ const ChatScreen = ({ route }: any) => {
             </>
           ) : (
             <>
-              <TouchableOpacity
-                style={styles.dotsButton}
-                onPress={() => {}}
-              >
+              <TouchableOpacity style={styles.dotsButton} onPress={() => {}}>
                 <Image
                   source={ICONS.calender2}
                   resizeMode="contain"
@@ -368,7 +454,9 @@ const ChatScreen = ({ route }: any) => {
           renderInputToolbar={() => (
             <View style={styles.inputToolbarContainer}>
               <View style={styles.inputBar}>
-                <TouchableOpacity onPress={handleImagePick}>
+                <TouchableOpacity
+                  onPress={() => setAttachmentModalVisible(true)}
+                >
                   <Image
                     source={ICONS.plus6}
                     style={styles.plusIcon}
@@ -416,6 +504,88 @@ const ChatScreen = ({ route }: any) => {
           )}
         />
       </ImageBackground>
+
+      <Modal
+        visible={attachmentModalVisible}
+        animationType="fade"
+        transparent
+        onRequestClose={() => setAttachmentModalVisible(false)}
+      >
+        <TouchableWithoutFeedback
+          onPress={() => setAttachmentModalVisible(false)}
+        >
+          <View style={styles.modalOverlay}>
+            <View style={styles.modalContainer}>
+              <Text style={styles.modalTitle}>Share</Text>
+
+              <View
+                style={{
+                  width: '100%',
+                  alignItems: 'center',
+                  marginTop: RFPercentage(1),
+                }}
+              >
+                <FlatList
+                  data={ShareOptions}
+                  keyExtractor={item => item.id.toString()}
+                  horizontal
+                  renderItem={({ item }) => {
+                    return (
+                      <TouchableOpacity
+                      onPress={item.onPress}
+                        activeOpacity={0.8}
+                        style={{
+                          marginHorizontal: RFPercentage(3),
+                          alignItems: 'center',
+                        }}
+                      >
+                        <View
+                          style={{
+                            width: RFPercentage(7),
+                            height: RFPercentage(7),
+                            borderRadius: RFPercentage(100),
+                            backgroundColor: item.color,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          {item.name === 'Contacts' ? (
+                            <View>
+                              <MaterialIcons
+                                name={item.icon}
+                                size={RFPercentage(2.8)}
+                                color={COLORS.white}
+                              />
+                            </View>
+                          ) : (
+                            <View>
+                              <Ionicons
+                                name={item.icon}
+                                size={RFPercentage(2.8)}
+                                color={COLORS.white}
+                              />
+                            </View>
+                          )}
+                        </View>
+                        <Text
+                          style={{
+                            color: COLORS.grey3,
+                            fontFamily: FONTS.regular,
+                            fontSize: RFPercentage(1.6),
+                            marginTop: RFPercentage(1),
+                          }}
+                        >
+                          {item.name}
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  }}
+                />
+              </View>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
     </View>
   );
 };
@@ -697,7 +867,7 @@ const styles = StyleSheet.create({
 
   inputToolbarContainer: {
     backgroundColor: COLORS.white,
-    height: RFPercentage(13),
+    height: RFPercentage(10),
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -723,6 +893,10 @@ const styles = StyleSheet.create({
     color: COLORS.inputColor,
     fontSize: RFPercentage(1.8),
     fontFamily: FONTS.regular,
+    height: RFPercentage(4),
+    marginVertical: 0,
+    paddingVertical: 0,
+    lineHeight: RFPercentage(2),
   },
   sendButtonIcon: {
     width: RFPercentage(3),
@@ -735,5 +909,28 @@ const styles = StyleSheet.create({
     width: RFPercentage(32),
     height: RFPercentage(35),
     borderRadius: RFPercentage(1),
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    justifyContent: 'flex-end',
+  },
+  modalContainer: {
+    backgroundColor: COLORS.white,
+    borderTopLeftRadius: RFPercentage(2.5),
+    borderTopRightRadius: RFPercentage(2.5),
+    padding: RFPercentage(3),
+    height: '50%',
+  },
+  modalTitle: {
+    fontFamily: FONTS.semiBold,
+    fontSize: RFPercentage(2),
+    marginBottom: RFPercentage(2),
+    color: COLORS.primary,
+  },
+  modalOption: {
+    paddingVertical: RFPercentage(2),
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.lightWhite,
   },
 });

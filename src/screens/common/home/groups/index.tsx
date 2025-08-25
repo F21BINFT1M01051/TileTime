@@ -25,19 +25,18 @@ const Groups = ({ navigation }: any) => {
       colors={[COLORS.white, COLORS.white]}
       style={styles.gradientContainer}
     >
+      <TopNavigation
+        title="Groups & Chats"
+        right={chats.length > 0 ? true : false}
+        onPress={() => navigation.navigate('CreateGroup')}
+        text="+ New group"
+      />
       <ScrollView showsVerticalScrollIndicator={false}>
         <ImageBackground
           source={IMAGES.background}
           resizeMode="cover"
           style={styles.imageBackground}
         >
-          <TopNavigation
-            title="Groups & Chats"
-            right={chats.length > 0 ? true : false}
-            onPress={() => navigation.navigate('CreateGroup')}
-            text="+ New group"
-          />
-
           {chats.length === 0 && (
             <>
               <View style={styles.titleContainer}>
@@ -110,7 +109,7 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     width: '100%',
-    height: RFPercentage(35),
+    height: RFPercentage(22),
   },
   contentContainer: {
     width: '90%',

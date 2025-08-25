@@ -26,6 +26,7 @@
     "react-native": "0.80.1",
     "react-native-animated-progress": "^1.0.2",
     "react-native-calendars": "^1.1313.0",
+    "react-native-contacts": "^8.0.6",
     "react-native-gesture-handler": "^2.27.2",
     "react-native-gifted-chat": "^2.8.1",
     "react-native-image-picker": "^8.2.1",

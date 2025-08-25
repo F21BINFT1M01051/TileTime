@@ -59,7 +59,7 @@ const Cards2 = [
   },
 ];
 
-const EventDetails = ({navigation}: any) => {
+const EventDetails = ({ navigation }: any) => {
   const onShare = async () => {
     try {
       const result = await Share.share({
@@ -83,18 +83,17 @@ const EventDetails = ({navigation}: any) => {
 
   return (
     <View style={styles.container}>
+      <AuthHeader
+        title="Event Details"
+        style={styles.headerTitle}
+        right={true}
+        rightIcon={ICONS.share}
+        onPress2={onShare}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
-        <AuthHeader
-          title="Event Details"
-          style={styles.headerTitle}
-          right={true}
-          rightIcon={ICONS.share}
-          onPress2={onShare}
-        />
-
         <View style={styles.innerContainer}>
           <Text style={styles.eventTitle}>
             Four Winds: Community Mahjong Session
@@ -293,7 +292,12 @@ const EventDetails = ({navigation}: any) => {
               </View>
             </View>
             <View style={{ marginTop: RFPercentage(2) }}>
-              <CustomButton onPress={() => {navigation.navigate("InviteFriends")}} title="Invite Friends" />
+              <CustomButton
+                onPress={() => {
+                  navigation.navigate('InviteFriends');
+                }}
+                title="Invite Friends"
+              />
 
               <SocialField
                 name="Not Attending, Cancel"

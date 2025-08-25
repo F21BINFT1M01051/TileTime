@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: COLORS.white,
     height: RFPercentage(11),
-    borderRadius: RFPercentage(3.5),
+    borderRadius: RFPercentage(3),
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.lightWhite,
     borderBottomWidth: RFPercentage(0.6),

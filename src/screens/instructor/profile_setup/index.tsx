@@ -76,18 +76,17 @@ const InstructorProfileSetup = ({ navigation }: any) => {
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
+      <AuthHeader
+        title="Set Up Your Profile"
+        onPress={() => {
+          stepIndex === 0 ? navigation.goBack() : setStepIndex(stepIndex - 1);
+        }}
+      />
       <ScrollView
         style={{ flex: 1, backgroundColor: COLORS.white }}
         contentContainerStyle={{ flexGrow: 1, paddingBottom: RFPercentage(3) }}
         showsVerticalScrollIndicator={false}
       >
-        <AuthHeader
-          title="Set Up Your Profile"
-          onPress={() => {
-            stepIndex === 0 ? navigation.goBack() : setStepIndex(stepIndex - 1);
-          }}
-        />
-
         {/* Step Bars */}
         <View style={styles.stepBarContainer}>
           {steps.map((_, index) => (

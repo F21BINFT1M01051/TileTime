@@ -1,5 +1,6 @@
 import {
   FlatList,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -40,36 +41,38 @@ const InvitePlayer = ({ navigation }: any) => {
   return (
     <View style={styles.container}>
       <AuthHeader title="Invite Players" rightText="Save Draft" right={true} />
-      <View style={styles.contentContainer}>
-        <Text style={styles.headingText}>
-          How would you like to get players in?
-        </Text>
-        <View style={styles.listContainer}>
-          <FlatList
-            data={types}
-            keyExtractor={item => item.id.toString()}
-            renderItem={({ item }) => {
-              return (
-                <NextCard
-                  title={item.title}
-                  subTitle={item.subTitle}
-                  onPress={() => {
-                    if (item.navigateTo === 'GuidedPlay') {
-                      navigation.navigate('GuidedPlay', {
-                        players: false,
-                        groups: false,
-                        link: true,
-                      });
-                    } else {
-                      navigation.navigate(item.navigateTo);
-                    }
-                  }}
-                />
-              );
-            }}
-          />
+      <ScrollView>
+        <View style={styles.contentContainer}>
+          <Text style={styles.headingText}>
+            How would you like to get players in?
+          </Text>
+          <View style={styles.listContainer}>
+            <FlatList
+              data={types}
+              keyExtractor={item => item.id.toString()}
+              renderItem={({ item }) => {
+                return (
+                  <NextCard
+                    title={item.title}
+                    subTitle={item.subTitle}
+                    onPress={() => {
+                      if (item.navigateTo === 'GuidedPlay') {
+                        navigation.navigate('GuidedPlay', {
+                          players: false,
+                          groups: false,
+                          link: true,
+                        });
+                      } else {
+                        navigation.navigate(item.navigateTo);
+                      }
+                    }}
+                  />
+                );
+              }}
+            />
+          </View>
         </View>
-      </View>
+      </ScrollView>
       <View style={styles.bottomBar}>
         <View style={styles.bottomContent}>
           <TouchableOpacity
@@ -118,8 +121,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     paddingTop: RFPercentage(2),
     paddingBottom: RFPercentage(4),
-        backgroundColor:COLORS.white
-
+    backgroundColor: COLORS.white,
   },
   bottomContent: {
     width: '85%',

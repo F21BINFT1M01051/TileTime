@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, BackHandler, Keyboard } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  BackHandler,
+  Keyboard,
+} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS, ICONS } from '../../config/theme';
@@ -19,51 +27,49 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({
   descriptors,
   navigation,
 }) => {
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+  const screenFocused = useIsFocused();
+  const insets = useSafeAreaInsets();
 
-    const [isKeyboardVisible, setKeyboardVisible] = useState(false);
-    const screenFocused = useIsFocused();
-    const insets = useSafeAreaInsets();
-  
-    useEffect(() => {
-      const backAction = () => {
-        if (screenFocused) {
-          navigation.goBack();
-          return true;
-        }
-        return false;
-      };
-      const backHandler = BackHandler.addEventListener(
-        'hardwareBackPress',
-        backAction,
-      );
-      return () => backHandler.remove();
-    }, [screenFocused, navigation]);
-  
-    useEffect(() => {
-      const keyboardDidShowListener = Keyboard.addListener(
-        'keyboardDidShow',
-        () => {
-          setKeyboardVisible(true);
-        },
-      );
-      const keyboardDidHideListener = Keyboard.addListener(
-        'keyboardDidHide',
-        () => {
-          setKeyboardVisible(false);
-        },
-      );
-      return () => {
-        keyboardDidShowListener.remove();
-        keyboardDidHideListener.remove();
-      };
-    }, []);
-  
-    if (isKeyboardVisible) return null;
+  useEffect(() => {
+    const backAction = () => {
+      if (screenFocused) {
+        navigation.goBack();
+        return true;
+      }
+      return false;
+    };
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+    return () => backHandler.remove();
+  }, [screenFocused, navigation]);
 
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setKeyboardVisible(true);
+      },
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardVisible(false);
+      },
+    );
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+
+  if (isKeyboardVisible) return null;
 
   return (
     <LinearGradient
-      colors={[COLORS.white,COLORS.tab2]}
+      colors={[COLORS.white, COLORS.tab2]}
       style={{ height: RFPercentage(13) }}
     >
       <View style={styles.tabContainer}>
@@ -99,6 +105,8 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({
               <TouchableOpacity
                 key={index}
                 onPress={onPress}
+                activeOpacity={0.7}
+                hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
                 style={[styles.tabButton, isFocused && styles.activeTab]}
               >
                 <Image

@@ -105,6 +105,8 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({
               <TouchableOpacity
                 key={index}
                 onPress={onPress}
+                activeOpacity={0.7}
+                hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
                 style={[styles.tabButton, isFocused && styles.activeTab]}
               >
                 <Image
@@ -187,7 +189,6 @@ const styles = StyleSheet.create({
   tabButton: {
     flexDirection: 'row',
     alignItems: 'center',
-
     justifyContent: 'center',
   },
   activeTab: {

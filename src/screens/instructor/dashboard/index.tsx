@@ -89,12 +89,12 @@ const data = [
 const Dashboard = ({ navigation }: any) => {
   return (
     <View style={styles.container}>
+      <TopNavigation title="My Dashboard" noVector={true} />
+
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
-        <TopNavigation title="My Dashboard" noVector={true} />
-
         {/* Quick Actions */}
         {dashboard.length > 0 ? (
           <>

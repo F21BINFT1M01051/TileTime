@@ -40,6 +40,11 @@
     </dict>
   </dict>
 
+<!-- Contacts Access -->
+  <key>NSContactsUsageDescription</key>
+<string>This app requires access to your contacts to share with friends.</string>
+
+
   <!-- Network Security -->
   <key>NSAppTransportSecurity</key>
   <dict>

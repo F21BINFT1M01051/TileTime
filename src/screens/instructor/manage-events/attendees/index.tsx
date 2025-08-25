@@ -9,6 +9,7 @@ import {
   TouchableWithoutFeedback,
   Animated,
   Dimensions,
+  ScrollView,
 } from 'react-native';
 import React, { useState, useRef } from 'react';
 import { COLORS, ICONS, FONTS, IMAGES } from '../../../../config/theme';
@@ -126,92 +127,94 @@ const EventAttendees = () => {
         right={true}
         rightIcon={ICONS.upload2}
       />
+      <ScrollView>
+        <View style={styles.searchWrapper}>
+          <SearchField
+            placeholder="Search by name"
+            value={query}
+            onChangeText={setQuery}
+          />
+        </View>
 
-      <View style={styles.searchWrapper}>
-        <SearchField
-          placeholder="Search by name"
-          value={query}
-          onChangeText={setQuery}
-        />
-      </View>
-
-      {/* Filters */}
-      <View style={styles.filterContainer}>
-        <FlatList
-          data={Filters}
-          keyExtractor={item => item.id.toString()}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.filterList}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => setActiveFilter(item.name)}
-              style={[
-                styles.filterButton,
-                {
-                  backgroundColor:
-                    activeFilter === item.name
-                      ? COLORS.inputColor
-                      : COLORS.fieldColor,
-                },
-              ]}
-            >
-              <Text
+        {/* Filters */}
+        <View style={styles.filterContainer}>
+          <FlatList
+            data={Filters}
+            keyExtractor={item => item.id.toString()}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.filterList}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => setActiveFilter(item.name)}
                 style={[
-                  styles.filterText,
+                  styles.filterButton,
                   {
-                    color:
-                      activeFilter === item.name ? COLORS.white : COLORS.grey4,
+                    backgroundColor:
+                      activeFilter === item.name
+                        ? COLORS.inputColor
+                        : COLORS.fieldColor,
                   },
                 ]}
               >
-                {item.name}
-              </Text>
-            </TouchableOpacity>
-          )}
-        />
-      </View>
-
-      {/* Attendees List */}
-      <View style={styles.attendeesWrapper}>
-        <FlatList
-          data={filteredAttendees}
-          keyExtractor={item => item.id.toString()}
-          renderItem={({ item }) => (
-            <View style={styles.attendeeCard}>
-              <View style={styles.attendeeRow}>
-                <View style={styles.profileWrapper}>
-                  <Image
-                    source={item.profile}
-                    resizeMode="contain"
-                    style={styles.profileImage}
-                  />
-                </View>
-                <View style={styles.attendeeInfo}>
-                  <Text style={styles.attendeeName}>{item.name}</Text>
-                  <Text style={styles.attendeeStatus}>
-                    {item.status}{' '}
-                    <Text style={styles.attendeeSince}>{item.since}</Text>
-                  </Text>
-                </View>
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  style={styles.dotsButton}
-                  onPress={() => openModal(item)}
+                <Text
+                  style={[
+                    styles.filterText,
+                    {
+                      color:
+                        activeFilter === item.name
+                          ? COLORS.white
+                          : COLORS.grey4,
+                    },
+                  ]}
                 >
-                  <Image
-                    source={ICONS.dots}
-                    resizeMode="contain"
-                    style={styles.dotsIcon}
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
-          )}
-        />
-      </View>
+                  {item.name}
+                </Text>
+              </TouchableOpacity>
+            )}
+          />
+        </View>
 
+        {/* Attendees List */}
+        <View style={styles.attendeesWrapper}>
+          <FlatList
+            data={filteredAttendees}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({ item }) => (
+              <View style={styles.attendeeCard}>
+                <View style={styles.attendeeRow}>
+                  <View style={styles.profileWrapper}>
+                    <Image
+                      source={item.profile}
+                      resizeMode="contain"
+                      style={styles.profileImage}
+                    />
+                  </View>
+                  <View style={styles.attendeeInfo}>
+                    <Text style={styles.attendeeName}>{item.name}</Text>
+                    <Text style={styles.attendeeStatus}>
+                      {item.status}{' '}
+                      <Text style={styles.attendeeSince}>{item.since}</Text>
+                    </Text>
+                  </View>
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    style={styles.dotsButton}
+                    onPress={() => openModal(item)}
+                  >
+                    <Image
+                      source={ICONS.dots}
+                      resizeMode="contain"
+                      style={styles.dotsIcon}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
+          />
+        </View>
+      </ScrollView>
       {/* Custom Animated Bottom Sheet */}
       <Modal transparent visible={isModalVisible} onRequestClose={closeModal}>
         <BlurView
@@ -293,7 +296,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: RFPercentage(3),
   },
-  filterContainer: { width: '100%', alignSelf: 'center' },
+  filterContainer: {},
   filterList: { paddingHorizontal: RFPercentage(2) },
   filterButton: {
     height: RFPercentage(4.5),
@@ -309,6 +312,7 @@ const styles = StyleSheet.create({
     width: '90%',
     alignSelf: 'center',
     marginTop: RFPercentage(2),
+    flex: 1,
   },
   attendeeCard: {
     width: '100%',
