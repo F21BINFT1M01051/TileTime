@@ -178,15 +178,12 @@ const styles = StyleSheet.create({
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.lightWhite,
     borderBottomWidth: RFPercentage(0.6),
+    borderBottomColor:"#E6F7FA",
     borderRadius: RFPercentage(2.5),
     padding: RFPercentage(2),
     alignItems: 'center',
     flexDirection: 'row',
-    shadowColor: 'rgba(203, 203, 203, 1)',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 5,
+
     position: 'relative',
     zIndex: 1,
   },
@@ -195,18 +192,18 @@ const styles = StyleSheet.create({
   },
   titleText: {
     color: COLORS.primary,
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(2),
   },
   admin: {
     color: COLORS.grey4,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.6),
+    fontSize: RFPercentage(1.7),
     marginTop: RFPercentage(0.8),
   },
   subTitleText: {
     color: COLORS.grey4,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.6),
+    fontSize: RFPercentage(1.7),
     marginTop: RFPercentage(0.5),
   },
   subTitleBold: {
@@ -269,7 +266,7 @@ const styles = StyleSheet.create({
     width: RFPercentage(7.5),
     height: RFPercentage(3),
     borderRadius: RFPercentage(100),
-    backgroundColor: COLORS.pink4,
+    backgroundColor: "#ECEDFF",
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.white3,
     alignItems: 'center',
@@ -324,7 +321,7 @@ const styles = StyleSheet.create({
   view: {
     fontFamily: FONTS.medium,
     color: COLORS.primary,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
     left: RFPercentage(1),
   },
   divider: {
@@ -336,7 +333,7 @@ const styles = StyleSheet.create({
   remove: {
     fontFamily: FONTS.medium,
     color: COLORS.red,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
     left: RFPercentage(1),
   },
 });

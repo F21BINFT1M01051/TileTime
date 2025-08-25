@@ -191,9 +191,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontFamily: FONTS.headline,
+    fontFamily: FONTS.bold,
     color: COLORS.primary,
-    fontSize: RFPercentage(2.3),
+    fontSize: RFPercentage(2.5),
   },
   profileContainer: {
     marginTop: RFPercentage(3),
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
   addPicText: {
     color: COLORS.white,
     fontFamily: FONTS.medium,
-    fontSize: RFPercentage(1.4),
+    fontSize: RFPercentage(1.5),
   },
   inputWrapper: {
     marginTop: RFPercentage(2),
@@ -252,13 +252,13 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(3),
   },
   bioContainer: {
-    backgroundColor: COLORS.fieldColor,
+    backgroundColor: COLORS.white,
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.fieldBorder,
     borderRadius: RFPercentage(1.5),
   },
   bioInputWrapper: {
-    width: '90%',
+    width: '92%',
     alignSelf: 'center',
     marginTop: RFPercentage(1),
   },

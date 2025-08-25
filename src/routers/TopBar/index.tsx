@@ -33,6 +33,7 @@ const TopNavigation = (props: Props) => {
             source={ICONS.vector}
             resizeMode="contain"
             style={styles.vectorIcon}
+            tintColor={COLORS.primary}
           />
         )}
 
@@ -67,9 +68,10 @@ const TopNavigation = (props: Props) => {
               <Image
                 source={ICONS.search}
                 resizeMode="contain"
+                tintColor={COLORS.primary}
                 style={{
-                  width: RFPercentage(3.8),
-                  height: RFPercentage(3.8),
+                  width: RFPercentage(2.8),
+                  height: RFPercentage(2.8),
                   marginRight: RFPercentage(1.4),
                 }}
               />
@@ -79,6 +81,7 @@ const TopNavigation = (props: Props) => {
                 source={ICONS.bell}
                 resizeMode="contain"
                 style={{ width: RFPercentage(2.8), height: RFPercentage(2.8) }}
+                tintColor={COLORS.primary}
               />
             </TouchableOpacity>
           </View>
@@ -93,10 +96,12 @@ export default TopNavigation;
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    backgroundColor: COLORS.pink,
+    backgroundColor: COLORS.white,
     height: Platform.OS === 'ios' ? RFPercentage(14) : RFPercentage(12),
     justifyContent: 'flex-end',
     paddingBottom: RFPercentage(2),
+    borderBottomWidth:RFPercentage(0.1),
+    borderBottomColor:COLORS.lightWhite
   },
   innerContainer: {
     flexDirection: 'row',
@@ -105,9 +110,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   titleText: {
-    color: COLORS.white,
-    fontFamily: FONTS.headline,
-    fontSize: RFPercentage(3),
+    color: COLORS.primary,
+    fontFamily: FONTS.bold,
+    fontSize: RFPercentage(2.8),
     marginRight: RFPercentage(0.2),
   },
   vectorIcon: {

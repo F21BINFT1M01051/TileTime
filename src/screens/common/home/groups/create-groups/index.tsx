@@ -74,7 +74,7 @@ const CreateGroup = ({ navigation }: any) => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      style={{ flex: 1,backgroundColor: COLORS.white }}
+      style={{ flex: 1, backgroundColor: COLORS.white }}
     >
       <Nav
         title="Create Group"
@@ -88,20 +88,13 @@ const CreateGroup = ({ navigation }: any) => {
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
-        {/* Step Bars */}
-        <View style={styles.stepBarContainer}>
-          {steps.map((_, index) => (
-            <View
-              key={index}
-              style={[
-                styles.stepBar,
-                {
-                  backgroundColor: getBarColor(index),
-                  marginLeft: index === 0 ? 0 : RFPercentage(0.7),
-                },
-              ]}
-            />
-          ))}
+        <View style={styles.progressBarBackground}>
+          <View
+            style={[
+              styles.progressBarFill,
+              { width: `${((stepIndex + 1) / steps.length) * 100}%` },
+            ]}
+          />
         </View>
 
         <View style={styles.contentWrapper}>{renderStepContent()}</View>
@@ -149,6 +142,20 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontSize: RFPercentage(2.7),
     marginLeft: RFPercentage(1.2),
+  },
+  progressBarBackground: {
+    width: '90%',
+    height: RFPercentage(0.8),
+    backgroundColor: COLORS.fieldColor,
+    borderRadius: RFPercentage(100),
+    overflow: 'hidden',
+    alignSelf: 'center',
+    marginTop: RFPercentage(2),
+  },
+  progressBarFill: {
+    height: '100%',
+    backgroundColor: COLORS.pink, // current progress color
+    borderRadius: RFPercentage(100),
   },
   stepBarContainer: {
     flexDirection: 'row',

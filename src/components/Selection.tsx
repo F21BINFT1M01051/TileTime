@@ -1,6 +1,14 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Image,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
-import { COLORS, FONTS, ICONS } from '../config/theme';
+import LinearGradient from 'react-native-linear-gradient';
+import { COLORS, FONTS, ICONS, IMAGES } from '../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 
 interface Props {
@@ -8,7 +16,7 @@ interface Props {
   subTitle: string;
   isSelected: boolean;
   onSelect: () => void;
-  icon : any
+  icon: any;
 }
 
 const Selection = ({ title, subTitle, isSelected, onSelect, icon }: Props) => {
@@ -21,27 +29,65 @@ const Selection = ({ title, subTitle, isSelected, onSelect, icon }: Props) => {
         { borderColor: isSelected ? COLORS.pink : COLORS.lightWhite },
       ]}
     >
-      <View style={styles.innerWrapper}>
-        <View style={styles.header}>
-          <Image source={icon} resizeMode="contain" style={styles.icon} />
-          <TouchableOpacity
-            onPress={onSelect}
-            style={[
-              styles.radioButton,
-              {
-                borderColor: isSelected ? COLORS.pink : COLORS.radio,
-                backgroundColor: isSelected ? 'transparent' : COLORS.radio2,
-              },
-            ]}
-          >
-            {isSelected && <View style={styles.radioDot} />}
-          </TouchableOpacity>
+      {isSelected ? (
+        <ImageBackground
+          source={IMAGES.selection}
+          resizeMode="cover"
+          style={styles.bgImage}
+          imageStyle={styles.bgImageStyle}
+        >
+          {/* Gradient overlay only on left side */}
+          <LinearGradient
+            colors={['rgba(255,255,255,1)', 'rgba(255,255,255,0.1)']}
+            start={{ x: 0.4, y: 0 }}
+            end={{ x: 0.8, y: 0 }} // only left side gradient
+            style={styles.gradientOverlay}
+          />
+
+          <View style={styles.innerWrapper}>
+            <View style={styles.header}>
+              <Image source={icon} resizeMode="contain" style={styles.icon} />
+              <TouchableOpacity
+                onPress={onSelect}
+                style={[
+                  styles.radioButton,
+                  {
+                    borderColor: isSelected ? COLORS.pink : COLORS.radio,
+                    backgroundColor: isSelected ? 'transparent' : COLORS.radio2,
+                  },
+                ]}
+              >
+                {isSelected && <View style={styles.radioDot} />}
+              </TouchableOpacity>
+            </View>
+            <View style={styles.textWrapper}>
+              <Text style={styles.title}>{title}</Text>
+              <Text style={styles.subTitle}>{subTitle}</Text>
+            </View>
+          </View>
+        </ImageBackground>
+      ) : (
+        // when not selected -> just white container without image
+        <View style={styles.innerWrapper}>
+          <View style={styles.header}>
+            <Image source={icon} resizeMode="contain" style={styles.icon} />
+            <TouchableOpacity
+              onPress={onSelect}
+              style={[
+                styles.radioButton,
+                {
+                  borderColor: COLORS.radio,
+                  backgroundColor: COLORS.radio2,
+                },
+              ]}
+            />
+          </View>
+          <View style={styles.textWrapper}>
+            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.subTitle}>{subTitle}</Text>
+          </View>
         </View>
-        <View style={styles.textWrapper}>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.subTitle}>{subTitle}</Text>
-        </View>
-      </View>
+      )}
     </TouchableOpacity>
   );
 };
@@ -55,12 +101,22 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     alignItems: 'center',
     borderRadius: RFPercentage(1.7),
-    paddingVertical: RFPercentage(1.8),
     marginTop: RFPercentage(2),
+    overflow: 'hidden',
+  },
+  bgImage: {
+    width: '100%',
+  },
+  bgImageStyle: {
+    borderRadius: RFPercentage(1.7),
+  },
+  gradientOverlay: {
+    ...StyleSheet.absoluteFillObject,
   },
   innerWrapper: {
     width: '90%',
     alignSelf: 'center',
+    paddingVertical: RFPercentage(2),
   },
   header: {
     flexDirection: 'row',
@@ -77,14 +133,14 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: FONTS.bold,
     color: COLORS.primary,
-    fontSize: RFPercentage(2),
+    fontSize: RFPercentage(2.1),
   },
   subTitle: {
     fontFamily: FONTS.regular,
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
     marginTop: RFPercentage(1.4),
-    lineHeight: RFPercentage(2.3),
+    lineHeight: RFPercentage(2),
   },
   radioButton: {
     width: RFPercentage(3),

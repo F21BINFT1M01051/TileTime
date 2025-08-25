@@ -783,7 +783,7 @@ const styles = StyleSheet.create({
     minWidth: RFPercentage(20),
   },
   rightBubble: {
-    backgroundColor: COLORS.pink,
+    backgroundColor: "#4E6CA2",
     alignSelf: 'flex-end',
     borderTopRightRadius: RFPercentage(2.5),
     borderBottomLeftRadius: RFPercentage(2.5),
@@ -870,6 +870,8 @@ const styles = StyleSheet.create({
     height: RFPercentage(10),
     alignItems: 'center',
     justifyContent: 'center',
+    borderTopWidth:RFPercentage(0.1),
+    borderTopColor:COLORS.lightWhite
   },
   inputBar: {
     flexDirection: 'row',

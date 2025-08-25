@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
     borderWidth: RFPercentage(0.1),
     borderBottomWidth: RFPercentage(0.6),
     borderColor: COLORS.lightWhite,
+    borderBottomColor:"#E6F7FA",
     borderRadius: RFPercentage(1.8),
     marginTop: RFPercentage(3),
     justifyContent:'center',
@@ -142,12 +143,12 @@ const styles = StyleSheet.create({
   title: {
     color: COLORS.primary,
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(2),
   },
   subtitle: {
     color: COLORS.lightGrey,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
     marginTop: RFPercentage(0.5),
   },
   profileRow: {
@@ -170,7 +171,7 @@ const styles = StyleSheet.create({
     borderRadius: RFPercentage(1.4),
   },
   moreMediaContainer: {
-    backgroundColor: COLORS.pink4,
+    backgroundColor: "#E6F7FA",
     width: RFPercentage(5),
     height: RFPercentage(5),
     borderRadius: RFPercentage(1),
@@ -217,7 +218,7 @@ const styles = StyleSheet.create({
     right: RFPercentage(0.1),
   },
   moreAvatarContainer: {
-    backgroundColor: COLORS.pink4,
+    backgroundColor: "#E6F7FA",
     width: RFPercentage(4),
     height: RFPercentage(5),
     borderRadius: RFPercentage(2),

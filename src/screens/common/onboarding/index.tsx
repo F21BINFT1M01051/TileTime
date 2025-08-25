@@ -6,6 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
   ScrollView,
+  ImageBackground,
 } from 'react-native';
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -19,7 +20,7 @@ const data = [
     name: 'Continue With Email Address',
     navigationScreen: '',
     color: COLORS.black,
-    navigateTo : "LoginSignUp"
+    navigateTo: 'LoginSignUp',
   },
   {
     id: 2,
@@ -27,7 +28,7 @@ const data = [
     navigationScreen: '',
     icon: ICONS.google,
     color: COLORS.black,
-     navigateTo : ""
+    navigateTo: '',
   },
   {
     id: 3,
@@ -35,7 +36,7 @@ const data = [
     navigationScreen: '',
     icon: ICONS.apple,
     color: COLORS.black,
-     navigateTo : ""
+    navigateTo: '',
   },
   {
     id: 4,
@@ -43,33 +44,90 @@ const data = [
     navigationScreen: '',
     icon: ICONS.facebook,
     color: COLORS.skyBlue,
-     navigateTo : ""
+    navigateTo: '',
   },
 ];
 
 const OnBoarding = ({ navigation }: any) => {
   return (
-    <LinearGradient
-      colors={[COLORS.gradient1, COLORS.gradient2]}
-      style={styles.gradient}
-    >
+    <View style={styles.gradient}>
       <View style={styles.logoContainer}>
-        <Image source={IMAGES.logo} resizeMode="contain" style={styles.logo} />
-        <Image
-          source={IMAGES.onBoarding}
-          resizeMode="contain"
-          style={styles.onBoardingImage}
-        />
-        <Image
-          source={IMAGES.headline}
-          resizeMode="contain"
-          style={styles.headlineImage}
-        />
+        <ImageBackground
+          source={IMAGES.onBoarding22}
+          resizeMode="repeat"
+          style={{
+            width: '100%',
+            height: RFPercentage(50),
+            alignItems: 'center',
+          }}
+        >
+          <Image
+            source={IMAGES.logo}
+            resizeMode="contain"
+            style={styles.logo}
+          />
+          <LinearGradient
+            style={{ width: '100%', height: RFPercentage(40) }}
+            colors={['rgba(255, 255, 255, 0.1)', COLORS.white]}
+          >
+            <Image
+              source={IMAGES.onBoarding}
+              resizeMode="cover"
+              style={styles.onBoardingImage}
+            />
+
+            <View style={{ width: '95%', alignSelf: 'center' }}>
+              <Text
+                style={{
+                  textAlign: 'center',
+                  fontSize: RFPercentage(4.7),
+                  color: COLORS.primary,
+                  fontFamily: FONTS.extraBold,
+                  marginTop: RFPercentage(3),
+                }}
+              >
+                PLAY.LEARN.GROW
+              </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    fontSize: RFPercentage(1.9),
+                    color: COLORS.primary,
+                    fontFamily: FONTS.regular,
+                  }}
+                >
+                  Your Mahjong home, made by those who play
+                </Text>
+                <Image
+                  source={ICONS.stars2}
+                  resizeMode="contain"
+                  style={{ width: RFPercentage(4), height: RFPercentage(4) }}
+                />
+              </View>
+              <Image
+                source={IMAGES.lines}
+                resizeMode="contain"
+                style={{
+                  width: RFPercentage(25),
+                  height: RFPercentage(3),
+                  alignSelf: 'flex-end',
+                  right: RFPercentage(5),
+                }}
+              />
+            </View>
+          </LinearGradient>
+        </ImageBackground>
       </View>
 
       <View style={styles.whiteContainer}>
         <View style={styles.contentWrapper}>
-          <Text style={styles.getStartedText}>Get Started</Text>
           <View style={styles.listContainer}>
             <FlatList
               data={data}
@@ -81,7 +139,7 @@ const OnBoarding = ({ navigation }: any) => {
                   name={item.name}
                   navigation={item.navigationScreen}
                   color={item.color}
-                  onPress={()=> navigation.navigate(item.navigateTo)}
+                  onPress={() => navigation.navigate(item.navigateTo)}
                 />
               )}
             />
@@ -96,7 +154,7 @@ const OnBoarding = ({ navigation }: any) => {
           </TouchableOpacity>
         </View>
       </View>
-    </LinearGradient>
+    </View>
   );
 };
 
@@ -106,36 +164,33 @@ const styles = StyleSheet.create({
   gradient: {
     flex: 1,
     alignItems: 'center',
+    backgroundColor: COLORS.white,
   },
   logoContainer: {
     width: '100%',
     alignItems: 'center',
-    paddingTop: RFPercentage(8),
   },
   logo: {
-    width: RFPercentage(8),
+    width: RFPercentage(20),
     height: RFPercentage(8),
+    marginTop: RFPercentage(8),
   },
   onBoardingImage: {
-    width: RFPercentage(32),
+    width: '100%',
     height: RFPercentage(22),
-    bottom: RFPercentage(1.5),
+    marginTop: RFPercentage(2),
   },
   headlineImage: {
     width: RFPercentage(50),
     height: RFPercentage(8),
-    bottom: RFPercentage(1.5),
   },
   whiteContainer: {
     width: '100%',
-    backgroundColor: COLORS.white,
-    borderTopRightRadius: RFPercentage(2.5),
-    borderTopLeftRadius: RFPercentage(2.5),
     alignItems: 'center',
-    marginTop: RFPercentage(2.1),
+    marginTop: RFPercentage(3),
     paddingBottom: RFPercentage(5),
     justifyContent: 'center',
-    flex:1
+    flex: 1,
   },
   contentWrapper: {
     width: '90%',

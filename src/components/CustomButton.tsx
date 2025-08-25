@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   text: {
     color: COLORS.white,
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(2),
   },
   img: {
     width: RFPercentage(2.5),

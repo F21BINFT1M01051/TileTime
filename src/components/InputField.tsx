@@ -55,7 +55,7 @@ const InputField: React.FC<Props> = ({
 
   const getPlaceholderColor = () => {
     if (hasError) return errorColor || COLORS.red;
-    if (isFocused) return focusedColor || COLORS.focused;
+    if (isFocused) return focusedColor || COLORS.primary;
     return defaultColor || COLORS.fieldBorder;
   };
 
@@ -77,14 +77,14 @@ const InputField: React.FC<Props> = ({
     ...styles.label,
     top: animatedIsFocused.interpolate({
       inputRange: [0, 1],
-      outputRange: [RFPercentage(7) / 3.1, RFPercentage(0.6)],
+      outputRange: [RFPercentage(7) / 2.7, RFPercentage(1)],
     }),
     fontSize: animatedIsFocused.interpolate({
       inputRange: [0, 1],
-      outputRange: [RFPercentage(1.8), RFPercentage(1.5)],
+      outputRange: [RFPercentage(1.9), RFPercentage(1.6)],
     }),
     color: getPlaceholderColor(),
-    fontFamily: isFocused || value ? FONTS.medium2 : FONTS.regular,
+    fontFamily: isFocused || value ? FONTS.regular : FONTS.regular,
   };
 
   return (
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     borderWidth: RFPercentage(0.1),
     width: '100%',
     height: RFPercentage(7),
-    backgroundColor: COLORS.fieldColor,
+    backgroundColor: COLORS.white,
     borderColor: COLORS.fieldBorder,
     borderRadius: RFPercentage(1.3),
     marginTop: RFPercentage(2),
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   wrap: {
-    width: '90%',
+    width: '92%',
     alignSelf: 'center',
     flexDirection: 'row',
     alignItems: 'center',
@@ -173,8 +173,8 @@ const styles = StyleSheet.create({
     width: '90%',
     paddingVertical: 0,
     paddingHorizontal: 0,
-    fontSize: RFPercentage(2),
-    top: RFPercentage(1),
+    fontSize: RFPercentage(2.1),
+    top: RFPercentage(1.3),
   },
   iconContainer: {
     right: 0,

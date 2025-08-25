@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   getStartedText: {
     color: COLORS.primary,
     fontFamily: FONTS.headline,
-    fontSize: RFPercentage(2.6),
+    fontSize: RFPercentage(2.7),
     marginLeft: RFPercentage(1),
   },
   rightBtn: {

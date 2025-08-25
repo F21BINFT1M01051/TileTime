@@ -140,8 +140,8 @@ const styles = StyleSheet.create({
   },
   header: {
     color: COLORS.primary,
-    fontFamily: FONTS.semiBold,
-    fontSize: RFPercentage(1.8),
+    fontFamily: FONTS.bold,
+    fontSize: RFPercentage(2),
   },
   weekRow: {
     flexDirection: 'row',
@@ -153,10 +153,12 @@ const styles = StyleSheet.create({
     padding: RFPercentage(1),
     width: RFPercentage(6),
     borderRadius: RFPercentage(1),
+    height:RFPercentage(6),
+    justifyContent:'center'
   },
   todayContainer: {
-    backgroundColor: 'rgba(177, 64, 136, 0.16)',
-    borderRadius: RFPercentage(1.6),
+    backgroundColor: '#E3F6F9',
+    borderRadius: RFPercentage(1.55),
   },
   dayName: {
     fontFamily: FONTS.regular,
@@ -165,9 +167,10 @@ const styles = StyleSheet.create({
     top: RFPercentage(0.3),
   },
   dayDate: {
-    fontFamily: FONTS.semiBold,
-    fontSize: RFPercentage(2),
+    fontFamily: FONTS.inter_semiBold,
+    fontSize: RFPercentage(1.9),
     color: COLORS.primary,
+    fontWeight:"600"
   },
   todayText: {
     color: COLORS.pink,
@@ -175,7 +178,7 @@ const styles = StyleSheet.create({
   scheduleText: {
     color: COLORS.primary,
     fontFamily: FONTS.medium,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.9),
     marginTop: RFPercentage(2),
   },
   timeBlock: {
@@ -200,7 +203,7 @@ const styles = StyleSheet.create({
   noEventText: {
     color: COLORS.primary,
     fontFamily: FONTS.medium,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.9),
   },
   button: {
     width: RFPercentage(22),

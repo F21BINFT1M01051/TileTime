@@ -22,27 +22,37 @@ const Groups = ({ navigation }: any) => {
 
   return (
     <LinearGradient
-      colors={[COLORS.white, COLORS.white]}
+      colors={['#F5FDFF', '#FFFFFF']}
       style={styles.gradientContainer}
     >
       <TopNavigation
-        title="Groups & Chats"
+        title="GROUPS & CHATS"
         right={chats.length > 0 ? true : false}
         onPress={() => navigation.navigate('CreateGroup')}
         text="+ New group"
       />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ImageBackground
-          source={IMAGES.background}
-          resizeMode="cover"
-          style={styles.imageBackground}
+        <View
+          style={{
+            width: '90%',
+            alignSelf: 'center',
+          }}
         >
           {chats.length === 0 && (
             <>
               <View style={styles.titleContainer}>
                 <Text style={styles.mainTitle}>
-                  {`Start a Group and\nInvite Others`}
+                  {`START A GROUP AND\nINVITE OTHERS`}
                 </Text>
+                <Image
+                  source={IMAGES.home66}
+                  resizeMode="contain"
+                  style={{
+                    width: RFPercentage(10),
+                    height: RFPercentage(13),
+                    bottom: RFPercentage(1),
+                  }}
+                />
               </View>
               <View style={styles.subtitleContainer}>
                 <Text style={styles.subtitleText}>
@@ -54,7 +64,7 @@ const Groups = ({ navigation }: any) => {
                   style={[
                     styles.borderIcon,
                     {
-                      right: RFPercentage(10),
+                      left: RFPercentage(13),
                     },
                   ]}
                 />
@@ -86,7 +96,7 @@ const Groups = ({ navigation }: any) => {
               </View>
             </>
           )}
-        </ImageBackground>
+        </View>
 
         <View
           style={[
@@ -148,38 +158,36 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontFamily: FONTS.medium,
   },
-  titleContainer: {},
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   mainTitle: {
     color: COLORS.primary,
     fontFamily: FONTS.headline,
     fontSize: RFPercentage(3),
-    textAlign: 'center',
-    width: '90%',
-    alignSelf: 'center',
-    marginTop: RFPercentage(5),
   },
   subtitleContainer: {
-    marginTop: RFPercentage(1),
-    width: '90%',
-    alignSelf: 'center',
+    marginTop: RFPercentage(-1.5),
   },
   subtitleText: {
-    color: COLORS.primary,
-    fontFamily: FONTS.stylish,
+    color: COLORS.icon,
+    fontFamily: FONTS.regular,
     fontSize: RFPercentage(2.1),
-    textAlign: 'center',
   },
   borderIcon: {
     width: RFPercentage(10),
     height: RFPercentage(2),
-    alignSelf: 'flex-end',
   },
   groupImage: {
     width: RFPercentage(50),
     height: RFPercentage(30),
+    alignSelf:"center",
+    marginTop:RFPercentage(3)
   },
   buttonWrapper: {
-    width: '90%',
+    width: '100%',
     alignSelf: 'center',
     alignContent: 'center',
     marginTop: RFPercentage(5.8),

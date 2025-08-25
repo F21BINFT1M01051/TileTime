@@ -104,26 +104,30 @@ const InstructorHome = ({ navigation }: any) => {
 
   return (
     <LinearGradient
-      colors={[COLORS.offWhite2, COLORS.white]}
+      colors={['#F5FDFF', '#FFFFFF']}
       style={styles.gradientContainer}
     >
       <TopNavigation
-        title="Home"
+        title="HOME"
         right={true}
         home={true}
         onPress2={() => navigation.navigate('SearchScreen')}
         onPress3={() => navigation.navigate('Notifications')}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ImageBackground
-          source={IMAGES.background}
-          resizeMode="cover"
-          style={styles.imageBackground}
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            width: '90%',
+            alignSelf: 'center',
+            justifyContent:'space-between'
+          }}
         >
           {actions.length > 0 ? (
             <View style={styles.titleContainer}>
               <Text style={styles.mainTitle}>
-                {`Let’s get your Mahjong\njourney started`}
+                {`LET'S GET YOUR MAHJONG JOURNEY\nSTARTED`}
               </Text>
             </View>
           ) : (
@@ -133,8 +137,12 @@ const InstructorHome = ({ navigation }: any) => {
               </Text>
             </View>
           )}
-        </ImageBackground>
-
+          <Image
+            source={IMAGES.home55}
+            resizeMode="contain"
+            style={{ width: RFPercentage(15), height: RFPercentage(15),bottom:RFPercentage(3) }}
+          />
+        </View>
         <View style={styles.actionsWrapper}>
           {actions.length > 0 && (
             <>
@@ -157,7 +165,7 @@ const InstructorHome = ({ navigation }: any) => {
           >
             <View style={styles.homeTopContent}>
               <View style={styles.rowCenter}>
-                <Text style={styles.sectionTitle}>Explore Events Near You</Text>
+                <Text style={styles.sectionTitle}>EXPLORE EVENTS NEAR YOU</Text>
                 <Image
                   source={ICONS.bars2}
                   resizeMode="contain"
@@ -203,12 +211,12 @@ const InstructorHome = ({ navigation }: any) => {
 
           <View style={styles.groupSection}>
             <View style={styles.rowCenter}>
-              <Text style={styles.sectionTitle}>Instructor Recommended</Text>
-              {/* <Image
+              <Text style={styles.sectionTitle}>INSTRUCTOR RECOMMENDED</Text>
+              <Image
                 source={ICONS.star}
                 resizeMode="contain"
                 style={styles.iconStar}
-              /> */}
+              />
             </View>
             <Text style={styles.descriptionText}>
               Events you may want to join as an Instructor
@@ -247,7 +255,7 @@ const InstructorHome = ({ navigation }: any) => {
             </TouchableOpacity>
 
             <View style={styles.sectionMargin}>
-              <Text style={styles.sectionTitle}>Open Groups You Can Join</Text>
+              <Text style={styles.sectionTitle}>OPEN GROUPS YOU CAN JOIN</Text>
             </View>
             <Text style={styles.groupText}>
               Discover active Mahjong groups looking for new members,
@@ -324,19 +332,17 @@ const styles = StyleSheet.create({
     width: '100%',
     height: RFPercentage(20),
   },
-  titleContainer: {},
+  titleContainer: {width:"70%"},
   mainTitle: {
     color: COLORS.primary,
-    fontFamily: FONTS.headline,
+    fontFamily: FONTS.bold,
     fontSize: RFPercentage(3),
-    textAlign: 'center',
-    width: '90%',
-    alignSelf: 'center',
-    marginTop: RFPercentage(4),
+    lineHeight:RFPercentage(3)
+
   },
   actionsWrapper: {
     width: '100%',
-    bottom: Platform.OS === 'android' ? RFPercentage(8) : RFPercentage(6),
+    // bottom: Platform.OS === 'android' ? RFPercentage(8) : RFPercentage(6),
   },
   actionsCardWrapper: {
     width: '90%',
@@ -361,20 +367,20 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontFamily: FONTS.headline,
-    fontSize: RFPercentage(2.4),
+    fontSize: RFPercentage(2.5),
     color: COLORS.primary,
   },
   iconBars: {
     width: RFPercentage(4),
     height: RFPercentage(4),
-    bottom: RFPercentage(1),
-    right: RFPercentage(0.7),
+    bottom: RFPercentage(1.5),
+    right: RFPercentage(0.5),
   },
   descriptionText: {
-    fontFamily: FONTS.stylish,
-    color: COLORS.primary,
-    fontSize: RFPercentage(2.3),
-    lineHeight: RFPercentage(2.8),
+    fontFamily: FONTS.regular,
+    color: COLORS.grey8,
+    fontSize: RFPercentage(2.2),
+    lineHeight: RFPercentage(2.5),
     marginTop: RFPercentage(0.5),
   },
   buttonMargin: {
@@ -428,10 +434,10 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(4),
   },
   groupText: {
-    fontFamily: FONTS.stylish,
-    color: COLORS.primary,
+    fontFamily: FONTS.regular,
+    color: COLORS.grey8,
     fontSize: RFPercentage(2.2),
-    lineHeight: RFPercentage(2.9),
+    lineHeight: RFPercentage(2.3),
     marginTop: RFPercentage(0.6),
   },
   overLay2: {

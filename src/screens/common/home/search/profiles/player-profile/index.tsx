@@ -15,6 +15,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import CustomButton from '../../../../../../components/CustomButton';
 import CommonGroup from '../../../../../../components/CommonGroups';
 import AddToGroupModal from '../../../../../../components/AddToGroup';
+import LinearGradient from 'react-native-linear-gradient';
 
 const players = [
   {
@@ -83,22 +84,31 @@ const PlayerProfile = ({ navigation }: any) => {
             source={IMAGES.single}
             resizeMode="repeat"
             style={styles.backgroundImage}
-          />
+          >
+            <LinearGradient
+              colors={['rgba(255, 255, 255, 0.3)', 'rgba(255, 255, 255, 0.8)']}
+              style={{
+                width: '100%',
+                height: RFPercentage(25),
+              }}
+            >
+              <View style={styles.avatarOuterLayer}>
+                <View style={styles.avatarMiddleLayer}>
+                  <View style={styles.avatarInnerLayer}>
+                    <Image
+                      source={IMAGES.profile2}
+                      resizeMode="cover"
+                      style={styles.avatarImage}
+                    />
+                  </View>
+                </View>
+              </View>
+            </LinearGradient>
+          </ImageBackground>
         </View>
 
         {/* User Info */}
         <View style={styles.mainContent}>
-          <View style={styles.avatarOuterLayer}>
-            <View style={styles.avatarMiddleLayer}>
-              <View style={styles.avatarInnerLayer}>
-                <Image
-                  source={IMAGES.profile2}
-                  resizeMode="cover"
-                  style={styles.avatarImage}
-                />
-              </View>
-            </View>
-          </View>
           <Text style={styles.userName}>Sophie Reynolds</Text>
           <Text style={styles.locationText}>Seattle, WA</Text>
           <Text style={styles.groupDesc}>
@@ -177,12 +187,12 @@ export default PlayerProfile;
 
 const styles = StyleSheet.create({
   safeArea: { backgroundColor: COLORS.white, flex: 1 },
-  fullWidth: { width: '100%' },
+  fullWidth: { width: '100%', marginTop:RFPercentage(10) },
   zIndexHigh: { zIndex: 999999 },
   backgroundImage: {
     width: '100%',
-    height: Platform.OS === 'android' ? RFPercentage(22) : RFPercentage(25.7),
-    top: RFPercentage(-13),
+    height: RFPercentage(24),
+    top: RFPercentage(-14),
   },
   headerBorder: {
     borderBottomWidth: 1,
@@ -197,7 +207,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: Platform.OS === 'android' ? RFPercentage(5) : RFPercentage(7.6),
   },
-  mainContent: { width: '90%', alignSelf: 'center', bottom: RFPercentage(19) },
+  mainContent: { width: '90%', alignSelf: 'center', bottom: RFPercentage(17) },
   avatarOuterLayer: {
     width: RFPercentage(11),
     height: RFPercentage(12.5),
@@ -205,6 +215,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.purple,
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop:RFPercentage(8),
+    marginLeft:RFPercentage(2.5)
   },
   avatarMiddleLayer: {
     backgroundColor: COLORS.green2,
@@ -244,17 +256,18 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(1),
   },
   groupDesc: {
-    fontFamily: FONTS.regular2,
+    fontFamily: FONTS.regular,
     color: COLORS.primary,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
     marginTop: RFPercentage(1),
+    lineHeight:RFPercentage(2)
   },
   buttonRow: {
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: RFPercentage(3.4),
+    marginTop: RFPercentage(3),
   },
   buttonHalf: { width: '48%' },
   buttonRounded: { borderRadius: RFPercentage(1.4) },

@@ -60,11 +60,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     paddingHorizontal: RFPercentage(2),
-    shadowColor: 'rgba(203, 203, 203, 1)',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 5,
+      borderBottomColor:"#E6F7FA",
   },
   icon: {
     width: RFPercentage(2.5),
@@ -73,7 +69,7 @@ const styles = StyleSheet.create({
   titleText: {
     fontFamily: FONTS.bold,
     color: COLORS.primary,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(2),
     marginLeft: RFPercentage(1.5),
   },
   toggleSwitch: {

@@ -1,6 +1,4 @@
-
-import { Platform } from "react-native";
-
+import { Platform } from 'react-native';
 
 export const COLORS = {
   gradient1: '#C64998',
@@ -19,7 +17,7 @@ export const COLORS = {
   lightGrey: '#8C8C8C',
   lightWhite: '#EEEEEE',
   green: '#0A8B65',
-  pink: '#B14088',
+  pink: '#50A0AF',
   grey: '#1D1D1D',
   switch: '#E6E6E6EE',
   dropDown: '#E0E0E0',
@@ -27,13 +25,13 @@ export const COLORS = {
   radio2: '##F9F9F9',
   pink2: '#FF0069',
   grey3: '#696B74',
-  yellow: '#FFCB4C',
+  yellow: '#9698C8',
   offWhite: '#FBFAF9',
   grey4: '#696969',
   grey5: '#82848C',
-  green2: '#40C3B1',
-  pink3: '#BF5A9E',
-  purple: '#8D5BB7',
+  green2: '#4E6CA2',
+  pink3: '#6FA8B3',
+  purple: '#9698C8',
   PURPLE2: '#7B4CCB',
   white2: '#ECE1FF',
   offWhite2: '#F7F0E1',
@@ -49,8 +47,8 @@ export const COLORS = {
   lightWhite3: '#ECECEC',
   pink6: '#E594C4',
   light: '#E1E5FF',
-  date: '#E4F7F6',
-  location: '#FFEDE2',
+  date: '#EDF0F6',
+  location: '#E5E7FF',
   dashedBorder: '#A2A2A2',
   lightYellow: '#FFFFE1',
   darkYeloow: '#929212',
@@ -62,11 +60,14 @@ export const COLORS = {
   line: '#E3E3E3',
   red2: '#D30505',
   green4: '#00B8B7',
+  grey8: '#505050',
+  green1: '#77ADB8',
 };
 
 export const IMAGES = {
   logo: require('../assets/images/logo.png'),
   onBoarding: require('../assets/images/onBoarding.png'),
+  onBoarding22: require('../assets/images/onboarding22.png'),
   headline: require('../assets/images/headline.png'),
   profile: require('../assets/images/profile.png'),
   background: require('../assets/images/background.png'),
@@ -85,6 +86,11 @@ export const IMAGES = {
   home_pic: require('../assets/images/home11.png'),
   event22: require('../assets/images/event22.png'),
   detail22: require('../assets/images/detail22.png'),
+  lines: require('../assets/images/Line-8.png'),
+  auth: require('../assets/images/auth.png'),
+  selection: require('../assets/images/selection.png'),
+  home55: require('../assets/images/home55.png'),
+  home66: require('../assets/images/home66.png'),
 };
 
 export const ICONS = {
@@ -212,17 +218,19 @@ export const ICONS = {
 };
 
 export const FONTS = {
-  headline: 'Caprasimo-Regular',
-  regular: 'SplineSans-Regular',
-  medium: 'SplineSans-Medium',
-  semiBold: 'SplineSans-SemiBold',
-  bold: 'SplineSans-Bold',
+  headline: 'LeagueSpartan-Bold',
+  extraBold: 'LeagueSpartan-ExtraBold',
+  regular: 'LeagueSpartan-Regular',
+  medium: 'LeagueSpartan-Medium',
+  semiBold: 'LeagueSpartan-SemiBold',
+  bold: 'LeagueSpartan-Bold',
   regular2: 'PublicSans-Regular',
   medium2: 'PublicSans-Medium',
   semiBold2: 'PublicSans-SemiBold',
   bold2: 'PublicSans-Bold',
   tab: 'SchibstedGrotesk-SemiBold',
-  stylish:  Platform.OS === 'ios' ? 'ShadowsIntoLight' : 'ShadowsIntoLight-Regular',
+  stylish:
+    Platform.OS === 'ios' ? 'ShadowsIntoLight' : 'ShadowsIntoLight-Regular',
   inter: 'Inter_24pt-Medium',
   inter_semiBold: 'Inter_18pt-SemiBold',
 };

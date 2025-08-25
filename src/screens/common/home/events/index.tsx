@@ -135,7 +135,7 @@ const groupByDate = (events: any) => {
 
 const Events = ({ navigation }: any) => {
   const [isCalendarVisible, setCalendarVisible] = useState(false);
-  const events = ['5'];
+  const events = [];
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedType, setSelectedType] = useState('');
   const dispatch = useDispatch();
@@ -154,11 +154,7 @@ const Events = ({ navigation }: any) => {
       <TopNavigation title="My Events" right text="Saved Draft" />
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ImageBackground
-          source={IMAGES.background}
-          resizeMode="cover"
-          style={styles.imageBackground}
-        >
+        <View style={{ width: '90%', alignSelf: 'center' }}>
           {events.length > 0 ? (
             <View style={styles.searchContainer}>
               <SearchField
@@ -168,16 +164,29 @@ const Events = ({ navigation }: any) => {
               />
             </View>
           ) : (
-            <View style={styles.wrap}>
-              <Text style={styles.head}>
-                {`Host an Event and\nBring People Together`}
-              </Text>
+            <>
+              <View style={styles.wrap}>
+                <View style={{ width: '70%' }}>
+                  <Text style={styles.head}>
+                    {`Host an Event and\nBring People Together`}
+                  </Text>
+                </View>
+                <Image
+                  source={IMAGES.home66}
+                  resizeMode="contain"
+                  style={{
+                    width: RFPercentage(9),
+                    height: RFPercentage(9),
+                    bottom:RFPercentage(2)
+                  }}
+                />
+              </View>
               <Text style={styles.sub}>
                 {`Events are a great way to gather players, share\nexperiences, and enjoy Mahjong as a community.`}
               </Text>
-            </View>
+            </>
           )}
-        </ImageBackground>
+        </View>
         {events.length > 0 ? (
           <View style={styles.monthSelectorContainer}>
             <View
@@ -391,22 +400,21 @@ const styles = StyleSheet.create({
   },
   sub: {
     color: COLORS.primary,
-    fontFamily: FONTS.stylish,
+    fontFamily: FONTS.regular,
     fontSize: RFPercentage(2),
-    marginTop: RFPercentage(1.5),
-    textAlign: 'center',
-    lineHeight: RFPercentage(2.7),
+    lineHeight: RFPercentage(2),
   },
   wrap: {
     width: '100%',
+    flexDirection: 'row',
     alignItems: 'center',
-    marginTop: RFPercentage(5),
+    justifyContent: 'space-between',
+    marginTop:RFPercentage(3)
   },
   head: {
     fontFamily: FONTS.headline,
     color: COLORS.primary,
     fontSize: RFPercentage(2.8),
-    textAlign: 'center',
   },
   monthButton: {
     flexDirection: 'row',

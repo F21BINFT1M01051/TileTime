@@ -69,8 +69,8 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({
 
   return (
     <LinearGradient
-      colors={[COLORS.white, COLORS.tab2]}
-      style={{ height: RFPercentage(13) }}
+      colors={[COLORS.white, '#CECECE']}
+      style={{ height: RFPercentage(14) }}
     >
       <View style={styles.tabContainer}>
         <View
@@ -177,14 +177,12 @@ const styles = StyleSheet.create({
     borderRadius: RFPercentage(3),
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: 6,
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.lightWhite,
-    shadowColor: 'rgba(173, 171, 171, 1)',
     height: RFPercentage(10),
     width: '91%',
     alignSelf: 'center',
-    bottom: RFPercentage(2),
+    bottom: RFPercentage(3),
   },
   tabButton: {
     flexDirection: 'row',

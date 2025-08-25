@@ -33,14 +33,14 @@ const HomeCard = (props: Props) => {
             resizeMode="cover"
           />
 
-          <View style={styles.banner}>
+          {/* <View style={styles.banner}>
             <Image
               source={ICONS.border2}
               resizeMode="cover"
               style={styles.bannerImage}
             />
             <Text style={styles.bannerText}>{props.bannerText}</Text>
-          </View>
+          </View> */}
         </View>
       </View>
 
@@ -85,24 +85,24 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: RFPercentage(15.4),
-    height: RFPercentage(19),
-    borderRadius: RFPercentage(7),
+    height: RFPercentage(18),
+    borderRadius: RFPercentage(5),
     overflow: 'hidden',
-    backgroundColor: COLORS.pink6,
+    backgroundColor: COLORS.green1,
     justifyContent: 'flex-end',
   },
   borderWrapper: {
     width: '100%',
     height: '100%',
-    borderRadius: RFPercentage(7),
+    borderRadius: RFPercentage(5),
     overflow: 'hidden',
     right: RFPercentage(0.5),
-    bottom: RFPercentage(0.2),
+    bottom: RFPercentage(0.3),
   },
   image: {
     width: '100%',
     height: '100%',
-    borderRadius: RFPercentage(7),
+    borderRadius: RFPercentage(5),
   },
   banner: {
     position: 'absolute',
@@ -131,13 +131,13 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(2),
     color: COLORS.primary,
     fontFamily: FONTS.bold,
-    lineHeight: RFPercentage(2.1),
+    lineHeight: RFPercentage(2),
   },
   subtitle: {
     fontSize: RFPercentage(2),
     color: COLORS.primary,
     fontFamily: FONTS.bold,
-    lineHeight: RFPercentage(2.1),
+    lineHeight: RFPercentage(2),
   },
   chipRow: {
     marginTop: RFPercentage(1),
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.date,
     flexDirection: 'row',
     alignItems: 'center',
-    height: RFPercentage(3.5),
+    height: RFPercentage(3.3),
     paddingHorizontal: RFPercentage(1),
     borderRadius: RFPercentage(100),
     maxWidth: RFPercentage(14),
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.location,
     flexDirection: 'row',
     alignItems: 'center',
-    height: RFPercentage(3.5),
+    height: RFPercentage(3.3),
     paddingHorizontal: RFPercentage(1),
     borderRadius: RFPercentage(100),
     width: RFPercentage(12),

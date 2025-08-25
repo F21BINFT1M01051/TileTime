@@ -46,7 +46,7 @@ const validationSchema = yup.object().shape({
       if (digits.startsWith('1')) digits = digits.slice(1);
       if (digits.startsWith('0')) digits = digits.slice(1);
       digits = digits.slice(-10);
-      if (digits.length < 10) return value; 
+      if (digits.length < 10) return value;
       const area = digits.slice(0, 3);
       const prefix = digits.slice(3, 6);
       const line = digits.slice(6, 10);
@@ -565,7 +565,7 @@ const styles = StyleSheet.create({
   conduct: {
     color: COLORS.primary,
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(2),
   },
   addPicButton: {
     position: 'absolute',
@@ -580,7 +580,7 @@ const styles = StyleSheet.create({
   addPicText: {
     color: COLORS.white,
     fontFamily: FONTS.medium,
-    fontSize: RFPercentage(1.4),
+    fontSize: RFPercentage(1.6),
   },
   bioWrapper: {
     marginTop: RFPercentage(3),
@@ -600,12 +600,12 @@ const styles = StyleSheet.create({
   },
   business: {
     color: COLORS.inputColor,
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(2),
     fontFamily: FONTS.regular,
     marginLeft: RFPercentage(1),
   },
   bioContainer: {
-    backgroundColor: COLORS.fieldColor,
+    backgroundColor: COLORS.white,
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.fieldBorder,
     borderRadius: RFPercentage(1.5),

@@ -150,16 +150,16 @@ const Members = () => {
           <Text
             style={{
               color: '#1D211E',
-              fontSize: RFPercentage(1.7),
+              fontSize: RFPercentage(1.8),
               fontFamily: FONTS.regular,
               textAlign: 'center',
-              marginTop: RFPercentage(1.6),
+              marginTop: RFPercentage(1.8),
             }}
-          >{`Enable Contact Access To Connect,\nInvite, And Message Friends.`}</Text>
+          >{`Enable Contact Access To Connect, Invite,\nAnd Message Friends.`}</Text>
           <Image
             source={IMAGES.contacts}
             resizeMode="contain"
-            style={{ width: RFPercentage(50), height: RFPercentage(25) }}
+            style={{ width: RFPercentage(30), height: RFPercentage(18) }}
           />
           <TouchableOpacity
             activeOpacity={0.8}
@@ -324,9 +324,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontFamily: FONTS.headline,
+    fontFamily: FONTS.bold,
     color: COLORS.primary,
-    fontSize: RFPercentage(2.3),
+    fontSize: RFPercentage(2.6),
   },
   toggleRow: {
     width: '100%',
@@ -382,19 +382,19 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.medium,
   },
   enableButton: {
-    height: RFPercentage(5),
+    height: RFPercentage(4.5),
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: RFPercentage(0.2),
     borderColor: COLORS.primary,
-    borderRadius: RFPercentage(2.2),
+    borderRadius: RFPercentage(2.5),
     alignSelf: 'center',
     paddingHorizontal: RFPercentage(2.7),
-    bottom: RFPercentage(8.5),
+    bottom: RFPercentage(0),
   },
   enableButtonText: {
     color: COLORS.primary,
-    fontFamily: FONTS.semiBold,
+    fontFamily: FONTS.bold,
     fontSize: RFPercentage(1.8),
   },
   sectionTitleDisabled: {
@@ -424,12 +424,12 @@ const styles = StyleSheet.create({
     width: RFPercentage(6.5),
     height: RFPercentage(7.5),
     borderRadius: RFPercentage(3),
-    backgroundColor: COLORS.purple,
+    backgroundColor: "#9698C8",
     alignItems: 'center',
     justifyContent: 'center',
   },
   avatarMiddleLayer: {
-    backgroundColor: COLORS.green2,
+    backgroundColor: "#4E6CA2",
     width: RFPercentage(6.5),
     height: RFPercentage(7.5),
     borderRadius: RFPercentage(3),
@@ -438,7 +438,7 @@ const styles = StyleSheet.create({
     right: RFPercentage(0.2),
   },
   avatarInnerLayer: {
-    backgroundColor: COLORS.pink3,
+    backgroundColor: "#6FA8B3",
     width: RFPercentage(6.5),
     height: RFPercentage(7.5),
     borderRadius: RFPercentage(3),
@@ -459,12 +459,12 @@ const styles = StyleSheet.create({
   nameText: {
     color: COLORS.primary,
     fontFamily: FONTS.semiBold,
-    fontSize: RFPercentage(2),
+    fontSize: RFPercentage(2.2),
   },
   phoneText: {
     color: COLORS.lightGrey,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
     marginTop: RFPercentage(0.7),
   },
   checkIcon: {

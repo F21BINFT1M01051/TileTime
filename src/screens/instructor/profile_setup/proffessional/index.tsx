@@ -64,6 +64,7 @@ export default ProffessionalInfo;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop:RFPercentage(-0.5)
   },
   headerText: {
     fontFamily: FONTS.headline,

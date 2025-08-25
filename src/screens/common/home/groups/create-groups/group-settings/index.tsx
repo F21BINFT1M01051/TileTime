@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     color: COLORS.primary,
-    fontFamily: FONTS.semiBold,
+    fontFamily: FONTS.bold,
     fontSize: RFPercentage(2),
   },
   subSection: {
@@ -77,13 +77,13 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: RFPercentage(1.5),
-    color: COLORS.grey4,
+    color: COLORS.grey3,
     fontFamily: FONTS.regular2,
     marginTop: RFPercentage(0.8),
   },
   lightDescription: {
     fontSize: RFPercentage(1.5),
-    color: COLORS.lightGrey,
+    color: COLORS.grey3,
     fontFamily: FONTS.regular2,
     marginTop: RFPercentage(0.6),
   },

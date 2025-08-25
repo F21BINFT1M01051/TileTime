@@ -123,11 +123,11 @@ const styles = StyleSheet.create({
   },
   getPaidDesc: {
     textAlign: 'center',
-    fontFamily: FONTS.stylish,
+    fontFamily: FONTS.regular,
     color: COLORS.primary,
-    fontSize: RFPercentage(2.1),
+    fontSize: RFPercentage(2),
     marginTop: RFPercentage(2),
-    lineHeight:RFPercentage(3)
+    lineHeight:RFPercentage(2.2)
   },
   borderImg: {
     width: RFPercentage(12),
@@ -140,11 +140,12 @@ const styles = StyleSheet.create({
     height: RFPercentage(26),
     alignSelf: 'center',
     marginTop: RFPercentage(4),
+    right:RFPercentage(1)
   },
   linkedAccountText: {
     fontFamily: FONTS.bold,
     color: COLORS.primary,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(2),
   },
   linkedAccountWrapper: {
     marginTop: RFPercentage(2),
@@ -175,12 +176,12 @@ const styles = StyleSheet.create({
   accountTitle: {
     fontFamily: FONTS.bold,
     color: COLORS.primary,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
   },
   accountNumber: {
     color: COLORS.grey4,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.4),
+    fontSize: RFPercentage(1.5),
     marginTop: RFPercentage(0.2),
   },
   deleteIcon: {

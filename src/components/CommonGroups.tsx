@@ -7,7 +7,7 @@ import {
   Image,
 } from 'react-native';
 import React from 'react';
-import { COLORS, FONTS, IMAGES } from '../config/theme';
+import { COLORS, FONTS, ICONS, IMAGES } from '../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
@@ -92,11 +92,7 @@ const CommonGroup = (props: Props) => {
               : `3 Groups in Common`}
           </Text>
           <TouchableOpacity>
-            <AntDesign
-              name="right"
-              color={COLORS.icon}
-              size={RFPercentage(2)}
-            />
+         <Image source={ICONS.right} resizeMode='contain' style={{width:RFPercentage(1.5), height:RFPercentage(1.5)}} />
           </TouchableOpacity>
         </View>
         <FlatList
@@ -171,7 +167,7 @@ const styles = StyleSheet.create({
   title: {
     color: COLORS.primary,
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(2),
+    fontSize: RFPercentage(2.2),
   },
   listItem: {
     flexDirection: 'row',
@@ -213,10 +209,10 @@ const styles = StyleSheet.create({
   groupName: {
     color: COLORS.primary,
     fontFamily: FONTS.medium,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
   },
   groupMembers: {
-    fontSize: RFPercentage(1.5),
+    fontSize: RFPercentage(1.7),
     color: COLORS.lightGrey,
     fontFamily: FONTS.regular,
     marginTop: RFPercentage(0.7),

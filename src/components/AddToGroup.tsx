@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
   modalTitle: {
     fontFamily: FONTS.semiBold,
     color: COLORS.primary,
-    fontSize: RFPercentage(2),
+    fontSize: RFPercentage(2.2),
   },
   crossIcon: { width: RFPercentage(2.4), height: RFPercentage(2.4) },
   searchContainer: { marginTop: RFPercentage(3) },
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: COLORS.lightGrey,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
     marginTop: RFPercentage(5),
   },
   contactRow: {
@@ -255,12 +255,12 @@ const styles = StyleSheet.create({
   contactName: {
     fontFamily: FONTS.semiBold,
     color: COLORS.primary,
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(2),
   },
   contactMembers: {
     fontFamily: FONTS.regular,
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.6),
+    fontSize: RFPercentage(1.7),
     marginTop: RFPercentage(0.5),
   },
   checkIcon: { width: RFPercentage(3), height: RFPercentage(3) },

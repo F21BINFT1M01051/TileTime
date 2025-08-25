@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   label: {
     fontFamily: FONTS.regular,
     color: COLORS.primary,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(2),
     marginLeft: RFPercentage(1.5),
   },
   toggle: {

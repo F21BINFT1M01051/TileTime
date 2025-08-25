@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.borderColor,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: RFPercentage(2.4),
+    borderRadius: RFPercentage(2.1),
     marginTop: RFPercentage(2.3),
   },
   icon: {

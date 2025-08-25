@@ -121,7 +121,7 @@ const MyProfileInstructor = ({ navigation }: any) => {
 
   return (
     <View style={styles.container}>
-      <TopNavigation title="My Profile" />
+      <TopNavigation title="PROFILE" />
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
@@ -257,7 +257,7 @@ const MyProfileInstructor = ({ navigation }: any) => {
             <Text
               style={{
                 color: COLORS.primary,
-                fontSize: RFPercentage(1.8),
+                fontSize: RFPercentage(1.9),
                 fontFamily: FONTS.semiBold,
               }}
             >
@@ -350,8 +350,9 @@ const styles = StyleSheet.create({
   bioText: {
     color: COLORS.primary,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
     marginTop: RFPercentage(4),
+    lineHeight:RFPercentage(2)
   },
   toggleRow: {
     width: '100%',
@@ -372,7 +373,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     color: COLORS.primary,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
     fontFamily: FONTS.bold,
   },
   badgeWrapper: {
@@ -393,7 +394,7 @@ const styles = StyleSheet.create({
   experienceBadge: {
     height: RFPercentage(4.5),
     paddingHorizontal: RFPercentage(1.8),
-    backgroundColor: '#FCFDDE',
+    backgroundColor: '#DAE4F7',
     borderRadius: RFPercentage(100),
     alignItems: 'center',
     justifyContent: 'center',
@@ -402,7 +403,7 @@ const styles = StyleSheet.create({
   },
   badgeText: {
     color: COLORS.primary,
-    fontSize: RFPercentage(1.6),
+    fontSize: RFPercentage(1.7),
     fontFamily: FONTS.medium,
   },
   connectList: {
@@ -420,13 +421,13 @@ const styles = StyleSheet.create({
   },
   connectedText: {
     color: COLORS.primary,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
     fontFamily: FONTS.regular,
     marginLeft: RFPercentage(1.6),
   },
   notConnectedText: {
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
     fontFamily: FONTS.regular,
     marginLeft: RFPercentage(1.6),
   },
@@ -442,7 +443,7 @@ const styles = StyleSheet.create({
   },
   connectNowText: {
     color: COLORS.white,
-    fontSize: RFPercentage(1.4),
+    fontSize: RFPercentage(1.5),
     fontFamily: FONTS.medium,
   },
   stepRow: {
@@ -464,7 +465,7 @@ const styles = StyleSheet.create({
     marginLeft: RFPercentage(1.5),
     fontFamily: FONTS.semiBold,
     color: COLORS.primary,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
   },
   checkIcon: {
     width: RFPercentage(5),
@@ -480,7 +481,7 @@ const styles = StyleSheet.create({
   },
   stepButtonText: {
     color: COLORS.white,
-    fontSize: RFPercentage(1.6),
+    fontSize: RFPercentage(1.7),
     fontFamily: FONTS.medium,
   },
 });

@@ -18,6 +18,7 @@ import AdminCard from '../../../../../../components/AdminCard';
 import SettingsButton from '../../../../../../components/SettingsButton';
 import SocialField from '../../../../../../components/SocialField';
 import CreateEvent from '../../../../../../components/CreateEvent';
+import LinearGradient from 'react-native-linear-gradient';
 
 const GroupDetails = ({ navigation }: any) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -67,19 +68,26 @@ const GroupDetails = ({ navigation }: any) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <ImageBackground
           source={IMAGES.groupDetail}
-          resizeMode="repeat"
+          resizeMode="cover"
           style={styles.groupImage}
-        />
-
+        >
+          <LinearGradient
+            colors={['rgba(255, 255, 255, 0.5)', 'rgba(255, 255, 255, 0.9)']}
+            style={{
+              width: '100%',
+              height: RFPercentage(22),
+            }}
+          >
+            <View style={styles.largeGroupIconContainer}>
+              <Image
+                source={IMAGES.customProfile}
+                resizeMode="cover"
+                style={styles.largeGroupIcon}
+              />
+            </View>
+          </LinearGradient>
+        </ImageBackground>
         <View style={styles.contentContainer}>
-          <View style={styles.largeGroupIconContainer}>
-            <Image
-              source={IMAGES.customProfile}
-              resizeMode="cover"
-              style={styles.largeGroupIcon}
-            />
-          </View>
-
           <View>
             <Text style={styles.groupName}>Mahjong - Richie Rich Group</Text>
             <Text style={styles.groupDesc}>
@@ -210,12 +218,12 @@ const styles = StyleSheet.create({
   },
   groupImage: {
     width: '100%',
-    height: RFPercentage(15),
+    height: RFPercentage(22),
   },
   contentContainer: {
     width: '90%',
     alignSelf: 'center',
-    bottom: RFPercentage(8),
+    bottom:RFPercentage(5)
   },
   largeGroupIconContainer: {
     width: RFPercentage(12),
@@ -226,6 +234,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: RFPercentage(100),
     borderBottomRightRadius: RFPercentage(100),
     borderTopRightRadius: RFPercentage(100),
+    marginTop:RFPercentage(5),
+    marginLeft:RFPercentage(2.5)
   },
   largeGroupIcon: {
     width: RFPercentage(11.9),
@@ -243,9 +253,9 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(3),
   },
   groupDesc: {
-    fontFamily: FONTS.regular2,
+    fontFamily: FONTS.regular,
     color: COLORS.primary,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(2),
     marginTop: RFPercentage(1),
   },
   buttonRow: {
@@ -253,7 +263,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: RFPercentage(4),
+    marginTop: RFPercentage(3.5),
   },
   buttonWrapper: {
     width: '48%',

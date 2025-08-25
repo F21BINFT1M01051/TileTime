@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   },
   tagContainer: {
     height: RFPercentage(3.5),
-    backgroundColor: '#FFE9F6',
+    backgroundColor: 'rgba(96, 203, 224, 0.16)',
     borderRadius: RFPercentage(100),
     alignItems: 'center',
     justifyContent: 'center',

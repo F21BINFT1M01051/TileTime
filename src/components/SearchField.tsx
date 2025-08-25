@@ -25,7 +25,7 @@ const SearchField = (props: Props) => {
         styles.container,
         {
           borderColor: isFocused ? COLORS.pink : COLORS.fieldBorder,
-          backgroundColor: isFocused ? COLORS.white : COLORS.fieldColor,
+          backgroundColor: COLORS.white,
         },
       ]}
     >
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     color: COLORS.inputColor,
     fontFamily: FONTS.regular,
     width: '90%',
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
     marginVertical: 0,
     paddingVertical: 0,
     textAlignVertical: 'center',

@@ -96,7 +96,7 @@ const ActionsCard = () => {
 
   return (
     <View style={[styles.container, { paddingBottom: expanded ? RFPercentage(0) : RFPercentage(2),}]}>
-      <TouchableOpacity onPress={toggleExpand} style={styles.header}>
+      <TouchableOpacity activeOpacity={0.8} onPress={toggleExpand} style={styles.header}>
         <View>
           <Text style={styles.headerTitle}>Getting Started</Text>
           <Text style={styles.headerSubTitle}>
@@ -201,11 +201,11 @@ const styles = StyleSheet.create({
   headerTitle: {
     color: COLORS.primary,
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(2.1),
   },
   headerSubTitle: {
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.5),
+    fontSize: RFPercentage(1.8),
     fontFamily: FONTS.regular,
     marginTop: RFPercentage(1),
   },
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
     marginLeft: RFPercentage(1.5),
     fontFamily: FONTS.semiBold,
     color: COLORS.primary,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
   },
   checkIcon: {
     width: RFPercentage(5),
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
   },
   stepButtonText: {
     color: COLORS.white,
-    fontSize: RFPercentage(1.6),
+    fontSize: RFPercentage(1.7),
     fontFamily: FONTS.medium,
   },
 });

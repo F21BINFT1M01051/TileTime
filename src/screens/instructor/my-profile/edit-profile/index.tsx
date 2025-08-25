@@ -427,14 +427,14 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(3),
   },
   bioContainer: {
-    backgroundColor: COLORS.fieldColor,
+    backgroundColor: COLORS.white,
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.fieldBorder,
     borderRadius: RFPercentage(1.5),
     paddingVertical: RFPercentage(0.5),
   },
   bioInner: {
-    width: '90%',
+    width: '92%',
     alignSelf: 'center',
   },
   bioHeader: {

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, ImageBackground } from 'react-native';
 import React, { useState } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import { COLORS, FONTS, IMAGES, ICONS } from '../../../../config/theme';
@@ -13,13 +13,23 @@ const RoleSelection = ({ navigation }: any) => {
   const dispatch = useDispatch();
 
   return (
-    <LinearGradient
-      colors={[COLORS.gradient1, COLORS.gradient2]}
-      style={styles.gradient}
-    >
-      <View style={styles.logoContainer}>
-        <Image source={IMAGES.logo} resizeMode="contain" style={styles.logo} />
-      </View>
+    <View style={styles.gradient}>
+      <ImageBackground
+        source={IMAGES.auth}
+        resizeMode="cover"
+        style={{ width: '100%', height: RFPercentage(22) }}
+      >
+        <LinearGradient
+          colors={['rgba(255, 255, 255, 0.4)', 'rgba(255, 255, 255, 0.5)']}
+          style={styles.logoContainer}
+        >
+          <Image
+            source={IMAGES.logo}
+            resizeMode="contain"
+            style={styles.logo}
+          />
+        </LinearGradient>
+      </ImageBackground>
 
       <View style={styles.whiteContainer}>
         <View style={styles.contentWrapper}>
@@ -69,7 +79,7 @@ const RoleSelection = ({ navigation }: any) => {
           </View>
         </View>
       </View>
-    </LinearGradient>
+    </View>
   );
 };
 
@@ -79,14 +89,17 @@ const styles = StyleSheet.create({
   gradient: {
     flex: 1,
     alignItems: 'center',
+    backgroundColor: COLORS.white,
   },
   logoContainer: {
+    width: '100%',
     alignItems: 'center',
-    paddingTop: RFPercentage(6),
+    height: '100%',
   },
   logo: {
-    width: RFPercentage(10),
-    height: RFPercentage(10),
+    width: RFPercentage(18),
+    height: RFPercentage(18),
+    marginTop: RFPercentage(2),
   },
   whiteContainer: {
     width: '100%',
@@ -94,9 +107,10 @@ const styles = StyleSheet.create({
     borderTopRightRadius: RFPercentage(2.5),
     borderTopLeftRadius: RFPercentage(2.5),
     alignItems: 'center',
-    marginTop: RFPercentage(4),
-    paddingBottom: RFPercentage(5),
+    borderWidth: 1,
+    borderColor: COLORS.lightWhite,
     flex: 1,
+    marginTop: RFPercentage(-1.5),
   },
   contentWrapper: {
     width: '90%',

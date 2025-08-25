@@ -50,7 +50,7 @@ const Search = ({ placeholder, value, onChangeText, data }: Props) => {
         style={[
           styles.container,
           {
-            backgroundColor: showDropdown ? COLORS.white : COLORS.fieldColor,
+            backgroundColor: COLORS.white,
             borderColor: showDropdown ? COLORS.pink : COLORS.fieldBorder,
           },
         ]}
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   inputContainer: {
-    width: '90%',
+    width: '92%',
     alignSelf: 'center',
     flexDirection: 'row',
     alignItems: 'center',
@@ -187,6 +187,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular,
     width: '90%',
     fontSize: RFPercentage(1.8),
+    lineHeight: RFPercentage(2),
   },
   dropdownContainer: {
     position: 'absolute',
