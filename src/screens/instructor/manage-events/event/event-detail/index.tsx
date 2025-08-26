@@ -10,6 +10,9 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
+  Modal,
+  TouchableWithoutFeedback,
+  FlatList,
 } from 'react-native';
 import moment from 'moment';
 import React, { useState, useRef, useEffect } from 'react';
@@ -25,6 +28,10 @@ import ToggleSwitch from 'toggle-switch-react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 import EditEventDetails from '../../../components/EditEventDetails';
 import ShareEvent from '../../../components/ShareEvent';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { pick } from '@react-native-documents/picker';
+import Contacts from 'react-native-contacts';
 
 const InstructorEventDetail = ({ navigation, route }: any) => {
   const { type } = route.params;
@@ -33,6 +40,7 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
   const [message, setMessage] = useState('');
   const [isOn, setIsOn] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [attachmentModalVisible, setAttachmentModalVisible] = useState(false);
 
   const openModal = () => {
     setIsModalVisible(true);
@@ -82,16 +90,98 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
           };
 
           setMessages(prev => GiftedChat.append(prev, [newMessage]));
+          setAttachmentModalVisible(false);
         }
       },
     );
   };
 
+  const pickDocument = async () => {
+    try {
+      const res = await pick({
+        type: ['application/pdf', 'public.item'],
+        allowMultiSelection: false,
+        copyTo: 'cachesDirectory',
+      });
+
+      if (res && res[0]) {
+        const newMessage = {
+          _id: Date.now(),
+          createdAt: new Date(),
+          user: {
+            _id: 1,
+            name: 'You',
+            avatar: 'https://placeimg.com/140/140/any',
+          },
+          text: `📄 Document: ${res[0].name}`,
+        };
+        setMessages(prev => GiftedChat.append(prev, [newMessage]));
+        setAttachmentModalVisible(false);
+      }
+    } catch (err) {
+      if (err?.message?.includes('cancelled')) {
+        console.log('User cancelled');
+      } else {
+        console.log('Error picking doc: ', err);
+      }
+    }
+  };
+
+  // Contact picker
+  const pickContact = async () => {
+    try {
+      const granted = await Contacts.requestPermission();
+      if (granted === 'authorized') {
+        const contacts = await Contacts.getAll();
+        if (contacts.length > 0) {
+          const contact = contacts[0];
+          const newMessage = {
+            _id: Date.now(),
+            createdAt: new Date(),
+            user: {
+              _id: 1,
+              name: 'You',
+              avatar: 'https://placeimg.com/140/140/any',
+            },
+            text: `👤 Contact: ${contact.givenName} ${contact.familyName}`,
+          };
+          setMessages(prev => GiftedChat.append(prev, [newMessage]));
+          setAttachmentModalVisible(false);
+        }
+      }
+    } catch (err) {
+      console.log('Error picking contact: ', err);
+    }
+  };
+
+  const ShareOptions = [
+    {
+      id: 1,
+      name: 'Gallery',
+      icon: 'images',
+      color: COLORS.pink3,
+      onPress: () => handleImagePick(),
+    },
+    {
+      id: 2,
+      name: 'Documents',
+      icon: 'documents',
+      color: COLORS.green2,
+      onPress: () => pickDocument(),
+    },
+    {
+      id: 3,
+      name: 'Contacts',
+      icon: 'contacts',
+      color: COLORS.yellow,
+      onPress: () => pickContact(),
+    },
+  ];
+
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      // keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
     >
       <View style={styles.container}>
         <View style={styles.headerBorder}>
@@ -422,7 +512,7 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
             </View>
 
             <View style={styles.inputBar}>
-              <TouchableOpacity onPress={handleImagePick}>
+              <TouchableOpacity onPress={() => setAttachmentModalVisible(true)}>
                 <Image
                   source={ICONS.plus6}
                   style={styles.plusIcon}
@@ -437,6 +527,9 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
                 value={message}
                 onChangeText={setMessage}
                 editable={isOn}
+                multiline={true}
+                scrollEnabled={true}
+                textAlignVertical="top"
               />
 
               <TouchableOpacity
@@ -474,6 +567,88 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
           onClose={() => setIsModalVisible2(false)}
         />
       </View>
+
+      <Modal
+        visible={attachmentModalVisible}
+        animationType="fade"
+        transparent
+        onRequestClose={() => setAttachmentModalVisible(false)}
+      >
+        <TouchableWithoutFeedback
+          onPress={() => setAttachmentModalVisible(false)}
+        >
+          <View style={styles.modalOverlay}>
+            <View style={styles.modalContainer}>
+              <Text style={styles.modalTitle}>Share</Text>
+
+              <View
+                style={{
+                  width: '100%',
+                  alignItems: 'center',
+                  marginTop: RFPercentage(1),
+                }}
+              >
+                <FlatList
+                  data={ShareOptions}
+                  keyExtractor={item => item.id.toString()}
+                  horizontal
+                  renderItem={({ item }) => {
+                    return (
+                      <TouchableOpacity
+                        onPress={item.onPress}
+                        activeOpacity={0.8}
+                        style={{
+                          marginHorizontal: RFPercentage(3),
+                          alignItems: 'center',
+                        }}
+                      >
+                        <View
+                          style={{
+                            width: RFPercentage(7),
+                            height: RFPercentage(7),
+                            borderRadius: RFPercentage(100),
+                            backgroundColor: item.color,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          {item.name === 'Contacts' ? (
+                            <View>
+                              <MaterialIcons
+                                name={item.icon}
+                                size={RFPercentage(2.8)}
+                                color={COLORS.white}
+                              />
+                            </View>
+                          ) : (
+                            <View>
+                              <Ionicons
+                                name={item.icon}
+                                size={RFPercentage(2.8)}
+                                color={COLORS.white}
+                              />
+                            </View>
+                          )}
+                        </View>
+                        <Text
+                          style={{
+                            color: COLORS.grey3,
+                            fontFamily: FONTS.medium,
+                            fontSize: RFPercentage(1.7),
+                            marginTop: RFPercentage(1),
+                          }}
+                        >
+                          {item.name}
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  }}
+                />
+              </View>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
     </KeyboardAvoidingView>
   );
 };
@@ -723,18 +898,19 @@ const styles = StyleSheet.create({
   },
   inputToolbarContainer: {
     backgroundColor: COLORS.white,
-    paddingVertical: RFPercentage(1),
+    paddingVertical: RFPercentage(1.5),
     borderTopWidth: RFPercentage(0.1),
     borderTopColor: COLORS.lightWhite,
-    height: RFPercentage(15),
+    minHeight: RFPercentage(15),
   },
   inputBar: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: COLORS.fieldColor,
-    borderRadius: RFPercentage(100),
+    borderRadius: RFPercentage(3),
     paddingHorizontal: RFPercentage(2),
-    height: RFPercentage(6),
+    minHeight: RFPercentage(6),
+    maxHeight: RFPercentage(18),
     width: '90%',
     alignSelf: 'center',
     marginTop: RFPercentage(1.6),
@@ -750,6 +926,9 @@ const styles = StyleSheet.create({
     color: COLORS.inputColor,
     fontSize: RFPercentage(1.9),
     fontFamily: FONTS.regular,
+    textAlignVertical: 'top',
+    paddingVertical: RFPercentage(1),
+    lineHeight: RFPercentage(2.2),
   },
   sendButtonIcon: {
     width: RFPercentage(2.5),
@@ -785,12 +964,35 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(1.9),
     color: COLORS.lightGrey,
     fontFamily: FONTS.regular,
-    marginTop: RFPercentage(1),
+    marginTop: RFPercentage(2),
   },
   messageImage: {
     width: RFPercentage(20),
     height: RFPercentage(20),
     borderRadius: RFPercentage(1.5),
     marginTop: RFPercentage(1),
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    justifyContent: 'flex-end',
+  },
+  modalContainer: {
+    backgroundColor: COLORS.white,
+    borderTopLeftRadius: RFPercentage(2.5),
+    borderTopRightRadius: RFPercentage(2.5),
+    padding: RFPercentage(3),
+    height: '25%',
+  },
+  modalTitle: {
+    fontFamily: FONTS.bold,
+    fontSize: RFPercentage(2.4),
+    marginBottom: RFPercentage(2),
+    color: COLORS.primary,
+  },
+  modalOption: {
+    paddingVertical: RFPercentage(2),
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.lightWhite,
   },
 });

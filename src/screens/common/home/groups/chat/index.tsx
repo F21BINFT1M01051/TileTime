@@ -136,6 +136,7 @@ const ChatScreen = ({ route }: any) => {
           };
 
           setMessages(prev => GiftedChat.append(prev, [newMessage]));
+          setAttachmentModalVisible(false);
         }
       },
     );
@@ -246,6 +247,7 @@ const ChatScreen = ({ route }: any) => {
           text: `📄 Document: ${res[0].name}`,
         };
         setMessages(prev => GiftedChat.append(prev, [newMessage]));
+        setAttachmentModalVisible(false);
       }
     } catch (err) {
       if (err?.message?.includes('cancelled')) {
@@ -275,6 +277,7 @@ const ChatScreen = ({ route }: any) => {
             text: `👤 Contact: ${contact.givenName} ${contact.familyName}`,
           };
           setMessages(prev => GiftedChat.append(prev, [newMessage]));
+          setAttachmentModalVisible(false);
         }
       }
     } catch (err) {
@@ -456,7 +459,12 @@ const ChatScreen = ({ route }: any) => {
               <View style={styles.inputBar}>
                 <TouchableOpacity
                   onPress={() => setAttachmentModalVisible(true)}
-                  style={{ position: 'absolute', left: 0, bottom: RFPercentage(1.5) , marginHorizontal:RFPercentage(1)}}
+                  style={{
+                    position: 'absolute',
+                    left: 0,
+                    bottom: RFPercentage(1.5),
+                    marginHorizontal: RFPercentage(1),
+                  }}
                 >
                   <Image
                     source={ICONS.plus6}
@@ -477,7 +485,12 @@ const ChatScreen = ({ route }: any) => {
                 />
 
                 <TouchableOpacity
-                style={{ position: 'absolute', right: 0, bottom: RFPercentage(1.5) , marginHorizontal:RFPercentage(2)}}
+                  style={{
+                    position: 'absolute',
+                    right: 0,
+                    bottom: RFPercentage(1.5),
+                    marginHorizontal: RFPercentage(2),
+                  }}
                   onPress={() => {
                     if (message.trim()) {
                       const newMessage = {
@@ -906,7 +919,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
     paddingVertical: RFPercentage(1),
     lineHeight: RFPercentage(2.2),
-    paddingHorizontal:RFPercentage(2)
+    paddingHorizontal: RFPercentage(2),
   },
 
   sendButtonIcon: {
