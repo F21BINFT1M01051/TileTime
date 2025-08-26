@@ -27,7 +27,7 @@ const GroupSettings = ({ navigation }: any) => {
               title="Download To Gallery"
               icon={ICONS.download}
               switch={true}
-              style={{ borderBottomWidth: RFPercentage(0.1) }}
+              style={{ borderBottomWidth: RFPercentage(0.1) ,  borderRadius: RFPercentage(2),}}
               textStyle={{ fontFamily: FONTS.regular }}
             />
             <Text style={styles.lightDescription}>

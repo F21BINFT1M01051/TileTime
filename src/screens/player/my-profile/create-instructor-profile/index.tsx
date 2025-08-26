@@ -125,9 +125,7 @@ const CreateInstructorProfile = ({ navigation }: any) => {
                   style={styles.checkboxIcon}
                 />
               </TouchableOpacity>
-              <Text style={styles.checkboxText}>
-                I conduct business under a different name
-              </Text>
+              <Text style={styles.checkboxText}>Doing business as</Text>
             </TouchableOpacity>
 
             {checked && (
@@ -140,9 +138,7 @@ const CreateInstructorProfile = ({ navigation }: any) => {
             )}
 
             <View style={styles.marginTop3}>
-              <Text style={styles.sectionHeading}>
-                Where do you conduct business
-              </Text>
+              <Text style={styles.sectionHeading}>Cities you serve </Text>
             </View>
 
             <View style={styles.dropdowns}>
@@ -500,7 +496,7 @@ const styles = StyleSheet.create({
     paddingBottom: RFPercentage(4),
   },
   modalText: {
-    fontSize: RFPercentage(2.3),
+    fontSize: RFPercentage(2.6),
     fontFamily: FONTS.headline,
     color: COLORS.primary,
     textAlign: 'center',
@@ -509,7 +505,7 @@ const styles = StyleSheet.create({
   subTitle: {
     fontFamily: FONTS.regular,
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(2),
     marginTop: RFPercentage(1.3),
     textAlign: 'center',
   },
@@ -563,7 +559,7 @@ const styles = StyleSheet.create({
   sectionHeading: {
     color: COLORS.primary,
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(2.1),
   },
   dropdownHalf: {
     width: '48%',
@@ -618,7 +614,7 @@ const styles = StyleSheet.create({
   modalProfileImageWrapper: {
     width: RFPercentage(14),
     height: RFPercentage(14),
-    backgroundColor: COLORS.pink6,
+    backgroundColor: COLORS.pink,
     borderTopLeftRadius: RFPercentage(100),
     borderTopRightRadius: RFPercentage(100),
     alignItems: 'center',
@@ -627,7 +623,7 @@ const styles = StyleSheet.create({
   modalProfileImage: {
     width: RFPercentage(14),
     height: RFPercentage(14),
-    backgroundColor: COLORS.pink4,
+    backgroundColor: COLORS.pink,
     borderTopLeftRadius: RFPercentage(100),
     borderTopRightRadius: RFPercentage(100),
     right: RFPercentage(0.9),
@@ -643,7 +639,7 @@ const styles = StyleSheet.create({
   instructorTag: {
     width: RFPercentage(8),
     height: RFPercentage(2.5),
-    backgroundColor: COLORS.light,
+    backgroundColor: "#E4F7F6",
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',

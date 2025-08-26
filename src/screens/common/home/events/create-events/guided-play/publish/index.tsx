@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   eventSubtitle: {
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
     fontFamily: FONTS.regular,
     marginTop: RFPercentage(2),
   },
@@ -73,13 +73,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: COLORS.primary,
     fontFamily: FONTS.semiBold,
-    fontSize: RFPercentage(2),
+    fontSize: RFPercentage(2.1),
   },
   previewSubtitle: {
     textAlign: 'center',
     color: COLORS.lightGrey,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
     marginTop: RFPercentage(1.5),
   },
   previewBtn: {

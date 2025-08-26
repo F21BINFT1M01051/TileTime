@@ -59,7 +59,19 @@ const ChatComponent = (props: Props) => {
           >
             {props.name}
           </Text>
-          <Text style={[styles.messageText, {color : props.unread || props.mute  ? COLORS.primary : COLORS.lightGrey}]}>
+          <Text
+            style={[
+              styles.messageText,
+              {
+                color:
+                  props.unread || props.mute
+                    ? COLORS.primary
+                    : COLORS.lightGrey,
+                fontFamily:
+                  props.unread || props.mute ? FONTS.medium : FONTS.regular,
+              },
+            ]}
+          >
             {props.message.length > 40
               ? props.message.substring(0, 40) + '...'
               : props.message}
@@ -75,6 +87,7 @@ const ChatComponent = (props: Props) => {
             source={ICONS.mute}
             resizeMode="contain"
             style={styles.muteIcon}
+            tintColor={COLORS.pink}
           />
         )}
       </View>
@@ -103,18 +116,18 @@ const styles = StyleSheet.create({
   },
   nameText: {
     color: COLORS.primary,
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(2),
   },
   messageText: {
     color: COLORS.lightGrey,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
     marginTop: RFPercentage(0.9),
   },
   unreadBadge: {
     width: RFPercentage(3),
     height: RFPercentage(3),
-    backgroundColor: COLORS.pink5,
+    backgroundColor: 'rgba(96, 203, 224, 0.16)',
     borderRadius: RFPercentage(100),
     alignItems: 'center',
     justifyContent: 'center',

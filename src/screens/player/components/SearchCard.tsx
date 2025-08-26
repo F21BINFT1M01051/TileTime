@@ -103,12 +103,12 @@ const styles = StyleSheet.create({
   nameText: {
     fontFamily: FONTS.semiBold,
     color: COLORS.primary,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(2),
   },
   subText: {
     fontFamily: FONTS.regular,
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.6),
+    fontSize: RFPercentage(1.7),
     marginTop: RFPercentage(0.8),
   },
   instructorBadge: {
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     height: RFPercentage(3.5),
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLORS.pink5,
+    backgroundColor: "#E4F7F6",
     borderRadius: RFPercentage(100),
     position: 'absolute',
     right: 0,

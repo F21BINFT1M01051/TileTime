@@ -409,7 +409,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: RFPercentage(3),
+    marginTop: RFPercentage(2.5),
   },
   contactInfo: {
     flexDirection: 'row',

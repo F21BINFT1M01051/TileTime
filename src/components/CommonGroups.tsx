@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   title: {
     color: COLORS.primary,
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(2.2),
+    fontSize: RFPercentage(2.42),
   },
   listItem: {
     flexDirection: 'row',
@@ -209,10 +209,10 @@ const styles = StyleSheet.create({
   groupName: {
     color: COLORS.primary,
     fontFamily: FONTS.medium,
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(2),
   },
   groupMembers: {
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
     color: COLORS.lightGrey,
     fontFamily: FONTS.regular,
     marginTop: RFPercentage(0.7),

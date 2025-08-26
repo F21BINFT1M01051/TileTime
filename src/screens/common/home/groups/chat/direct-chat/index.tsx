@@ -12,7 +12,6 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../../../../config/theme';
 import AuthHeader from '../../../../../../components/AuthHeader';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import CustomButton from '../../../../../../components/CustomButton';
 import SearchField from '../../../../../../components/SearchField';
 
 const players = [
@@ -48,16 +47,8 @@ const players = [
   },
 ];
 
-const SelectPlayers = ({ navigation }: any) => {
-  const [selectedContacts, setSelectedContacts] = useState<number[]>([]);
+const DirectChatSelection = ({ navigation }: any) => {
   const [query, setQuery] = useState('');
-  const [keyboardIsVisible, setKeyboardIsVisible] = useState(false);
-
-  const toggleContact = (id: number) => {
-    setSelectedContacts(prev =>
-      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id],
-    );
-  };
 
   const filteredPlayers = useMemo(() => {
     if (!query.trim()) return players;
@@ -68,29 +59,23 @@ const SelectPlayers = ({ navigation }: any) => {
     );
   }, [query]);
 
-  useEffect(() => {
-    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
-      setKeyboardIsVisible(true);
-    });
-    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
-      setKeyboardIsVisible(false);
-    });
-
-    return () => {
-      showSubscription.remove();
-      hideSubscription.remove();
-    };
-  }, []);
-
   return (
     <View style={styles.container}>
+      <AuthHeader title="Send Message" />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
-        <AuthHeader title="Select Players" />
         <View style={styles.contentContainer}>
-          <Text style={styles.headingText}>Who’s This Session For?</Text>
+          <Text
+            style={{
+              color: COLORS.primary,
+              fontFamily: FONTS.bold,
+              fontSize: RFPercentage(2.5),
+            }}
+          >
+            Who would you like to message?
+          </Text>
           <View style={{ marginTop: RFPercentage(2) }}>
             <SearchField
               placeholder="Search Name, Email or Phone Number"
@@ -117,11 +102,15 @@ const SelectPlayers = ({ navigation }: any) => {
                 </Text>
               }
               renderItem={({ item }) => {
-                const isSelected = selectedContacts.includes(item.id);
                 return (
                   <TouchableOpacity
                     activeOpacity={0.8}
-                    onPress={() => toggleContact(item.id)}
+                    onPress={() =>
+                      navigation.navigate('ChatScreen', {
+                        isGroup: false,
+                        isNew: false,
+                      })
+                    }
                   >
                     <View style={styles.contactRow}>
                       {item.connected === false && item.tileTime === true ? (
@@ -183,14 +172,6 @@ const SelectPlayers = ({ navigation }: any) => {
                           </View>
                         </View>
                       )}
-
-                      <TouchableOpacity onPress={() => toggleContact(item.id)}>
-                        <Image
-                          resizeMode="contain"
-                          source={isSelected ? ICONS.checked : ICONS.uncheck}
-                          style={styles.checkIcon}
-                        />
-                      </TouchableOpacity>
                     </View>
                   </TouchableOpacity>
                 );
@@ -199,34 +180,11 @@ const SelectPlayers = ({ navigation }: any) => {
           </View>
         </View>
       </ScrollView>
-      {!keyboardIsVisible && (
-        <View style={styles.bottomBar}>
-          <View style={styles.bottomContent}>
-            <CustomButton
-              title="Save And Next"
-              disabled={selectedContacts.length === 0}
-              style={{
-                backgroundColor:
-                  selectedContacts.length > 0
-                    ? COLORS.primary
-                    : COLORS.disabled,
-              }}
-              onPress={() =>
-                navigation.navigate('GuidedPlay', {
-                  players: true,
-                  groups: false,
-                  link: false,
-                })
-              }
-            />
-          </View>
-        </View>
-      )}
     </View>
   );
 };
 
-export default SelectPlayers;
+export default DirectChatSelection;
 
 const styles = StyleSheet.create({
   container: {
@@ -276,11 +234,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.purple,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  headingText: {
-    color: COLORS.primary,
-    fontFamily: FONTS.bold,
-    fontSize: RFPercentage(2.5),
   },
   avatarMiddleLayer: {
     backgroundColor: COLORS.green2,

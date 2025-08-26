@@ -57,12 +57,6 @@ const InstructorProfileSetup = ({ navigation }: any) => {
     }
   };
 
-  const getBarColor = (index: any) => {
-    if (index < stepIndex) return COLORS.green;
-    if (index === stepIndex) return COLORS.pink;
-    return COLORS.fieldColor;
-  };
-
   const renderStepContent = () => {
     switch (stepIndex) {
       case 0:
@@ -152,7 +146,7 @@ const styles = StyleSheet.create({
   },
   progressBarBackground: {
     width: '90%',
-    height: RFPercentage(0.8),
+    height: RFPercentage(0.7),
     backgroundColor: COLORS.fieldColor,
     borderRadius: RFPercentage(100),
     overflow: 'hidden',

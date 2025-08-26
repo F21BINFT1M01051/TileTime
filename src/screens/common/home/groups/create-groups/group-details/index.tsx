@@ -125,7 +125,7 @@ const GroupDetails = ({ navigation }: any) => {
             <DetailComponent
               title="Media and Documents"
               media={true}
-              onPress={() => {}}
+              onPress={() => {navigation.navigate("ChatMedia")}}
             />
           </View>
           <View style={styles.sectionMarginTop3}>
@@ -247,9 +247,9 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: RFPercentage(2),
   },
   groupName: {
-    fontFamily: FONTS.headline,
+    fontFamily: FONTS.extraBold,
     color: COLORS.primary,
-    fontSize: RFPercentage(2.6),
+    fontSize: RFPercentage(2.7),
     marginTop: RFPercentage(3),
   },
   groupDesc: {

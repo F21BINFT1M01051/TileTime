@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.borderColor,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: RFPercentage(2.1),
+    borderRadius: RFPercentage(2.3),
     marginTop: RFPercentage(2.3),
   },
   icon: {
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(2),
   },
   connectedContainer: {
     width: '90%',
@@ -117,12 +117,12 @@ const styles = StyleSheet.create({
   },
   connectedName: {
     color: COLORS.icon,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.9),
     fontFamily: FONTS.semiBold,
   },
   connectedFollowers: {
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.5),
+    fontSize: RFPercentage(1.6),
     fontFamily: FONTS.regular,
     marginTop: RFPercentage(1),
   },

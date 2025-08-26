@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import { COLORS, FONTS, ICONS } from '../../../config/theme';
+import { COLORS, FONTS, ICONS, IMAGES } from '../../../config/theme';
 
 // Week row helper
 const getSevenDayRow = () => {
@@ -127,8 +127,8 @@ export default function TodayEvents() {
                   </View>
                   <View>
                     <Image
-                      source={ICONS.event}
-                      resizeMode="contain"
+                      source={IMAGES.customProfile}
+                      resizeMode="cover"
                       style={[
                         event.id === 2
                           ? styles.smallEventImage
@@ -155,11 +155,11 @@ export default function TodayEvents() {
                             width:
                               event.id === 2
                                 ? RFPercentage(2.5)
-                                : RFPercentage(3),
+                                : RFPercentage(2.8),
                             height:
                               event.id === 2
                                 ? RFPercentage(2.5)
-                                : RFPercentage(3),
+                                : RFPercentage(2.8),
                           },
                         ]}
                       >
@@ -178,11 +178,11 @@ export default function TodayEvents() {
                             width:
                               event.id === 2
                                 ? RFPercentage(2.5)
-                                : RFPercentage(3),
+                                : RFPercentage(2.8),
                             height:
                               event.id === 2
                                 ? RFPercentage(2.5)
-                                : RFPercentage(3),
+                                : RFPercentage(2.8),
                           },
                         ]}
                       >
@@ -193,19 +193,6 @@ export default function TodayEvents() {
                     )}
                   </View>
                 </View>
-                {event.id === events.length && (
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    style={styles.newEventButton}
-                  >
-                    <Image
-                      source={ICONS.plus}
-                      resizeMode="contain"
-                      style={styles.newEventIcon}
-                    />
-                    <Text style={styles.newEventText}>New Event</Text>
-                  </TouchableOpacity>
-                )}
               </View>
             );
           })}
@@ -230,15 +217,18 @@ const styles = StyleSheet.create({
     padding: RFPercentage(1),
     width: RFPercentage(6),
     borderRadius: RFPercentage(1),
+    height: RFPercentage(5.6),
+    justifyContent: 'center',
   },
   todayContainer: {
-    backgroundColor: 'rgba(177, 64, 136, 0.16)',
+    backgroundColor: 'rgba(96, 203, 224, 0.16)',
     borderRadius: RFPercentage(1.6),
   },
   dayName: {
     fontFamily: FONTS.regular,
     fontSize: RFPercentage(1.5),
     color: COLORS.lightGrey,
+    marginTop: RFPercentage(0.4),
   },
   dayDate: {
     fontFamily: FONTS.semiBold,
@@ -250,9 +240,9 @@ const styles = StyleSheet.create({
   },
   scheduleText: {
     fontFamily: FONTS.semiBold,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
     color: COLORS.primary,
-    marginTop: RFPercentage(2),
+    marginTop: RFPercentage(3),
   },
   // Timeline row
   timelineRow: {
@@ -279,7 +269,7 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   event: {
-    backgroundColor: 'rgba(182, 139, 255, 0.14)',
+    backgroundColor: 'rgba(81, 135, 144, 0.14)',
     width: '100%',
     borderRadius: RFPercentage(1.5),
     justifyContent: 'center',
@@ -292,10 +282,10 @@ const styles = StyleSheet.create({
   eventTitleText: {
     fontFamily: FONTS.medium,
     color: COLORS.primary,
-    fontSize: RFPercentage(1.5),
+    fontSize: RFPercentage(1.8),
   },
   smallEventText: {
-    fontSize: RFPercentage(1.2),
+    fontSize: RFPercentage(1.4),
   },
   header: {
     flexDirection: 'row',
@@ -305,12 +295,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   eventImage: {
-    width: RFPercentage(7),
+    width: RFPercentage(6),
     height: RFPercentage(7),
+    borderRadius:RFPercentage(1.5),
+    borderRightWidth:RFPercentage(0.3),
+    borderRightColor:"#9698C8"
   },
   smallEventImage: {
     width: RFPercentage(3),
     height: RFPercentage(3),
+    borderRadius:RFPercentage(1)
   },
   avatarContainer: {
     flexDirection: 'row',
@@ -327,8 +321,8 @@ const styles = StyleSheet.create({
     right: RFPercentage(4),
   },
   avatarWrapper: {
-    width: RFPercentage(3),
-    height: RFPercentage(3),
+    width: RFPercentage(2.6),
+    height: RFPercentage(2.6),
     borderRadius: RFPercentage(2),
     borderWidth: 1.5,
     borderColor: COLORS.white,
@@ -343,12 +337,12 @@ const styles = StyleSheet.create({
     borderRadius: RFPercentage(2.25),
   },
   remainingWrapper: {
-    backgroundColor: '#FFE5F6',
+    backgroundColor: '#E6F7FA',
     right: RFPercentage(1),
   },
   remainingText: {
     color: COLORS.pink,
-    fontSize: RFPercentage(1.6),
+    fontSize: RFPercentage(1.3),
     fontFamily: FONTS.medium,
   },
   // New Event Button

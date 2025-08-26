@@ -24,7 +24,7 @@ const EventCard = ({name, host, profile, onPress}) => {
             style={{
               fontFamily: FONTS.medium,
               color: COLORS.primary,
-              fontSize: RFPercentage(1.6),
+              fontSize: RFPercentage(1.8),
             }}
           >
            {name}
@@ -33,8 +33,8 @@ const EventCard = ({name, host, profile, onPress}) => {
             style={{
               fontFamily: FONTS.regular,
               color: COLORS.lightGrey,
-              fontSize: RFPercentage(1.4),
-              marginTop:RFPercentage(0.5)
+              fontSize: RFPercentage(1.5),
+              marginTop:RFPercentage(0.7)
             }}
           >
            Hosted by: {host}
@@ -43,7 +43,7 @@ const EventCard = ({name, host, profile, onPress}) => {
         <View>
           <Image
             source={profile}
-            resizeMode="contain"
+            resizeMode="cover"
             style={styles.eventImage}
           />
         </View>
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   card: {
     width: '100%',
     height: RFPercentage(9),
-    backgroundColor: '#FFF0FA',
+    backgroundColor: 'rgba(204, 244, 253, 0.3)',
     borderRadius: RFPercentage(1.5),
     justifyContent: 'center',
     marginTop:RFPercentage(1)
@@ -91,15 +91,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   eventImage: {
-    width: RFPercentage(8),
-    height: RFPercentage(8),
+    width: RFPercentage(6.6),
+    height: RFPercentage(7.6),
+    borderRadius:RFPercentage(1.5)
   },
   avatarContainer: {
     flexDirection: 'row',
     marginTop: RFPercentage(1),
     alignItems: 'center',
     position: 'absolute',
-    right: RFPercentage(1.6),
+    right: RFPercentage(1),
     bottom:RFPercentage(0.5)
   },
   avatarWrapper: {

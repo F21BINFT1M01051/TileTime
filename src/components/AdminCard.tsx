@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.lightWhite,
     borderBottomWidth: RFPercentage(0.6),
-    borderBottomColor:"#E6F7FA",
+    borderBottomColor: 'rgba(230, 247, 250, 0.6)',
     borderRadius: RFPercentage(2.5),
     padding: RFPercentage(2),
     alignItems: 'center',
@@ -197,13 +197,13 @@ const styles = StyleSheet.create({
   admin: {
     color: COLORS.grey4,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
     marginTop: RFPercentage(0.8),
   },
   subTitleText: {
     color: COLORS.grey4,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
     marginTop: RFPercentage(0.5),
   },
   subTitleBold: {
@@ -309,14 +309,14 @@ const styles = StyleSheet.create({
   member: {
     color: COLORS.grey4,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.6),
+    fontSize: RFPercentage(1.8),
     marginTop: RFPercentage(0.8),
   },
   subTitle: {
     color: COLORS.grey4,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.6),
-    marginTop: RFPercentage(0.5),
+    fontSize: RFPercentage(1.8),
+    marginTop: RFPercentage(0.7),
   },
   view: {
     fontFamily: FONTS.medium,
@@ -328,7 +328,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: RFPercentage(0.1),
     backgroundColor: COLORS.lightWhite,
-    marginVertical: RFPercentage(1.5),
+    marginVertical: RFPercentage(1.9),
   },
   remove: {
     fontFamily: FONTS.medium,

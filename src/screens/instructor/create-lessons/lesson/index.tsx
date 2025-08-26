@@ -432,7 +432,7 @@ const CreateLessonInstructor = ({ navigation }: any) => {
                             {
                               backgroundColor:
                                 selectedDay === item.id
-                                  ? COLORS.pink4
+                                  ? "#E6F7FA"
                                   : COLORS.fieldColor,
                             },
                           ]}
@@ -642,13 +642,13 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(2),
   },
   bioContainer: {
-    backgroundColor: COLORS.fieldColor,
+    backgroundColor: COLORS.white,
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.fieldBorder,
     borderRadius: RFPercentage(1.5),
   },
   bioInputWrapper: {
-    width: '90%',
+    width: '92%',
     alignSelf: 'center',
     marginTop: RFPercentage(1),
   },
@@ -806,6 +806,7 @@ const styles = StyleSheet.create({
   dayText: {
     fontFamily: FONTS.medium,
     fontSize: RFPercentage(1.8),
+    textAlign:"center"
   },
   endsLabel: {
     color: COLORS.primary,

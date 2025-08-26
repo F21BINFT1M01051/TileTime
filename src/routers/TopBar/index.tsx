@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     paddingBottom: RFPercentage(2),
     borderBottomWidth:RFPercentage(0.1),
-    borderBottomColor:COLORS.lightWhite
+    borderBottomColor:COLORS.grey7
   },
   innerContainer: {
     flexDirection: 'row',
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     color: COLORS.primary,
-    fontFamily: FONTS.bold,
+    fontFamily: FONTS.extraBold,
     fontSize: RFPercentage(2.8),
     marginRight: RFPercentage(0.2),
   },

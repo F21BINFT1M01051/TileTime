@@ -229,7 +229,7 @@ const ChatScreen = ({ route }: any) => {
   const pickDocument = async () => {
     try {
       const res = await pick({
-        type: ['application/pdf', 'public.item'], 
+        type: ['application/pdf', 'public.item'],
         allowMultiSelection: false,
         copyTo: 'cachesDirectory',
       });
@@ -243,7 +243,7 @@ const ChatScreen = ({ route }: any) => {
             name: 'You',
             avatar: 'https://placeimg.com/140/140/any',
           },
-          text: `📄 Document: ${res[0].name}`, 
+          text: `📄 Document: ${res[0].name}`,
         };
         setMessages(prev => GiftedChat.append(prev, [newMessage]));
       }
@@ -263,7 +263,7 @@ const ChatScreen = ({ route }: any) => {
       if (granted === 'authorized') {
         const contacts = await Contacts.getAll();
         if (contacts.length > 0) {
-          const contact = contacts[0]; 
+          const contact = contacts[0];
           const newMessage = {
             _id: Date.now(),
             createdAt: new Date(),
@@ -287,22 +287,22 @@ const ChatScreen = ({ route }: any) => {
       id: 1,
       name: 'Gallery',
       icon: 'images',
-      color: COLORS.green,
+      color: COLORS.pink3,
       onPress: () => handleImagePick(),
     },
     {
       id: 2,
       name: 'Documents',
       icon: 'documents',
-      color: COLORS.pink,
-      onPress:  () => pickDocument(),
+      color: COLORS.green2,
+      onPress: () => pickDocument(),
     },
     {
       id: 3,
       name: 'Contacts',
       icon: 'contacts',
-      color: COLORS.skyBlue,
-      onPress:  () => pickContact(),
+      color: COLORS.yellow,
+      onPress: () => pickContact(),
     },
   ];
 
@@ -312,10 +312,10 @@ const ChatScreen = ({ route }: any) => {
       <View style={styles.headerBorder}>
         <View style={styles.headerContainer}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <AntDesign
-              name="arrowleft"
-              color={COLORS.grey}
-              size={RFPercentage(3)}
+            <Image
+              source={ICONS.back}
+              resizeMode="contain"
+              style={{ width: RFPercentage(3), height: RFPercentage(2.5) }}
             />
           </TouchableOpacity>
           {isGroup ? (
@@ -456,6 +456,7 @@ const ChatScreen = ({ route }: any) => {
               <View style={styles.inputBar}>
                 <TouchableOpacity
                   onPress={() => setAttachmentModalVisible(true)}
+                  style={{ position: 'absolute', left: 0, bottom: RFPercentage(1.5) , marginHorizontal:RFPercentage(1)}}
                 >
                   <Image
                     source={ICONS.plus6}
@@ -470,9 +471,13 @@ const ChatScreen = ({ route }: any) => {
                   placeholderTextColor={COLORS.search}
                   value={message}
                   onChangeText={setMessage}
+                  multiline={true}
+                  scrollEnabled={true}
+                  textAlignVertical="top"
                 />
 
                 <TouchableOpacity
+                style={{ position: 'absolute', right: 0, bottom: RFPercentage(1.5) , marginHorizontal:RFPercentage(2)}}
                   onPress={() => {
                     if (message.trim()) {
                       const newMessage = {
@@ -532,7 +537,7 @@ const ChatScreen = ({ route }: any) => {
                   renderItem={({ item }) => {
                     return (
                       <TouchableOpacity
-                      onPress={item.onPress}
+                        onPress={item.onPress}
                         activeOpacity={0.8}
                         style={{
                           marginHorizontal: RFPercentage(3),
@@ -570,8 +575,8 @@ const ChatScreen = ({ route }: any) => {
                         <Text
                           style={{
                             color: COLORS.grey3,
-                            fontFamily: FONTS.regular,
-                            fontSize: RFPercentage(1.6),
+                            fontFamily: FONTS.medium,
+                            fontSize: RFPercentage(1.7),
                             marginTop: RFPercentage(1),
                           }}
                         >
@@ -670,7 +675,7 @@ const styles = StyleSheet.create({
   groupNameText: {
     color: COLORS.primary,
     fontFamily: FONTS.semiBold,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
     marginLeft: RFPercentage(1),
   },
   dotsButton: {
@@ -783,7 +788,7 @@ const styles = StyleSheet.create({
     minWidth: RFPercentage(20),
   },
   rightBubble: {
-    backgroundColor: "#4E6CA2",
+    backgroundColor: '#4E6CA2',
     alignSelf: 'flex-end',
     borderTopRightRadius: RFPercentage(2.5),
     borderBottomLeftRadius: RFPercentage(2.5),
@@ -867,42 +872,46 @@ const styles = StyleSheet.create({
 
   inputToolbarContainer: {
     backgroundColor: COLORS.white,
-    height: RFPercentage(10),
+    minHeight: RFPercentage(10),
     alignItems: 'center',
     justifyContent: 'center',
-    borderTopWidth:RFPercentage(0.1),
-    borderTopColor:COLORS.lightWhite
+    borderTopWidth: RFPercentage(0.1),
+    borderTopColor: COLORS.lightWhite,
+    paddingVertical: RFPercentage(2),
   },
   inputBar: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: COLORS.fieldColor,
-    borderRadius: RFPercentage(100),
+    borderRadius: RFPercentage(3),
     paddingHorizontal: RFPercentage(2),
-    height: RFPercentage(6),
+    minHeight: RFPercentage(6),
+    maxHeight: RFPercentage(18),
     width: '90%',
     alignSelf: 'center',
     bottom: RFPercentage(1),
   },
+
   plusIcon: {
-    width: RFPercentage(3),
-    height: RFPercentage(3),
+    width: RFPercentage(2.8),
+    height: RFPercentage(2.8),
     tintColor: COLORS.pink,
   },
   messageInput: {
     flex: 1,
     marginHorizontal: RFPercentage(1),
     color: COLORS.inputColor,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
     fontFamily: FONTS.regular,
-    height: RFPercentage(4),
-    marginVertical: 0,
-    paddingVertical: 0,
-    lineHeight: RFPercentage(2),
+    textAlignVertical: 'top',
+    paddingVertical: RFPercentage(1),
+    lineHeight: RFPercentage(2.2),
+    paddingHorizontal:RFPercentage(2)
   },
+
   sendButtonIcon: {
-    width: RFPercentage(3),
-    height: RFPercentage(3),
+    width: RFPercentage(2.8),
+    height: RFPercentage(2.8),
     tintColor: COLORS.primary,
   },
   img: {
@@ -922,11 +931,11 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: RFPercentage(2.5),
     borderTopRightRadius: RFPercentage(2.5),
     padding: RFPercentage(3),
-    height: '50%',
+    height: '25%',
   },
   modalTitle: {
-    fontFamily: FONTS.semiBold,
-    fontSize: RFPercentage(2),
+    fontFamily: FONTS.bold,
+    fontSize: RFPercentage(2.4),
     marginBottom: RFPercentage(2),
     color: COLORS.primary,
   },

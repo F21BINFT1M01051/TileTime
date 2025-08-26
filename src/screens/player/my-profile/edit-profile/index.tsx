@@ -121,8 +121,6 @@ const EditProfile = () => {
           showsVerticalScrollIndicator={false}
         >
           <View style={styles.container}>
-            <Text style={styles.title}>Basic Details</Text>
-
             <TouchableOpacity
               activeOpacity={0.8}
               onPress={pickImage}
@@ -158,6 +156,7 @@ const EditProfile = () => {
                 )}
               </View>
             </TouchableOpacity>
+            <Text style={styles.title}>Basic Details</Text>
 
             <View style={styles.fullNameWrapper}>
               <InputField
@@ -325,9 +324,10 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.bold,
     color: COLORS.primary,
     fontSize: RFPercentage(2),
+    marginTop: RFPercentage(5),
   },
   profileContainer: {
-    marginTop: RFPercentage(3),
+    marginTop: RFPercentage(1),
     width: RFPercentage(16),
     alignItems: 'center',
   },
@@ -372,20 +372,20 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(1.4),
   },
   fullNameWrapper: {
-    marginTop: RFPercentage(2.5),
+   
   },
   bioWrapper: {
     marginTop: RFPercentage(3),
   },
   bioContainer: {
-    backgroundColor: COLORS.fieldColor,
+    backgroundColor: COLORS.white,
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.fieldBorder,
     borderRadius: RFPercentage(1.5),
     paddingVertical: RFPercentage(0.5),
   },
   bioInner: {
-    width: '90%',
+    width: '92%',
     alignSelf: 'center',
   },
   bioHeader: {
@@ -411,8 +411,8 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
     fontFamily: FONTS.regular,
     color: COLORS.inputColor,
-    lineHeight: RFPercentage(2.5),
-    fontSize: RFPercentage(1.8),
+    lineHeight: RFPercentage(2.2),
+    fontSize: RFPercentage(1.9),
     height: RFPercentage(10),
     paddingHorizontal: 0,
     paddingVertical: 0,

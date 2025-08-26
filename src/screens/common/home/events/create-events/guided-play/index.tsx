@@ -151,12 +151,6 @@ const GuidedPlay = ({ route }: any) => {
     }
   };
 
-  const getBarColor = (index: any) => {
-    if (index < stepIndex) return COLORS.green;
-    if (index === stepIndex) return COLORS.pink;
-    return COLORS.fieldColor;
-  };
-
   const renderStepContent = () => {
     switch (stepIndex) {
       case 0:
@@ -198,23 +192,15 @@ const GuidedPlay = ({ route }: any) => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollViewContent}
       >
+        <View style={styles.progressBarBackground}>
+          <View
+            style={[
+              styles.progressBarFill,
+              { width: `${((stepIndex + 1) / steps.length) * 100}%` },
+            ]}
+          />
+        </View>
         <View style={styles.innerWrapper}>
-          {/* Steps */}
-          <View style={styles.stepBarContainer}>
-            {finalSteps.map((_, index) => (
-              <View
-                key={index}
-                style={[
-                  styles.stepBar,
-                  {
-                    backgroundColor: getBarColor(index),
-                    marginLeft: index === 0 ? 0 : RFPercentage(0.7),
-                  },
-                ]}
-              />
-            ))}
-          </View>
-
           <View style={styles.contentWrapper}>{renderStepContent()}</View>
         </View>
       </ScrollView>
@@ -407,10 +393,23 @@ const styles = StyleSheet.create({
   scrollViewContent: {
     paddingBottom: RFPercentage(12),
   },
+  progressBarBackground: {
+    width: '90%',
+    height: RFPercentage(0.7),
+    backgroundColor: COLORS.fieldColor,
+    borderRadius: RFPercentage(100),
+    overflow: 'hidden',
+    alignSelf: 'center',
+    marginTop: RFPercentage(2),
+  },
+  progressBarFill: {
+    height: '100%',
+    backgroundColor: COLORS.pink, // current progress color
+    borderRadius: RFPercentage(100),
+  },
   innerWrapper: {
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(2),
   },
   stepBarContainer: {
     flexDirection: 'row',
@@ -521,12 +520,12 @@ const styles = StyleSheet.create({
   contactName: {
     fontFamily: FONTS.semiBold,
     color: COLORS.primary,
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(2),
   },
   contactMembers: {
     fontFamily: FONTS.regular,
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.6),
+    fontSize: RFPercentage(1.7),
     marginTop: RFPercentage(0.5),
   },
   checkIcon: { width: RFPercentage(3), height: RFPercentage(3) },
@@ -572,7 +571,7 @@ const styles = StyleSheet.create({
   },
   backButtonText: {
     color: COLORS.primary,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(2),
     fontFamily: FONTS.bold,
   },
   saveButton: {

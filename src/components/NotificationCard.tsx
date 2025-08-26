@@ -78,7 +78,7 @@ const NotificationCard = (props: Props) => {
         <Text
           style={{
             color: COLORS.primary,
-            fontSize: RFPercentage(1.8),
+            fontSize: RFPercentage(1.9),
             fontFamily: props.unread ? FONTS.semiBold : FONTS.regular,
             marginHorizontal: RFPercentage(1.5),
             flex: 1,

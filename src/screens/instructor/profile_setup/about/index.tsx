@@ -535,7 +535,6 @@ const styles = StyleSheet.create({
   profileContainer: {
     marginTop: RFPercentage(3),
     width: RFPercentage(16),
-    alignItems: 'center',
   },
   profileCircle: {
     width: RFPercentage(15),

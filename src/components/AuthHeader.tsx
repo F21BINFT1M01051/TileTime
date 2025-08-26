@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     height: Platform.OS === 'ios' ? RFPercentage(13) : RFPercentage(12),
     justifyContent: 'flex-end',
     borderBottomWidth: RFPercentage(0.1),
-    borderBottomColor: COLORS.lightWhite,
+    borderBottomColor: COLORS.grey7,
     paddingBottom: RFPercentage(1.5),
   },
   auth: {

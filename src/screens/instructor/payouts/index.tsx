@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(2),
   },
   getPaidWrapper: {
-    width: '90%',
+    width: '95%',
     alignSelf: 'center',
     marginTop: RFPercentage(3),
     justifyContent: 'center',
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: FONTS.headline,
     color: COLORS.primary,
-    fontSize: RFPercentage(3),
+    fontSize: RFPercentage(2.7),
   },
   getPaidDesc: {
     textAlign: 'center',
@@ -134,6 +134,7 @@ const styles = StyleSheet.create({
     height: RFPercentage(5),
     alignSelf: 'center',
     bottom: RFPercentage(1),
+    left:RFPercentage(8)
   },
   payoutImg: {
     width: RFPercentage(25),

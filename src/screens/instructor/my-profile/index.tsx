@@ -121,7 +121,7 @@ const MyProfileInstructor = ({ navigation }: any) => {
 
   return (
     <View style={styles.container}>
-      <TopNavigation title="PROFILE" />
+      <TopNavigation title="Profile" />
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
@@ -199,6 +199,7 @@ const MyProfileInstructor = ({ navigation }: any) => {
               title="Payouts"
               icon={ICONS.arrow22}
               onPress={() => navigation.navigate('PayoutsInstructor')}
+              style={{borderBottomColor : COLORS.lightWhite}}
             />
           </View>
 

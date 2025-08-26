@@ -233,7 +233,7 @@ const All = () => {
     <View style={styles.container}>
       <View style={styles.searchContainer}>
         <SearchField
-          placeholder="Search chats"
+          placeholder="Search groups"
           value={query}
           onChangeText={setQuery}
         />

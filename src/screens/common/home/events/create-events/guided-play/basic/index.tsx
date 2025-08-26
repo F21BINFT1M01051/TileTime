@@ -517,7 +517,7 @@ const GuidedPlayBasic = () => {
                             {
                               backgroundColor:
                                 selectedDay === item.id
-                                  ? COLORS.pink4
+                                  ? "rgba(96, 203, 224, 0.16)"
                                   : COLORS.fieldColor,
                             },
                           ]}
@@ -689,6 +689,7 @@ const GuidedPlayBasic = () => {
                   style={[
                     styles.badgeText,
                     isSelected && { color: COLORS.white },
+                    isSelected && {fontFamily:FONTS.semiBold}
                   ]}
                 >
                   {item.name}
@@ -753,7 +754,7 @@ const styles = StyleSheet.create({
   },
   eventSubtitle: {
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
     fontFamily: FONTS.regular,
     marginTop: RFPercentage(2),
   },
@@ -764,7 +765,7 @@ const styles = StyleSheet.create({
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.dashedBorder,
     height: RFPercentage(26),
-    borderRadius: RFPercentage(2),
+    borderRadius: RFPercentage(1.5),
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -796,7 +797,7 @@ const styles = StyleSheet.create({
   imageHint: {
     color: COLORS.grey4,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.5),
+    fontSize: RFPercentage(1.6),
     textAlign: 'center',
     marginTop: RFPercentage(2),
   },
@@ -833,13 +834,13 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(2),
   },
   bioContainer: {
-    backgroundColor: COLORS.fieldColor,
+    backgroundColor: COLORS.white,
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.fieldBorder,
     borderRadius: RFPercentage(1.5),
   },
   bioInputWrapper: {
-    width: '90%',
+    width: '92%',
     alignSelf: 'center',
     marginTop: RFPercentage(1),
   },
@@ -935,7 +936,7 @@ const styles = StyleSheet.create({
   repeatTitle: {
     color: COLORS.primary,
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(2),
   },
   repeatRow: {
     flexDirection: 'row',
@@ -944,7 +945,7 @@ const styles = StyleSheet.create({
   },
   repeatLabel: {
     color: COLORS.primary,
-    fontFamily: FONTS.bold,
+    fontFamily: FONTS.semiBold,
     fontSize: RFPercentage(1.8),
   },
   repeatInput: {
@@ -982,7 +983,7 @@ const styles = StyleSheet.create({
   },
   repeatOnLabel: {
     color: COLORS.primary,
-    fontFamily: FONTS.bold,
+    fontFamily: FONTS.semiBold,
     fontSize: RFPercentage(1.8),
     marginTop: RFPercentage(2),
   },
@@ -1003,7 +1004,7 @@ const styles = StyleSheet.create({
   },
   endsLabel: {
     color: COLORS.primary,
-    fontFamily: FONTS.bold,
+    fontFamily: FONTS.semiBold,
     fontSize: RFPercentage(1.8),
     marginTop: RFPercentage(2.5),
   },
@@ -1100,7 +1101,7 @@ const styles = StyleSheet.create({
   experienceBadge: {
     height: RFPercentage(4.5),
     paddingHorizontal: RFPercentage(1.8),
-    backgroundColor: COLORS.fieldColor,
+    backgroundColor: COLORS.white,
     borderRadius: RFPercentage(100),
     alignItems: 'center',
     justifyContent: 'center',
@@ -1109,7 +1110,7 @@ const styles = StyleSheet.create({
   },
   badgeText: {
     color: COLORS.grey3,
-    fontSize: RFPercentage(1.6),
+    fontSize: RFPercentage(1.7),
     fontFamily: FONTS.medium,
   },
   // Dropdown wrapper for game variant

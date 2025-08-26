@@ -37,7 +37,6 @@ const Cards2 = [
     profile: IMAGES.customProfile,
     date: 'April 30, 2025',
     distance: '32 mi away',
-    free: true,
   },
   {
     id: 2,
@@ -324,7 +323,7 @@ const styles = StyleSheet.create({
   eventTitle: {
     color: COLORS.primary,
     fontFamily: FONTS.headline,
-    fontSize: RFPercentage(2.6),
+    fontSize: RFPercentage(2.9),
     marginTop: RFPercentage(4),
   },
   row: {
@@ -362,7 +361,7 @@ const styles = StyleSheet.create({
   eventImageWrapper: {
     width: '100%',
     height: RFPercentage(32),
-    backgroundColor: COLORS.pink6,
+    backgroundColor: COLORS.green1,
     borderRadius: RFPercentage(6.5),
     alignItems: 'center',
     justifyContent: 'center',
@@ -377,10 +376,10 @@ const styles = StyleSheet.create({
   },
   description: {
     color: COLORS.primary,
-    fontFamily: FONTS.regular2,
-    fontSize: RFPercentage(1.8),
+    fontFamily: FONTS.regular,
+    fontSize: RFPercentage(2),
     marginTop: RFPercentage(3),
-    lineHeight: RFPercentage(2.2),
+    lineHeight: RFPercentage(2.1),
   },
   sectionTitle: {
     color: COLORS.primary,
@@ -397,7 +396,7 @@ const styles = StyleSheet.create({
   hostImageWrapper: {
     width: RFPercentage(12),
     height: RFPercentage(12),
-    backgroundColor: COLORS.pink6,
+    backgroundColor: COLORS.pink,
     borderTopRightRadius: RFPercentage(100),
     borderTopLeftRadius: RFPercentage(100),
     alignItems: 'center',
@@ -414,7 +413,7 @@ const styles = StyleSheet.create({
   messageBtn: {
     position: 'absolute',
     bottom: RFPercentage(-1),
-    width: RFPercentage(9),
+    width: RFPercentage(9.5),
     height: RFPercentage(3.7),
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.primary,
@@ -432,18 +431,18 @@ const styles = StyleSheet.create({
   hostName: {
     color: COLORS.primary,
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(2),
   },
   hostFollowers: {
     color: COLORS.grey3,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.6),
+    fontSize: RFPercentage(1.7),
     marginTop: RFPercentage(0.8),
   },
   hostBio: {
     color: COLORS.lightGrey,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.6),
+    fontSize: RFPercentage(1.7),
     marginTop: RFPercentage(0.8),
   },
   sectionSpacing: { marginTop: RFPercentage(3) },
@@ -456,6 +455,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: RFPercentage(0.5),
     borderRadius: RFPercentage(1.8),
     justifyContent: 'center',
+    borderBottomColor: 'rgba(230, 247, 250, 0.6)',
   },
   attachmentCard: {
     width: '100%',
@@ -466,6 +466,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: RFPercentage(0.5),
     borderRadius: RFPercentage(1.8),
     justifyContent: 'center',
+    borderBottomColor: 'rgba(230, 247, 250, 0.6)',
   },
   locationCard: {
     width: '100%',
@@ -476,6 +477,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: RFPercentage(0.5),
     borderRadius: RFPercentage(1.8),
     justifyContent: 'center',
+    borderBottomColor: 'rgba(230, 247, 250, 0.6)',
   },
   cardInner: {
     width: '90%',
@@ -496,7 +498,7 @@ const styles = StyleSheet.create({
   cohostImageWrapper: {
     width: RFPercentage(6),
     height: RFPercentage(6),
-    backgroundColor: COLORS.pink6,
+    backgroundColor: COLORS.pink,
     borderTopRightRadius: RFPercentage(100),
     borderTopLeftRadius: RFPercentage(100),
     alignItems: 'center',
@@ -582,12 +584,12 @@ const styles = StyleSheet.create({
   },
   txt: {
     color: COLORS.black,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.9),
     fontFamily: FONTS.medium,
   },
   sub: {
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.5),
+    fontSize: RFPercentage(1.7),
     fontFamily: FONTS.regular,
     marginTop: RFPercentage(0.6),
   },

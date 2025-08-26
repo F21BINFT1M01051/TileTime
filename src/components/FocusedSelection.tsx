@@ -58,7 +58,7 @@ const FocusedSelection: React.FC<Props> = ({
     ...styles.label,
     top: animatedIsFocused.interpolate({
       inputRange: [0, 1],
-      outputRange: [RFPercentage(7) / 3.1, RFPercentage(0.6)],
+      outputRange: [RFPercentage(7) / 2.8, RFPercentage(0.8)],
     }),
     fontSize: animatedIsFocused.interpolate({
       inputRange: [0, 1],
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     borderWidth: RFPercentage(0.1),
     width: '100%',
     height: RFPercentage(7),
-    backgroundColor: COLORS.fieldColor,
+    backgroundColor: COLORS.white,
     borderColor: COLORS.fieldBorder,
     borderRadius: RFPercentage(1.3),
     marginTop: RFPercentage(2),
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   wrap: {
-    width: '90%',
+    width: '92%',
     alignSelf: 'center',
     flexDirection: 'row',
     alignItems: 'center',
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     color: COLORS.inputColor,
     fontFamily: FONTS.regular,
     fontSize: RFPercentage(1.8),
-    top: RFPercentage(1),
+    top: RFPercentage(1.2),
   },
   iconContainer: {
     right: 0,

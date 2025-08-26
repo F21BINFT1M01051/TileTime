@@ -108,7 +108,7 @@ const InstructorHome = ({ navigation }: any) => {
       style={styles.gradientContainer}
     >
       <TopNavigation
-        title="HOME"
+        title="Home"
         right={true}
         home={true}
         onPress2={() => navigation.navigate('SearchScreen')}
@@ -121,13 +121,13 @@ const InstructorHome = ({ navigation }: any) => {
             alignItems: 'center',
             width: '90%',
             alignSelf: 'center',
-            justifyContent:'space-between'
+            justifyContent:'space-between',
           }}
         >
           {actions.length > 0 ? (
             <View style={styles.titleContainer}>
               <Text style={styles.mainTitle}>
-                {`LET'S GET YOUR MAHJONG JOURNEY\nSTARTED`}
+                {`Let’s get your Mahjong journey started`}
               </Text>
             </View>
           ) : (
@@ -140,7 +140,7 @@ const InstructorHome = ({ navigation }: any) => {
           <Image
             source={IMAGES.home55}
             resizeMode="contain"
-            style={{ width: RFPercentage(15), height: RFPercentage(15),bottom:RFPercentage(3) }}
+            style={{ width: RFPercentage(15), height: RFPercentage(15),bottom:RFPercentage(1) }}
           />
         </View>
         <View style={styles.actionsWrapper}>
@@ -165,7 +165,7 @@ const InstructorHome = ({ navigation }: any) => {
           >
             <View style={styles.homeTopContent}>
               <View style={styles.rowCenter}>
-                <Text style={styles.sectionTitle}>EXPLORE EVENTS NEAR YOU</Text>
+                <Text style={styles.sectionTitle}>Explore Events Near You</Text>
                 <Image
                   source={ICONS.bars2}
                   resizeMode="contain"
@@ -211,7 +211,7 @@ const InstructorHome = ({ navigation }: any) => {
 
           <View style={styles.groupSection}>
             <View style={styles.rowCenter}>
-              <Text style={styles.sectionTitle}>INSTRUCTOR RECOMMENDED</Text>
+              <Text style={styles.sectionTitle}>Instructor Recommended</Text>
               <Image
                 source={ICONS.star}
                 resizeMode="contain"
@@ -255,7 +255,7 @@ const InstructorHome = ({ navigation }: any) => {
             </TouchableOpacity>
 
             <View style={styles.sectionMargin}>
-              <Text style={styles.sectionTitle}>OPEN GROUPS YOU CAN JOIN</Text>
+              <Text style={styles.sectionTitle}>Open Groups You Can Join</Text>
             </View>
             <Text style={styles.groupText}>
               Discover active Mahjong groups looking for new members,
@@ -332,13 +332,12 @@ const styles = StyleSheet.create({
     width: '100%',
     height: RFPercentage(20),
   },
-  titleContainer: {width:"70%"},
+  titleContainer: {width:"75%"},
   mainTitle: {
     color: COLORS.primary,
     fontFamily: FONTS.bold,
     fontSize: RFPercentage(3),
     lineHeight:RFPercentage(3)
-
   },
   actionsWrapper: {
     width: '100%',
@@ -350,9 +349,9 @@ const styles = StyleSheet.create({
   },
   homeTopBackground: {
     width: '100%',
-    height: RFPercentage(84),
+    height: RFPercentage(81),
     marginTop: RFPercentage(5),
-    paddingBottom: RFPercentage(2),
+    // paddingBottom: RFPercentage(2),
     marginVertical: Platform.OS === 'android' ? RFPercentage(2) : 0,
   },
   homeTopContent: {
@@ -366,8 +365,8 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(2),
   },
   sectionTitle: {
-    fontFamily: FONTS.headline,
-    fontSize: RFPercentage(2.5),
+    fontFamily: FONTS.bold,
+    fontSize: RFPercentage(2.8),
     color: COLORS.primary,
   },
   iconBars: {
@@ -380,11 +379,11 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular,
     color: COLORS.grey8,
     fontSize: RFPercentage(2.2),
-    lineHeight: RFPercentage(2.5),
+    lineHeight: RFPercentage(2.3),
     marginTop: RFPercentage(0.5),
   },
   buttonMargin: {
-    marginTop: RFPercentage(3),
+    marginTop: RFPercentage(4),
   },
   createEventButton: {
     width: RFPercentage(23),
@@ -437,7 +436,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular,
     color: COLORS.grey8,
     fontSize: RFPercentage(2.2),
-    lineHeight: RFPercentage(2.3),
+    lineHeight: RFPercentage(2.2),
     marginTop: RFPercentage(0.6),
   },
   overLay2: {

@@ -233,6 +233,7 @@ const styles = StyleSheet.create({
     borderRadius: RFPercentage(2),
     marginTop: RFPercentage(4),
     justifyContent: 'center',
+    borderBottomColor: 'rgba(230, 247, 250, 0.6)',
   },
   insightContent: {
     width: '90%',
@@ -266,6 +267,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: RFPercentage(0.5),
     borderRadius: RFPercentage(1.8),
     justifyContent: 'center',
+    borderBottomColor: 'rgba(230, 247, 250, 0.6)',
   },
   attachmentCard: {
     width: '100%',
@@ -276,6 +278,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: RFPercentage(0.5),
     borderRadius: RFPercentage(1.8),
     justifyContent: 'center',
+    borderBottomColor: 'rgba(230, 247, 250, 0.6)',
   },
   locationCard: {
     width: '100%',
@@ -329,7 +332,7 @@ const styles = StyleSheet.create({
   cohostImageWrapper: {
     width: RFPercentage(6),
     height: RFPercentage(6),
-    backgroundColor: COLORS.pink6,
+    backgroundColor: COLORS.pink,
     borderTopRightRadius: RFPercentage(100),
     borderTopLeftRadius: RFPercentage(100),
     alignItems: 'center',

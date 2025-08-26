@@ -80,7 +80,7 @@ const upcoming = [
     id: 1,
     name: 'Four Winds: Community Mahjong Session',
     host: 'Akshay and Nikita',
-    profile: ICONS.event,
+    profile: IMAGES.customProfile,
     date: 'Wed, 6 Aug',
     type: 'Open Play',
   },
@@ -88,7 +88,7 @@ const upcoming = [
     id: 2,
     name: 'Four Winds: Community Mahjong Session',
     host: 'Akshay and Nikita',
-    profile: ICONS.event,
+    profile: IMAGES.customProfile,
     date: 'Sat, 9 Aug',
     type: 'Guided Play',
   },
@@ -96,7 +96,7 @@ const upcoming = [
     id: 3,
     name: 'Four Winds: Community Mahjong Session',
     host: 'Akshay and Nikita',
-    profile: ICONS.event,
+    profile: IMAGES.customProfile,
     date: 'Sat, 16 Aug',
     type: 'Lessons',
   },
@@ -104,7 +104,7 @@ const upcoming = [
     id: 4,
     name: 'Four Winds: Community Mahjong Session',
     host: 'Akshay and Nikita',
-    profile: ICONS.event,
+    profile: IMAGES.customProfile,
     date: 'Fri, 29 Aug',
     type: 'Guided Play',
   },
@@ -112,7 +112,7 @@ const upcoming = [
     id: 5,
     name: 'Four Winds: Community Mahjong Session',
     host: 'Akshay and Nikita',
-    profile: ICONS.event,
+    profile: IMAGES.customProfile,
     date: 'Fri, 31 Aug',
     type: 'Open Play',
   },
@@ -135,7 +135,7 @@ const groupByDate = (events: any) => {
 
 const Events = ({ navigation }: any) => {
   const [isCalendarVisible, setCalendarVisible] = useState(false);
-  const events = [];
+  const events = ['9'];
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedType, setSelectedType] = useState('');
   const dispatch = useDispatch();
@@ -150,20 +150,15 @@ const Events = ({ navigation }: any) => {
   const groupedUpcoming = groupByDate(upcoming);
 
   return (
-    <LinearGradient colors={[COLORS.white, COLORS.white]} style={{ flex: 1 }}>
+    <LinearGradient
+      colors={[events.length > 0 ? '#FFFFFF' : '#F5FDFF', '#FFFFFF']}
+      style={{ flex: 1 }}
+    >
       <TopNavigation title="My Events" right text="Saved Draft" />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ width: '90%', alignSelf: 'center' }}>
-          {events.length > 0 ? (
-            <View style={styles.searchContainer}>
-              <SearchField
-                placeholder="Search events"
-                value={query}
-                onChangeText={setQuery}
-              />
-            </View>
-          ) : (
+          {events.length < 0 && (
             <>
               <View style={styles.wrap}>
                 <View style={{ width: '70%' }}>
@@ -177,7 +172,7 @@ const Events = ({ navigation }: any) => {
                   style={{
                     width: RFPercentage(9),
                     height: RFPercentage(9),
-                    bottom:RFPercentage(2)
+                    bottom: RFPercentage(2),
                   }}
                 />
               </View>
@@ -188,94 +183,115 @@ const Events = ({ navigation }: any) => {
           )}
         </View>
         {events.length > 0 ? (
-          <View style={styles.monthSelectorContainer}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}
+          <>
+            <ImageBackground
+              source={IMAGES.event9}
+              resizeMode="cover"
+              style={{ width: '100%', height: RFPercentage(16) }}
             >
-              <TouchableOpacity
-                style={styles.monthButton}
-                onPress={toggleCalendar}
+              <View
+                style={{
+                  width: '90%',
+                  alignSelf: 'center',
+                  marginTop: RFPercentage(2.5),
+                }}
               >
-                <Text style={styles.monthText}>August</Text>
-                <Feather
-                  name="chevron-down"
-                  color={COLORS.icon}
-                  size={RFPercentage(2.6)}
-                  style={styles.chevronIcon}
+                <SearchField
+                  placeholder="Search events"
+                  value={query}
+                  onChangeText={setQuery}
                 />
-              </TouchableOpacity>
+              </View>
+            </ImageBackground>
+            <View style={styles.monthSelectorContainer}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <TouchableOpacity
+                  style={styles.monthButton}
+                  onPress={toggleCalendar}
+                >
+                  <Text style={styles.monthText}>August</Text>
+                  <Feather
+                    name="chevron-down"
+                    color={COLORS.icon}
+                    size={RFPercentage(2.4)}
+                    style={styles.chevronIcon}
+                  />
+                </TouchableOpacity>
 
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text
-                  style={{
-                    fontFamily: FONTS.regular,
-                    color: COLORS.primary,
-                    fontSize: RFPercentage(1.7),
-                    marginRight: RFPercentage(1),
-                  }}
-                >
-                  List View
-                </Text>
-                <ToggleSwitch
-                  isOn={isOn}
-                  onColor={COLORS.pink}
-                  offColor={COLORS.switch}
-                  size="small"
-                  onToggle={() => setIsOn(!isOn)}
-                />
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Text
+                    style={{
+                      fontFamily: FONTS.regular,
+                      color: COLORS.primary,
+                      fontSize: RFPercentage(1.7),
+                      marginRight: RFPercentage(1),
+                    }}
+                  >
+                    List View
+                  </Text>
+                  <ToggleSwitch
+                    isOn={isOn}
+                    onColor={COLORS.pink}
+                    offColor={COLORS.switch}
+                    size="small"
+                    onToggle={() => setIsOn(!isOn)}
+                  />
+                </View>
               </View>
+              {isOn ? (
+                <View>
+                  <Text
+                    style={{
+                      fontFamily: FONTS.semiBold,
+                      fontSize: RFPercentage(1.8),
+                      marginTop: RFPercentage(3),
+                      color: COLORS.primary,
+                    }}
+                  >
+                    Upcoming Events
+                  </Text>
+                  <SectionList
+                    sections={groupedUpcoming}
+                    keyExtractor={(item, index) => item.id.toString() + index}
+                    renderSectionHeader={({ section: { title } }) => (
+                      <Text
+                        style={{
+                          fontFamily: FONTS.inter_semiBold,
+                          fontSize: RFPercentage(1.7),
+                          color: COLORS.primary,
+                          marginTop: RFPercentage(2.5),
+                          fontWeight: '700',
+                        }}
+                      >
+                        {title}
+                      </Text>
+                    )}
+                    renderItem={({ item }) => (
+                      <EventCard
+                        name={item.name}
+                        host={item.host}
+                        profile={item.profile}
+                        onPress={() =>
+                          navigation.navigate('InstructorEventDetail', {
+                            type: item.type,
+                          })
+                        }
+                      />
+                    )}
+                    contentContainerStyle={{ marginVertical: RFPercentage(1) }}
+                  />
+                </View>
+              ) : (
+                <TodayEvents />
+              )}
             </View>
-            {isOn ? (
-              <View>
-                <Text
-                  style={{
-                    fontFamily: FONTS.semiBold,
-                    fontSize: RFPercentage(1.8),
-                    marginTop: RFPercentage(3),
-                    color: COLORS.primary,
-                  }}
-                >
-                  Upcoming Events
-                </Text>
-                <SectionList
-                  sections={groupedUpcoming}
-                  keyExtractor={(item, index) => item.id.toString() + index}
-                  renderSectionHeader={({ section: { title } }) => (
-                    <Text
-                      style={{
-                        fontFamily: FONTS.inter_semiBold,
-                        fontSize: RFPercentage(1.7),
-                        color: COLORS.primary,
-                        marginTop: RFPercentage(2.5),
-                        fontWeight: '700',
-                      }}
-                    >
-                      {title}
-                    </Text>
-                  )}
-                  renderItem={({ item }) => (
-                    <EventCard
-                      name={item.name}
-                      host={item.host}
-                      profile={item.profile}
-                      onPress={() =>
-                        navigation.navigate('InstructorEventDetail', {
-                          type: item.type,
-                        })
-                      }
-                    />
-                  )}
-                  contentContainerStyle={{ marginVertical: RFPercentage(1) }}
-                />
-              </View>
-            ) : (
-              <TodayEvents />
-            )}
-          </View>
+          </>
         ) : (
           <View style={styles.wrap2}>
             <Image
@@ -392,7 +408,7 @@ const styles = StyleSheet.create({
   monthSelectorContainer: {
     width: '90%',
     alignSelf: 'center',
-    bottom: RFPercentage(6),
+    bottom: RFPercentage(4),
   },
   nativeModalWrapper: {
     flex: 1,
@@ -409,7 +425,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop:RFPercentage(3)
+    marginTop: RFPercentage(3),
   },
   head: {
     fontFamily: FONTS.headline,

@@ -199,9 +199,10 @@ const styles = StyleSheet.create({
   },
   eventSubtitle: {
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
     fontFamily: FONTS.regular,
     marginTop: RFPercentage(2),
+    lineHeight: RFPercentage(1.9),
   },
   toggleRow: {
     width: '100%',
@@ -233,6 +234,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: RFPercentage(0.4),
     marginTop: RFPercentage(1),
     justifyContent: 'center',
+    borderBottomColor: 'rgba(230, 247, 250, 0.6)',
   },
   contactRow: {
     width: '90%',

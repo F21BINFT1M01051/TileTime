@@ -60,11 +60,11 @@ const styles = StyleSheet.create({
   title: {
     color: COLORS.primary,
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(2),
   },
   attendees: {
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.6),
+    fontSize: RFPercentage(1.8),
     fontFamily: FONTS.regular,
     marginTop: RFPercentage(1),
   },

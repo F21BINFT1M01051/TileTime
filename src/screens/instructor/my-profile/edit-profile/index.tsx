@@ -19,6 +19,7 @@ import SocialField from '../../../../components/SocialField';
 import AuthHeader from '../../../../components/AuthHeader';
 import CustomButton from '../../../../components/CustomButton';
 import Search from '../../../../components/SearchExperience';
+import { launchImageLibrary } from 'react-native-image-picker';
 
 const data = [
   {
@@ -67,6 +68,7 @@ const EditProfileInstructor = () => {
   const [otherCity, setOtherCity] = useState('');
   const [state2, setState2] = useState(null);
   const [isDropdownVisible3, setIsDropdownVisible3] = useState(false);
+  const [imageUri, setImageUri] = useState(null);
 
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -94,6 +96,22 @@ const EditProfileInstructor = () => {
     return `+1-${area}-${prefix}-${line}`;
   };
 
+  const pickImage = () => {
+    const options = {
+      mediaType: 'photo',
+      quality: 1,
+      includeBase64: false,
+      maxWidth: 9999,
+      maxHeight: 9999,
+    };
+
+    launchImageLibrary(options, response => {
+      if (response.assets && response.assets.length > 0) {
+        setImageUri(response?.assets[0].uri);
+      }
+    });
+  };
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -112,6 +130,42 @@ const EditProfileInstructor = () => {
           showsVerticalScrollIndicator={false}
         >
           <View style={styles.container}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={pickImage}
+              style={styles.profileContainer}
+            >
+              <View style={styles.profileCircle}>
+                <Image
+                  source={imageUri ? { uri: imageUri } : ICONS.gallery}
+                  resizeMode="cover"
+                  style={imageUri ? styles.profileImage : styles.defaultImg}
+                />
+
+                {imageUri ? (
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={pickImage}
+                    style={styles.editIconContainer}
+                  >
+                    <Image
+                      source={ICONS.edit}
+                      resizeMode="contain"
+                      style={styles.editIcon}
+                    />
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={pickImage}
+                    style={styles.addPicButton}
+                  >
+                    <Text style={styles.addPicText}>Add your Picture</Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+            </TouchableOpacity>
+
             <Text style={styles.title}>Basic Details</Text>
             <View style={styles.inputSpacing}>
               <InputField
@@ -140,9 +194,7 @@ const EditProfileInstructor = () => {
                   style={styles.checkboxIcon}
                 />
               </TouchableOpacity>
-              <Text style={styles.checkboxText}>
-                I conduct business under a different name
-              </Text>
+              <Text style={styles.checkboxText}>Doing business as</Text>
             </TouchableOpacity>
 
             {checked && (
@@ -189,6 +241,9 @@ const EditProfileInstructor = () => {
               {MAX_LENGTH - bio.length} characters left
             </Text>
 
+            <View style={{ marginTop: RFPercentage(2) }}>
+              <Text style={styles.conduct}>Cities you serve</Text>
+            </View>
             <View style={styles.dropdowns}>
               <View style={styles.dropdownHalf}>
                 <InputField
@@ -402,7 +457,8 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: FONTS.bold,
     color: COLORS.primary,
-    fontSize: RFPercentage(2),
+    fontSize: RFPercentage(2.2),
+    marginTop: RFPercentage(5),
   },
   inputSpacing: {
     marginTop: RFPercentage(0.5),
@@ -483,7 +539,6 @@ const styles = StyleSheet.create({
   dropdowns: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: RFPercentage(0.8),
   },
   dropdownHalf: {
     width: '48%',
@@ -512,7 +567,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     color: COLORS.primary,
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(2),
   },
   inputContainer: {
     marginTop: RFPercentage(2),
@@ -520,7 +575,7 @@ const styles = StyleSheet.create({
   sectionLabel: {
     fontFamily: FONTS.regular,
     color: COLORS.primary,
-    fontSize: RFPercentage(1.6),
+    fontSize: RFPercentage(1.7),
   },
   searchSpacing: {
     marginTop: RFPercentage(1.5),
@@ -528,8 +583,8 @@ const styles = StyleSheet.create({
   credentialLabel: {
     fontFamily: FONTS.regular,
     color: COLORS.primary,
-    fontSize: RFPercentage(1.6),
-    marginTop: RFPercentage(3),
+    fontSize: RFPercentage(1.7),
+    marginTop: RFPercentage(2.5),
   },
   phoneIcon: {
     width: RFPercentage(2.2),
@@ -552,5 +607,54 @@ const styles = StyleSheet.create({
   saveButton: {
     width: '90%',
     alignSelf: 'center',
+  },
+  profileContainer: {
+    marginTop: RFPercentage(1),
+    width: RFPercentage(16),
+  },
+  profileCircle: {
+    width: RFPercentage(15),
+    height: RFPercentage(15),
+    borderRadius: RFPercentage(100),
+    backgroundColor: COLORS.lightWhite3,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  profileImage: {
+    width: RFPercentage(14.8),
+    height: RFPercentage(14.8),
+    borderRadius: RFPercentage(100),
+  },
+  defaultImg: {
+    width: RFPercentage(5),
+    height: RFPercentage(5),
+  },
+  editIconContainer: {
+    position: 'absolute',
+    bottom: RFPercentage(-1.5),
+  },
+  editIcon: {
+    width: RFPercentage(3.8),
+    height: RFPercentage(3.8),
+  },
+  conduct: {
+    color: COLORS.primary,
+    fontFamily: FONTS.semiBold,
+    fontSize: RFPercentage(2),
+  },
+  addPicButton: {
+    position: 'absolute',
+    bottom: RFPercentage(-1),
+    width: RFPercentage(16),
+    height: RFPercentage(4),
+    borderRadius: RFPercentage(100),
+    backgroundColor: COLORS.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  addPicText: {
+    color: COLORS.white,
+    fontFamily: FONTS.medium,
+    fontSize: RFPercentage(1.6),
   },
 });

@@ -38,7 +38,7 @@ const NextCard = (props: Props) => {
             style={{
               color: COLORS.primary,
               fontFamily: FONTS.bold,
-              fontSize: RFPercentage(1.9),
+              fontSize: RFPercentage(2),
             }}
           >
             {props.title}
@@ -47,8 +47,9 @@ const NextCard = (props: Props) => {
             style={{
               color: COLORS.lightGrey,
               fontFamily: FONTS.regular,
-              fontSize: RFPercentage(1.7),
+              fontSize: RFPercentage(1.8),
               marginTop: RFPercentage(1.2),
+              lineHeight:RFPercentage(1.9)
             }}
           >
             {props.subTitle}

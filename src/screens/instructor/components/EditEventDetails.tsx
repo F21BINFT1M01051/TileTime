@@ -23,25 +23,25 @@ const data = [
     id: 1,
     name: 'Basics',
     subtitle: 'Event Tittle, Type, Location, Date & Time',
-    navigateTo : "EditEventBasic"
+    navigateTo: 'EditEventBasic',
   },
   {
     id: 2,
     name: 'Description',
     subtitle: 'Coaching Session',
-     navigateTo : "EditEventBasic"
+    navigateTo: 'EditEventBasic',
   },
   {
     id: 3,
     name: 'Admission Details',
     subtitle: 'Event Type, Price, Seats and more',
-     navigateTo : "EditEventBasic"
+    navigateTo: 'EditEventBasic',
   },
   {
     id: 4,
     name: 'Game Details',
     subtitle: 'Game variant, Tables, Groups and more',
-     navigateTo : "EditEventBasic"
+    navigateTo: 'EditEventBasic',
   },
 ];
 
@@ -142,7 +142,7 @@ const EditEventDetails = ({ visible, onClose, style }: any) => {
                     style={{
                       color: COLORS.lightGrey,
                       fontFamily: FONTS.regular,
-                      fontSize: RFPercentage(1.7),
+                      fontSize: RFPercentage(1.8),
                       marginTop: RFPercentage(1.7),
                     }}
                   >
@@ -158,9 +158,10 @@ const EditEventDetails = ({ visible, onClose, style }: any) => {
                           <TouchableOpacity
                             activeOpacity={0.8}
                             style={styles.insightBox}
-                            onPress={()=> {
-                              onClose()
-                              navigation.navigate(item.navigateTo)}}
+                            onPress={() => {
+                              onClose();
+                              navigation.navigate(item.navigateTo);
+                            }}
                           >
                             <View style={styles.insightContent}>
                               <View>
@@ -300,6 +301,7 @@ const styles = StyleSheet.create({
     borderRadius: RFPercentage(2),
     marginTop: RFPercentage(2),
     justifyContent: 'center',
+    borderBottomColor: 'rgba(230, 247, 250, 0.6)',
   },
   insightContent: {
     width: '90%',
@@ -333,6 +335,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: RFPercentage(0.5),
     borderRadius: RFPercentage(1.8),
     justifyContent: 'center',
+    borderBottomColor: 'rgba(230, 247, 250, 0.6)',
   },
   attachmentCard: {
     width: '100%',
@@ -343,6 +346,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: RFPercentage(0.5),
     borderRadius: RFPercentage(1.8),
     justifyContent: 'center',
+    borderBottomColor: 'rgba(230, 247, 250, 0.6)',
   },
   locationCard: {
     width: '100%',

@@ -238,7 +238,7 @@ const PlayerProfileSetup = ({ navigation }: any) => {
 
                   <View style={styles.bioWrapper}>
                     <View style={styles.bioContainer}>
-                      <View style={{ width: '90%', alignSelf: 'center' }}>
+                      <View style={{ width: '92%', alignSelf: 'center' }}>
                         <View style={styles.bioHeader}>
                           <Text style={styles.bioLabel}>Add Bio</Text>
                           <Image
@@ -431,7 +431,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: FONTS.headline,
     color: COLORS.primary,
-    fontSize: RFPercentage(2.3),
+    fontSize: RFPercentage(2.4),
   },
   profileContainer: {
     marginTop: RFPercentage(3),
@@ -456,7 +456,7 @@ const styles = StyleSheet.create({
   imgText: {
     color: COLORS.white,
     fontFamily: FONTS.medium,
-    fontSize: RFPercentage(1.4),
+    fontSize: RFPercentage(1.5),
   },
   user: {
     width: RFPercentage(2),
@@ -474,12 +474,12 @@ const styles = StyleSheet.create({
   city: {
     color: COLORS.primary,
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(2),
   },
   place: {
     color: COLORS.primary,
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(2),
   },
   bottom: {
     alignSelf: 'flex-end',
@@ -540,7 +540,7 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(3),
   },
   bioContainer: {
-    backgroundColor: COLORS.fieldColor,
+    backgroundColor: COLORS.white,
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.fieldBorder,
     borderRadius: RFPercentage(1.5),
@@ -566,7 +566,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular,
     color: COLORS.inputColor,
     lineHeight: RFPercentage(2.5),
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
     height: RFPercentage(10),
     paddingHorizontal: 0,
     paddingVertical: 0,

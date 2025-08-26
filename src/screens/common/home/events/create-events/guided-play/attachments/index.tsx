@@ -10,17 +10,17 @@ import {
 import React, { useState } from 'react';
 import { COLORS, FONTS, ICONS } from '../../../../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import { pick } from '@react-native-documents/picker'
+import { pick } from '@react-native-documents/picker';
 
 const GuidedPlayAttachments = () => {
   const [attachments, setAttachments] = useState([]);
 
-   const pickDocument = async () => {
-    console.log("hi")
+  const pickDocument = async () => {
+    console.log('hi');
     try {
       const res = await pick({
-        type: ['image/*', 'application/pdf'], 
-        allowMultiSelection: false, 
+        type: ['image/*', 'application/pdf'],
+        allowMultiSelection: false,
         copyTo: 'cachesDirectory',
       });
 
@@ -66,7 +66,7 @@ const GuidedPlayAttachments = () => {
             <FlatList
               data={attachments}
               keyExtractor={(item, index) => index.toString()}
-              contentContainerStyle={{marginTop:RFPercentage(2)}}
+              contentContainerStyle={{ marginTop: RFPercentage(2) }}
               renderItem={({ item, index }) => (
                 <TouchableOpacity
                   activeOpacity={0.8}
@@ -81,12 +81,20 @@ const GuidedPlayAttachments = () => {
                           style={styles.fileImage}
                         />
                       ) : (
-                        <Image source={ICONS.attach} style={[styles.fileImage, {top:RFPercentage(0.2)}]} resizeMode='contain' />
+                        <Image
+                          source={ICONS.attach}
+                          style={[styles.fileImage, { top: RFPercentage(0.2) }]}
+                          resizeMode="contain"
+                        />
                       )}
                     </View>
 
                     <View style={styles.fileTextWrapper}>
-                      <Text style={styles.fileName}>{item?.name.length > 25 ? item.name.slice(0,25) + `...` : item.name}</Text>
+                      <Text style={styles.fileName}>
+                        {item?.name.length > 25
+                          ? item.name.slice(0, 25) + `...`
+                          : item.name}
+                      </Text>
                       <Text style={styles.fileHint}>Tap to View</Text>
                     </View>
 
@@ -107,9 +115,7 @@ const GuidedPlayAttachments = () => {
             />
 
             <View style={styles.addMoreWrapper}>
-              <TouchableOpacity activeOpacity={0.8}
-               onPress={pickDocument}
-               >
+              <TouchableOpacity activeOpacity={0.8} onPress={pickDocument}>
                 <Text style={styles.addMoreText}>Add Attachment(s)</Text>
               </TouchableOpacity>
             </View>
@@ -152,7 +158,7 @@ const styles = StyleSheet.create({
   },
   eventSubtitle: {
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
     fontFamily: FONTS.regular,
     marginTop: RFPercentage(2),
   },
@@ -165,6 +171,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: RFPercentage(0.4),
     marginTop: RFPercentage(1.5),
     justifyContent: 'center',
+    borderBottomColor: 'rgba(230, 247, 250, 0.6)',
   },
   fileRow: {
     width: '90%',
@@ -177,8 +184,6 @@ const styles = StyleSheet.create({
     height: RFPercentage(7),
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLORS.fieldColor,
-    borderRadius: RFPercentage(1.2),
   },
   fileImage: {
     width: RFPercentage(5.5),
@@ -188,12 +193,12 @@ const styles = StyleSheet.create({
   fileTextWrapper: { marginLeft: RFPercentage(1.6) },
   fileName: {
     color: COLORS.primary,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(2),
     fontFamily: FONTS.semiBold,
   },
   fileHint: {
     color: COLORS.grey3,
-    fontSize: RFPercentage(1.6),
+    fontSize: RFPercentage(1.7),
     fontFamily: FONTS.regular,
     marginTop: RFPercentage(0.8),
   },
@@ -241,7 +246,7 @@ const styles = StyleSheet.create({
   imageHint: {
     color: COLORS.grey4,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.5),
+    fontSize: RFPercentage(1.6),
     textAlign: 'center',
     marginTop: RFPercentage(2),
   },

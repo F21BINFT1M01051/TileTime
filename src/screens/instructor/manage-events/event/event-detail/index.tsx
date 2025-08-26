@@ -136,30 +136,29 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
         >
           {/* Header */}
           <ImageBackground
-            source={IMAGES.detail22}
+            source={IMAGES.event10}
             resizeMode="cover"
             style={styles.groupImage}
           >
             {/* Badge */}
-            {type === 'Guided Play' && (
-              <View
+
+            <View
+              style={{
+                width: '90%',
+                alignSelf: 'center',
+                position: 'absolute',
+                top: RFPercentage(-2),
+              }}
+            >
+              <Image
+                source={ICONS.badge2}
                 style={{
-                  width: '90%',
-                  alignSelf: 'center',
-                  position: 'absolute',
-                  top: RFPercentage(-2),
+                  width: RFPercentage(17),
+                  height: RFPercentage(10),
                 }}
-              >
-                <Image
-                  source={ICONS.badge2}
-                  style={{
-                    width: RFPercentage(16),
-                    height: RFPercentage(10),
-                  }}
-                  resizeMode="contain"
-                />
-              </View>
-            )}
+                resizeMode="contain"
+              />
+            </View>
 
             {/* Event Info */}
             <LinearGradient
@@ -216,18 +215,42 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
           {/* Buttons */}
           <View style={styles.wrapper90}>
             <View style={styles.bottomContent}>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={openModal}
-                style={styles.backButton}
-              >
-                <Text style={styles.backButtonText}>Edit</Text>
-              </TouchableOpacity>
-              <CustomButton
-                title={'Share Event'}
-                style={styles.saveButton}
-                onPress={openModal2}
-              />
+              {type === 'Guided Play' ? (
+                <>
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={openModal}
+                    style={[styles.backButton, { width: RFPercentage(12) }]}
+                  >
+                    <Text style={styles.backButtonText}>Edit</Text>
+                  </TouchableOpacity>
+                  <CustomButton
+                    title={'Share'}
+                    style={{ width: RFPercentage(13) }}
+                    onPress={openModal2}
+                  />
+                  <CustomButton
+                    title={'Broadcast'}
+                    style={{ width: RFPercentage(14) }}
+                    onPress={openModal2}
+                  />
+                </>
+              ) : (
+                <>
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={openModal}
+                    style={styles.backButton}
+                  >
+                    <Text style={styles.backButtonText}>Edit</Text>
+                  </TouchableOpacity>
+                  <CustomButton
+                    title={'Share Event'}
+                    style={styles.saveButton}
+                    onPress={openModal2}
+                  />
+                </>
+              )}
             </View>
 
             {/* Attendees */}
@@ -477,8 +500,8 @@ const styles = StyleSheet.create({
   },
   chatEmpty: {
     color: COLORS.primary,
-    fontFamily: FONTS.semiBold,
-    fontSize: RFPercentage(1.8),
+    fontFamily: FONTS.bold,
+    fontSize: RFPercentage(2),
     textAlign: 'center',
     marginTop: RFPercentage(2),
   },
@@ -493,7 +516,7 @@ const styles = StyleSheet.create({
   },
   groupImage: {
     width: '100%',
-    height: RFPercentage(27),
+    height: RFPercentage(28),
   },
   wrap2: {
     alignItems: 'center',
@@ -532,27 +555,28 @@ const styles = StyleSheet.create({
   detail: {
     color: COLORS.lightGrey,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.6),
+    fontSize: RFPercentage(1.7),
     textAlign: 'center',
-    marginTop: RFPercentage(2),
+    marginTop: RFPercentage(1.5),
   },
   imageWrapper: {
-    width: RFPercentage(15),
-    height: RFPercentage(14),
-    borderRadius: RFPercentage(5),
-    backgroundColor: COLORS.pink4,
+    width: RFPercentage(13),
+    height: RFPercentage(15),
+    borderRadius: RFPercentage(2),
+    backgroundColor: '#9698C8',
     alignItems: 'center',
     justifyContent: 'center',
   },
   eventImage: {
-    width: RFPercentage(15),
-    height: RFPercentage(14),
+    width: RFPercentage(13),
+    height: RFPercentage(15),
+    borderRadius: RFPercentage(2),
     bottom: RFPercentage(0.5),
-    borderRadius: RFPercentage(5),
+    right: RFPercentage(0.5),
   },
   contentContainer: {
     flex: 1,
-    marginLeft: RFPercentage(2),
+    marginLeft: RFPercentage(2.5),
   },
   title: {
     fontSize: RFPercentage(2),
@@ -622,7 +646,7 @@ const styles = StyleSheet.create({
   },
   backButtonText: {
     color: COLORS.primary,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(2),
     fontFamily: FONTS.bold,
   },
   saveButton: {
@@ -638,6 +662,7 @@ const styles = StyleSheet.create({
     borderRadius: RFPercentage(2),
     marginTop: RFPercentage(2),
     justifyContent: 'center',
+    borderBottomColor: 'rgba(230, 247, 250, 0.6)',
   },
   insightContent: {
     width: '90%',
@@ -667,6 +692,7 @@ const styles = StyleSheet.create({
     borderBottomColor: COLORS.line,
     height: RFPercentage(7),
     justifyContent: 'flex-end',
+    paddingBottom: RFPercentage(0.3),
   },
   tabRow: {
     width: '90%',
@@ -722,7 +748,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: RFPercentage(1),
     color: COLORS.inputColor,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
     fontFamily: FONTS.regular,
   },
   sendButtonIcon: {
@@ -740,9 +766,9 @@ const styles = StyleSheet.create({
   },
   toggleLabel: {
     textAlign: 'center',
-    fontFamily: FONTS.regular,
+    fontFamily: FONTS.medium,
     color: COLORS.inputColor,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
   },
   messageRow: {
     alignSelf: 'flex-start', // all messages on left side
@@ -750,13 +776,13 @@ const styles = StyleSheet.create({
     paddingVertical: RFPercentage(1),
     marginTop: RFPercentage(1),
     borderBottomWidth: RFPercentage(0.1),
-    borderBottomColor: COLORS.lightWhite,
+    borderBottomColor: COLORS.grey7,
   },
   messageBubble: {
     maxWidth: '100%',
   },
   messageText: {
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.9),
     color: COLORS.lightGrey,
     fontFamily: FONTS.regular,
     marginTop: RFPercentage(1),

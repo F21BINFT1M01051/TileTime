@@ -71,13 +71,13 @@ const styles = StyleSheet.create({
   title: {
     color: COLORS.primary,
     fontFamily: FONTS.headline,
-    fontSize: RFPercentage(2.2),
+    fontSize: RFPercentage(2.4),
     marginTop: RFPercentage(3.5),
   },
   subtitle: {
     color: COLORS.lightGrey,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
     marginTop: RFPercentage(2),
   },
   listContainer: {

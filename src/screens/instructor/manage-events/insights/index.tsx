@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     zIndex: 9999,
     width: RFPercentage(10),
     height: RFPercentage(3.5),
-    backgroundColor: COLORS.date,
+    backgroundColor: '#E4F7F6',
     borderRadius: RFPercentage(100),
     alignItems: 'center',
     justifyContent: 'center',
@@ -179,6 +179,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.lightWhite,
     borderBottomWidth: RFPercentage(0.4),
     marginTop: RFPercentage(2),
+    borderBottomColor: 'rgba(230, 247, 250, 0.6)',
   },
   innerCard: {
     width: '90%',

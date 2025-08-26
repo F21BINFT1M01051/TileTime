@@ -165,9 +165,9 @@ const styles = StyleSheet.create({
   },
   liveText: {
     textAlign: 'center',
-    fontFamily: FONTS.headline,
+    fontFamily: FONTS.extraBold,
     color: COLORS.primary,
-    fontSize: RFPercentage(2.3),
+    fontSize: RFPercentage(2.5),
   },
   stars: {
     width: RFPercentage(3.5),
@@ -185,8 +185,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: FONTS.regular,
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.9),
     marginTop: RFPercentage(2),
+    lineHeight:RFPercentage(2.1)
   },
   gp2: {
     width: RFPercentage(8),

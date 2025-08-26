@@ -70,11 +70,7 @@ const PlayerProfile = ({ navigation }: any) => {
             onPress={() => navigation.goBack()}
             style={styles.zIndexHigh}
           >
-            <AntDesign
-              name="arrowleft"
-              color={COLORS.grey}
-              size={RFPercentage(3)}
-            />
+           <Image source={ICONS.back} resizeMode='contain' style={{width:RFPercentage(3), height:RFPercentage(3)}} />
           </TouchableOpacity>
         </View>
       </View>
@@ -244,7 +240,7 @@ const styles = StyleSheet.create({
     bottom: RFPercentage(0.2),
   },
   userName: {
-    fontFamily: FONTS.headline,
+    fontFamily: FONTS.extraBold,
     color: COLORS.primary,
     fontSize: RFPercentage(3),
     marginTop: RFPercentage(3),

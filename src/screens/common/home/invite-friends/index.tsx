@@ -290,14 +290,14 @@ export default InviteFriends;
 const styles = StyleSheet.create({
   title: {
     color: COLORS.primary,
-    fontSize: RFPercentage(2.3),
+    fontSize: RFPercentage(2.5),
     fontFamily: FONTS.headline,
     marginTop: RFPercentage(3),
   },
   subtitle: {
     color: COLORS.lightGrey,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.6),
+    fontSize: RFPercentage(1.8),
     marginTop: RFPercentage(2),
   },
   tabContainer: {
@@ -321,7 +321,7 @@ const styles = StyleSheet.create({
     borderRadius: RFPercentage(1.5),
   },
   tabText: {
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(2),
   },
   sectionTitleDisabled: {
     color: COLORS.grey5,

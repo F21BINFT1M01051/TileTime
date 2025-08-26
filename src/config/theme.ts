@@ -91,6 +91,10 @@ export const IMAGES = {
   selection: require('../assets/images/selection.png'),
   home55: require('../assets/images/home55.png'),
   home66: require('../assets/images/home66.png'),
+  viewer: require('../assets/images/viewer.png'),
+  doc: require('../assets/images/doc.png'),
+  event9: require('../assets/images/event99.png'),
+  event10: require('../assets/images/event10.png'),
 };
 
 export const ICONS = {

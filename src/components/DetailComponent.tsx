@@ -39,7 +39,7 @@ interface Props {
   media?: boolean;
   title: string;
   onPress: () => void;
-  subTitle ? : string
+  subTitle?: string;
 }
 
 const DetailComponent = (props: Props) => {
@@ -58,7 +58,11 @@ const DetailComponent = (props: Props) => {
         <View>
           <Text style={styles.title}>{props.title}</Text>
           <Text style={styles.subtitle}>
-            {props.media ? `${media.length} files` : props.subTitle ? props.subTitle  : `${data.length} Members`}
+            {props.media
+              ? `${media.length} files`
+              : props.subTitle
+              ? props.subTitle
+              : `${data.length} Members`}
           </Text>
 
           <View style={styles.profileRow}>
@@ -108,7 +112,11 @@ const DetailComponent = (props: Props) => {
         </View>
         <View>
           <TouchableOpacity>
-           <Image source={ICONS.right} resizeMode='contain' style={{width:RFPercentage(1.6), height:RFPercentage(1.6)}} />
+            <Image
+              source={ICONS.right}
+              resizeMode="contain"
+              style={{ width: RFPercentage(1.6), height: RFPercentage(1.6) }}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -126,11 +134,11 @@ const styles = StyleSheet.create({
     borderWidth: RFPercentage(0.1),
     borderBottomWidth: RFPercentage(0.6),
     borderColor: COLORS.lightWhite,
-    borderBottomColor:"#E6F7FA",
+    borderBottomColor: 'rgba(230, 247, 250, 0.6)',
     borderRadius: RFPercentage(1.8),
     marginTop: RFPercentage(3),
-    justifyContent:'center',
-    height:RFPercentage(15)
+    justifyContent: 'center',
+    height: RFPercentage(15),
   },
   innerWrapper: {
     width: '90%',
@@ -138,7 +146,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    top:RFPercentage(0.5)
+    top: RFPercentage(0.5),
   },
   title: {
     color: COLORS.primary,
@@ -171,7 +179,7 @@ const styles = StyleSheet.create({
     borderRadius: RFPercentage(1.4),
   },
   moreMediaContainer: {
-    backgroundColor: "#E6F7FA",
+    backgroundColor: '#E6F7FA',
     width: RFPercentage(5),
     height: RFPercentage(5),
     borderRadius: RFPercentage(1),
@@ -218,7 +226,7 @@ const styles = StyleSheet.create({
     right: RFPercentage(0.1),
   },
   moreAvatarContainer: {
-    backgroundColor: "#E6F7FA",
+    backgroundColor: '#E6F7FA',
     width: RFPercentage(4),
     height: RFPercentage(5),
     borderRadius: RFPercentage(2),

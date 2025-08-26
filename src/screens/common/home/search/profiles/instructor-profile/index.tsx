@@ -15,6 +15,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import CustomButton from '../../../../../../components/CustomButton';
 import CommonGroup from '../../../../../../components/CommonGroups';
 import AddToGroupModal from '../../../../../../components/AddToGroup';
+import LinearGradient from 'react-native-linear-gradient';
 
 const players = [
   {
@@ -80,19 +81,27 @@ const InstructorProfile = ({ navigation }: any) => {
         <View style={{ width: '100%' }}>
           <ImageBackground
             source={IMAGES.single}
-            resizeMode="repeat"
+            resizeMode="cover"
             style={styles.backgroundImage}
-          />
+          >
+            <LinearGradient
+              colors={['#F5FDFF', 'rgba(255, 255, 255, 0.6)']}
+              style={{
+                width: '100%',
+                height: RFPercentage(28),
+              }}
+            >
+              <View style={styles.nonMemberAvatarWrapper}>
+                <Image
+                  source={IMAGES.chatProfile}
+                  resizeMode="cover"
+                  style={styles.nonMemberAvatarImage}
+                />
+              </View>
+            </LinearGradient>
+          </ImageBackground>
         </View>
         <View style={styles.mainContent}>
-          <View style={styles.nonMemberAvatarWrapper}>
-            <Image
-              source={IMAGES.chatProfile}
-              resizeMode="cover"
-              style={styles.nonMemberAvatarImage}
-            />
-          </View>
-
           <Text style={styles.userName}>Emily Carter</Text>
           <Text style={styles.groupDesc}>
             Passionate mahjong player who loves a good challenge and friendly
@@ -197,14 +206,14 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     width: '100%',
-    height: Platform.OS === 'android' ? RFPercentage(22) : RFPercentage(25.7),
-    top: RFPercentage(-13),
+    height: RFPercentage(28),
+    top: RFPercentage(-6),
   },
 
   mainContent: {
     width: '90%',
     alignSelf: 'center',
-    bottom: RFPercentage(19),
+    bottom: RFPercentage(10),
   },
   nonMemberAvatarWrapper: {
     width: RFPercentage(10),
@@ -214,6 +223,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.pink3,
     borderTopRightRadius: RFPercentage(5),
     borderTopLeftRadius: RFPercentage(5),
+    marginTop:RFPercentage(13),
+    marginLeft:RFPercentage(2)
   },
   nonMemberAvatarImage: {
     width: RFPercentage(10),

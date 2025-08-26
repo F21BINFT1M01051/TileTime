@@ -156,6 +156,7 @@ const Dashboard = ({ navigation }: any) => {
                     title="Payouts"
                     icon={ICONS.arrow22}
                     onPress={() => navigation.navigate('PayoutsInstructor')}
+                    style={{borderBottomColor:COLORS.lightWhite}}
                   />
                 </View>
               </View>

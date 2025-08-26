@@ -44,7 +44,7 @@ const InvitePlayer = ({ navigation }: any) => {
       <ScrollView>
         <View style={styles.contentContainer}>
           <Text style={styles.headingText}>
-            How would you like to get players in?
+          { `How would you like to get\nplayers in?`}
           </Text>
           <View style={styles.listContainer}>
             <FlatList
@@ -107,8 +107,8 @@ const styles = StyleSheet.create({
   },
   headingText: {
     color: COLORS.primary,
-    fontFamily: FONTS.headline,
-    fontSize: RFPercentage(2.4),
+    fontFamily: FONTS.bold,
+    fontSize: RFPercentage(2.6),
   },
   listContainer: {
     marginTop: RFPercentage(3),
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   },
   backButtonText: {
     color: COLORS.primary,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.9),
     fontFamily: FONTS.bold,
   },
   saveButton: {

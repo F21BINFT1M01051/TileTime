@@ -148,8 +148,8 @@ const styles = StyleSheet.create({
   },
   headingText: {
     color: COLORS.primary,
-    fontFamily: FONTS.headline,
-    fontSize: RFPercentage(2.2),
+    fontFamily: FONTS.bold,
+    fontSize: RFPercentage(2.5),
   },
   listContainer: {
     marginTop: RFPercentage(1.5),
@@ -196,12 +196,12 @@ const styles = StyleSheet.create({
   },
   groupTitle: {
     color: COLORS.primary,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(2),
     fontFamily: FONTS.medium,
   },
   groupMembers: {
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.5),
+    fontSize: RFPercentage(1.7),
     fontFamily: FONTS.regular,
     marginTop: RFPercentage(0.8),
   },

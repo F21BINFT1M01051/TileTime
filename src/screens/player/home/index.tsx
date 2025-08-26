@@ -102,7 +102,7 @@ const PlayerHome = ({ navigation }: any) => {
 
   return (
     <LinearGradient
-      colors={[COLORS.offWhite2, COLORS.white]}
+      colors={['#F5FDFF', '#FFFFFF']}
       style={styles.gradientContainer}
     >
       <TopNavigation
@@ -113,15 +113,19 @@ const PlayerHome = ({ navigation }: any) => {
         onPress3={() => navigation.navigate('Notifications')}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ImageBackground
-          source={IMAGES.background}
-          resizeMode="cover"
-          style={styles.imageBackground}
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            width: '90%',
+            alignSelf: 'center',
+            justifyContent: 'space-between',
+          }}
         >
           {actions.length > 0 ? (
             <View style={styles.titleContainer}>
               <Text style={styles.mainTitle}>
-                {`Let’s get your Mahjong\njourney started`}
+                {`Let’s get your Mahjong journey started`}
               </Text>
             </View>
           ) : (
@@ -131,7 +135,16 @@ const PlayerHome = ({ navigation }: any) => {
               </Text>
             </View>
           )}
-        </ImageBackground>
+          <Image
+            source={IMAGES.home55}
+            resizeMode="contain"
+            style={{
+              width: RFPercentage(15),
+              height: RFPercentage(15),
+              bottom: RFPercentage(1),
+            }}
+          />
+        </View>
 
         <View style={styles.actionsWrapper}>
           {actions.length > 0 && (
@@ -319,19 +332,16 @@ const styles = StyleSheet.create({
     width: '100%',
     height: RFPercentage(22),
   },
-  titleContainer: {},
+  titleContainer: { width: '75%' },
   mainTitle: {
     color: COLORS.primary,
-    fontFamily: FONTS.headline,
+    fontFamily: FONTS.bold,
     fontSize: RFPercentage(3),
-    textAlign: 'center',
-    width: '90%',
-    alignSelf: 'center',
-    marginTop: RFPercentage(5),
+    lineHeight: RFPercentage(3),
   },
   actionsWrapper: {
     width: '100%',
-    bottom: Platform.OS === 'android' ? RFPercentage(8) : RFPercentage(6),
+    // bottom: Platform.OS === 'android' ? RFPercentage(8) : RFPercentage(6),
   },
   actionsCardWrapper: {
     width: '90%',
@@ -365,14 +375,14 @@ const styles = StyleSheet.create({
     right: RFPercentage(0.7),
   },
   descriptionText: {
-    fontFamily: FONTS.stylish,
+    fontFamily: FONTS.regular,
     color: COLORS.primary,
-    fontSize: RFPercentage(2.3),
-    lineHeight: RFPercentage(2.8),
+    fontSize: RFPercentage(2),
+    lineHeight: RFPercentage(2),
     marginTop: RFPercentage(0.5),
   },
   buttonMargin: {
-    marginTop: RFPercentage(3),
+    marginTop: RFPercentage(4),
   },
   createEventButton: {
     width: RFPercentage(23),
@@ -422,10 +432,10 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(4),
   },
   groupText: {
-    fontFamily: FONTS.stylish,
+    fontFamily: FONTS.regular,
     color: COLORS.primary,
-    fontSize: RFPercentage(2.2),
-    lineHeight: RFPercentage(2.9),
+    fontSize: RFPercentage(2),
+    lineHeight: RFPercentage(2),
     marginTop: RFPercentage(0.6),
   },
 });

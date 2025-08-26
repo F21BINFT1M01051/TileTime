@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: FONTS.headline,
     color: COLORS.primary,
-    fontSize: RFPercentage(2.3),
+    fontSize: RFPercentage(2.5),
   },
   stars: {
     width: RFPercentage(3.5),
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: FONTS.regular,
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
     marginTop: RFPercentage(1),
   },
   gp2: {
@@ -311,7 +311,7 @@ const styles = StyleSheet.create({
     height: RFPercentage(2.2),
   },
   shareText: {
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
     fontFamily: FONTS.bold,
     color: COLORS.primary,
     marginLeft: RFPercentage(1.8),

@@ -59,18 +59,21 @@ const premiumDetails = [
     title: 'Host your own events',
     subTile: 'Create, schedule, and manage games your way.',
     icon: ICONS.star,
+    tintColor:COLORS.pink
   },
   {
     id: 2,
     title: 'Build your community',
     subTile: 'Grow your community and your player network.',
     icon: ICONS.pinkArrow,
+    tintColor : "#9698C8"
   },
   {
     id: 3,
     title: 'Get featured and discovered',
     subTile: 'Stand out to players looking for guidance and fun sessions.',
     icon: ICONS.blueTick,
+    tintColor: "#4E6CA2"
   },
 ];
 
@@ -291,6 +294,7 @@ const MyProfilePlayer = ({ navigation }: any) => {
                             source={item.icon}
                             resizeMode="contain"
                             style={styles.featureIcon}
+                            tintColor={item.tintColor}
                           />
                           <View style={styles.featureTextWrapper}>
                             <Text style={styles.featureTitle}>
@@ -373,7 +377,7 @@ const styles = StyleSheet.create({
   bioText: {
     color: COLORS.primary,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.9),
     marginTop: RFPercentage(3),
   },
   connectList: {
@@ -391,13 +395,13 @@ const styles = StyleSheet.create({
   },
   connectedText: {
     color: COLORS.primary,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
     fontFamily: FONTS.regular,
     marginLeft: RFPercentage(1.6),
   },
   notConnectedText: {
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
     fontFamily: FONTS.regular,
     marginLeft: RFPercentage(1.6),
   },
@@ -413,7 +417,7 @@ const styles = StyleSheet.create({
   },
   connectButtonText: {
     color: COLORS.white,
-    fontSize: RFPercentage(1.6),
+    fontSize: RFPercentage(1.7),
     fontFamily: FONTS.medium,
   },
   toggleRow: {
@@ -516,17 +520,17 @@ const styles = StyleSheet.create({
   },
   modalBanner: {
     width: RFPercentage(40),
-    height: RFPercentage(14),
+    height: RFPercentage(17),
     alignSelf: 'center',
   },
   modalInnerContent: {
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(2),
+    bottom:RFPercentage(1)
   },
   modalText: {
-    fontSize: RFPercentage(2.3),
-    fontFamily: FONTS.headline,
+    fontSize: RFPercentage(2.5),
+    fontFamily: FONTS.bold,
     color: COLORS.primary,
     textAlign: 'center',
   },
@@ -540,12 +544,12 @@ const styles = StyleSheet.create({
   subTitle: {
     fontFamily: FONTS.regular,
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(2),
     marginTop: RFPercentage(1.3),
     textAlign: 'center',
   },
   premiumFeature: {
-    marginTop: RFPercentage(3),
+    marginTop: RFPercentage(5),
   },
   premiumFeatureRow: {
     flexDirection: 'row',
@@ -560,12 +564,12 @@ const styles = StyleSheet.create({
   },
   featureTitle: {
     color: COLORS.primary,
-    fontSize: RFPercentage(2),
+    fontSize: RFPercentage(2.3),
     fontFamily: FONTS.bold,
   },
   featureSub: {
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
     fontFamily: FONTS.regular,
     marginTop: RFPercentage(0.5),
   },
@@ -598,7 +602,7 @@ const styles = StyleSheet.create({
     marginLeft: RFPercentage(1.5),
     fontFamily: FONTS.semiBold,
     color: COLORS.primary,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
   },
   checkIcon: {
     width: RFPercentage(5),
@@ -614,7 +618,7 @@ const styles = StyleSheet.create({
   },
   stepButtonText: {
     color: COLORS.white,
-    fontSize: RFPercentage(1.6),
+    fontSize: RFPercentage(1.7),
     fontFamily: FONTS.medium,
   },
 });

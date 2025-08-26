@@ -17,16 +17,16 @@ import CustomButton from '../../../../components/CustomButton';
 import All from './all';
 
 const Groups = ({ navigation }: any) => {
-  const chats = [];
+  const chats = ['9'];
   const hasChats = chats.length > 0;
 
   return (
     <LinearGradient
-      colors={['#F5FDFF', '#FFFFFF']}
+      colors={[chats.length > 0 ?  '#FFFFFF' : '#F5FDFF', '#FFFFFF']}
       style={styles.gradientContainer}
     >
       <TopNavigation
-        title="GROUPS & CHATS"
+        title="Groups & Chats"
         right={chats.length > 0 ? true : false}
         onPress={() => navigation.navigate('CreateGroup')}
         text="+ New group"
@@ -42,7 +42,7 @@ const Groups = ({ navigation }: any) => {
             <>
               <View style={styles.titleContainer}>
                 <Text style={styles.mainTitle}>
-                  {`START A GROUP AND\nINVITE OTHERS`}
+                  {`Start a Group and\nInvite Others`}
                 </Text>
                 <Image
                   source={IMAGES.home66}
@@ -86,10 +86,7 @@ const Groups = ({ navigation }: any) => {
                   <CustomButton
                     title={'Start A Direct Message'}
                     onPress={() =>
-                      navigation.navigate('ChatScreen', {
-                        isGroup: false,
-                        isNew: false,
-                      })
+                      navigation.navigate('DirectChatSelection')
                     }
                   />
                 </View>
@@ -101,7 +98,7 @@ const Groups = ({ navigation }: any) => {
         <View
           style={[
             styles.contentContainer,
-            { width: '100%', marginTop: RFPercentage(-19) },
+            { width: '100%',marginTop:RFPercentage(2)  },
           ]}
         >
           {hasChats ? <All /> : null}

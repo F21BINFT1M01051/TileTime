@@ -9,7 +9,6 @@ import RoleSelection from '../../screens/common/auth/role_selection';
 import CreateGroup from '../../screens/common/home/groups/create-groups';
 import GroupDetails from '../../screens/common/home/groups/create-groups/group-details';
 import LoginSignUp from '../../screens/common/auth/login-signup';
-import UserDetails from '../../screens/common/home/groups/chat/user-details';
 import GroupSettings from '../../screens/common/home/groups/create-groups/group-settings';
 import GroupAdmins from '../../screens/common/home/groups/create-groups/group-admins';
 import GroupMembers from '../../screens/common/home/groups/create-groups/group-members';
@@ -42,6 +41,10 @@ import EventAttendees from '../../screens/instructor/manage-events/attendees';
 import EventInsights from '../../screens/instructor/manage-events/insights';
 import EditEventBasic from '../../screens/instructor/manage-events/edit-event';
 import InstructorEventDetail from '../../screens/instructor/manage-events/event/event-detail';
+import DirectChatSelection from '../../screens/common/home/groups/chat/direct-chat';
+import ChatMedia from '../../screens/common/home/groups/create-groups/media-documents';
+import ImageViewer from '../../screens/common/home/groups/create-groups/media-documents/image-viewer';
+import DocViewer from '../../screens/common/home/groups/create-groups/media-documents/doc-viewer';
 
 export type RootStackParamList = {
   OnBoarding: undefined;
@@ -51,7 +54,6 @@ export type RootStackParamList = {
   CreateGroup: undefined;
   GroupDetails: undefined;
   LoginSignUp: undefined;
-  UserDetails: undefined;
   GroupSettings: undefined;
   GroupAdmins: undefined;
   GroupMembers: undefined;
@@ -81,9 +83,13 @@ export type RootStackParamList = {
   SelectLessonInstructors: undefined;
   Payouts: undefined;
   InstructorEventDetail: undefined;
-  EventAttendees:undefined;
-  EventInsights:undefined;
-  EditEventBasic:undefined
+  EventAttendees: undefined;
+  EventInsights: undefined;
+  EditEventBasic: undefined;
+  DirectChatSelection: undefined;
+  ChatMedia: undefined;
+  ImageViewer: undefined;
+  DocViewer: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -96,7 +102,7 @@ const Navigator: React.FC = () => {
           headerShown: false,
         }}
       >
-        {/* <Stack.Screen name="InstructorTabs" component={InstructorTabs} /> */}
+        <Stack.Screen name="InstructorTabs" component={InstructorTabs} />
 
         {/* ----------------Common Flow----------- */}
         <Stack.Screen name="OnBoarding" component={OnBoarding} />
@@ -106,7 +112,6 @@ const Navigator: React.FC = () => {
         <Stack.Screen name="RoleSelection" component={RoleSelection} />
         <Stack.Screen name="CreateGroup" component={CreateGroup} />
         <Stack.Screen name="GroupDetails" component={GroupDetails} />
-        <Stack.Screen name="UserDetails" component={UserDetails} />
         <Stack.Screen name="GroupSettings" component={GroupSettings} />
         <Stack.Screen name="GroupAdmins" component={GroupAdmins} />
         <Stack.Screen name="GroupMembers" component={GroupMembers} />
@@ -121,6 +126,10 @@ const Navigator: React.FC = () => {
         <Stack.Screen name="Dashboard" component={Dashboard} />
         <Stack.Screen name="EventDetails" component={EventDetails} />
         <Stack.Screen name="Payouts" component={Payouts} />
+        <Stack.Screen
+          name="DirectChatSelection"
+          component={DirectChatSelection}
+        />
 
         <Stack.Screen
           name="SelectPlayersInstructor"
@@ -139,10 +148,10 @@ const Navigator: React.FC = () => {
           name="SelectLessonInstructors"
           component={SelectLessonInstructors}
         />
-          <Stack.Screen
-          name="EditEventBasic"
-          component={EditEventBasic}
-        />
+        <Stack.Screen name="EditEventBasic" component={EditEventBasic} />
+        <Stack.Screen name="ChatMedia" component={ChatMedia} />
+        <Stack.Screen name="ImageViewer" component={ImageViewer} />
+        <Stack.Screen name="DocViewer" component={DocViewer} />
 
         {/* --------------------Player Flow-------------------- */}
         <Stack.Screen name="PlayerTabs" component={PlayerTabs} />
@@ -158,7 +167,7 @@ const Navigator: React.FC = () => {
         />
 
         {/* ------------------------Instructor Flow------------------- */}
-        <Stack.Screen name="InstructorTabs" component={InstructorTabs} />
+        {/* <Stack.Screen name="InstructorTabs" component={InstructorTabs} /> */}
         <Stack.Screen
           name="InstructorProfileSetup"
           component={InstructorProfileSetup}
@@ -173,14 +182,8 @@ const Navigator: React.FC = () => {
           name="InstructorEventDetail"
           component={InstructorEventDetail}
         />
-        <Stack.Screen
-          name="EventAttendees"
-          component={EventAttendees}
-        />
-         <Stack.Screen
-          name="EventInsights"
-          component={EventInsights}
-        />
+        <Stack.Screen name="EventAttendees" component={EventAttendees} />
+        <Stack.Screen name="EventInsights" component={EventInsights} />
       </Stack.Navigator>
     </NavigationContainer>
   );
