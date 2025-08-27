@@ -85,7 +85,7 @@ const InstructorProfile = ({ navigation }: any) => {
             style={styles.backgroundImage}
           >
             <LinearGradient
-              colors={['#F5FDFF', 'rgba(255, 255, 255, 0.6)']}
+              colors={[COLORS.white4, COLORS.authGradient2]}
               style={{
                 width: '100%',
                 height: RFPercentage(28),

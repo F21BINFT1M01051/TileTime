@@ -10,16 +10,19 @@ const payouts = [
     id: 1,
     name: 'Bank Transfer',
     icon: ICONS.bank,
+    navigateTo : "BankAccounts"
   },
   {
     id: 2,
     name: 'Paypal',
     icon: ICONS.paypal,
+    navigateTo : "PayPal"
   },
   {
     id: 3,
     name: 'Stripe',
     icon: ICONS.stripe,
+    navigateTo : "Stripe"
   },
 ];
 
@@ -46,6 +49,7 @@ const Payouts = ({navigation}: any) => {
                     title={item.name}
                     icon={item.icon}
                     style={styles.settingsButton}
+                    onPress={()=> navigation.navigate(item.navigateTo)}
                   />
                 </View>
               );

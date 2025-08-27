@@ -738,7 +738,7 @@ const styles = StyleSheet.create({
     width: RFPercentage(13),
     height: RFPercentage(15),
     borderRadius: RFPercentage(2),
-    backgroundColor: '#9698C8',
+    backgroundColor: COLORS.yellow,
     alignItems: 'center',
     justifyContent: 'center',
   },

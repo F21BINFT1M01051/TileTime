@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     paddingBottom: RFPercentage(1.5),
     borderBottomWidth: RFPercentage(0.1),
-    borderBottomColor: '#D8D8D8',
+    borderBottomColor: COLORS.grey7,
     height: RFPercentage(12),
     justifyContent: 'flex-end',
   },

@@ -185,7 +185,7 @@ const EventLive = ({ visible, onClose , style}: any) => {
                     name="Go to Dashboard"
                     onPress={() => {
                       onClose();
-                      navigation.navigate('Dashboard');
+                      // navigation.navigate('Dashboard');
                     }}
                   />
                 </View>

@@ -62,6 +62,9 @@ export const COLORS = {
   green4: '#00B8B7',
   grey8: '#505050',
   green1: '#77ADB8',
+  authGradient1: 'rgba(255, 255, 255, 0.4)',
+  authGradient2: 'rgba(255, 255, 255, 0.5)',
+  white4 : "#F5FDFF"
 };
 
 export const IMAGES = {
@@ -219,6 +222,13 @@ export const ICONS = {
   eventShare: require('../assets/icons/eventShare.png'),
   badge2: require('../assets/icons/badge2.png'),
   pen3: require('../assets/icons/pen3.png'),
+  paypal2: require('../assets/icons/paypal2.png'),
+  stripe2: require('../assets/icons/stripe2.png'),
+  us: require('../assets/icons/us.png'),
+  usa: require('../assets/icons/usa.png'),
+  td: require('../assets/icons/td.png'),
+  chase: require('../assets/icons/chase.png'),
+  america: require('../assets/icons/america.png'),
 };
 
 export const FONTS = {

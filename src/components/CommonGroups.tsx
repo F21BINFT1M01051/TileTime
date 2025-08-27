@@ -181,8 +181,12 @@ const styles = StyleSheet.create({
   },
   smallProfileImage: {
     width: RFPercentage(5),
-    height: RFPercentage(5),
-    borderRadius: RFPercentage(2),
+    height: RFPercentage(6),
+    borderRadius: RFPercentage(1),
+    borderRightWidth:RFPercentage(0.3),
+    borderColor:COLORS.yellow,
+    borderBottomWidth:RFPercentage(0.2),
+    
   },
   largeGroupIconContainer: {
     width: RFPercentage(5),
@@ -197,7 +201,7 @@ const styles = StyleSheet.create({
     width: RFPercentage(5),
     height: RFPercentage(5),
     borderTopRightRadius: RFPercentage(100),
-    right: RFPercentage(0.5),
+    right: RFPercentage(0.3),
     borderTopLeftRadius: RFPercentage(100),
     borderBottomRightRadius: RFPercentage(100),
     borderBottomLeftRadius: RFPercentage(1),

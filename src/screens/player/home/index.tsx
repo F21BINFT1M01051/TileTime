@@ -102,14 +102,14 @@ const PlayerHome = ({ navigation }: any) => {
 
   return (
     <LinearGradient
-      colors={['#F5FDFF', '#FFFFFF']}
+      colors={[COLORS.white4, COLORS.white]}
       style={styles.gradientContainer}
     >
       <TopNavigation
         title="Home"
         right={true}
         home={true}
-        onPress2={() => navigation.navigate('SearchScreen')}
+        // onPress2={() => navigation.navigate('SearchScreen')}
         onPress3={() => navigation.navigate('Notifications')}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -296,14 +296,24 @@ const PlayerHome = ({ navigation }: any) => {
           setIsModalVisible(false);
           if (selectedType === 'Open Play') {
             navigation.navigate('InvitePlayer');
-          } else if (selectedType === 'Mahjong Lessons') {
-            navigation.navigate('CreateLessonPlayer');
-          } else {
+          }
+          // else if (
+          //   selectedType === 'Mahjong Lessons' &&
+          //   role === 'Instructor'
+          // ) {
+          //   navigation.navigate('SelectPlayersInstructor');
+          // }
+          // else if (selectedType === 'Mahjong Lessons' && role === 'Player') {
+          //   navigation.navigate('CreateLessonPlayer');
+          // }
+          else if (selectedType === 'Guided Play') {
             navigation.navigate('GuidedPlay', {
               players: false,
               groups: false,
               link: true,
             });
+          } else {
+            setIsModalVisible(false);
           }
         }}
       />

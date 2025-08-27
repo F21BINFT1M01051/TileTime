@@ -12,6 +12,8 @@ interface Props {
   player?: boolean;
   unread: boolean;
   style?: object;
+  eventInvite?: boolean;
+  onPress3?: () => void;
 }
 
 const NotificationCard = (props: Props) => {
@@ -21,84 +23,166 @@ const NotificationCard = (props: Props) => {
       style={[
         {
           width: '100%',
-          alignItems: 'center',
           borderBottomWidth: RFPercentage(0.1),
           borderBottomColor: COLORS.lightWhite,
-          height: RFPercentage(8),
-          marginTop: RFPercentage(2),
+          marginTop: RFPercentage(1),
           justifyContent: 'flex-end',
-          paddingBottom: RFPercentage(1.5),
+          paddingVertical: RFPercentage(1.5),
         },
         props.style,
       ]}
     >
-      <View
-        style={{
-          width: '90%',
-          alignSelf: 'center',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-      >
-        {props.player ? (
-          <>
-            <View style={styles.avatarOuterLayer}>
-              <View style={styles.avatarMiddleLayer}>
-                <View style={styles.avatarInnerLayer}>
-                  <Image
-                    source={IMAGES.customProfile}
-                    resizeMode="cover"
-                    style={styles.avatarImage}
-                  />
+      <View style={{ width: '90%', alignSelf: 'center' }}>
+        <View
+          style={{
+            width: '100%',
+            alignSelf: 'center',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
+          {props.player ? (
+            <>
+              <View style={styles.avatarOuterLayer}>
+                <View style={styles.avatarMiddleLayer}>
+                  <View style={styles.avatarInnerLayer}>
+                    <Image
+                      source={IMAGES.customProfile}
+                      resizeMode="cover"
+                      style={styles.avatarImage}
+                    />
+                  </View>
                 </View>
               </View>
-            </View>
-          </>
-        ) : props.admin ? (
-          <>
-            <View style={styles.nonMemberAvatarWrapper}>
-              <Image
-                source={IMAGES.chatProfile}
-                resizeMode="contain"
-                style={styles.nonMemberAvatarImage}
-              />
-            </View>
-          </>
-        ) : (
-          <>
-            <View style={styles.largeGroupIconContainer}>
-              <Image
-                source={IMAGES.customProfile}
-                resizeMode="cover"
-                style={styles.largeGroupIcon}
-              />
-            </View>
-          </>
-        )}
-        <Text
-          style={{
-            color: COLORS.primary,
-            fontSize: RFPercentage(1.9),
-            fontFamily: props.unread ? FONTS.semiBold : FONTS.regular,
-            marginHorizontal: RFPercentage(1.5),
-            flex: 1,
-            flexShrink: 1,
-          }}
-        >
-          {props.notification}
-        </Text>
-        <Text
-          style={{
-            color: COLORS.lightGrey,
-            fontSize: RFPercentage(1.6),
-            fontFamily: FONTS.regular,
-            position: 'absolute',
-            right: RFPercentage(-1),
-            textAlign:"right"
-          }}
-        >
-          {props.time}
-        </Text>
+            </>
+          ) : props.admin ? (
+            <>
+              <View style={styles.nonMemberAvatarWrapper}>
+                <Image
+                  source={IMAGES.chatProfile}
+                  resizeMode="contain"
+                  style={styles.nonMemberAvatarImage}
+                />
+              </View>
+            </>
+          ) : (
+            <>
+              <View style={styles.largeGroupIconContainer}>
+                <Image
+                  source={IMAGES.customProfile}
+                  resizeMode="cover"
+                  style={styles.largeGroupIcon}
+                />
+              </View>
+            </>
+          )}
+          <View style={{ width: '85%', marginLeft: RFPercentage(1.4) }}>
+            <Text
+              style={{
+                color: COLORS.primary,
+                fontSize: RFPercentage(1.9),
+                fontFamily: props.unread ? FONTS.semiBold : FONTS.regular,
+                lineHeight: RFPercentage(2.1),
+              }}
+            >
+              {props.notification}
+            </Text>
+            {props.eventInvite && (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginTop: RFPercentage(1),
+                  gap: RFPercentage(0.7),
+                }}
+              >
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  style={{
+                    width: RFPercentage(6),
+                    height: RFPercentage(2.7),
+                    borderRadius: RFPercentage(100),
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: COLORS.primary,
+                    borderWidth: RFPercentage(0.1),
+                    borderColor: COLORS.primary,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontFamily: FONTS.semiBold,
+                      color: COLORS.white,
+                      fontSize: RFPercentage(1.3),
+                    }}
+                  >
+                    YES
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  style={{
+                    width: RFPercentage(6),
+                    height: RFPercentage(2.7),
+                    borderRadius: RFPercentage(100),
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: COLORS.white,
+                    borderWidth: RFPercentage(0.1),
+                    borderColor: COLORS.red,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontFamily: FONTS.semiBold,
+                      color: COLORS.red,
+                      fontSize: RFPercentage(1.3),
+                    }}
+                  >
+                    NO
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={props.onPress3}
+                  activeOpacity={0.8}
+                  style={{
+                    width: RFPercentage(8.5),
+                    height: RFPercentage(2.7),
+                    borderRadius: RFPercentage(100),
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: COLORS.white,
+                    borderWidth: RFPercentage(0.1),
+                    borderColor: COLORS.primary,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontFamily: FONTS.semiBold,
+                      color: COLORS.primary,
+                      fontSize: RFPercentage(1.3),
+                    }}
+                  >
+                    View Event
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          </View>
+
+          <Text
+            style={{
+              color: COLORS.lightGrey,
+              fontSize: RFPercentage(1.6),
+              fontFamily: FONTS.regular,
+              position: 'absolute',
+              right: RFPercentage(-1),
+              textAlign: 'right',
+            }}
+          >
+            {props.time}
+          </Text>
+        </View>
       </View>
     </TouchableOpacity>
   );

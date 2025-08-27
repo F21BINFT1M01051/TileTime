@@ -801,7 +801,7 @@ const styles = StyleSheet.create({
     minWidth: RFPercentage(20),
   },
   rightBubble: {
-    backgroundColor: '#4E6CA2',
+    backgroundColor: COLORS.green2,
     alignSelf: 'flex-end',
     borderTopRightRadius: RFPercentage(2.5),
     borderBottomLeftRadius: RFPercentage(2.5),

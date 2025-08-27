@@ -135,7 +135,7 @@ const groupByDate = (events: any) => {
 
 const Events = ({ navigation }: any) => {
   const [isCalendarVisible, setCalendarVisible] = useState(false);
-  const events = ['9'];
+  const events = [];
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedType, setSelectedType] = useState('');
   const dispatch = useDispatch();
@@ -151,14 +151,14 @@ const Events = ({ navigation }: any) => {
 
   return (
     <LinearGradient
-      colors={[events.length > 0 ? '#FFFFFF' : '#F5FDFF', '#FFFFFF']}
+      colors={[events.length > 0 ? COLORS.white : COLORS.white4, COLORS.white]}
       style={{ flex: 1 }}
     >
       <TopNavigation title="My Events" right text="Saved Draft" />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ width: '90%', alignSelf: 'center' }}>
-          {events.length < 0 && (
+          {events.length == 0 && (
             <>
               <View style={styles.wrap}>
                 <View style={{ width: '70%' }}>
@@ -372,19 +372,24 @@ const Events = ({ navigation }: any) => {
           setIsModalVisible(false);
           if (selectedType === 'Open Play') {
             navigation.navigate('InvitePlayer');
-          } else if (
-            selectedType === 'Mahjong Lessons' &&
-            role === 'Instructor'
-          ) {
-            navigation.navigate('SelectPlayersInstructor');
-          } else if (selectedType === 'Mahjong Lessons' && role === 'Player') {
-            navigation.navigate('CreateLessonPlayer');
-          } else {
+          }
+          // else if (
+          //   selectedType === 'Mahjong Lessons' &&
+          //   role === 'Instructor'
+          // ) {
+          //   navigation.navigate('SelectPlayersInstructor');
+          // }
+          // else if (selectedType === 'Mahjong Lessons' && role === 'Player') {
+          //   navigation.navigate('CreateLessonPlayer');
+          // } 
+          else if (selectedType === 'Guided Play') {
             navigation.navigate('GuidedPlay', {
               players: false,
               groups: false,
               link: true,
             });
+          } else {
+            setIsModalVisible(false);
           }
         }}
       />

@@ -17,12 +17,12 @@ import CustomButton from '../../../../components/CustomButton';
 import All from './all';
 
 const Groups = ({ navigation }: any) => {
-  const chats = ['9'];
+  const chats = [];
   const hasChats = chats.length > 0;
 
   return (
     <LinearGradient
-      colors={[chats.length > 0 ?  '#FFFFFF' : '#F5FDFF', '#FFFFFF']}
+      colors={[chats.length > 0 ?  COLORS.white : COLORS.white4, COLORS.white]}
       style={styles.gradientContainer}
     >
       <TopNavigation

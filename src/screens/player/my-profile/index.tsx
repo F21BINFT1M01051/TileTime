@@ -66,14 +66,14 @@ const premiumDetails = [
     title: 'Build your community',
     subTile: 'Grow your community and your player network.',
     icon: ICONS.pinkArrow,
-    tintColor : "#9698C8"
+    tintColor :COLORS.yellow
   },
   {
     id: 3,
     title: 'Get featured and discovered',
     subTile: 'Stand out to players looking for guidance and fun sessions.',
     icon: ICONS.blueTick,
-    tintColor: "#4E6CA2"
+    tintColor: COLORS.green2
   },
 ];
 

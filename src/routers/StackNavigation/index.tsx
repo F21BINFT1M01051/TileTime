@@ -45,6 +45,9 @@ import DirectChatSelection from '../../screens/common/home/groups/chat/direct-ch
 import ChatMedia from '../../screens/common/home/groups/create-groups/media-documents';
 import ImageViewer from '../../screens/common/home/groups/create-groups/media-documents/image-viewer';
 import DocViewer from '../../screens/common/home/groups/create-groups/media-documents/doc-viewer';
+import PayPal from '../../screens/common/home/payouts/paypal';
+import Stripe from '../../screens/common/home/payouts/stripe';
+import BankAccounts from '../../screens/common/home/payouts/bank-accounts';
 
 export type RootStackParamList = {
   OnBoarding: undefined;
@@ -90,6 +93,9 @@ export type RootStackParamList = {
   ChatMedia: undefined;
   ImageViewer: undefined;
   DocViewer: undefined;
+  PayPal: undefined;
+  Stripe: undefined;
+  BankAccounts: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -102,7 +108,6 @@ const Navigator: React.FC = () => {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="InstructorTabs" component={InstructorTabs} />
 
         {/* ----------------Common Flow----------- */}
         <Stack.Screen name="OnBoarding" component={OnBoarding} />
@@ -152,6 +157,9 @@ const Navigator: React.FC = () => {
         <Stack.Screen name="ChatMedia" component={ChatMedia} />
         <Stack.Screen name="ImageViewer" component={ImageViewer} />
         <Stack.Screen name="DocViewer" component={DocViewer} />
+        <Stack.Screen name="PayPal" component={PayPal} />
+        <Stack.Screen name="Stripe" component={Stripe} />
+        <Stack.Screen name="BankAccounts" component={BankAccounts} />
 
         {/* --------------------Player Flow-------------------- */}
         <Stack.Screen name="PlayerTabs" component={PlayerTabs} />
@@ -167,7 +175,7 @@ const Navigator: React.FC = () => {
         />
 
         {/* ------------------------Instructor Flow------------------- */}
-        {/* <Stack.Screen name="InstructorTabs" component={InstructorTabs} /> */}
+        <Stack.Screen name="InstructorTabs" component={InstructorTabs} />
         <Stack.Screen
           name="InstructorProfileSetup"
           component={InstructorProfileSetup}

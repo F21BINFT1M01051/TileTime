@@ -73,7 +73,7 @@ const PayoutsInstructor = ({ navigation }: any) => {
               title="Add Payout Account"
               icon={ICONS.plus}
               onPress={() => {
-                navigation.navigate('Payouts');
+                // navigation.navigate('Payouts');
               }}
             />
           ) : (
@@ -83,7 +83,7 @@ const PayoutsInstructor = ({ navigation }: any) => {
               icon={ICONS.plus5}
               borderColor={COLORS.primary}
               onPress={() => {
-                navigation.navigate('Payouts');
+                // navigation.navigate('Payouts');
               }}
             />
           )}

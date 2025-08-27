@@ -64,7 +64,7 @@ const SignUp = ({ navigation }: any) => {
             style={{ width: '100%', height: RFPercentage(22) }}
           >
             <LinearGradient
-              colors={['rgba(255, 255, 255, 0.4)', 'rgba(255, 255, 255, 0.5)']}
+              colors={[COLORS.authGradient1, COLORS.authGradient2]}
               style={styles.logoContainer}
             >
               <Image

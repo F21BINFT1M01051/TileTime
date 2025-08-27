@@ -25,11 +25,12 @@ const notificationData = [
   {
     id: 2,
     notification:
-      'Heads up! Your session Advanced Tactics starts in 30 minutes.',
+      'Michael Johnson invited you to join Four Winds: Community Mahjong Session. Want to Join?',
     time: '12h',
     profile: IMAGES.customProfile,
     unread: true,
     player: true,
+    eventInvite: true,
   },
   {
     id: 3,
@@ -58,11 +59,12 @@ const unread = [
   {
     id: 1,
     notification:
-      'Heads up! Your session Advanced Tactics starts in 30 minutes.',
+      'Michael Johnson invited you to join Four Winds: Community Mahjong Session. Want to Join?',
     time: '12h',
     profile: IMAGES.customProfile,
     unread: true,
     player: true,
+    eventInvite: true,
   },
 ];
 
@@ -130,6 +132,8 @@ const Notifications = ({ navigation }: any) => {
                   unread={item.unread}
                   time={item.time}
                   profile={item.profile}
+                  eventInvite={item.eventInvite}
+                  // onPress3={() => navigation.navigate('EventDetails')}
                   style={{
                     borderBottomWidth: isLastItem ? 0 : RFPercentage(0.1),
                   }}
@@ -153,7 +157,7 @@ const styles = StyleSheet.create({
   topBar: {
     paddingBottom: RFPercentage(1.5),
     borderBottomWidth: RFPercentage(0.1),
-    borderBottomColor: '#D8D8D8',
+    borderBottomColor: COLORS.grey7,
     height: RFPercentage(12),
     justifyContent: 'flex-end',
   },

@@ -104,14 +104,14 @@ const InstructorHome = ({ navigation }: any) => {
 
   return (
     <LinearGradient
-      colors={['#F5FDFF', '#FFFFFF']}
+      colors={[COLORS.white4, COLORS.white]}
       style={styles.gradientContainer}
     >
       <TopNavigation
         title="Home"
         right={true}
         home={true}
-        onPress2={() => navigation.navigate('SearchScreen')}
+        // onPress2={() => navigation.navigate('SearchScreen')}
         onPress3={() => navigation.navigate('Notifications')}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -121,7 +121,7 @@ const InstructorHome = ({ navigation }: any) => {
             alignItems: 'center',
             width: '90%',
             alignSelf: 'center',
-            justifyContent:'space-between',
+            justifyContent: 'space-between',
           }}
         >
           {actions.length > 0 ? (
@@ -140,7 +140,11 @@ const InstructorHome = ({ navigation }: any) => {
           <Image
             source={IMAGES.home55}
             resizeMode="contain"
-            style={{ width: RFPercentage(15), height: RFPercentage(15),bottom:RFPercentage(1) }}
+            style={{
+              width: RFPercentage(15),
+              height: RFPercentage(15),
+              bottom: RFPercentage(1),
+            }}
           />
         </View>
         <View style={styles.actionsWrapper}>
@@ -296,14 +300,24 @@ const InstructorHome = ({ navigation }: any) => {
           setIsModalVisible(false);
           if (selectedType === 'Open Play') {
             navigation.navigate('InvitePlayer');
-          } else if (selectedType === 'Mahjong Lessons') {
-            navigation.navigate('SelectPlayersInstructor');
-          } else {
+          }
+          // else if (
+          //   selectedType === 'Mahjong Lessons' &&
+          //   role === 'Instructor'
+          // ) {
+          //   navigation.navigate('SelectPlayersInstructor');
+          // }
+          // else if (selectedType === 'Mahjong Lessons' && role === 'Player') {
+          //   navigation.navigate('CreateLessonPlayer');
+          // }
+          else if (selectedType === 'Guided Play') {
             navigation.navigate('GuidedPlay', {
               players: false,
               groups: false,
               link: true,
             });
+          } else {
+            setIsModalVisible(false);
           }
         }}
       />
@@ -332,12 +346,12 @@ const styles = StyleSheet.create({
     width: '100%',
     height: RFPercentage(20),
   },
-  titleContainer: {width:"75%"},
+  titleContainer: { width: '75%' },
   mainTitle: {
     color: COLORS.primary,
     fontFamily: FONTS.bold,
     fontSize: RFPercentage(3),
-    lineHeight:RFPercentage(3)
+    lineHeight: RFPercentage(3),
   },
   actionsWrapper: {
     width: '100%',

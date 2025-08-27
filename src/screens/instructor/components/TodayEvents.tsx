@@ -299,7 +299,7 @@ const styles = StyleSheet.create({
     height: RFPercentage(7),
     borderRadius:RFPercentage(1.5),
     borderRightWidth:RFPercentage(0.3),
-    borderRightColor:"#9698C8"
+    borderRightColor:COLORS.yellow
   },
   smallEventImage: {
     width: RFPercentage(3),
