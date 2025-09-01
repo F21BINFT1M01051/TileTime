@@ -373,15 +373,15 @@ const Events = ({ navigation }: any) => {
           if (selectedType === 'Open Play') {
             navigation.navigate('InvitePlayer');
           }
-          // else if (
-          //   selectedType === 'Mahjong Lessons' &&
-          //   role === 'Instructor'
-          // ) {
-          //   navigation.navigate('SelectPlayersInstructor');
-          // }
-          // else if (selectedType === 'Mahjong Lessons' && role === 'Player') {
-          //   navigation.navigate('CreateLessonPlayer');
-          // } 
+          else if (
+            selectedType === 'Mahjong Lessons' &&
+            role === 'Instructor'
+          ) {
+            navigation.navigate('SelectPlayersInstructor');
+          }
+          else if (selectedType === 'Mahjong Lessons' && role === 'Player') {
+            navigation.navigate('CreateLessonPlayer');
+          } 
           else if (selectedType === 'Guided Play') {
             navigation.navigate('GuidedPlay', {
               players: false,

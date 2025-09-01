@@ -45,7 +45,7 @@ const steps = [
     icon: ICONS.hm4,
     completed: false,
     button: 'Explore',
-    // navigationScreen: 'EventDetails',
+    navigationScreen: 'EventDetails',
   },
 ];
 

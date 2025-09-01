@@ -133,7 +133,7 @@ const Notifications = ({ navigation }: any) => {
                   time={item.time}
                   profile={item.profile}
                   eventInvite={item.eventInvite}
-                  // onPress3={() => navigation.navigate('EventDetails')}
+                  onPress3={() => navigation.navigate('EventDetails')}
                   style={{
                     borderBottomWidth: isLastItem ? 0 : RFPercentage(0.1),
                   }}
