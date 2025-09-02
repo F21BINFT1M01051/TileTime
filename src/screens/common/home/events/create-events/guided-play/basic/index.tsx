@@ -19,6 +19,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import ToggleSwitch from 'toggle-switch-react-native';
 import DropdownField from '../../../../../../../components/DropDown';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import moment from 'moment';
 
 const experience = [
   {
@@ -65,6 +66,16 @@ const Days = [
     name: 'S',
   },
 ];
+
+const formatDate = (date: Date) => {
+  return moment(date).format('D MMMM YYYY');
+  // → 7 July 2025
+};
+
+const formatTime = (date: Date) => {
+  return moment(date).format('h:mm A');
+  // → 12:30 PM (CDT)
+};
 
 const GuidedPlayBasic = () => {
   const [title, setTitle] = useState('');
@@ -266,7 +277,7 @@ const GuidedPlayBasic = () => {
           {/* Event Date */}
           <FocusedSelection
             placeholder="Event Date"
-            selectedText={date.toDateString()}
+            selectedText={formatDate(date)}
             onPress={() => setShowPicker(!showPicker)}
             icon={
               <Image
@@ -311,7 +322,7 @@ const GuidedPlayBasic = () => {
               <View style={styles.multiDayWrapper}>
                 <FocusedSelection
                   placeholder="Event End Date"
-                  selectedText={endDate.toDateString()}
+                  selectedText={formatDate(endDate)}
                   onPress={() => setShowPicker2(true)}
                   icon={
                     <Image
@@ -333,10 +344,7 @@ const GuidedPlayBasic = () => {
 
                 <FocusedSelection
                   placeholder="Start Time"
-                  selectedText={startTime.toLocaleTimeString([], {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })}
+                  selectedText={formatTime(startTime)}
                   onPress={() => setShowPicker3(true)}
                   icon={
                     <Image
@@ -358,10 +366,7 @@ const GuidedPlayBasic = () => {
 
                 <FocusedSelection
                   placeholder="End Time"
-                  selectedText={endTime.toLocaleTimeString([], {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })}
+                  selectedText={formatTime(endTime)}
                   onPress={() => setShowPicker4(true)}
                   icon={
                     <Image

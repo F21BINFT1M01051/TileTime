@@ -27,7 +27,7 @@ const FocusedSelection: React.FC<Props> = ({
   selectedText,
   style,
   defaultColor = COLORS.placeholder,
-  focusedColor = COLORS.focused,
+  focusedColor = COLORS.primary,
   errorColor = COLORS.red,
   hasError = false,
   icon,
@@ -65,7 +65,7 @@ const FocusedSelection: React.FC<Props> = ({
       outputRange: [RFPercentage(1.8), RFPercentage(1.5)],
     }),
     color: getPlaceholderColor(),
-    fontFamily: isFocused || hasValue ? FONTS.medium2 : FONTS.regular,
+    fontFamily: isFocused || hasValue ? FONTS.medium : FONTS.regular,
   };
 
   return (
