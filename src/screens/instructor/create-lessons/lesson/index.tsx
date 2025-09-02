@@ -150,6 +150,8 @@ const CreateLessonInstructor = ({ navigation }: any) => {
                   maxLength={150}
                   value={description}
                   onChangeText={setDescription}
+                  cursorColor={COLORS.primary}
+                  selectionColor={COLORS.primary}
                 />
               </View>
               <View style={styles.bioIconWrapper}>
@@ -378,7 +380,7 @@ const CreateLessonInstructor = ({ navigation }: any) => {
 
           {/* Recurring Event */}
           <View style={styles.toggleRow}>
-            <Text style={styles.toggleLabel}>Make This a Recurring Event</Text>
+            <Text style={styles.toggleLabel}>Make This A Recurring Event</Text>
             <ToggleSwitch
               isOn={recurring}
               onColor={COLORS.pink}
@@ -402,6 +404,8 @@ const CreateLessonInstructor = ({ navigation }: any) => {
                       placeholder="1"
                       placeholderTextColor={COLORS.placeholder}
                       style={styles.repeatInput}
+                      cursorColor={COLORS.primary}
+                      selectionColor={COLORS.primary}
                     />
                     <TouchableOpacity
                       activeOpacity={0.8}
@@ -422,6 +426,7 @@ const CreateLessonInstructor = ({ navigation }: any) => {
                     horizontal
                     contentContainerStyle={styles.dayList}
                     keyExtractor={item => item.id.toString()}
+                    showsHorizontalScrollIndicator={false}
                     renderItem={({ item }) => {
                       return (
                         <TouchableOpacity
@@ -432,8 +437,8 @@ const CreateLessonInstructor = ({ navigation }: any) => {
                             {
                               backgroundColor:
                                 selectedDay === item.id
-                                  ? "#E6F7FA"
-                                  : COLORS.fieldColor,
+                                  ? '#E6F7FA'
+                                  : COLORS.white,
                             },
                           ]}
                         >
@@ -722,7 +727,7 @@ const styles = StyleSheet.create({
   admissionTitle: {
     fontFamily: FONTS.bold,
     color: COLORS.primary,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(2),
     marginBottom: RFPercentage(1),
   },
   // Dropdown field styles
@@ -741,7 +746,7 @@ const styles = StyleSheet.create({
   repeatTitle: {
     color: COLORS.primary,
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(2),
   },
   repeatRow: {
     flexDirection: 'row',
@@ -751,7 +756,7 @@ const styles = StyleSheet.create({
   repeatLabel: {
     color: COLORS.primary,
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
   },
   repeatInput: {
     width: RFPercentage(5),
@@ -759,7 +764,7 @@ const styles = StyleSheet.create({
     borderRadius: RFPercentage(1),
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLORS.fieldColor,
+    backgroundColor: COLORS.white,
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.fieldBorder,
     color: COLORS.inputColor,
@@ -771,7 +776,7 @@ const styles = StyleSheet.create({
   weekButton: {
     width: RFPercentage(12),
     height: RFPercentage(5),
-    backgroundColor: COLORS.fieldColor,
+    backgroundColor: COLORS.white,
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.pink,
     alignItems: 'center',
@@ -789,24 +794,24 @@ const styles = StyleSheet.create({
   repeatOnLabel: {
     color: COLORS.primary,
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
     marginTop: RFPercentage(2),
   },
   dayList: {
     paddingTop: RFPercentage(1.8),
   },
   dayButton: {
-    marginRight: RFPercentage(1.5),
-    width: RFPercentage(4.2),
-    height: RFPercentage(4.2),
+    marginRight: RFPercentage(1.1),
+    width: RFPercentage(4.4),
+    height: RFPercentage(3.8),
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: RFPercentage(100),
+    borderRadius: RFPercentage(1.8),
   },
   dayText: {
     fontFamily: FONTS.medium,
     fontSize: RFPercentage(1.8),
-    textAlign:"center"
+    textAlign: 'center',
   },
   endsLabel: {
     color: COLORS.primary,
@@ -847,7 +852,7 @@ const styles = StyleSheet.create({
   dateButton: {
     width: RFPercentage(14),
     height: RFPercentage(4.8),
-    backgroundColor: COLORS.fieldColor,
+    backgroundColor: COLORS.white,
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.fieldBorder,
     alignItems: 'center',
@@ -869,7 +874,7 @@ const styles = StyleSheet.create({
   sessionButton: {
     width: RFPercentage(14),
     height: RFPercentage(4.8),
-    backgroundColor: COLORS.fieldColor,
+    backgroundColor: COLORS.white,
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.fieldBorder,
     alignItems: 'center',
@@ -880,6 +885,6 @@ const styles = StyleSheet.create({
   sessionText: {
     color: COLORS.inputColor,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.6),
+    fontSize: RFPercentage(1.8),
   },
 });

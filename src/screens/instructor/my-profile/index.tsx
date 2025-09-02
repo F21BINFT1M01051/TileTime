@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Share,
 } from 'react-native';
 import React, { useState } from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../config/theme';
@@ -119,6 +120,27 @@ const InsightsData = [
 const MyProfileInstructor = ({ navigation }: any) => {
   const [isOn, setIsOn] = useState(false);
 
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: 'Check out this awesome content! 🚀',
+        url: 'https://example.com',
+      });
+
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          console.log('Shared with activity type: ', result.activityType);
+        } else {
+          console.log('Shared successfully');
+        }
+      } else if (result.action === Share.dismissedAction) {
+        console.log('Dismissed');
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <TopNavigation title="Profile" />
@@ -199,7 +221,7 @@ const MyProfileInstructor = ({ navigation }: any) => {
               title="Payouts"
               icon={ICONS.arrow22}
               onPress={() => navigation.navigate('PayoutsInstructor')}
-              style={{borderBottomColor : COLORS.lightWhite}}
+              style={{ borderBottomColor: COLORS.lightWhite }}
             />
           </View>
 
@@ -247,7 +269,7 @@ const MyProfileInstructor = ({ navigation }: any) => {
               <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.stepButton}
-                onPress={() => navigation.navigate('InviteFriends')}
+                onPress={onShare}
               >
                 <Text style={styles.stepButtonText}>Invite</Text>
               </TouchableOpacity>
@@ -353,7 +375,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular,
     fontSize: RFPercentage(1.8),
     marginTop: RFPercentage(4),
-    lineHeight:RFPercentage(2)
+    lineHeight: RFPercentage(2),
   },
   toggleRow: {
     width: '100%',

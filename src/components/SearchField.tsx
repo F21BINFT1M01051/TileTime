@@ -38,6 +38,8 @@ const SearchField = (props: Props) => {
           onChangeText={props.onChangeText}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
+          cursorColor={COLORS.primary}
+          selectionColor={COLORS.primary}
         />
         <TouchableOpacity>
           <Feather

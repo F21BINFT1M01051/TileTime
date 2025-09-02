@@ -530,6 +530,8 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
                 multiline={true}
                 scrollEnabled={true}
                 textAlignVertical="top"
+                cursorColor={COLORS.primary}
+                selectionColor={COLORS.primary}
               />
 
               <TouchableOpacity

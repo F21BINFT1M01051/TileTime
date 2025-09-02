@@ -74,9 +74,9 @@ const DropdownField: React.FC<Props> = ({
     }),
     color: animatedIsFocused.interpolate({
       inputRange: [0, 1],
-      outputRange: [COLORS.placeholder, COLORS.focused],
+      outputRange: [COLORS.placeholder, COLORS.primary],
     }),
-    fontFamily: isFocused || selectedValue ? FONTS.regular : FONTS.regular,
+    fontFamily: isFocused || selectedValue ? FONTS.medium : FONTS.regular,
   };
 
   return (
@@ -141,7 +141,7 @@ const DropdownField: React.FC<Props> = ({
                     style={{
                       fontFamily: FONTS.regular,
                       color: COLORS.inputColor,
-                      fontSize: RFPercentage(1.7),
+                      fontSize: RFPercentage(1.8),
                     }}
                   >
                     {item}
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   selectedText: {
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
     top: RFPercentage(1),
   },
   dropdownList: {
@@ -188,6 +188,7 @@ const styles = StyleSheet.create({
     zIndex: 999999,
     marginTop: RFPercentage(1),
     width: '100%',
+    paddingVertical:RFPercentage(1)
   },
 
   dropdownItem: {

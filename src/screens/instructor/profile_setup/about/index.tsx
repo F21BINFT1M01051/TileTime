@@ -286,7 +286,7 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
 
                 <View style={styles.bioWrapper}>
                   <View style={styles.bioContainer}>
-                    <View style={{ width: '90%', alignSelf: 'center' }}>
+                    <View style={{ width: '92%', alignSelf: 'center' }}>
                       <View style={styles.bioHeader}>
                         <Text style={styles.bioLabel}>Add Bio</Text>
                         <Image
@@ -306,6 +306,8 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
                         maxLength={MAX_LENGTH}
                         value={bio}
                         onChangeText={setBio}
+                        cursorColor={COLORS.primary}
+                        selectionColor={COLORS.primary}
                       />
                       <View style={styles.end}>
                         <Image
@@ -459,11 +461,11 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
                         />
                       }
                     />
-                    {touched.phoneNumber && errors.phoneNumber && (
+                    {/* {touched.phoneNumber && errors.phoneNumber && (
                       <View style={{ marginTop: RFPercentage(0.6) }}>
                         <Text style={styles.error}>{errors?.phoneNumber}</Text>
                       </View>
-                    )}
+                    )} */}
                   </View>
 
                   <View>

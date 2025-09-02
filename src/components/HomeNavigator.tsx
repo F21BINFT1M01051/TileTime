@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   getStartedText: {
     color: COLORS.primary,
     fontFamily: FONTS.semiBold,
-    fontSize: RFPercentage(2),
+    fontSize: RFPercentage(2.2),
   },
   auth: {
     width: '90%',

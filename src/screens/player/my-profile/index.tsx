@@ -13,6 +13,7 @@ import {
   Animated,
   Easing,
   Dimensions,
+  Share,
 } from 'react-native';
 import React, { useState, useRef } from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../config/theme';
@@ -59,21 +60,21 @@ const premiumDetails = [
     title: 'Host your own events',
     subTile: 'Create, schedule, and manage games your way.',
     icon: ICONS.star,
-    tintColor:COLORS.pink
+    tintColor: COLORS.pink,
   },
   {
     id: 2,
     title: 'Build your community',
     subTile: 'Grow your community and your player network.',
     icon: ICONS.pinkArrow,
-    tintColor :COLORS.yellow
+    tintColor: COLORS.yellow,
   },
   {
     id: 3,
     title: 'Get featured and discovered',
     subTile: 'Stand out to players looking for guidance and fun sessions.',
     icon: ICONS.blueTick,
-    tintColor: COLORS.green2
+    tintColor: COLORS.green2,
   },
 ];
 
@@ -103,6 +104,27 @@ const MyProfilePlayer = ({ navigation }: any) => {
     }).start(() => {
       setIsModalVisible(false);
     });
+  };
+
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: 'Check out this awesome content! 🚀',
+        url: 'https://example.com',
+      });
+
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          console.log('Shared with activity type: ', result.activityType);
+        } else {
+          console.log('Shared successfully');
+        }
+      } else if (result.action === Share.dismissedAction) {
+        console.log('Dismissed');
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -181,7 +203,7 @@ const MyProfilePlayer = ({ navigation }: any) => {
               <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.stepButton}
-                onPress={() => navigation.navigate('InviteFriends')}
+                onPress={onShare}
               >
                 <Text style={styles.stepButtonText}>Invite</Text>
               </TouchableOpacity>
@@ -526,7 +548,7 @@ const styles = StyleSheet.create({
   modalInnerContent: {
     width: '90%',
     alignSelf: 'center',
-    bottom:RFPercentage(1)
+    bottom: RFPercentage(1),
   },
   modalText: {
     fontSize: RFPercentage(2.5),

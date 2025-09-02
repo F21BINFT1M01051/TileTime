@@ -189,6 +189,8 @@ const EditProfile = () => {
                     maxLength={MAX_LENGTH}
                     value={bio}
                     onChangeText={setBio}
+                    cursorColor={COLORS.primary}
+                    selectionColor={COLORS.primary}
                   />
                   <View style={styles.bioBars}>
                     <Image
@@ -371,9 +373,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.medium,
     fontSize: RFPercentage(1.4),
   },
-  fullNameWrapper: {
-   
-  },
+  fullNameWrapper: {},
   bioWrapper: {
     marginTop: RFPercentage(3),
   },

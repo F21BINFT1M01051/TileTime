@@ -25,6 +25,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { pick } from '@react-native-documents/picker';
 import Contacts from 'react-native-contacts';
+import LinearGradient from 'react-native-linear-gradient';
 
 moment.updateLocale('en', {
   relativeTime: {
@@ -52,20 +53,20 @@ const ChatScreen = ({ route }: any) => {
   const { isGroup, isNew } = route.params;
   const [attachmentModalVisible, setAttachmentModalVisible] = useState(false);
 
-  useEffect(() => {
-    const testMessage = {
-      _id: 999,
-      text: 'Hello! This is a message from Sophie.',
-      createdAt: new Date(),
-      user: {
-        _id: 2,
-        name: 'Sophie Reynolds',
-        avatar: 'https://placeimg.com/140/140/people',
-      },
-    };
+  // useEffect(() => {
+  //   const testMessage = {
+  //     _id: 999,
+  //     text: 'Hello! This is a message from Sophie.',
+  //     createdAt: new Date(),
+  //     user: {
+  //       _id: 2,
+  //       name: 'Sophie Reynolds',
+  //       avatar: 'https://placeimg.com/140/140/people',
+  //     },
+  //   };
 
-    setMessages([testMessage]);
-  }, []);
+  //   setMessages([testMessage]);
+  // }, []);
 
   const renderBubble = (props: any) => (
     <Bubble
@@ -321,35 +322,44 @@ const ChatScreen = ({ route }: any) => {
               style={{ width: RFPercentage(3), height: RFPercentage(2.5) }}
             />
           </TouchableOpacity>
-          {isGroup ? (
-            <>
-              <View style={styles.groupIconContainer}>
-                <Image
-                  source={IMAGES.customProfile}
-                  resizeMode="cover"
-                  style={styles.groupIcon}
-                />
-              </View>
-            </>
-          ) : (
-            <>
-              <View style={styles.avatarOuterLayer}>
-                <View style={styles.avatarMiddleLayer}>
-                  <View style={styles.avatarInnerLayer}>
-                    <Image
-                      source={IMAGES.profile2}
-                      resizeMode="cover"
-                      style={styles.avatarImage}
-                    />
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigation.navigate('GroupDetails')}
+          >
+            {isGroup ? (
+              <>
+                <View style={styles.groupIconContainer}>
+                  <Image
+                    source={IMAGES.customProfile}
+                    resizeMode="cover"
+                    style={styles.groupIcon}
+                  />
+                </View>
+              </>
+            ) : (
+              <>
+                <View style={styles.avatarOuterLayer}>
+                  <View style={styles.avatarMiddleLayer}>
+                    <View style={styles.avatarInnerLayer}>
+                      <Image
+                        source={IMAGES.profile2}
+                        resizeMode="cover"
+                        style={styles.avatarImage}
+                      />
+                    </View>
                   </View>
                 </View>
-              </View>
-            </>
-          )}
-
-          <Text style={styles.groupNameText}>
-            {isGroup ? `Mahjong - Richie Rich Gr..` : `Sophie Reynolds`}
-          </Text>
+              </>
+            )}
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigation.navigate('GroupDetails')}
+          >
+            <Text style={styles.groupNameText}>
+              {isGroup ? `Mahjong - Richie Rich Gr..` : `Sophie Reynolds`}
+            </Text>
+          </TouchableOpacity>
 
           {isGroup ? (
             <>
@@ -369,7 +379,7 @@ const ChatScreen = ({ route }: any) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   activeOpacity={0.8}
-                  onPress={() => navigation.navigate('GroupDetails')}
+                  // onPress={() => navigation.navigate('GroupDetails')}
                 >
                   <Image
                     source={ICONS.userAdd}
@@ -402,7 +412,10 @@ const ChatScreen = ({ route }: any) => {
         style={{ flex: 1 }}
       >
         {messages.length === 0 && (
-          <>
+          <LinearGradient
+            colors={['rgba(255, 255, 255, 0.4)', 'rgba(255, 255, 255, 0.6)']}
+            style={{ height: '88%' }}
+          >
             <View style={styles.todayBadge}>
               <Text style={styles.todayText}>Today</Text>
             </View>
@@ -437,10 +450,10 @@ const ChatScreen = ({ route }: any) => {
 
             <View style={styles.conversationPrompt}>
               <Text style={styles.conversationText}>
-                Start a conversation, ask a question, or just say hi.
+                {`Start a conversation, ask a\nquestion, or just say hi.`}
               </Text>
             </View>
-          </>
+          </LinearGradient>
         )}
 
         <GiftedChat
@@ -482,6 +495,8 @@ const ChatScreen = ({ route }: any) => {
                   multiline={true}
                   scrollEnabled={true}
                   textAlignVertical="top"
+                  cursorColor={COLORS.primary}
+                  selectionColor={COLORS.primary}
                 />
 
                 <TouchableOpacity
@@ -700,7 +715,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: RFPercentage(10),
     height: RFPercentage(3.8),
-    backgroundColor: COLORS.offWhite,
+    backgroundColor: COLORS.white,
     borderRadius: RFPercentage(0.7),
     marginTop: RFPercentage(3),
     alignItems: 'center',
@@ -765,18 +780,19 @@ const styles = StyleSheet.create({
   conversationPrompt: {
     alignSelf: 'center',
     height: RFPercentage(7),
-    backgroundColor: COLORS.offWhite,
+    backgroundColor: COLORS.white,
     borderRadius: RFPercentage(1.5),
     marginTop: RFPercentage(3),
     alignItems: 'center',
     justifyContent: 'center',
-    width: RFPercentage(28),
+    paddingHorizontal: RFPercentage(1.3),
   },
   conversationText: {
     color: COLORS.primary,
     fontFamily: FONTS.medium,
     fontSize: RFPercentage(1.8),
     textAlign: 'center',
+    lineHeight: RFPercentage(2),
   },
   sendContainer: {
     marginRight: RFPercentage(2),
@@ -903,6 +919,7 @@ const styles = StyleSheet.create({
     width: '90%',
     alignSelf: 'center',
     bottom: RFPercentage(1),
+    // paddingVertical:RFPercentage(1.3)
   },
 
   plusIcon: {
@@ -920,6 +937,7 @@ const styles = StyleSheet.create({
     paddingVertical: RFPercentage(1),
     lineHeight: RFPercentage(2.2),
     paddingHorizontal: RFPercentage(2),
+    // backgroundColor:"red"dskdhs
   },
 
   sendButtonIcon: {

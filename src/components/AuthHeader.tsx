@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   rightText: {
     color: COLORS.icon,
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
   },
   rightIcon: {
     width: RFPercentage(2.5),

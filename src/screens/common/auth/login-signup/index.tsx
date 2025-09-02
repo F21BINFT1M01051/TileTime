@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
 
   buttonWrapper: {
     width: '100%',
-    marginTop: RFPercentage(7),
+    marginTop: RFPercentage(15),
   },
   signupContainer: {
     alignSelf: 'center',

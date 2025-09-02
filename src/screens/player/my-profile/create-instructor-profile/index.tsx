@@ -346,7 +346,7 @@ const CreateInstructorProfile = ({ navigation }: any) => {
                           textStyle={styles.transparentBtnText}
                           onPress={() => {
                             closeModal();
-                            navigation.navigate('CreateInstructorProfile');
+                            navigation.navigate('InstructorTabs');
                           }}
                         />
                       </View>

@@ -225,6 +225,8 @@ const EditProfileInstructor = () => {
                     maxLength={MAX_LENGTH}
                     value={bio}
                     onChangeText={setBio}
+                    cursorColor={COLORS.primary}
+                    selectionColor={COLORS.primary}
                   />
                   <View style={styles.barsWrapper}>
                     <Image

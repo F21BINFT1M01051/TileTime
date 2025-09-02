@@ -68,6 +68,7 @@ const GuidedPlay = ({ route }: any) => {
   const [selectedContacts, setSelectedContacts] = useState<number[]>([]);
   const role = useSelector(state => state.userFlow.userFlow);
   const eventType = useSelector(state => state.eventType.type);
+  const [progress, setProgress] = useState(0);
 
   const steps = ['basics', 'extras', 'attachments', 'publish'];
   const steps2 = [
@@ -139,11 +140,11 @@ const GuidedPlay = ({ route }: any) => {
 
   const handleNext = async () => {
     try {
-      if (stepIndex === 0) {
+      if (stepIndex < finalSteps.length - 1) {
         setStepIndex(stepIndex + 1);
-      } else if (stepIndex < finalSteps.length - 1) {
-        setStepIndex(stepIndex + 1);
+        setProgress(((stepIndex + 1) / finalSteps.length) * 100);
       } else {
+        setProgress(100);
         setModalVisible(true);
       }
     } catch (error) {
@@ -177,6 +178,16 @@ const GuidedPlay = ({ route }: any) => {
     }
   };
 
+  const handleBack = () => {
+  if (stepIndex > 0) {
+    setStepIndex(stepIndex - 1);
+    setProgress(((stepIndex - 1) / finalSteps.length) * 100);
+  } else {
+    navigation.goBack();
+  }
+};
+
+
   return (
     <View style={styles.mainContainer}>
       {/* Header */}
@@ -196,10 +207,11 @@ const GuidedPlay = ({ route }: any) => {
           <View
             style={[
               styles.progressBarFill,
-              { width: `${((stepIndex + 1) / steps.length) * 100}%` },
+              { width: `${progress}%` }, 
             ]}
           />
         </View>
+
         <View style={styles.innerWrapper}>
           <View style={styles.contentWrapper}>{renderStepContent()}</View>
         </View>
@@ -575,6 +587,6 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.bold,
   },
   saveButton: {
-    width: RFPercentage(25),
+    width: RFPercentage(26),
   },
 });

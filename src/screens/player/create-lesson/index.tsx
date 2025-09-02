@@ -143,6 +143,8 @@ const CreateLessonPlayer = ({ navigation }: any) => {
                   maxLength={150}
                   value={description}
                   onChangeText={setDescription}
+                  cursorColor={COLORS.primary}
+                  selectionColor={COLORS.primary}
                 />
               </View>
               <View style={styles.bioIconWrapper}>
@@ -316,6 +318,8 @@ const CreateLessonPlayer = ({ navigation }: any) => {
                       placeholder="1"
                       placeholderTextColor={COLORS.placeholder}
                       style={styles.repeatInput}
+                      cursorColor={COLORS.primary}
+                      selectionColor={COLORS.primary}
                     />
                     <TouchableOpacity
                       activeOpacity={0.8}

@@ -111,7 +111,7 @@ const EventLiveLessons = ({ visible, onClose, title, subtitle }: any) => {
                     name="Go to Dashboard"
                     onPress={() => {
                       onClose();
-                      // navigation.navigate('Dashboard');
+                     navigation.navigate('InstructorTabs');
                     }}
                   />
                 </View>

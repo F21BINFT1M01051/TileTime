@@ -280,7 +280,7 @@ const styles = StyleSheet.create({
   headingText: {
     color: COLORS.primary,
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(2.5),
+    fontSize: RFPercentage(2.6),
   },
   avatarMiddleLayer: {
     backgroundColor: COLORS.green2,

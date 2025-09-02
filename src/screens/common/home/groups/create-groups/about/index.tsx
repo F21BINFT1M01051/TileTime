@@ -168,6 +168,8 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
                 style={styles.bioInput}
                 multiline={true}
                 maxLength={170}
+                cursorColor={COLORS.primary}
+                selectionColor={COLORS.primary}
               />
             </View>
             <View style={styles.bioIconWrapper}>

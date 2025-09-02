@@ -44,7 +44,7 @@ const InputField: React.FC<Props> = ({
   handleBlur,
   copy,
   defaultColor = COLORS.placeholder,
-  focusedColor = COLORS.focused,
+  focusedColor = COLORS.primary,
   errorColor = COLORS.red,
   hasError = false,
   length,
@@ -84,7 +84,7 @@ const InputField: React.FC<Props> = ({
       outputRange: [RFPercentage(1.9), RFPercentage(1.6)],
     }),
     color: getPlaceholderColor(),
-    fontFamily: isFocused || value ? FONTS.regular : FONTS.regular,
+    fontFamily: isFocused || value ? FONTS.medium : FONTS.regular,
   };
 
   return (
@@ -110,6 +110,8 @@ const InputField: React.FC<Props> = ({
             blurOnSubmit
             secureTextEntry={password ? secureText : false}
             autoFocus={autoFocus}
+            cursorColor={COLORS.primary}
+            selectionColor={COLORS.primary}
           />
 
           {password && (

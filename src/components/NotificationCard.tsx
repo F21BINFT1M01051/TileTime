@@ -87,87 +87,6 @@ const NotificationCard = (props: Props) => {
             >
               {props.notification}
             </Text>
-            {props.eventInvite && (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginTop: RFPercentage(1),
-                  gap: RFPercentage(0.7),
-                }}
-              >
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  style={{
-                    width: RFPercentage(6),
-                    height: RFPercentage(2.7),
-                    borderRadius: RFPercentage(100),
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    backgroundColor: COLORS.primary,
-                    borderWidth: RFPercentage(0.1),
-                    borderColor: COLORS.primary,
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontFamily: FONTS.semiBold,
-                      color: COLORS.white,
-                      fontSize: RFPercentage(1.3),
-                    }}
-                  >
-                    YES
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  style={{
-                    width: RFPercentage(6),
-                    height: RFPercentage(2.7),
-                    borderRadius: RFPercentage(100),
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    backgroundColor: COLORS.white,
-                    borderWidth: RFPercentage(0.1),
-                    borderColor: COLORS.red,
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontFamily: FONTS.semiBold,
-                      color: COLORS.red,
-                      fontSize: RFPercentage(1.3),
-                    }}
-                  >
-                    NO
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={props.onPress3}
-                  activeOpacity={0.8}
-                  style={{
-                    width: RFPercentage(8.5),
-                    height: RFPercentage(2.7),
-                    borderRadius: RFPercentage(100),
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    backgroundColor: COLORS.white,
-                    borderWidth: RFPercentage(0.1),
-                    borderColor: COLORS.primary,
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontFamily: FONTS.semiBold,
-                      color: COLORS.primary,
-                      fontSize: RFPercentage(1.3),
-                    }}
-                  >
-                    View Event
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            )}
           </View>
 
           <Text
@@ -182,6 +101,90 @@ const NotificationCard = (props: Props) => {
           >
             {props.time}
           </Text>
+        </View>
+
+        <View style={{ width: '70%', alignSelf: 'center' }}>
+          {props.eventInvite && (
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginTop: RFPercentage(1),
+                gap: RFPercentage(0.7),
+              }}
+            >
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={{
+                  width: RFPercentage(6),
+                  height: RFPercentage(2.7),
+                  borderRadius: RFPercentage(100),
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: COLORS.primary,
+                  borderWidth: RFPercentage(0.1),
+                  borderColor: COLORS.primary,
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: FONTS.semiBold,
+                    color: COLORS.white,
+                    fontSize: RFPercentage(1.3),
+                  }}
+                >
+                  YES
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={{
+                  width: RFPercentage(6),
+                  height: RFPercentage(2.7),
+                  borderRadius: RFPercentage(100),
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: COLORS.white,
+                  borderWidth: RFPercentage(0.1),
+                  borderColor: COLORS.red,
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: FONTS.semiBold,
+                    color: COLORS.red,
+                    fontSize: RFPercentage(1.3),
+                  }}
+                >
+                  NO
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={props.onPress3}
+                activeOpacity={0.8}
+                style={{
+                  width: RFPercentage(8.5),
+                  height: RFPercentage(2.7),
+                  borderRadius: RFPercentage(100),
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: COLORS.white,
+                  borderWidth: RFPercentage(0.1),
+                  borderColor: COLORS.primary,
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: FONTS.semiBold,
+                    color: COLORS.primary,
+                    fontSize: RFPercentage(1.4),
+                  }}
+                >
+                  View Event
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
       </View>
     </TouchableOpacity>

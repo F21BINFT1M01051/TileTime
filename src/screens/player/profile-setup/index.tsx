@@ -255,6 +255,8 @@ const PlayerProfileSetup = ({ navigation }: any) => {
                           maxLength={MAX_LENGTH}
                           value={bio}
                           onChangeText={setBio}
+                          cursorColor={COLORS.primary}
+                          selectionColor={COLORS.primary}
                         />
                         <View style={styles.bars}>
                           <Image
@@ -351,13 +353,13 @@ const PlayerProfileSetup = ({ navigation }: any) => {
                           />
                         }
                       />
-                      {touched.phoneNumber && errors.phoneNumber && (
+                      {/* {touched.phoneNumber && errors.phoneNumber && (
                         <View style={{ marginTop: RFPercentage(0.6) }}>
                           <Text style={styles.error}>
                             {errors?.phoneNumber}
                           </Text>
                         </View>
-                      )}
+                      )} */}
                     </View>
                   </View>
 

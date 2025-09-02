@@ -190,7 +190,7 @@ const SearchScreen = ({ navigation }: any) => {
                 </TouchableOpacity>
                 <Image
                   source={ICONS.group22}
-                  resizeMode="contain"
+                  resizeMode="cover"
                   style={styles.groupImage}
                 />
                 <View style={styles.groupInfoWrapper}>
@@ -327,11 +327,12 @@ const styles = StyleSheet.create({
     paddingVertical: RFPercentage(5),
   },
   groupImage: {
-    width: RFPercentage(40),
-    height: RFPercentage(10),
+    width: RFPercentage(45),
+    height: RFPercentage(15),
+    left:RFPercentage(1.5)
   },
   groupInfoWrapper: {
-    marginTop: RFPercentage(4),
+    marginTop: RFPercentage(2),
   },
   groupName: {
     fontFamily: FONTS.headline,

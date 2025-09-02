@@ -11,9 +11,18 @@ import { COLORS, FONTS } from '../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import Search from '../../../../components/SearchExperience';
 
-const ProffessionalInfo = () => {
+type ProffessionalInfoProps = {
+  setHasExperience: (value: boolean) => void;
+};
+
+const ProffessionalInfo = ({ setHasExperience }: ProffessionalInfoProps) => {
   const [Experience, setExperience] = useState('');
   const [Credential, setCredential] = useState('');
+
+  // Watch changes to Experience
+  React.useEffect(() => {
+    setHasExperience(Experience.trim().length > 0);
+  }, [Experience]);
 
   return (
     <TouchableWithoutFeedback>
@@ -64,7 +73,7 @@ export default ProffessionalInfo;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop:RFPercentage(-0.5)
+    marginTop: RFPercentage(-0.5),
   },
   headerText: {
     fontFamily: FONTS.headline,

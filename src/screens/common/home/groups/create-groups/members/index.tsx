@@ -93,14 +93,13 @@ const players = [
   },
 ];
 
-const Members = () => {
+const Members = ({ selectedContacts, setSelectedContacts }: any) => {
   const [isOn, setIsOn] = useState(false);
-  const [selectedContacts, setSelectedContacts] = useState<number[]>([]);
   const [quuery, setQuery] = useState('');
   const [enable, setEnable] = useState(false);
 
   const toggleContact = (id: number) => {
-    setSelectedContacts(prev =>
+    setSelectedContacts((prev: number[]) =>
       prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id],
     );
   };
@@ -112,6 +111,7 @@ const Members = () => {
       (player.common && player.common.toLowerCase().includes(searchText))
     );
   });
+  
 
   return (
     <View style={styles.container}>
@@ -438,7 +438,7 @@ const styles = StyleSheet.create({
     right: RFPercentage(0.2),
   },
   avatarInnerLayer: {
-    backgroundColor: "#6FA8B3",
+    backgroundColor: '#6FA8B3',
     width: RFPercentage(6.5),
     height: RFPercentage(7.5),
     borderRadius: RFPercentage(3),

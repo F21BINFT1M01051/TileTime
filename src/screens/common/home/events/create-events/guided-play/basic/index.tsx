@@ -235,6 +235,8 @@ const GuidedPlayBasic = () => {
                   maxLength={150}
                   value={description}
                   onChangeText={setDescription}
+                  cursorColor={COLORS.primary}
+                  selectionColor={COLORS.primary}
                 />
               </View>
               <View style={styles.bioIconWrapper}>
@@ -487,6 +489,8 @@ const GuidedPlayBasic = () => {
                       placeholder="1"
                       placeholderTextColor={COLORS.placeholder}
                       style={styles.repeatInput}
+                      cursorColor={COLORS.primary}
+                      selectionColor={COLORS.primary}
                     />
                     <TouchableOpacity
                       activeOpacity={0.8}
@@ -507,6 +511,7 @@ const GuidedPlayBasic = () => {
                     horizontal
                     contentContainerStyle={styles.dayList}
                     keyExtractor={item => item.id.toString()}
+                    showsHorizontalScrollIndicator={false}
                     renderItem={({ item }) => {
                       return (
                         <TouchableOpacity
@@ -517,8 +522,8 @@ const GuidedPlayBasic = () => {
                             {
                               backgroundColor:
                                 selectedDay === item.id
-                                  ? "rgba(96, 203, 224, 0.16)"
-                                  : COLORS.fieldColor,
+                                  ? 'rgba(96, 203, 224, 0.16)'
+                                  : COLORS.white,
                             },
                           ]}
                         >
@@ -654,7 +659,7 @@ const GuidedPlayBasic = () => {
                       activeOpacity={0.8}
                       style={styles.sessionButton}
                     >
-                      <Text style={styles.sessionText}>5 sessions</Text>
+                      <Text style={styles.sessionText}>5 Sessions</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -689,7 +694,7 @@ const GuidedPlayBasic = () => {
                   style={[
                     styles.badgeText,
                     isSelected && { color: COLORS.white },
-                    isSelected && {fontFamily:FONTS.semiBold}
+                    isSelected && { fontFamily: FONTS.semiBold },
                   ]}
                 >
                   {item.name}
@@ -917,7 +922,7 @@ const styles = StyleSheet.create({
   admissionTitle: {
     fontFamily: FONTS.bold,
     color: COLORS.primary,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(2),
     marginBottom: RFPercentage(1),
   },
   // Dropdown field styles
@@ -954,7 +959,7 @@ const styles = StyleSheet.create({
     borderRadius: RFPercentage(1),
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLORS.fieldColor,
+    backgroundColor: COLORS.white,
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.fieldBorder,
     color: COLORS.inputColor,
@@ -966,7 +971,7 @@ const styles = StyleSheet.create({
   weekButton: {
     width: RFPercentage(12),
     height: RFPercentage(5),
-    backgroundColor: COLORS.fieldColor,
+    backgroundColor: COLORS.white,
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.pink,
     alignItems: 'center',
@@ -991,12 +996,12 @@ const styles = StyleSheet.create({
     paddingTop: RFPercentage(1.8),
   },
   dayButton: {
-    marginRight: RFPercentage(1.5),
-    width: RFPercentage(4.2),
-    height: RFPercentage(4.2),
+    marginRight: RFPercentage(1.2),
+    width: RFPercentage(4.4),
+    height: RFPercentage(3.9),
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: RFPercentage(100),
+    borderRadius: RFPercentage(1.8),
   },
   dayText: {
     fontFamily: FONTS.medium,
@@ -1041,7 +1046,7 @@ const styles = StyleSheet.create({
   dateButton: {
     width: RFPercentage(14),
     height: RFPercentage(4.8),
-    backgroundColor: COLORS.fieldColor,
+    backgroundColor: COLORS.white,
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.fieldBorder,
     alignItems: 'center',
@@ -1063,7 +1068,7 @@ const styles = StyleSheet.create({
   sessionButton: {
     width: RFPercentage(14),
     height: RFPercentage(4.8),
-    backgroundColor: COLORS.fieldColor,
+    backgroundColor: COLORS.white,
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.fieldBorder,
     alignItems: 'center',
@@ -1074,13 +1079,13 @@ const styles = StyleSheet.create({
   sessionText: {
     color: COLORS.inputColor,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.6),
+    fontSize: RFPercentage(1.9),
   },
   // Additional details title
   additionalDetailsTitle: {
     color: COLORS.primary,
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(2),
     marginTop: RFPercentage(3.5),
   },
   // Section title for experience selection

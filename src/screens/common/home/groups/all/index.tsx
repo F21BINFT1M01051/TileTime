@@ -266,6 +266,10 @@ const All = () => {
                   {
                     color:
                       activeFilter === item.name ? COLORS.white : COLORS.grey4,
+                    fontFamily:
+                      activeFilter === item.name
+                        ? FONTS.semiBold
+                        : FONTS.regular,
                   },
                 ]}
               >
@@ -397,6 +401,6 @@ const styles = StyleSheet.create({
   },
   filterText: {
     fontFamily: FONTS.medium,
-    fontSize:RFPercentage(1.8)
+    fontSize: RFPercentage(1.8),
   },
 });

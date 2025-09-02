@@ -106,6 +106,10 @@ const Notifications = ({ navigation }: any) => {
                         activeFilter === item.name
                           ? COLORS.white
                           : COLORS.grey4,
+                      fontFamily:
+                        activeFilter === item.name
+                          ? FONTS.semiBold
+                          : FONTS.regular,
                     },
                   ]}
                 >

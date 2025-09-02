@@ -1,16 +1,27 @@
-import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
 import { COLORS, FONTS, ICONS } from '../../../../../config/theme';
 import AuthHeader from '../../../../../components/AuthHeader';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import CustomButton from '../../../../../components/CustomButton';
 
-const PayPal = ({navigation} : any) => {
+const PayPal = ({ navigation }: any) => {
   return (
     <View style={styles.container}>
       <AuthHeader title="Link PayPal" />
       <View style={styles.innerContainer}>
-        <Image source={ICONS.paypal2} resizeMode="cover" style={styles.paypalImage} />
+        <Image
+          source={ICONS.paypal2}
+          resizeMode="cover"
+          style={styles.paypalImage}
+        />
 
         <Text style={styles.titleText}>
           Connect Your PayPal Account to TileTime
@@ -19,21 +30,29 @@ const PayPal = ({navigation} : any) => {
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionHeading}>This Let's TileTime:</Text>
 
-          <Text style={styles.sectionHeadingWithMargin}>Receive Personal Info</Text>
+          <Text style={styles.sectionHeadingWithMargin}>
+            Receive Personal Info
+          </Text>
           <View style={styles.inputWrapper}>
             <TextInput
               placeholder="Full name, email address, shipping address"
               placeholderTextColor={COLORS.placeholder}
               style={styles.input}
+              cursorColor={COLORS.primary}
+              selectionColor={COLORS.primary}
             />
           </View>
 
-          <Text style={styles.sectionHeadingWithMargin}>Access Payment Methods</Text>
+          <Text style={styles.sectionHeadingWithMargin}>
+            Access Payment Methods
+          </Text>
           <View style={styles.inputWrapper}>
             <TextInput
               placeholder="Access last 4 digits of your payment method"
               placeholderTextColor={COLORS.placeholder}
               style={styles.input}
+              cursorColor={COLORS.primary}
+              selectionColor={COLORS.primary}
             />
           </View>
         </View>
@@ -42,14 +61,19 @@ const PayPal = ({navigation} : any) => {
           <Text style={styles.footerText}>
             TileTime is responsible for the use of your info in accordance with
             its <Text style={styles.linkText}>Privacy Statement</Text> and
-            <Text style={styles.linkText}> Terms and Condition</Text>. You can stop future sharing of
-            your info at any time in your <Text style={styles.linkText}>PayPal Profile</Text>.
+            <Text style={styles.linkText}> Terms and Condition</Text>. You can
+            stop future sharing of your info at any time in your{' '}
+            <Text style={styles.linkText}>PayPal Profile</Text>.
           </Text>
         </View>
 
         <View style={styles.actionsContainer}>
-          <CustomButton title='Login' onPress={()=> {}} />
-          <TouchableOpacity style={styles.cancelButton} activeOpacity={0.8} onPress={()=> navigation.goBack()}>
+          <CustomButton title="Login" onPress={() => {}} />
+          <TouchableOpacity
+            style={styles.cancelButton}
+            activeOpacity={0.8}
+            onPress={() => navigation.goBack()}
+          >
             <Text style={styles.cancelText}>Cancel</Text>
           </TouchableOpacity>
         </View>

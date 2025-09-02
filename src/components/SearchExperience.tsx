@@ -71,6 +71,8 @@ const Search = ({ placeholder, value, onChangeText, data }: Props) => {
                 setShowDropdown(false);
               }
             }}
+            cursorColor={COLORS.primary}
+            selectionColor={COLORS.primary}
           />
           <Feather
             name="search"

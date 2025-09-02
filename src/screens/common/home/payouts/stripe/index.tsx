@@ -25,16 +25,22 @@ const Stripe = ({ navigation }: any) => {
           <View style={styles.formWrap}>
             <Text style={styles.heading}>Sign In to your account</Text>
 
-            <Text style={[styles.label,{marginTop:RFPercentage(2.4)}]}>Email</Text>
+            <Text style={[styles.label, { marginTop: RFPercentage(2.4) }]}>
+              Email
+            </Text>
             <View style={styles.inputWrapper}>
               <TextInput
                 placeholder=""
                 placeholderTextColor={COLORS.placeholder}
                 style={styles.input}
+                cursorColor={COLORS.primary}
+                selectionColor={COLORS.primary}
               />
             </View>
 
-            <View style={[styles.passwordRow,{marginTop:RFPercentage(2.4)}]}>
+            <View
+              style={[styles.passwordRow, { marginTop: RFPercentage(2.4) }]}
+            >
               <Text style={styles.label}>Password</Text>
               <TouchableOpacity activeOpacity={0.8}>
                 <Text style={styles.forgetPassword}>Forget your password?</Text>
@@ -46,6 +52,8 @@ const Stripe = ({ navigation }: any) => {
                 placeholder=""
                 placeholderTextColor={COLORS.placeholder}
                 style={styles.input}
+                cursorColor={COLORS.primary}
+                selectionColor={COLORS.primary}
               />
             </View>
           </View>
@@ -150,7 +158,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-   
   },
   forgetPassword: {
     fontFamily: FONTS.medium,

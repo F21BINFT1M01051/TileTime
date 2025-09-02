@@ -22,6 +22,8 @@ const CreateGroup = ({ navigation }: any) => {
   const [keyboardIsVisible, setKeyboardIsVisible] = useState(false);
   const aboutFormRef = useRef<AboutFormRef>(null);
   const [isAboutValid, setIsAboutValid] = useState(false);
+  const [progress, setProgress] = useState(0); // track progress explicitly
+  const [selectedContacts, setSelectedContacts] = useState<number[]>([]);
 
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -42,11 +44,11 @@ const CreateGroup = ({ navigation }: any) => {
       if (stepIndex === 0 && aboutFormRef.current) {
         const errors = await aboutFormRef.current.validateForm();
         if (Object.keys(errors).length === 0) {
-          setStepIndex(stepIndex + 1);
+          setStepIndex(1);
+          setProgress(50);
         }
-      } else if (stepIndex < steps.length - 1) {
-        setStepIndex(stepIndex + 1);
-      } else {
+      } else if (stepIndex === 1) {
+        setProgress(100);
         navigation.navigate('ChatScreen', { isGroup: true, isNew: true });
       }
     } catch (error) {
@@ -54,18 +56,17 @@ const CreateGroup = ({ navigation }: any) => {
     }
   };
 
-  const getBarColor = (index: any) => {
-    if (index < stepIndex) return COLORS.green;
-    if (index === stepIndex) return COLORS.pink;
-    return COLORS.fieldColor;
-  };
-
   const renderStepContent = () => {
     switch (stepIndex) {
       case 0:
         return <About ref={aboutFormRef} setFormValid={setIsAboutValid} />;
       case 1:
-        return <Members />;
+        return (
+          <Members
+            selectedContacts={selectedContacts}
+            setSelectedContacts={setSelectedContacts}
+          />
+        );
       default:
         return null;
     }
@@ -89,12 +90,7 @@ const CreateGroup = ({ navigation }: any) => {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.progressBarBackground}>
-          <View
-            style={[
-              styles.progressBarFill,
-              { width: `${((stepIndex + 1) / steps.length) * 100}%` },
-            ]}
-          />
+          <View style={[styles.progressBarFill, { width: `${progress}%` }]} />
         </View>
 
         <View style={styles.contentWrapper}>{renderStepContent()}</View>
@@ -111,10 +107,15 @@ const CreateGroup = ({ navigation }: any) => {
                 onPress={handleNext}
                 style={{
                   backgroundColor:
-                    stepIndex === 0 && !isAboutValid
+                    (stepIndex === 0 && !isAboutValid) ||
+                    (stepIndex === 1 && selectedContacts.length === 0)
                       ? COLORS.disabled
                       : COLORS.primary,
                 }}
+                disabled={
+                  (stepIndex === 0 && !isAboutValid) ||
+                  (stepIndex === 1 && selectedContacts.length === 0)
+                }
               />
             </View>
           </View>

@@ -149,20 +149,20 @@ const styles = StyleSheet.create({
   headingText: {
     color: COLORS.primary,
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(2.5),
+    fontSize: RFPercentage(2.6),
   },
   listContainer: {
     marginTop: RFPercentage(1.5),
   },
   groupItem: {
     width: '100%',
-    paddingVertical: RFPercentage(1.5),
+    paddingVertical: RFPercentage(1),
     borderWidth: RFPercentage(0.1),
     borderRadius: RFPercentage(1.5),
     marginTop: RFPercentage(2.2),
   },
   groupContent: {
-    width: '90%',
+    width: '92%',
     alignSelf: 'center',
     flexDirection: 'row',
     alignItems: 'center',
@@ -193,15 +193,17 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     marginLeft: RFPercentage(1.5),
+    width: '80%',
   },
   groupTitle: {
     color: COLORS.primary,
-    fontSize: RFPercentage(2),
+    fontSize: RFPercentage(2.2),
     fontFamily: FONTS.medium,
+    lineHeight:RFPercentage(2.5)
   },
   groupMembers: {
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
     fontFamily: FONTS.regular,
     marginTop: RFPercentage(0.8),
   },

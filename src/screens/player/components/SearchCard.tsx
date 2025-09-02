@@ -52,18 +52,12 @@ const SearchCard = (props: Props) => {
         )}
 
         <View style={styles.textContainer}>
-          <Text style={styles.nameText}>
-            {props.name}
-          </Text>
+          <Text style={styles.nameText}>{props.name}</Text>
 
           {props.members ? (
-            <Text style={styles.subText}>
-              {props.members} Members
-            </Text>
+            <Text style={styles.subText}>{props.members} Members</Text>
           ) : (
-            <Text style={styles.subText}>
-              {props.location}
-            </Text>
+            <Text style={styles.subText}>{props.location}</Text>
           )}
         </View>
 
@@ -83,13 +77,14 @@ const styles = StyleSheet.create({
   cardContainer: {
     width: '100%',
     backgroundColor: COLORS.white,
-    height: RFPercentage(11),
-    borderRadius: RFPercentage(3),
+    height: RFPercentage(10),
+    borderRadius: RFPercentage(2.5),
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.lightWhite,
     borderBottomWidth: RFPercentage(0.6),
     justifyContent: 'center',
     marginTop: RFPercentage(2),
+    borderBottomColor: 'rgba(230, 247, 250, 0.6)',
   },
   contentContainer: {
     width: '88%',
@@ -116,14 +111,14 @@ const styles = StyleSheet.create({
     height: RFPercentage(3.5),
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: "#E4F7F6",
+    backgroundColor: '#E4F7F6',
     borderRadius: RFPercentage(100),
     position: 'absolute',
     right: 0,
   },
   instructorText: {
     color: COLORS.primary,
-    fontSize: RFPercentage(1.5),
+    fontSize: RFPercentage(1.6),
     fontFamily: FONTS.medium,
   },
   avatarOuterLayer: {

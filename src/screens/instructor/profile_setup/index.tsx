@@ -25,6 +25,8 @@ const InstructorProfileSetup = ({ navigation }: any) => {
   const aboutFormRef = useRef<AboutFormRef>(null);
   const [isAboutValid, setIsAboutValid] = useState(false);
   const scrollViewRef = useRef<ScrollView>(null);
+  const [progress, setProgress] = useState(0); // percentage 0–100
+  const [hasExperience, setHasExperience] = useState(false); // <-- from Professional screen
 
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -43,13 +45,16 @@ const InstructorProfileSetup = ({ navigation }: any) => {
   const handleNext = async () => {
     try {
       if (stepIndex === 0 && aboutFormRef.current) {
+        // Validate About form
         const errors = await aboutFormRef.current.validateForm();
         if (Object.keys(errors).length === 0) {
           setStepIndex(stepIndex + 1);
+          setProgress(50);
         }
-      } else if (stepIndex < steps.length - 1) {
-        setStepIndex(stepIndex + 1);
-      } else {
+      } else if (stepIndex === 1) {
+        if (hasExperience) {
+          setProgress(100);
+        }
         navigation.navigate('InstructorTabs');
       }
     } catch (error) {
@@ -62,7 +67,7 @@ const InstructorProfileSetup = ({ navigation }: any) => {
       case 0:
         return <About ref={aboutFormRef} setFormValid={setIsAboutValid} />;
       case 1:
-        return <ProffessionalInfo />;
+        return <ProffessionalInfo setHasExperience={setHasExperience} />;
       default:
         return null;
     }
@@ -81,15 +86,8 @@ const InstructorProfileSetup = ({ navigation }: any) => {
         contentContainerStyle={{ flexGrow: 1, paddingBottom: RFPercentage(3) }}
         showsVerticalScrollIndicator={false}
       >
-        {/* Step Bars */}
-        {/* Progress Bar */}
         <View style={styles.progressBarBackground}>
-          <View
-            style={[
-              styles.progressBarFill,
-              { width: `${((stepIndex + 1) / steps.length) * 100}%` },
-            ]}
-          />
+          <View style={[styles.progressBarFill, { width: `${progress}%` }]} />
         </View>
 
         {/* Step Content */}
