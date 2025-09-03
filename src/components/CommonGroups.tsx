@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: RFPercentage(0.6),
     borderColor: COLORS.lightWhite,
     borderRadius: RFPercentage(1.5),
-    paddingVertical: RFPercentage(1.7),
+    paddingVertical: RFPercentage(1.5),
     shadowColor: 'rgba(203, 203, 203, 0.5)',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   title: {
     color: COLORS.primary,
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(2.42),
+    fontSize: RFPercentage(2.4),
   },
   listItem: {
     flexDirection: 'row',

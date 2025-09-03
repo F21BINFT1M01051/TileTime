@@ -14,7 +14,6 @@ import {
   FlatList,
 } from 'react-native';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import moment from 'moment';
@@ -24,7 +23,7 @@ import CustomButton from '../../../../../components/CustomButton';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { pick } from '@react-native-documents/picker';
-import Contacts from 'react-native-contacts';
+// import Contacts from 'react-native-contacts';
 import LinearGradient from 'react-native-linear-gradient';
 
 moment.updateLocale('en', {
@@ -260,31 +259,31 @@ const ChatScreen = ({ route }: any) => {
   };
 
   // Contact picker
-  const pickContact = async () => {
-    try {
-      const granted = await Contacts.requestPermission();
-      if (granted === 'authorized') {
-        const contacts = await Contacts.getAll();
-        if (contacts.length > 0) {
-          const contact = contacts[0];
-          const newMessage = {
-            _id: Date.now(),
-            createdAt: new Date(),
-            user: {
-              _id: 1,
-              name: 'You',
-              avatar: 'https://placeimg.com/140/140/any',
-            },
-            text: `👤 Contact: ${contact.givenName} ${contact.familyName}`,
-          };
-          setMessages(prev => GiftedChat.append(prev, [newMessage]));
-          setAttachmentModalVisible(false);
-        }
-      }
-    } catch (err) {
-      console.log('Error picking contact: ', err);
-    }
-  };
+  // const pickContact = async () => {
+  //   try {
+  //     const granted = await Contacts.requestPermission();
+  //     if (granted === 'authorized') {
+  //       const contacts = await Contacts.getAll();
+  //       if (contacts.length > 0) {
+  //         const contact = contacts[0];
+  //         const newMessage = {
+  //           _id: Date.now(),
+  //           createdAt: new Date(),
+  //           user: {
+  //             _id: 1,
+  //             name: 'You',
+  //             avatar: 'https://placeimg.com/140/140/any',
+  //           },
+  //           text: `👤 Contact: ${contact.givenName} ${contact.familyName}`,
+  //         };
+  //         setMessages(prev => GiftedChat.append(prev, [newMessage]));
+  //         setAttachmentModalVisible(false);
+  //       }
+  //     }
+  //   } catch (err) {
+  //     console.log('Error picking contact: ', err);
+  //   }
+  // };
 
   const ShareOptions = [
     {
@@ -306,7 +305,7 @@ const ChatScreen = ({ route }: any) => {
       name: 'Contacts',
       icon: 'contacts',
       color: COLORS.yellow,
-      onPress: () => pickContact(),
+      // onPress: () => pickContact(),
     },
   ];
 
@@ -324,7 +323,9 @@ const ChatScreen = ({ route }: any) => {
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => navigation.navigate('GroupDetails')}
+            onPress={() =>
+              navigation.navigate(isGroup ? 'GroupDetails' : 'UserDetails')
+            }
           >
             {isGroup ? (
               <>
@@ -354,7 +355,9 @@ const ChatScreen = ({ route }: any) => {
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => navigation.navigate('GroupDetails')}
+            onPress={() =>
+              navigation.navigate(isGroup ? 'GroupDetails' : 'UserDetails')
+            }
           >
             <Text style={styles.groupNameText}>
               {isGroup ? `Mahjong - Richie Rich Gr..` : `Sophie Reynolds`}
@@ -413,8 +416,8 @@ const ChatScreen = ({ route }: any) => {
       >
         {messages.length === 0 && (
           <LinearGradient
-            colors={['rgba(255, 255, 255, 0.4)', 'rgba(255, 255, 255, 0.6)']}
-            style={{ height: '88%' }}
+            colors={['rgba(255, 255, 255, 0.4)', 'rgba(255, 255, 255, 0.3)']}
+            // style={{ height: '88%' }}
           >
             <View style={styles.todayBadge}>
               <Text style={styles.todayText}>Today</Text>

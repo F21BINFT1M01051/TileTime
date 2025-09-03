@@ -29,7 +29,7 @@ interface Props {
   focusedColor?: string;
   errorColor?: string;
   hasError?: boolean;
-  length? : number
+  length?: number;
 }
 
 const InputField: React.FC<Props> = ({
@@ -77,7 +77,10 @@ const InputField: React.FC<Props> = ({
     ...styles.label,
     top: animatedIsFocused.interpolate({
       inputRange: [0, 1],
-      outputRange: [RFPercentage(7) / 2.7, RFPercentage(1)],
+      outputRange: [
+        Platform.OS === 'ios' ? RFPercentage(7) / 2.7 : RFPercentage(7) / 3.8,
+        Platform.OS === 'ios' ? RFPercentage(1) : RFPercentage(0.5),
+      ],
     }),
     fontSize: animatedIsFocused.interpolate({
       inputRange: [0, 1],
@@ -176,7 +179,7 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     paddingHorizontal: 0,
     fontSize: RFPercentage(2.1),
-    top: RFPercentage(1.3),
+    top: RFPercentage(1.1),
   },
   iconContainer: {
     right: 0,

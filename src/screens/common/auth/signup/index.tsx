@@ -57,6 +57,7 @@ const SignUp = ({ navigation }: any) => {
         <ScrollView
           style={{ backgroundColor: COLORS.white, flex: 1 }}
           contentContainerStyle={{ flexGrow: 1 }}
+          showsVerticalScrollIndicator={false}
         >
           <ImageBackground
             source={IMAGES.auth}

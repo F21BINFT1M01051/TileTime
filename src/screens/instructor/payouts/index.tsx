@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontFamily: FONTS.semiBold,
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(2.3),
   },
   mainWrapper: {
     width: '90%',
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   linkedAccountText: {
     fontFamily: FONTS.bold,
     color: COLORS.primary,
-    fontSize: RFPercentage(2),
+    fontSize: RFPercentage(2.2),
   },
   linkedAccountWrapper: {
     marginTop: RFPercentage(2),
@@ -177,13 +177,13 @@ const styles = StyleSheet.create({
   accountTitle: {
     fontFamily: FONTS.bold,
     color: COLORS.primary,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(2),
+    lineHeight:RFPercentage(2)
   },
   accountNumber: {
     color: COLORS.grey4,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.5),
-    marginTop: RFPercentage(0.2),
+    fontSize: RFPercentage(1.7),
   },
   deleteIcon: {
     width: RFPercentage(2),

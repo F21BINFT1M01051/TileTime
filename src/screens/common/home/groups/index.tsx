@@ -187,6 +187,6 @@ const styles = StyleSheet.create({
     width: '100%',
     alignSelf: 'center',
     alignContent: 'center',
-    marginTop: RFPercentage(5.8),
+    marginTop: RFPercentage(7.8),
   },
 });

@@ -314,7 +314,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontFamily: FONTS.semiBold,
-    fontSize: RFPercentage(2),
+    fontSize: RFPercentage(2.2),
   },
   container: {
     backgroundColor: COLORS.white,

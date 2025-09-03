@@ -19,7 +19,7 @@ const HomeNavigator = (props: Props) => {
         {
           backgroundColor: COLORS.white,
           width: '100%',
-          height: Platform.OS === 'android' ? RFPercentage(10) : RFPercentage(13),
+          height: Platform.OS === 'android' ? RFPercentage(13) : RFPercentage(13),
           justifyContent: 'flex-end',
           borderBottomWidth: RFPercentage(0.1),
           borderBottomColor: COLORS.lightWhite,
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   getStartedText: {
     color: COLORS.primary,
     fontFamily: FONTS.semiBold,
-    fontSize: RFPercentage(2.2),
+    fontSize: RFPercentage(2.4),
   },
   auth: {
     width: '90%',

@@ -299,7 +299,7 @@ const Events = ({ navigation }: any) => {
               resizeMode="contain"
               style={styles.empty}
             />
-            <View style={{ marginTop: RFPercentage(3) }}>
+            <View style={{ marginTop: RFPercentage(6) }}>
               <CustomButton
                 title="Create Your First Event"
                 onPress={openModal}

@@ -31,7 +31,7 @@ import ShareEvent from '../../../components/ShareEvent';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { pick } from '@react-native-documents/picker';
-import Contacts from 'react-native-contacts';
+// import Contacts from 'react-native-contacts';
 
 const InstructorEventDetail = ({ navigation, route }: any) => {
   const { type } = route.params;
@@ -128,31 +128,31 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
   };
 
   // Contact picker
-  const pickContact = async () => {
-    try {
-      const granted = await Contacts.requestPermission();
-      if (granted === 'authorized') {
-        const contacts = await Contacts.getAll();
-        if (contacts.length > 0) {
-          const contact = contacts[0];
-          const newMessage = {
-            _id: Date.now(),
-            createdAt: new Date(),
-            user: {
-              _id: 1,
-              name: 'You',
-              avatar: 'https://placeimg.com/140/140/any',
-            },
-            text: `👤 Contact: ${contact.givenName} ${contact.familyName}`,
-          };
-          setMessages(prev => GiftedChat.append(prev, [newMessage]));
-          setAttachmentModalVisible(false);
-        }
-      }
-    } catch (err) {
-      console.log('Error picking contact: ', err);
-    }
-  };
+  // const pickContact = async () => {
+  //   try {
+  //     const granted = await Contacts.requestPermission();
+  //     if (granted === 'authorized') {
+  //       const contacts = await Contacts.getAll();
+  //       if (contacts.length > 0) {
+  //         const contact = contacts[0];
+  //         const newMessage = {
+  //           _id: Date.now(),
+  //           createdAt: new Date(),
+  //           user: {
+  //             _id: 1,
+  //             name: 'You',
+  //             avatar: 'https://placeimg.com/140/140/any',
+  //           },
+  //           text: `👤 Contact: ${contact.givenName} ${contact.familyName}`,
+  //         };
+  //         setMessages(prev => GiftedChat.append(prev, [newMessage]));
+  //         setAttachmentModalVisible(false);
+  //       }
+  //     }
+  //   } catch (err) {
+  //     console.log('Error picking contact: ', err);
+  //   }
+  // };
 
   const ShareOptions = [
     {
@@ -174,7 +174,7 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
       name: 'Contacts',
       icon: 'contacts',
       color: COLORS.yellow,
-      onPress: () => pickContact(),
+      // onPress: () => pickContact(),
     },
   ];
 

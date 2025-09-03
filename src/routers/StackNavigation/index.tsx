@@ -48,6 +48,7 @@ import DocViewer from '../../screens/common/home/groups/create-groups/media-docu
 import PayPal from '../../screens/common/home/payouts/paypal';
 import Stripe from '../../screens/common/home/payouts/stripe';
 import BankAccounts from '../../screens/common/home/payouts/bank-accounts';
+import UserDetails from '../../screens/common/home/groups/chat/user-details';
 
 export type RootStackParamList = {
   OnBoarding: undefined;
@@ -96,6 +97,7 @@ export type RootStackParamList = {
   PayPal: undefined;
   Stripe: undefined;
   BankAccounts: undefined;
+  UserDetails: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -108,7 +110,6 @@ const Navigator: React.FC = () => {
           headerShown: false,
         }}
       >
-
         {/* ----------------Common Flow----------- */}
         <Stack.Screen name="OnBoarding" component={OnBoarding} />
         <Stack.Screen name="LoginSignUp" component={LoginSignUp} />
@@ -131,6 +132,8 @@ const Navigator: React.FC = () => {
         <Stack.Screen name="Dashboard" component={Dashboard} />
         <Stack.Screen name="EventDetails" component={EventDetails} />
         <Stack.Screen name="Payouts" component={Payouts} />
+        <Stack.Screen name="UserDetails" component={UserDetails} />
+
         <Stack.Screen
           name="DirectChatSelection"
           component={DirectChatSelection}

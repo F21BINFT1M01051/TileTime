@@ -9,7 +9,6 @@ import {
 import React from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const data = [
   { id: 1, profile: IMAGES.profile1 },
@@ -40,6 +39,7 @@ interface Props {
   title: string;
   onPress: () => void;
   subTitle?: string;
+  style?: object;
 }
 
 const DetailComponent = (props: Props) => {
@@ -52,7 +52,7 @@ const DetailComponent = (props: Props) => {
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={props.onPress}
-      style={styles.container}
+      style={[styles.container, props.style]}
     >
       <View style={styles.innerWrapper}>
         <View>

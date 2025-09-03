@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   View,
   FlatList,
+  Platform
 } from 'react-native';
 import React, { useState } from 'react';
 import { COLORS, FONTS, IMAGES, ICONS } from '../../../../../../config/theme';
@@ -143,7 +144,7 @@ const Members = ({ selectedContacts, setSelectedContacts }: any) => {
             borderColor: '#DEDEDE',
             borderRadius: RFPercentage(1.6),
             backgroundColor: COLORS.white,
-            height: RFPercentage(29.5),
+            height: RFPercentage(30.5),
             marginTop: RFPercentage(3),
           }}
         >
@@ -465,7 +466,7 @@ const styles = StyleSheet.create({
     color: COLORS.lightGrey,
     fontFamily: FONTS.regular,
     fontSize: RFPercentage(1.8),
-    marginTop: RFPercentage(0.7),
+    marginTop: Platform.OS === "ios" ? RFPercentage(0.6) : RFPercentage(0.1),
   },
   checkIcon: {
     width: RFPercentage(3),

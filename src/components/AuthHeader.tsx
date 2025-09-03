@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.white,
     width: '100%',
-    height: Platform.OS === 'ios' ? RFPercentage(13) : RFPercentage(12),
+    height: Platform.OS === 'ios' ? RFPercentage(13) : RFPercentage(13),
     justifyContent: 'flex-end',
     borderBottomWidth: RFPercentage(0.1),
     borderBottomColor: COLORS.grey7,
@@ -86,20 +86,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'center',
+    // backgroundColor:"red"
   },
   backBtn: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   backIcon: {
-    width: RFPercentage(2.5),
-    height: RFPercentage(2.5),
+    width: RFPercentage(2.8),
+    height: RFPercentage(2.8),
   },
   getStartedText: {
     color: COLORS.primary,
     fontFamily: FONTS.headline,
     fontSize: RFPercentage(2.7),
     marginLeft: RFPercentage(1),
+    lineHeight:RFPercentage(3)
   },
   rightBtn: {
     position: 'absolute',

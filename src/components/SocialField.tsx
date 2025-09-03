@@ -34,7 +34,7 @@ const SocialField = (props: Props) => {
           borderColor: props.borderColor || COLORS.borderColor,
           height: props.connected ? RFPercentage(8.5) : RFPercentage(6),
         },
-        props.style
+        props.style,
       ]}
     >
       {props.connected ? (
@@ -70,7 +70,13 @@ const SocialField = (props: Props) => {
             />
           )}
 
-          <Text style={[styles.text, { color: props.color || COLORS.black }, props.textStyle]}>
+          <Text
+            style={[
+              styles.text,
+              { color: props.color || COLORS.black },
+              props.textStyle,
+            ]}
+          >
             {props.name}
           </Text>
         </View>

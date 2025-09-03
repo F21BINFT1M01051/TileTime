@@ -51,6 +51,7 @@ const BankAccounts = () => {
             keyExtractor={item => item.id.toString()}
             scrollEnabled={false}
             columnWrapperStyle={styles.columnWrapper}
+            contentContainerStyle={{paddingBottom:RFPercentage(1)}}
             renderItem={({ item }) => {
               return (
                 <TouchableOpacity activeOpacity={0.8} style={styles.bankCard}>
@@ -138,7 +139,7 @@ const styles = StyleSheet.create({
   manualText: {
     color: COLORS.primary,
     fontFamily: FONTS.semiBold,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
   },
   manualIcon: {
     marginLeft: RFPercentage(0.4),

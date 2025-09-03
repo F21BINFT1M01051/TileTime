@@ -448,7 +448,7 @@ const styles = StyleSheet.create({
   },
   authHeaderText: {
     fontFamily: FONTS.semiBold,
-    fontSize: RFPercentage(2),
+    fontSize: RFPercentage(2.3),
   },
   container: {
     backgroundColor: COLORS.white,

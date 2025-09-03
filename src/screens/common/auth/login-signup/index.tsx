@@ -117,7 +117,7 @@ const LoginSignUp = ({ navigation }: any) => {
                             style={{
                               color: COLORS.red,
                               fontFamily: FONTS.regular,
-                              fontSize: RFPercentage(1.6),
+                              fontSize: RFPercentage(1.7),
                             }}
                           >
                             {errors?.email}

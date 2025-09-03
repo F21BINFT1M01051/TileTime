@@ -57,6 +57,7 @@ const Login = ({ navigation }: any) => {
         <ScrollView
           style={{ backgroundColor: COLORS.white, flex: 1 }}
           contentContainerStyle={{ flexGrow: 1 }}
+            showsVerticalScrollIndicator={false}
         >
           <ImageBackground
             source={IMAGES.auth}
@@ -128,7 +129,7 @@ const Login = ({ navigation }: any) => {
                             style={{
                               color: COLORS.red,
                               fontFamily: FONTS.regular,
-                              fontSize: RFPercentage(1.6),
+                              fontSize: RFPercentage(1.7),
                             }}
                           >
                             {errors?.email}
@@ -166,7 +167,7 @@ const Login = ({ navigation }: any) => {
                             style={{
                               color: COLORS.red,
                               fontFamily: FONTS.regular,
-                              fontSize: RFPercentage(1.6),
+                              fontSize: RFPercentage(1.7),
                             }}
                           >
                             {errors?.password}
@@ -270,7 +271,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular,
     marginTop: RFPercentage(0.6),
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
   },
   buttonWrapper: {
     width: '100%',

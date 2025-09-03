@@ -342,17 +342,17 @@ const styles = StyleSheet.create({
   },
   groupInviteNote: {
     color: COLORS.primary,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
     fontFamily: FONTS.medium,
     textAlign: 'center',
-    marginTop: RFPercentage(1),
+    marginTop: RFPercentage(0.3),
   },
   qouteIcon: {
     width: RFPercentage(8),
     height: RFPercentage(4),
     position: 'absolute',
-    right: RFPercentage(-6.5),
-    top: RFPercentage(1),
+    right: RFPercentage(-7.5),
+    top: RFPercentage(1.7),
   },
   groupDescriptionWrapper: {
     marginTop: RFPercentage(3),

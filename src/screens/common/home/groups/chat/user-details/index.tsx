@@ -6,77 +6,65 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  Platform,
 } from 'react-native';
 import React from 'react';
 import { COLORS, IMAGES, FONTS, ICONS } from '../../../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import CustomButton from '../../../../../../components/CustomButton';
 import DetailComponent from '../../../../../../components/DetailComponent';
 import SettingsButton from '../../../../../../components/SettingsButton';
 import SocialField from '../../../../../../components/SocialField';
 import CommonGroup from '../../../../../../components/CommonGroups';
+import LinearGradient from 'react-native-linear-gradient';
 
 const UserDetails = ({ navigation }: any) => {
   return (
     <View style={styles.safeArea}>
-      <ScrollView>
-        <View style={{ width: '100%' }}>
+      <View style={styles.headerBorder}>
+        <View style={styles.headerContainer}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigation.goBack()}
+            style={styles.zIndexHigh}
+          >
+            <Image
+              source={ICONS.back}
+              resizeMode="contain"
+              style={{ width: RFPercentage(3), height: RFPercentage(3) }}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.fullWidth}>
           <ImageBackground
             source={IMAGES.single}
             resizeMode="repeat"
             style={styles.backgroundImage}
           >
-            <View style={styles.headerBorder}>
-              <View style={styles.headerContainer}>
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  onPress={() => navigation.goBack()}
-                >
-                  <AntDesign
-                    name="arrowleft"
-                    color={COLORS.grey}
-                    size={RFPercentage(3)}
-                  />
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  style={styles.dotsButton}
-                  onPress={() => {
-                    navigation.navigate('GroupDetails');
-                  }}
-                >
-                  <View style={styles.editButton}>
+            <LinearGradient
+              colors={['rgba(255, 255, 255, 0.3)', 'rgba(255, 255, 255, 0.8)']}
+              style={{
+                width: '100%',
+                height: RFPercentage(25),
+              }}
+            >
+              <View style={styles.avatarOuterLayer}>
+                <View style={styles.avatarMiddleLayer}>
+                  <View style={styles.avatarInnerLayer}>
                     <Image
-                      source={ICONS.pen}
-                      resizeMode="contain"
-                      style={{
-                        width: RFPercentage(3),
-                        height: RFPercentage(3),
-                        marginRight: RFPercentage(0.5),
-                      }}
+                      source={IMAGES.profile2}
+                      resizeMode="cover"
+                      style={styles.avatarImage}
                     />
-                    <Text style={styles.editText}>Edit</Text>
                   </View>
-                </TouchableOpacity>
+                </View>
               </View>
-            </View>
+            </LinearGradient>
           </ImageBackground>
         </View>
         <View style={styles.mainContent}>
-          <View style={styles.avatarOuterLayer}>
-            <View style={styles.avatarMiddleLayer}>
-              <View style={styles.avatarInnerLayer}>
-                <Image
-                  source={IMAGES.profile2}
-                  resizeMode="cover"
-                  style={styles.avatarImage}
-                />
-              </View>
-            </View>
-          </View>
-
           <Text style={styles.userName}>Sophie Reynolds</Text>
 
           <View style={styles.buttonRow}>
@@ -103,11 +91,17 @@ const UserDetails = ({ navigation }: any) => {
               title="View Profile"
               icon={ICONS.user4}
               onPress={() => navigation.navigate('PlayerProfile')}
+              style={{ borderBottomColor: COLORS.lightWhite }}
             />
           </View>
 
           <View>
-            <DetailComponent title="Media and Documents" media={true} onPress={()=> {}} />
+            <DetailComponent
+              title="Media and Documents"
+              media={true}
+              onPress={() => {}}
+              style={{ borderBottomColor: COLORS.lightWhite }}
+            />
           </View>
 
           <View style={styles.sectionMargin}>
@@ -119,6 +113,7 @@ const UserDetails = ({ navigation }: any) => {
               title="Download to Gallery"
               icon={ICONS.download}
               switch={true}
+              style={{ borderBottomColor: COLORS.lightWhite }}
             />
             <Text style={styles.galleryText}>
               Automatically save photos you receive to Gallery.
@@ -143,9 +138,13 @@ const UserDetails = ({ navigation }: any) => {
 export default UserDetails;
 
 const styles = StyleSheet.create({
-  safeArea: {
-    backgroundColor: COLORS.white,
-    flex: 1,
+  safeArea: { backgroundColor: COLORS.white, flex: 1 },
+  fullWidth: { width: '100%', marginTop: RFPercentage(10) },
+  zIndexHigh: { zIndex: 999999 },
+  backgroundImage: {
+    width: '100%',
+    height: RFPercentage(24),
+    top: RFPercentage(-14),
   },
   headerBorder: {
     borderBottomWidth: 1,
@@ -158,13 +157,56 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(5),
+    marginTop: Platform.OS === 'android' ? RFPercentage(7) : RFPercentage(7.6),
+  },
+  mainContent: { width: '90%', alignSelf: 'center', bottom: RFPercentage(17) },
+  avatarOuterLayer: {
+    width: RFPercentage(11),
+    height: RFPercentage(12.5),
+    borderRadius: RFPercentage(4.8),
+    backgroundColor: COLORS.purple,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: RFPercentage(8),
+    marginLeft: RFPercentage(2.5),
+  },
+  avatarMiddleLayer: {
+    backgroundColor: COLORS.green2,
+    width: RFPercentage(11),
+    height: RFPercentage(12.5),
+    borderRadius: RFPercentage(4.8),
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: RFPercentage(0.3),
+  },
+  avatarInnerLayer: {
+    backgroundColor: COLORS.pink3,
+    width: RFPercentage(11),
+    height: RFPercentage(12.5),
+    borderRadius: RFPercentage(4.8),
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: RFPercentage(0.3),
+  },
+  avatarImage: {
+    width: RFPercentage(11),
+    height: RFPercentage(12.5),
+    borderRadius: RFPercentage(4.8),
+    right: RFPercentage(0.3),
+    bottom: RFPercentage(0.2),
+  },
+  userName: {
+    fontFamily: FONTS.extraBold,
+    color: COLORS.primary,
+    fontSize: RFPercentage(3),
+    marginTop: RFPercentage(3),
   },
   dotsButton: {
     position: 'absolute',
     right: 0,
     zIndex: 9999,
   },
+
   editButton: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -177,54 +219,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.semiBold,
     fontSize: RFPercentage(1.8),
   },
-  backgroundImage: {
-    width: '100%',
-    height: RFPercentage(20),
-  },
-  mainContent: {
-    width: '90%',
-    alignSelf: 'center',
-    bottom: RFPercentage(6),
-  },
-  avatarOuterLayer: {
-    width: RFPercentage(11),
-    height: RFPercentage(12),
-    borderRadius: RFPercentage(4.6),
-    backgroundColor: COLORS.purple,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  avatarMiddleLayer: {
-    backgroundColor: COLORS.green2,
-    width: RFPercentage(11),
-    height: RFPercentage(12),
-    borderRadius: RFPercentage(4.6),
-    alignItems: 'center',
-    justifyContent: 'center',
-    right: RFPercentage(0.3),
-  },
-  avatarInnerLayer: {
-    backgroundColor: COLORS.pink3,
-    width: RFPercentage(11),
-    height: RFPercentage(12),
-    borderRadius: RFPercentage(4.6),
-    alignItems: 'center',
-    justifyContent: 'center',
-    right: RFPercentage(0.3),
-  },
-  avatarImage: {
-    width: RFPercentage(11),
-    height: RFPercentage(12),
-    borderRadius: RFPercentage(4.6),
-    right: RFPercentage(0.3),
-    bottom: RFPercentage(0.2),
-  },
-  userName: {
-    fontFamily: FONTS.headline,
-    color: COLORS.primary,
-    fontSize: RFPercentage(3),
-    marginTop: RFPercentage(3),
-  },
+
   buttonRow: {
     width: '100%',
     flexDirection: 'row',

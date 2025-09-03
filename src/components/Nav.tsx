@@ -35,12 +35,13 @@ const styles = StyleSheet.create({
   headerText: {
     fontFamily: FONTS.headline,
     color: COLORS.primary,
-    fontSize: RFPercentage(2.7),
+    fontSize: RFPercentage(2.8),
     marginLeft: RFPercentage(1.2),
+    lineHeight:RFPercentage(3)
   },
   auth: {
     width: '100%',
-    height:  Platform.OS === 'ios' ? RFPercentage(12) : RFPercentage(9),
+    height:  Platform.OS === 'ios' ? RFPercentage(12) : RFPercentage(12),
     justifyContent: 'flex-end',
     borderBottomWidth: RFPercentage(0.1),
     borderBottomColor: COLORS.fieldBorder,

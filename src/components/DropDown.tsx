@@ -66,7 +66,10 @@ const DropdownField: React.FC<Props> = ({
     position: 'absolute' as const,
     top: animatedIsFocused.interpolate({
       inputRange: [0, 1],
-      outputRange: [RFPercentage(0.4), RFPercentage(-1.3)],
+      outputRange: [
+        Platform.OS === 'ios' ? RFPercentage(0.4) : RFPercentage(-0.1),
+        RFPercentage(-1.3),
+      ],
     }),
     fontSize: animatedIsFocused.interpolate({
       inputRange: [0, 1],
@@ -188,7 +191,7 @@ const styles = StyleSheet.create({
     zIndex: 999999,
     marginTop: RFPercentage(1),
     width: '100%',
-    paddingVertical:RFPercentage(1)
+    paddingVertical: RFPercentage(1),
   },
 
   dropdownItem: {

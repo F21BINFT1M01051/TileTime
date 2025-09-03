@@ -634,7 +634,7 @@ const styles = StyleSheet.create({
   error: {
     color: COLORS.red,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
   },
   end: {
     alignSelf: 'flex-end',
@@ -653,7 +653,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular,
     color: COLORS.inputColor,
     lineHeight: RFPercentage(2.5),
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
     height: RFPercentage(10),
     paddingHorizontal: 0,
     paddingVertical: 0,

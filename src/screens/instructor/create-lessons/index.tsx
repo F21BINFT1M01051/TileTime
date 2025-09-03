@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
   Keyboard,
+  Platform
 } from 'react-native';
 import React, { useState, useMemo, useEffect } from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../config/theme';
@@ -353,8 +354,8 @@ const styles = StyleSheet.create({
   phoneText: {
     color: COLORS.lightGrey,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.6),
-    marginTop: RFPercentage(0.7),
+    fontSize: RFPercentage(1.7),
+    marginTop: Platform.OS === 'ios' ? RFPercentage(0.6) : RFPercentage(0.1),
   },
   checkIcon: {
     width: RFPercentage(3),

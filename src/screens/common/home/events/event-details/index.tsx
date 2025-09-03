@@ -293,7 +293,7 @@ const EventDetails = ({ navigation }: any) => {
             <View style={{ marginTop: RFPercentage(2) }}>
               <CustomButton
                 onPress={() => {
-                  navigation.navigate('InviteFriends');
+                  // navigation.navigate('InviteFriends');
                 }}
                 title="Invite Friends"
               />
@@ -318,7 +318,7 @@ export default EventDetails;
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.white },
   scrollContent: { paddingBottom: RFPercentage(4) },
-  headerTitle: { fontFamily: FONTS.semiBold, fontSize: RFPercentage(2) },
+  headerTitle: { fontFamily: FONTS.semiBold, fontSize: RFPercentage(2.3) },
   innerContainer: { width: '90%', alignSelf: 'center' },
   eventTitle: {
     color: COLORS.primary,
