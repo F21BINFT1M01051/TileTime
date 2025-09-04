@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   backButton: {
-    width: RFPercentage(12),
+    width: "30%",
     height: RFPercentage(5.5),
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.primary,
@@ -145,6 +145,6 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.bold,
   },
   saveButton: {
-    width: RFPercentage(25),
+    width: "60%",
   },
 });

@@ -157,7 +157,7 @@ const PlayerHome = ({ navigation }: any) => {
 
           <ImageBackground
             source={IMAGES.home_pic}
-            resizeMode="contain"
+            resizeMode="repeat"
             style={[
               styles.homeTopBackground,
               { marginTop: actions.length > 0 ? RFPercentage(2) : 0 },
@@ -357,9 +357,8 @@ const styles = StyleSheet.create({
   },
   homeTopBackground: {
     width: '100%',
-    height: RFPercentage(85),
+    height: RFPercentage(80),
     marginTop: RFPercentage(5),
-    paddingBottom: RFPercentage(2),
   },
   homeTopContent: {
     width: '90%',
@@ -413,7 +412,7 @@ const styles = StyleSheet.create({
   groupSection: {
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(-1),
+    // marginTop: RFPercentage(-1),
   },
   iconStar: {
     width: RFPercentage(3),

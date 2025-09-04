@@ -161,7 +161,7 @@ const InstructorHome = ({ navigation }: any) => {
 
           <ImageBackground
             source={IMAGES.home_pic}
-            resizeMode="contain"
+            resizeMode="repeat"
             style={[
               styles.homeTopBackground,
               { marginTop: actions.length > 0 ? RFPercentage(2) : 0 },
@@ -412,7 +412,7 @@ const styles = StyleSheet.create({
   groupSection: {
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(-1),
+    // marginTop: RFPercentage(-1),
   },
   iconStar: {
     width: RFPercentage(3),

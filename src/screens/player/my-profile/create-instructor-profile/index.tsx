@@ -669,6 +669,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     width: '100%',
+    backgroundColor:COLORS.white
   },
   modalBtnInner: {
     width: '90%',

@@ -35,7 +35,7 @@ const Documents = [
 
 const screenWidth = Dimensions.get('window').width;
 const numColumns = 3;
-const spacing = RFPercentage(2);
+const spacing = RFPercentage(2.1);
 const imageSize = (screenWidth - spacing * (numColumns + 1)) / numColumns;
 
 const ChatMedia = ({navigation} : any) => {

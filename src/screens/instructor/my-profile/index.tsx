@@ -150,22 +150,24 @@ const MyProfileInstructor = ({ navigation }: any) => {
       >
         <View style={styles.innerContainer}>
           <View style={styles.profileRow}>
-            <ImageBackground
-              source={ICONS.premiumBorder}
-              resizeMode="contain"
-              style={styles.avatarBorder}
-            >
-              <Image
-                source={IMAGES.customProfile}
-                resizeMode="cover"
-                style={styles.avatarImage}
-              />
-              <Image
-                source={ICONS.premium}
+            <View style={{width:"40%"}}>
+              <ImageBackground
+                source={ICONS.premiumBorder}
                 resizeMode="contain"
-                style={styles.premiumIcon}
-              />
-            </ImageBackground>
+                style={styles.avatarBorder}
+              >
+                <Image
+                  source={IMAGES.customProfile}
+                  resizeMode="cover"
+                  style={styles.avatarImage}
+                />
+                <Image
+                  source={ICONS.premium}
+                  resizeMode="contain"
+                  style={styles.premiumIcon}
+                />
+              </ImageBackground>
+            </View>
 
             <View style={styles.nameSection}>
               <Text style={styles.nameText}>Samantha Lewis</Text>
@@ -351,7 +353,7 @@ const styles = StyleSheet.create({
     height: RFPercentage(4),
   },
   nameSection: {
-    marginLeft: RFPercentage(2),
+    width:"60%",
   },
   nameText: {
     fontFamily: FONTS.headline,
@@ -368,7 +370,7 @@ const styles = StyleSheet.create({
     borderRadius: RFPercentage(1.3),
     marginTop: RFPercentage(1.8),
     height: RFPercentage(5.3),
-    width: RFPercentage(25),
+    width: "100%",
   },
   bioText: {
     color: COLORS.primary,

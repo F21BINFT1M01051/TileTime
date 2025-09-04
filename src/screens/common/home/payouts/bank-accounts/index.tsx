@@ -106,13 +106,14 @@ const styles = StyleSheet.create({
   },
   listWrap: {
     marginTop: RFPercentage(0.5),
+   
   },
   columnWrapper: {
     gap: RFPercentage(1),
     marginTop: RFPercentage(1),
   },
   bankCard: {
-    width: RFPercentage(13),
+    width:"31%",
     height: RFPercentage(8),
     backgroundColor: COLORS.white,
     borderWidth: RFPercentage(0.1),
