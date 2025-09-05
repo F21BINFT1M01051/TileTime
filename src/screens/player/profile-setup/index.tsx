@@ -168,6 +168,7 @@ const PlayerProfileSetup = ({ navigation }: any) => {
               <ScrollView
                 style={{ flex: 1, backgroundColor: COLORS.white }}
                 showsVerticalScrollIndicator={false}
+                contentContainerStyle={{paddingBottom:RFPercentage(4)}}
               >
                 <View style={styles.container}>
                   <Text style={styles.title}>Enter Your Personal Details</Text>

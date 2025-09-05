@@ -58,11 +58,11 @@ const FocusedSelection: React.FC<Props> = ({
     ...styles.label,
     top: animatedIsFocused.interpolate({
       inputRange: [0, 1],
-      outputRange: [RFPercentage(7) / 2.8, RFPercentage(0.8)],
+      outputRange: [RFPercentage(7) / 2.8, RFPercentage(1.2)],
     }),
     fontSize: animatedIsFocused.interpolate({
       inputRange: [0, 1],
-      outputRange: [RFPercentage(1.8), RFPercentage(1.5)],
+      outputRange: [RFPercentage(1.8), RFPercentage(1.6)],
     }),
     color: getPlaceholderColor(),
     fontFamily: isFocused || hasValue ? FONTS.medium : FONTS.regular,
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     color: COLORS.inputColor,
     fontFamily: FONTS.regular,
     fontSize: RFPercentage(1.8),
-    top: RFPercentage(1.2),
+    top: RFPercentage(1),
   },
   iconContainer: {
     right: 0,

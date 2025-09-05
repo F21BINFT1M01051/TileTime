@@ -83,7 +83,7 @@ const InstructorProfileSetup = ({ navigation }: any) => {
       />
       <ScrollView
         style={{ flex: 1, backgroundColor: COLORS.white }}
-        contentContainerStyle={{ flexGrow: 1, paddingBottom: RFPercentage(3) }}
+        contentContainerStyle={{ flexGrow: 1, paddingBottom: RFPercentage(5) }}
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.progressBarBackground}>
@@ -101,7 +101,7 @@ const InstructorProfileSetup = ({ navigation }: any) => {
               <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={() => {
-                  navigation.navigate('BottomTabs');
+                  navigation.navigate('InstructorTabs');
                 }}
                 style={styles.skip}
               >

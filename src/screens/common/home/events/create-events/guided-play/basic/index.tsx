@@ -69,12 +69,10 @@ const Days = [
 
 const formatDate = (date: Date) => {
   return moment(date).format('D MMMM YYYY');
-  // → 7 July 2025
 };
 
 const formatTime = (date: Date) => {
   return moment(date).format('h:mm A');
-  // → 12:30 PM (CDT)
 };
 
 const GuidedPlayBasic = () => {
@@ -106,27 +104,55 @@ const GuidedPlayBasic = () => {
   const [endOn, setEndOn] = useState(new Date());
   const [applies, setApplies] = useState([]);
 
-  const onChange = ({ event, selectedDate }: any) => {
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('Week');
+
+  const handleSelect = (option: any) => {
+    setSelectedOption(option);
+    setDropdownVisible(false);
+  };
+
+  const onChange = (event: any, selectedDate?: Date) => {
+    if (event.type === 'dismissed') {
+      setShowPicker(false);
+      return;
+    }
     setShowPicker(false);
     if (selectedDate) setDate(selectedDate);
   };
 
-  const onChangeDate = ({ event, selectedDate }: any) => {
+  const onChangeDate = (event: any, selectedDate?: Date) => {
+    if (event.type === 'dismissed') {
+      setShowPicker2(false);
+      return;
+    }
     setShowPicker2(false);
     if (selectedDate) seteEndDate(selectedDate);
   };
 
-  const onChangeStartTime = ({ event, selectedDate }: any) => {
+  const onChangeStartTime = (event: any, selectedDate?: Date) => {
+    if (event.type === 'dismissed') {
+      setShowPicker3(false);
+      return;
+    }
     setShowPicker3(false);
     if (selectedDate) setStartTime(selectedDate);
   };
 
-  const onChangeEndTime = ({ event, selectedDate }: any) => {
+  const onChangeEndTime = (event: any, selectedDate?: Date) => {
+    if (event.type === 'dismissed') {
+      setShowPicker4(false);
+      return;
+    }
     setShowPicker4(false);
     if (selectedDate) setEndTime(selectedDate);
   };
 
-  const endOnDate = ({ event, selectedDate }: any) => {
+  const endOnDate = (event: any, selectedDate?: Date) => {
+    if (event.type === 'dismissed') {
+      setShowPicker5(false);
+      return;
+    }
     setShowPicker5(false);
     if (selectedDate) setEndOn(selectedDate);
   };
@@ -294,6 +320,8 @@ const GuidedPlayBasic = () => {
               onChange={onChange}
               display={Platform.OS === 'ios' ? 'inline' : 'default'}
               style={{ alignSelf: 'center' }}
+              textColor={COLORS.primary}
+              accentColor={COLORS.pink}
             />
           )}
 
@@ -323,7 +351,7 @@ const GuidedPlayBasic = () => {
                 <FocusedSelection
                   placeholder="Event End Date"
                   selectedText={formatDate(endDate)}
-                  onPress={() => setShowPicker2(true)}
+                  onPress={() => setShowPicker2(!showPicker2)}
                   icon={
                     <Image
                       source={ICONS.cl}
@@ -339,13 +367,15 @@ const GuidedPlayBasic = () => {
                     onChange={onChangeDate}
                     display={Platform.OS === 'ios' ? 'inline' : 'default'}
                     style={{ alignSelf: 'center' }}
+                    textColor={COLORS.primary} // changes text color
+                    accentColor={COLORS.pink}
                   />
                 )}
 
                 <FocusedSelection
                   placeholder="Start Time"
                   selectedText={formatTime(startTime)}
-                  onPress={() => setShowPicker3(true)}
+                  onPress={() => setShowPicker3(!showPicker3)}
                   icon={
                     <Image
                       source={ICONS.clock}
@@ -361,13 +391,15 @@ const GuidedPlayBasic = () => {
                     onChange={onChangeStartTime}
                     display={Platform.OS === 'ios' ? 'spinner' : 'default'}
                     style={{ alignSelf: 'center' }}
+                    textColor={COLORS.primary}
+                    accentColor={COLORS.pink}
                   />
                 )}
 
                 <FocusedSelection
                   placeholder="End Time"
                   selectedText={formatTime(endTime)}
-                  onPress={() => setShowPicker4(true)}
+                  onPress={() => setShowPicker4(!showPicker4)}
                   icon={
                     <Image
                       source={ICONS.clock}
@@ -383,6 +415,8 @@ const GuidedPlayBasic = () => {
                     onChange={onChangeEndTime}
                     display={Platform.OS === 'ios' ? 'spinner' : 'default'}
                     style={{ alignSelf: 'center' }}
+                    textColor={COLORS.primary} // changes text color
+                    accentColor={COLORS.pink}
                   />
                 )}
               </View>
@@ -454,9 +488,9 @@ const GuidedPlayBasic = () => {
                   placeholder="Refund Eligibility"
                   data={[
                     '24 hours before event',
-                    '24 hours before event',
-                    '24 hours before event',
-                    '24 hours before event',
+                    '16 hours before event',
+                    '8 hours before event',
+                    '4 hours before event',
                   ]}
                   selectedValue={refund}
                   onValueChange={(val: any) => setRefund(val)}
@@ -496,18 +530,47 @@ const GuidedPlayBasic = () => {
                       style={styles.repeatInput}
                       cursorColor={COLORS.primary}
                       selectionColor={COLORS.primary}
+                      maxLength={2}
+                      keyboardType="number-pad"
                     />
-                    <TouchableOpacity
-                      activeOpacity={0.8}
-                      style={styles.weekButton}
-                    >
-                      <Text style={styles.weekText}>Week</Text>
-                      <FontAwesome
-                        name="caret-down"
-                        size={RFPercentage(2)}
-                        color={COLORS.pink}
-                      />
-                    </TouchableOpacity>
+                    <View style={{ position: 'relative' }}>
+                      <TouchableOpacity
+                        activeOpacity={0.8}
+                        style={styles.weekButton}
+                        onPress={() => setDropdownVisible(!dropdownVisible)}
+                      >
+                        <Text style={styles.weekText}>{selectedOption}</Text>
+                        <FontAwesome
+                          name={dropdownVisible ? 'caret-up' : 'caret-down'}
+                          size={RFPercentage(2)}
+                          color={COLORS.pink}
+                        />
+                      </TouchableOpacity>
+
+                      {/* Dropdown Options */}
+                      {dropdownVisible && (
+                        <View style={styles.dropdown}>
+                          <TouchableOpacity
+                            onPress={() => handleSelect('Week')}
+                          >
+                            <Text style={styles.dropdownItem}>Week</Text>
+                          </TouchableOpacity>
+                          <View
+                            style={{
+                              width: '90%',
+                              height: RFPercentage(0.1),
+                              backgroundColor: COLORS.lightWhite,
+                              alignSelf: 'center',
+                            }}
+                          ></View>
+                          <TouchableOpacity
+                            onPress={() => handleSelect('Month')}
+                          >
+                            <Text style={styles.dropdownItem}>Month</Text>
+                          </TouchableOpacity>
+                        </View>
+                      )}
+                    </View>
                   </View>
 
                   <Text style={styles.repeatOnLabel}>Repeat on</Text>
@@ -623,12 +686,20 @@ const GuidedPlayBasic = () => {
                         value={endOn}
                         mode="date"
                         onChange={endOnDate}
+                        display={Platform.OS === 'ios' ? 'inline' : 'default'}
                         style={{
                           position: 'absolute',
                           bottom: RFPercentage(5),
-                          right: RFPercentage(6.5),
                           zIndex: 999,
+                          alignSelf:"center",
+                          backgroundColor:COLORS.white,
+                          borderWidth:1,
+                          borderColor:COLORS.lightWhite,
+                          borderRadius:RFPercentage(1)
+
                         }}
+                        textColor={COLORS.primary} // changes text color
+                        accentColor={COLORS.pink}
                       />
                     )}
                   </View>
@@ -1128,5 +1199,25 @@ const styles = StyleSheet.create({
     width: '100%',
     alignSelf: 'center',
     marginTop: RFPercentage(-1),
+  },
+  dropdown: {
+    position: 'absolute',
+    top: '100%',
+    left: RFPercentage(1.5),
+    right: 0,
+    backgroundColor: COLORS.white,
+    borderWidth: 1,
+    borderRadius: RFPercentage(1),
+    marginTop: RFPercentage(0.5),
+    zIndex: 100,
+    borderColor: COLORS.grey7,
+    alignSelf: 'center',
+    width: '90%',
+  },
+  dropdownItem: {
+    padding: RFPercentage(1),
+    fontSize: RFPercentage(1.7),
+    fontFamily: FONTS.regular,
+    color: COLORS.focused,
   },
 });

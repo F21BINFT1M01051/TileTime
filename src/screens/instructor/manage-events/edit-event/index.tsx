@@ -8,6 +8,11 @@ import InputField from '../../../../components/InputField';
 import FocusedSelection from '../../../../components/FocusedSelection';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import CustomButton from '../../../../components/CustomButton';
+import moment from 'moment';
+
+const formatDate = (date: Date) => {
+  return moment(date).format('D MMMM YYYY');
+};
 
 const EditEventBasic = () => {
   const [Title, setTitle] = useState('Beginner Mahjong Bootcamp');
@@ -19,12 +24,20 @@ const EditEventBasic = () => {
   const [startTime, setStartTime] = useState(new Date());
   const [showPicker3, setShowPicker3] = useState(false);
 
-  const onChange = ({ event, selectedDate }: any) => {
+  const onChange = (event: any, selectedDate?: Date) => {
+    if (event.type === 'dismissed') {
+      setShowPicker(false);
+      return;
+    }
     setShowPicker(false);
     if (selectedDate) setDate(selectedDate);
   };
 
-  const onChangeStartTime = ({ event, selectedDate }: any) => {
+  const onChangeStartTime = (event: any, selectedDate?: Date) => {
+    if (event.type === 'dismissed') {
+      setShowPicker3(false);
+      return;
+    }
     setShowPicker3(false);
     if (selectedDate) setStartTime(selectedDate);
   };
@@ -70,7 +83,7 @@ const EditEventBasic = () => {
 
           <FocusedSelection
             placeholder="Event Date"
-            selectedText={date.toDateString()}
+            selectedText={formatDate(date)}
             onPress={() => setShowPicker(!showPicker)}
             icon={
               <Image
@@ -87,6 +100,8 @@ const EditEventBasic = () => {
               onChange={onChange}
               display={Platform.OS === 'ios' ? 'inline' : 'default'}
               style={{ alignSelf: 'center' }}
+              textColor={COLORS.primary}
+              accentColor={COLORS.pink}
             />
           )}
 
@@ -96,7 +111,7 @@ const EditEventBasic = () => {
               hour: '2-digit',
               minute: '2-digit',
             })}
-            onPress={() => setShowPicker3(true)}
+            onPress={() => setShowPicker3(!showPicker3)}
             icon={
               <Image
                 source={ICONS.clock}
@@ -112,6 +127,8 @@ const EditEventBasic = () => {
               onChange={onChangeStartTime}
               display={Platform.OS === 'ios' ? 'spinner' : 'default'}
               style={{ alignSelf: 'center' }}
+              textColor={COLORS.primary}
+              accentColor={COLORS.pink}
             />
           )}
         </View>

@@ -20,6 +20,7 @@ import FocusedSelection from '../../../components/FocusedSelection';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import ToggleSwitch from 'toggle-switch-react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import moment from 'moment';
 
 const Days = [
   {
@@ -52,6 +53,11 @@ const Days = [
   },
 ];
 
+const formatDate = (date: Date) => {
+  return moment(date).format('D MMMM YYYY');
+};
+
+
 const CreateLessonPlayer = ({ navigation }: any) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -72,6 +78,13 @@ const CreateLessonPlayer = ({ navigation }: any) => {
   const [endOn, setEndOn] = useState(new Date());
 
   const [keyboardIsVisible, setKeyboardIsVisible] = useState(false);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('Week');
+
+  const handleSelect = (option: any) => {
+    setSelectedOption(option);
+    setDropdownVisible(false);
+  };
 
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -87,27 +100,47 @@ const CreateLessonPlayer = ({ navigation }: any) => {
     };
   }, []);
 
-  const onChange = ({ event, selectedDate }: any) => {
+  const onChange = (event: any, selectedDate?: Date) => {
+    if (event.type === 'dismissed') {
+      setShowPicker(false);
+      return;
+    }
     setShowPicker(false);
     if (selectedDate) setDate(selectedDate);
   };
 
-  const onChangeDate = ({ event, selectedDate }: any) => {
+  const onChangeDate = (event: any, selectedDate?: Date) => {
+    if (event.type === 'dismissed') {
+      setShowPicker2(false);
+      return;
+    }
     setShowPicker2(false);
     if (selectedDate) seteEndDate(selectedDate);
   };
 
-  const onChangeStartTime = ({ event, selectedDate }: any) => {
+  const onChangeStartTime = (event: any, selectedDate?: Date) => {
+    if (event.type === 'dismissed') {
+      setShowPicker3(false);
+      return;
+    }
     setShowPicker3(false);
     if (selectedDate) setStartTime(selectedDate);
   };
 
-  const onChangeEndTime = ({ event, selectedDate }: any) => {
+  const onChangeEndTime = (event: any, selectedDate?: Date) => {
+    if (event.type === 'dismissed') {
+      setShowPicker4(false);
+      return;
+    }
     setShowPicker4(false);
     if (selectedDate) setEndTime(selectedDate);
   };
 
-  const endOnDate = ({ event, selectedDate }: any) => {
+  const endOnDate = (event: any, selectedDate?: Date) => {
+    if (event.type === 'dismissed') {
+      setShowPicker5(false);
+      return;
+    }
     setShowPicker5(false);
     if (selectedDate) setEndOn(selectedDate);
   };
@@ -174,7 +207,7 @@ const CreateLessonPlayer = ({ navigation }: any) => {
           {/* Event Date */}
           <FocusedSelection
             placeholder="Event Date"
-            selectedText={date.toDateString()}
+            selectedText={formatDate(date)}
             onPress={() => setShowPicker(!showPicker)}
             icon={
               <Image
@@ -191,6 +224,8 @@ const CreateLessonPlayer = ({ navigation }: any) => {
               onChange={onChange}
               display={Platform.OS === 'ios' ? 'inline' : 'default'}
               style={{ alignSelf: 'center' }}
+              textColor={COLORS.primary}
+              accentColor={COLORS.pink}
             />
           )}
 
@@ -219,8 +254,8 @@ const CreateLessonPlayer = ({ navigation }: any) => {
               <View style={styles.multiDayWrapper}>
                 <FocusedSelection
                   placeholder="Event End Date"
-                  selectedText={endDate.toDateString()}
-                  onPress={() => setShowPicker2(true)}
+                  selectedText={formatDate(endDate)}
+                  onPress={() => setShowPicker2(!showPicker2)}
                   icon={
                     <Image
                       source={ICONS.cl}
@@ -236,6 +271,8 @@ const CreateLessonPlayer = ({ navigation }: any) => {
                     onChange={onChangeDate}
                     display={Platform.OS === 'ios' ? 'inline' : 'default'}
                     style={{ alignSelf: 'center' }}
+                    textColor={COLORS.primary}
+                    accentColor={COLORS.pink}
                   />
                 )}
 
@@ -245,7 +282,7 @@ const CreateLessonPlayer = ({ navigation }: any) => {
                     hour: '2-digit',
                     minute: '2-digit',
                   })}
-                  onPress={() => setShowPicker3(true)}
+                  onPress={() => setShowPicker3(!showPicker3)}
                   icon={
                     <Image
                       source={ICONS.clock}
@@ -261,6 +298,8 @@ const CreateLessonPlayer = ({ navigation }: any) => {
                     onChange={onChangeStartTime}
                     display={Platform.OS === 'ios' ? 'spinner' : 'default'}
                     style={{ alignSelf: 'center' }}
+                    textColor={COLORS.primary}
+                    accentColor={COLORS.pink}
                   />
                 )}
 
@@ -270,7 +309,7 @@ const CreateLessonPlayer = ({ navigation }: any) => {
                     hour: '2-digit',
                     minute: '2-digit',
                   })}
-                  onPress={() => setShowPicker4(true)}
+                  onPress={() => setShowPicker4(!showPicker4)}
                   icon={
                     <Image
                       source={ICONS.clock}
@@ -286,6 +325,8 @@ const CreateLessonPlayer = ({ navigation }: any) => {
                     onChange={onChangeEndTime}
                     display={Platform.OS === 'ios' ? 'spinner' : 'default'}
                     style={{ alignSelf: 'center' }}
+                    textColor={COLORS.primary}
+                    accentColor={COLORS.pink}
                   />
                 )}
               </View>
@@ -321,17 +362,44 @@ const CreateLessonPlayer = ({ navigation }: any) => {
                       cursorColor={COLORS.primary}
                       selectionColor={COLORS.primary}
                     />
-                    <TouchableOpacity
-                      activeOpacity={0.8}
-                      style={styles.weekButton}
-                    >
-                      <Text style={styles.weekText}>Week</Text>
-                      <FontAwesome
-                        name="caret-down"
-                        size={RFPercentage(2)}
-                        color={COLORS.pink}
-                      />
-                    </TouchableOpacity>
+                    <View style={{ position: 'relative' }}>
+                      <TouchableOpacity
+                        activeOpacity={0.8}
+                        style={styles.weekButton}
+                        onPress={() => setDropdownVisible(!dropdownVisible)}
+                      >
+                        <Text style={styles.weekText}>{selectedOption}</Text>
+                        <FontAwesome
+                          name={dropdownVisible ? 'caret-up' : 'caret-down'}
+                          size={RFPercentage(2)}
+                          color={COLORS.pink}
+                        />
+                      </TouchableOpacity>
+
+                      {/* Dropdown Options */}
+                      {dropdownVisible && (
+                        <View style={styles.dropdown}>
+                          <TouchableOpacity
+                            onPress={() => handleSelect('Week')}
+                          >
+                            <Text style={styles.dropdownItem}>Week</Text>
+                          </TouchableOpacity>
+                          <View
+                            style={{
+                              width: '90%',
+                              height: RFPercentage(0.1),
+                              backgroundColor: COLORS.lightWhite,
+                              alignSelf: 'center',
+                            }}
+                          ></View>
+                          <TouchableOpacity
+                            onPress={() => handleSelect('Month')}
+                          >
+                            <Text style={styles.dropdownItem}>Month</Text>
+                          </TouchableOpacity>
+                        </View>
+                      )}
+                    </View>
                   </View>
 
                   <Text style={styles.repeatOnLabel}>Repeat on</Text>
@@ -437,7 +505,7 @@ const CreateLessonPlayer = ({ navigation }: any) => {
                       style={styles.dateButton}
                     >
                       <Text style={styles.dateText}>
-                        {endOn.toDateString()}
+                        {formatDate(endOn)}
                       </Text>
                     </TouchableOpacity>
 
@@ -446,12 +514,19 @@ const CreateLessonPlayer = ({ navigation }: any) => {
                         value={endOn}
                         mode="date"
                         onChange={endOnDate}
+                        display={Platform.OS === 'ios' ? 'inline' : 'default'}
                         style={{
                           position: 'absolute',
                           bottom: RFPercentage(5),
-                          right: RFPercentage(6.5),
                           zIndex: 999,
+                          alignSelf: 'center',
+                          backgroundColor: COLORS.white,
+                          borderWidth: 1,
+                          borderColor: COLORS.lightWhite,
+                          borderRadius: RFPercentage(1),
                         }}
+                        textColor={COLORS.primary} // changes text color
+                        accentColor={COLORS.pink}
                       />
                     )}
                   </View>
@@ -779,5 +854,25 @@ const styles = StyleSheet.create({
     color: COLORS.inputColor,
     fontFamily: FONTS.regular,
     fontSize: RFPercentage(1.6),
+  },
+  dropdown: {
+    position: 'absolute',
+    top: '100%',
+    left: RFPercentage(1.5),
+    right: 0,
+    backgroundColor: COLORS.white,
+    borderWidth: 1,
+    borderRadius: RFPercentage(1),
+    marginTop: RFPercentage(0.5),
+    zIndex: 100,
+    borderColor: COLORS.grey7,
+    alignSelf: 'center',
+    width: '90%',
+  },
+  dropdownItem: {
+    padding: RFPercentage(1),
+    fontSize: RFPercentage(1.7),
+    fontFamily: FONTS.regular,
+    color: COLORS.focused,
   },
 });
