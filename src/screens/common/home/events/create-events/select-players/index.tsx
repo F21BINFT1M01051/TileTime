@@ -8,6 +8,9 @@ import {
   View,
   Keyboard,
   Platform,
+  TouchableWithoutFeedback,
+  Dimensions,
+  KeyboardAvoidingView
 } from 'react-native';
 import React, { useState, useMemo, useEffect } from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../../../../config/theme';
@@ -49,10 +52,11 @@ const players = [
   },
 ];
 
+const { height } = Dimensions.get('window');
+
 const SelectPlayers = ({ navigation }: any) => {
   const [selectedContacts, setSelectedContacts] = useState<number[]>([]);
   const [query, setQuery] = useState('');
-  const [keyboardIsVisible, setKeyboardIsVisible] = useState(false);
 
   const toggleContact = (id: number) => {
     setSelectedContacts(prev =>
@@ -69,163 +73,165 @@ const SelectPlayers = ({ navigation }: any) => {
     );
   }, [query]);
 
-  useEffect(() => {
-    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
-      setKeyboardIsVisible(true);
-    });
-    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
-      setKeyboardIsVisible(false);
-    });
-
-    return () => {
-      showSubscription.remove();
-      hideSubscription.remove();
-    };
-  }, []);
-
   return (
-    <View style={styles.container}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
-        keyboardShouldPersistTaps="always"
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        keyboardVerticalOffset={-height}
       >
-        <AuthHeader title="Select Players" />
-        <View style={styles.contentContainer}>
-          <Text style={styles.headingText}>Who’s This Session For?</Text>
-          <View style={{ marginTop: RFPercentage(2) }}>
-            <SearchField
-              placeholder="Search Name, Email or Phone Number"
-              value={query}
-              onChangeText={setQuery}
-            />
-          </View>
+        <View style={styles.container}>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.scrollContent}
+            keyboardShouldPersistTaps="always"
+          >
+            <AuthHeader title="Select Players" />
+            <View style={styles.contentContainer}>
+              <Text style={styles.headingText}>Who’s This Session For?</Text>
+              <View style={{ marginTop: RFPercentage(2) }}>
+                <SearchField
+                  placeholder="Search Name, Email or Phone Number"
+                  value={query}
+                  onChangeText={setQuery}
+                />
+              </View>
 
-          <View style={styles.listContainer}>
-            <Text style={styles.sectionTitleDisabled}>SUGGESTED</Text>
-            <FlatList
-              data={filteredPlayers}
-              keyExtractor={item => item.id.toString()}
-              keyboardShouldPersistTaps="always"
-              contentContainerStyle={styles.flatListContent}
-              ListEmptyComponent={
-                <Text
-                  style={{
-                    textAlign: 'center',
-                    marginTop: RFPercentage(2),
-                    color: COLORS.grey5,
-                  }}
-                >
-                  No players found
-                </Text>
-              }
-              renderItem={({ item }) => {
-                const isSelected = selectedContacts.includes(item.id);
-                return (
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={() => toggleContact(item.id)}
-                  >
-                    <View style={styles.contactRow}>
-                      {item.connected === false && item.tileTime === true ? (
-                        <View style={styles.contactInfo}>
-                          <View style={styles.avatarContainer}>
-                            <View style={styles.avatarOuterLayer}>
-                              <View style={styles.avatarMiddleLayer}>
-                                <View style={styles.avatarInnerLayer}>
-                                  <Image
-                                    source={item.profile}
-                                    resizeMode="contain"
-                                    style={styles.avatarImage}
-                                  />
+              <View style={styles.listContainer}>
+                <Text style={styles.sectionTitleDisabled}>SUGGESTED</Text>
+                <FlatList
+                  data={filteredPlayers}
+                  keyExtractor={item => item.id.toString()}
+                  keyboardShouldPersistTaps="always"
+                  contentContainerStyle={styles.flatListContent}
+                  ListEmptyComponent={
+                    <Text
+                      style={{
+                        textAlign: 'center',
+                        marginTop: RFPercentage(2),
+                        color: COLORS.grey5,
+                      }}
+                    >
+                      No players found
+                    </Text>
+                  }
+                  renderItem={({ item }) => {
+                    const isSelected = selectedContacts.includes(item.id);
+                    return (
+                      <TouchableOpacity
+                        activeOpacity={0.8}
+                        onPress={() => toggleContact(item.id)}
+                      >
+                        <View style={styles.contactRow}>
+                          {item.connected === false &&
+                          item.tileTime === true ? (
+                            <View style={styles.contactInfo}>
+                              <View style={styles.avatarContainer}>
+                                <View style={styles.avatarOuterLayer}>
+                                  <View style={styles.avatarMiddleLayer}>
+                                    <View style={styles.avatarInnerLayer}>
+                                      <Image
+                                        source={item.profile}
+                                        resizeMode="contain"
+                                        style={styles.avatarImage}
+                                      />
+                                    </View>
+                                  </View>
                                 </View>
                               </View>
+                              <View style={styles.nameSection}>
+                                <Text style={styles.nameText}>{item.name}</Text>
+                                <Text style={styles.phoneText}>
+                                  {item.common}
+                                </Text>
+                              </View>
                             </View>
-                          </View>
-                          <View style={styles.nameSection}>
-                            <Text style={styles.nameText}>{item.name}</Text>
-                            <Text style={styles.phoneText}>{item.common}</Text>
-                          </View>
-                        </View>
-                      ) : item.connected === true && item.tileTime === false ? (
-                        <View style={styles.contactInfo}>
-                          <View style={styles.connectedAvatar}>
-                            <Image
-                              source={item.profile}
-                              resizeMode="cover"
-                              style={styles.connectedAvatarImage}
-                            />
-                            <Image
-                              source={ICONS.fb22}
-                              resizeMode="contain"
-                              style={styles.connectedFbIcon}
-                            />
-                          </View>
-                          <View style={styles.nameSection}>
-                            <Text style={styles.nameText}>{item.name}</Text>
-                            <Text style={styles.phoneText}>
-                              Not on TileTime
-                            </Text>
-                          </View>
-                        </View>
-                      ) : (
-                        <View style={styles.contactInfo}>
-                          <View style={styles.notOnTileTimeAvatar}>
-                            <Text style={styles.notOnTileTimeInitials}>JA</Text>
-                            <Image
-                              source={ICONS.contact22}
-                              resizeMode="contain"
-                              style={styles.connectedFbIcon}
-                            />
-                          </View>
-                          <View style={styles.nameSection}>
-                            <Text style={styles.nameText}>{item.name}</Text>
-                            <Text style={styles.phoneText}>
-                              Not on TileTime
-                            </Text>
-                          </View>
-                        </View>
-                      )}
+                          ) : item.connected === true &&
+                            item.tileTime === false ? (
+                            <View style={styles.contactInfo}>
+                              <View style={styles.connectedAvatar}>
+                                <Image
+                                  source={item.profile}
+                                  resizeMode="cover"
+                                  style={styles.connectedAvatarImage}
+                                />
+                                <Image
+                                  source={ICONS.fb22}
+                                  resizeMode="contain"
+                                  style={styles.connectedFbIcon}
+                                />
+                              </View>
+                              <View style={styles.nameSection}>
+                                <Text style={styles.nameText}>{item.name}</Text>
+                                <Text style={styles.phoneText}>
+                                  Not on TileTime
+                                </Text>
+                              </View>
+                            </View>
+                          ) : (
+                            <View style={styles.contactInfo}>
+                              <View style={styles.notOnTileTimeAvatar}>
+                                <Text style={styles.notOnTileTimeInitials}>
+                                  JA
+                                </Text>
+                                <Image
+                                  source={ICONS.contact22}
+                                  resizeMode="contain"
+                                  style={styles.connectedFbIcon}
+                                />
+                              </View>
+                              <View style={styles.nameSection}>
+                                <Text style={styles.nameText}>{item.name}</Text>
+                                <Text style={styles.phoneText}>
+                                  Not on TileTime
+                                </Text>
+                              </View>
+                            </View>
+                          )}
 
-                      <TouchableOpacity onPress={() => toggleContact(item.id)}>
-                        <Image
-                          resizeMode="contain"
-                          source={isSelected ? ICONS.checked : ICONS.uncheck}
-                          style={styles.checkIcon}
-                        />
+                          <TouchableOpacity
+                            onPress={() => toggleContact(item.id)}
+                          >
+                            <Image
+                              resizeMode="contain"
+                              source={
+                                isSelected ? ICONS.checked : ICONS.uncheck
+                              }
+                              style={styles.checkIcon}
+                            />
+                          </TouchableOpacity>
+                        </View>
                       </TouchableOpacity>
-                    </View>
-                  </TouchableOpacity>
-                );
-              }}
-            />
+                    );
+                  }}
+                />
+              </View>
+            </View>
+          </ScrollView>
+
+          <View style={styles.bottomBar}>
+            <View style={styles.bottomContent}>
+              <CustomButton
+                title="Save And Next"
+                disabled={selectedContacts.length === 0}
+                style={{
+                  backgroundColor:
+                    selectedContacts.length > 0
+                      ? COLORS.primary
+                      : COLORS.disabled,
+                }}
+                onPress={() =>
+                  navigation.navigate('GuidedPlay', {
+                    players: true,
+                    groups: false,
+                    link: false,
+                  })
+                }
+              />
+            </View>
           </View>
         </View>
-      </ScrollView>
-      {!keyboardIsVisible && (
-        <View style={styles.bottomBar}>
-          <View style={styles.bottomContent}>
-            <CustomButton
-              title="Save And Next"
-              disabled={selectedContacts.length === 0}
-              style={{
-                backgroundColor:
-                  selectedContacts.length > 0
-                    ? COLORS.primary
-                    : COLORS.disabled,
-              }}
-              onPress={() =>
-                navigation.navigate('GuidedPlay', {
-                  players: true,
-                  groups: false,
-                  link: false,
-                })
-              }
-            />
-          </View>
-        </View>
-      )}
-    </View>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 };
 

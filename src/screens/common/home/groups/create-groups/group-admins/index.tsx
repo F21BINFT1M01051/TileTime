@@ -1,4 +1,11 @@
-import { FlatList, StyleSheet, View, Text } from 'react-native';
+import {
+  FlatList,
+  StyleSheet,
+  View,
+  Text,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
 import React, { useState, useMemo } from 'react';
 import { COLORS, FONTS, IMAGES } from '../../../../../../config/theme';
 import Nav from '../../../../../../components/Nav';
@@ -46,62 +53,64 @@ const GroupAdmins = ({ navigation }: any) => {
   }, [query]);
 
   return (
-    <View style={styles.container}>
-      <Nav
-        title="Group Admins"
-        style={styles.navTitle}
-        onPress={() => navigation.goBack()}
-      />
-      <View style={styles.contentWrapper}>
-        <SearchField
-          placeholder="Search by name"
-          value={query}
-          onChangeText={setQuery}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <Nav
+          title="Group Admins"
+          style={styles.navTitle}
+          onPress={() => navigation.goBack()}
         />
-        <View style={styles.subSectionSpacing}>
-          <FlatList
-            data={filteredAdmins}
-            keyExtractor={item => item.id.toString()}
-            keyboardShouldPersistTaps="always"
-            contentContainerStyle={{ paddingBottom: RFPercentage(1) }}
-            ListEmptyComponent={
-              <Text
-                style={{
-                  textAlign: 'center',
-                  marginTop: RFPercentage(5),
-                  color: COLORS.grey4,
-                  fontFamily: FONTS.regular,
-                  fontSize: RFPercentage(1.8),
-                }}
-              >
-                No admin found
-              </Text>
-            }
-            renderItem={({ item }) => {
-              return (
-                <View style={{ marginTop: RFPercentage(2) }}>
-                  <AdminCard
-                    title={item.name}
-                    subTitle={item.since}
-                    admin={true}
-                    self={item.you}
-                    profile
-                    userId={item.id}
-                    visibleTooltipId={null}
-                    setVisibleTooltipId={() => {}}
-                  />
-                </View>
-              );
-            }}
+        <View style={styles.contentWrapper}>
+          <SearchField
+            placeholder="Search by name"
+            value={query}
+            onChangeText={setQuery}
           />
+          <View style={styles.subSectionSpacing}>
+            <FlatList
+              data={filteredAdmins}
+              keyExtractor={item => item.id.toString()}
+              keyboardShouldPersistTaps="always"
+              contentContainerStyle={{ paddingBottom: RFPercentage(1) }}
+              ListEmptyComponent={
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    marginTop: RFPercentage(5),
+                    color: COLORS.grey4,
+                    fontFamily: FONTS.regular,
+                    fontSize: RFPercentage(1.8),
+                  }}
+                >
+                  No admin found
+                </Text>
+              }
+              renderItem={({ item }) => {
+                return (
+                  <View style={{ marginTop: RFPercentage(2) }}>
+                    <AdminCard
+                      title={item.name}
+                      subTitle={item.since}
+                      admin={true}
+                      self={item.you}
+                      profile
+                      userId={item.id}
+                      visibleTooltipId={null}
+                      setVisibleTooltipId={() => {}}
+                    />
+                  </View>
+                );
+              }}
+            />
+          </View>
+        </View>
+        <View style={styles.bottomWrapper}>
+          <View style={styles.buttonContainer}>
+            <CustomButton title="Save" onPress={() => {}} />
+          </View>
         </View>
       </View>
-      <View style={styles.bottomWrapper}>
-        <View style={styles.buttonContainer}>
-          <CustomButton title="Save" onPress={() => {}} />
-        </View>
-      </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 

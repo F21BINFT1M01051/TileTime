@@ -387,16 +387,74 @@ const GuidedPlayBasic = () => {
                     />
                   }
                 />
-                {showPicker3 && (
+                {showPicker3 && Platform.OS === 'ios' && (
+                  <View
+                    style={{
+                      position: 'absolute',
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      backgroundColor: COLORS.white,
+                      borderRadius: RFPercentage(2),
+                      paddingBottom: RFPercentage(3),
+                      shadowColor: '#000',
+                      shadowOffset: { width: 0, height: -3 },
+                      shadowOpacity: 0.1,
+                      shadowRadius: 4,
+                      zIndex: 999,
+                      borderWidth: RFPercentage(0.1),
+                      borderColor: COLORS.lightWhite,
+                    }}
+                  >
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        padding: RFPercentage(3),
+                      }}
+                    >
+                      <TouchableOpacity onPress={() => setShowPicker3(false)}>
+                        <Text
+                          style={{
+                            color: COLORS.grey4,
+                            fontFamily: FONTS.semiBold,
+                            fontSize: RFPercentage(1.8),
+                          }}
+                        >
+                          Cancel
+                        </Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity onPress={() => setShowPicker3(false)}>
+                        <Text
+                          style={{
+                            color: COLORS.pink,
+                            fontFamily: FONTS.semiBold,
+                            fontSize: RFPercentage(1.8),
+                          }}
+                        >
+                          Confirm
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                    <DateTimePicker
+                      value={startTime}
+                      mode="time"
+                      display="spinner"
+                      onChange={(e, selectedDate) =>
+                        selectedDate && setStartTime(selectedDate)
+                      }
+                      style={{ backgroundColor: COLORS.white }}
+                    />
+                  </View>
+                )}
+
+                {/* For Android keep it simple */}
+                {showPicker3 && Platform.OS === 'android' && (
                   <DateTimePicker
                     value={startTime}
                     mode="time"
+                    display="default"
                     onChange={onChangeStartTime}
-                    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                    style={{ alignSelf: 'center' }}
-                    textColor={COLORS.primary}
-                    accentColor={COLORS.pink}
-                    themeVariant="light"
                   />
                 )}
 
@@ -412,16 +470,74 @@ const GuidedPlayBasic = () => {
                     />
                   }
                 />
-                {showPicker4 && (
+                {showPicker4 && Platform.OS === 'ios' && (
+                  <View
+                    style={{
+                      position: 'absolute',
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      backgroundColor: COLORS.white,
+                      borderRadius: RFPercentage(2),
+                      paddingBottom: RFPercentage(3),
+                      shadowColor: '#000',
+                      shadowOffset: { width: 0, height: -3 },
+                      shadowOpacity: 0.1,
+                      shadowRadius: 4,
+                      zIndex: 999,
+                      borderWidth: RFPercentage(0.1),
+                      borderColor: COLORS.lightWhite,
+                    }}
+                  >
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        padding: RFPercentage(3),
+                      }}
+                    >
+                      <TouchableOpacity onPress={() => setShowPicker4(false)}>
+                        <Text
+                          style={{
+                            color: COLORS.grey4,
+                            fontFamily: FONTS.semiBold,
+                            fontSize: RFPercentage(1.8),
+                          }}
+                        >
+                          Cancel
+                        </Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity onPress={() => setShowPicker4(false)}>
+                        <Text
+                          style={{
+                            color: COLORS.pink,
+                            fontFamily: FONTS.semiBold,
+                            fontSize: RFPercentage(1.8),
+                          }}
+                        >
+                          Confirm
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                    <DateTimePicker
+                      value={endTime}
+                      mode="time"
+                      display="spinner"
+                      onChange={(e, selectedDate) =>
+                        selectedDate && setEndTime(selectedDate)
+                      }
+                      style={{ backgroundColor: COLORS.white }}
+                    />
+                  </View>
+                )}
+
+                {/* For Android keep it simple */}
+                {showPicker4 && Platform.OS === 'android' && (
                   <DateTimePicker
                     value={endTime}
                     mode="time"
+                    display="default"
                     onChange={onChangeEndTime}
-                    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                    style={{ alignSelf: 'center' }}
-                    textColor={COLORS.primary} // changes text color
-                    accentColor={COLORS.pink}
-                    themeVariant="light"
                   />
                 )}
               </View>
@@ -586,7 +702,7 @@ const GuidedPlayBasic = () => {
                               height: RFPercentage(0.1),
                               backgroundColor: COLORS.lightWhite,
                               alignSelf: 'center',
-                              marginVertical:RFPercentage(0.4)
+                              marginVertical: RFPercentage(0.4),
                             }}
                           ></View>
                           <TouchableOpacity
@@ -1239,9 +1355,9 @@ const styles = StyleSheet.create({
     borderColor: COLORS.grey7,
     alignSelf: 'center',
     width: '90%',
-    height:RFPercentage(11),
+    height: RFPercentage(11),
     // alignItems:'center',
-    justifyContent:'center'
+    justifyContent: 'center',
   },
   dropdownItem: {
     padding: RFPercentage(1.3),

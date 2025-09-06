@@ -11,6 +11,7 @@ import {
   ScrollView,
   Animated,
   Easing,
+  Keyboard,
 } from 'react-native';
 import React, { useState } from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../../config/theme';
@@ -77,147 +78,158 @@ const SearchScreen = ({ navigation }: any) => {
     }
   }, [modalVisible2]);
 
+  const dismissAll = () => {
+    Keyboard.dismiss();
+  };
+
   return (
-    <View style={styles.container}>
-      <HomeNavigator title="Search Players and Groups" />
+    <TouchableWithoutFeedback onPress={dismissAll}>
+      <View style={styles.container}>
+        <HomeNavigator title="Search Players and Groups" />
 
-      <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="always">
-        <View style={styles.searchWrapper}>
-          <SearchField
-            placeholder="Search by name"
-            value={query}
-            onChangeText={setQuery}
-          />
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="always"
+        >
+          <View style={styles.searchWrapper}>
+            <SearchField
+              placeholder="Search by name"
+              value={query}
+              onChangeText={setQuery}
+            />
 
-          <FlatList
-            data={filteredData}
-            keyExtractor={item => item.id.toString()}
-            keyboardShouldPersistTaps="always"
-            contentContainerStyle={styles.flatListContent}
-            scrollEnabled={false}
-            ListEmptyComponent={
-              <Text
-                style={{
-                  textAlign: 'center',
-                  color: COLORS.lightGrey,
-                  fontFamily: FONTS.regular,
-                  fontSize: RFPercentage(1.8),
-                  marginTop: RFPercentage(5),
-                }}
-              >
-                No results found
-              </Text>
-            }
-            renderItem={({ item }) => (
-              <SearchCard
-                name={item.name}
-                isPlayer={item.player}
-                location={item.location}
-                onPress={() => handleCardPress(item)}
-                isInstructor={item.instructor}
-                isGroup={item.group}
-                members={item.member}
-              />
-            )}
-          />
-        </View>
-      </ScrollView>
-      {/* First Modal */}
-      <Modal
-        visible={modalVisible}
-        transparent
-        animationType="fade"
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
-          <View style={styles.overLay}>
-            <TouchableWithoutFeedback>
-              <View style={styles.modalContent}>
-                <TouchableOpacity
-                  onPress={() => setModalVisible(false)}
-                  style={styles.closeButton}
+            <FlatList
+              data={filteredData}
+              keyExtractor={item => item.id.toString()}
+              keyboardShouldPersistTaps="always"
+              contentContainerStyle={styles.flatListContent}
+              scrollEnabled={false}
+              ListEmptyComponent={
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    color: COLORS.lightGrey,
+                    fontFamily: FONTS.regular,
+                    fontSize: RFPercentage(1.8),
+                    marginTop: RFPercentage(5),
+                  }}
                 >
-                  <Image source={ICONS.cross} style={styles.closeIcon} />
-                </TouchableOpacity>
-
-                <View style={styles.largeGroupIconContainer}>
-                  <Image
-                    source={IMAGES.customProfile}
-                    style={styles.largeGroupIcon}
-                  />
-                </View>
-
-                <Text style={styles.modalText}>Join {selectedGroup?.name}</Text>
-                <Text style={styles.modalSubText}>
-                  Group - {selectedGroup?.member} Members
+                  No results found
                 </Text>
-
-                <View style={styles.modalButtonWrapper}>
-                  <CustomButton
-                    title="Join Group Now"
-                    onPress={() => {
-                      setModalVisible(false);
-                      setModalVisible2(true);
-                    }}
-                  />
-                </View>
-              </View>
-            </TouchableWithoutFeedback>
-          </View>
-        </TouchableWithoutFeedback>
-      </Modal>
-
-      {/* Bottom Sheet Modal */}
-      <Modal
-        visible={modalVisible2}
-        transparent
-        animationType="fade"
-        onRequestClose={() => setModalVisible2(false)}
-      >
-        <TouchableWithoutFeedback onPress={() => setModalVisible2(false)}>
-          <View style={[styles.overLay, styles.bottomSheetOverlay]}>
-            <TouchableWithoutFeedback>
-              <Animated.View
-                style={[
-                  styles.bottomSheet,
-                  { transform: [{ translateY: slideAnim }] },
-                ]}
-              >
-                <TouchableOpacity
-                  onPress={() => setModalVisible2(false)}
-                  style={styles.closeButton}
-                >
-                  <Image source={ICONS.cross} style={styles.closeIcon} />
-                </TouchableOpacity>
-                <Image
-                  source={ICONS.group22}
-                  resizeMode="cover"
-                  style={styles.groupImage}
+              }
+              renderItem={({ item }) => (
+                <SearchCard
+                  name={item.name}
+                  isPlayer={item.player}
+                  location={item.location}
+                  onPress={() => handleCardPress(item)}
+                  isInstructor={item.instructor}
+                  isGroup={item.group}
+                  members={item.member}
                 />
-                <View style={styles.groupInfoWrapper}>
-                  <Text style={styles.groupName}>Emily Girls Group</Text>
-                  <Text style={styles.groupInviteNote}>
-                    This Group Is Invite-only
+              )}
+            />
+          </View>
+        </ScrollView>
+        {/* First Modal */}
+        <Modal
+          visible={modalVisible}
+          transparent
+          animationType="fade"
+          onRequestClose={() => setModalVisible(false)}
+        >
+          <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
+            <View style={styles.overLay}>
+              <TouchableWithoutFeedback>
+                <View style={styles.modalContent}>
+                  <TouchableOpacity
+                    onPress={() => setModalVisible(false)}
+                    style={styles.closeButton}
+                  >
+                    <Image source={ICONS.cross} style={styles.closeIcon} />
+                  </TouchableOpacity>
+
+                  <View style={styles.largeGroupIconContainer}>
+                    <Image
+                      source={IMAGES.customProfile}
+                      style={styles.largeGroupIcon}
+                    />
+                  </View>
+
+                  <Text style={styles.modalText}>
+                    Join {selectedGroup?.name}
+                  </Text>
+                  <Text style={styles.modalSubText}>
+                    Group - {selectedGroup?.member} Members
                   </Text>
 
+                  <View style={styles.modalButtonWrapper}>
+                    <CustomButton
+                      title="Join Group Now"
+                      onPress={() => {
+                        setModalVisible(false);
+                        setModalVisible2(true);
+                      }}
+                    />
+                  </View>
+                </View>
+              </TouchableWithoutFeedback>
+            </View>
+          </TouchableWithoutFeedback>
+        </Modal>
+
+        {/* Bottom Sheet Modal */}
+        <Modal
+          visible={modalVisible2}
+          transparent
+          animationType="fade"
+          onRequestClose={() => setModalVisible2(false)}
+        >
+          <TouchableWithoutFeedback onPress={() => setModalVisible2(false)}>
+            <View style={[styles.overLay, styles.bottomSheetOverlay]}>
+              <TouchableWithoutFeedback>
+                <Animated.View
+                  style={[
+                    styles.bottomSheet,
+                    { transform: [{ translateY: slideAnim }] },
+                  ]}
+                >
+                  <TouchableOpacity
+                    onPress={() => setModalVisible2(false)}
+                    style={styles.closeButton}
+                  >
+                    <Image source={ICONS.cross} style={styles.closeIcon} />
+                  </TouchableOpacity>
                   <Image
-                    source={ICONS.qoutes}
-                    resizeMode="contain"
-                    style={styles.qouteIcon}
+                    source={ICONS.group22}
+                    resizeMode="cover"
+                    style={styles.groupImage}
                   />
-                </View>
-                <View style={styles.groupDescriptionWrapper}>
-                  <Text style={styles.groupDescription}>
-                    Reach out to a member you know for an invite or the group
-                    link.
-                  </Text>
-                </View>
-              </Animated.View>
-            </TouchableWithoutFeedback>
-          </View>
-        </TouchableWithoutFeedback>
-      </Modal>
-    </View>
+                  <View style={styles.groupInfoWrapper}>
+                    <Text style={styles.groupName}>Emily Girls Group</Text>
+                    <Text style={styles.groupInviteNote}>
+                      This Group Is Invite-only
+                    </Text>
+
+                    <Image
+                      source={ICONS.qoutes}
+                      resizeMode="contain"
+                      style={styles.qouteIcon}
+                    />
+                  </View>
+                  <View style={styles.groupDescriptionWrapper}>
+                    <Text style={styles.groupDescription}>
+                      Reach out to a member you know for an invite or the group
+                      link.
+                    </Text>
+                  </View>
+                </Animated.View>
+              </TouchableWithoutFeedback>
+            </View>
+          </TouchableWithoutFeedback>
+        </Modal>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -330,7 +342,7 @@ const styles = StyleSheet.create({
   groupImage: {
     width: RFPercentage(45),
     height: RFPercentage(15),
-    left:RFPercentage(1.5)
+    left: RFPercentage(1.5),
   },
   groupInfoWrapper: {
     marginTop: RFPercentage(2),

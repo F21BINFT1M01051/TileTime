@@ -8,6 +8,9 @@ import {
   View,
   Keyboard,
   Platform,
+  KeyboardAvoidingView,
+  Dimensions,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import React, { useState, useMemo, useEffect } from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../config/theme';
@@ -49,24 +52,11 @@ const players = [
   },
 ];
 
+const { height } = Dimensions.get('window');
+
 const SelectPlayersInstructor = ({ navigation }: any) => {
   const [selectedContacts, setSelectedContacts] = useState<number[]>([]);
   const [query, setQuery] = useState('');
-  const [keyboardIsVisible, setKeyboardIsVisible] = useState(false);
-
-  useEffect(() => {
-    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
-      setKeyboardIsVisible(true);
-    });
-    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
-      setKeyboardIsVisible(false);
-    });
-
-    return () => {
-      showSubscription.remove();
-      hideSubscription.remove();
-    };
-  }, []);
 
   const toggleContact = (id: number) => {
     setSelectedContacts(prev =>
@@ -84,158 +74,174 @@ const SelectPlayersInstructor = ({ navigation }: any) => {
   }, [query]);
 
   return (
-    <View style={styles.container}>
-      <AuthHeader title="Select Players" />
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
-        keyboardShouldPersistTaps="always"
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        keyboardVerticalOffset={-height}
       >
-        {/* Header */}
+        <View style={styles.container}>
+          <AuthHeader title="Select Players" />
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.scrollContent}
+            keyboardShouldPersistTaps="always"
+          >
+            {/* Header */}
 
-        <View style={styles.contentContainer}>
-          <View>
-            <Text
-              style={{
-                color: COLORS.primary,
-                fontFamily: FONTS.headline,
-                fontSize: RFPercentage(2.4),
-              }}
-            >
-              Who’s This Session For?
-            </Text>
-          </View>
-          <View style={{ marginTop: RFPercentage(3) }}>
-            <SearchField
-              placeholder="Search Name, Email or Phone Number"
-              value={query}
-              onChangeText={setQuery}
-            />
-          </View>
-
-          {/* Players */}
-          <View style={styles.listContainer}>
-            <Text style={styles.sectionTitleDisabled}>SUGGESTED</Text>
-            <FlatList
-              data={filteredPlayers}
-              keyExtractor={item => item.id.toString()}
-              contentContainerStyle={styles.flatListContent}
-              ListEmptyComponent={
+            <View style={styles.contentContainer}>
+              <View>
                 <Text
                   style={{
-                    textAlign: 'center',
-                    marginTop: RFPercentage(2),
-                    color: COLORS.grey5,
+                    color: COLORS.primary,
+                    fontFamily: FONTS.headline,
+                    fontSize: RFPercentage(2.4),
                   }}
                 >
-                  No players found
+                  Who’s This Session For?
                 </Text>
-              }
-              renderItem={({ item }) => {
-                const isSelected = selectedContacts.includes(item.id);
-                return (
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={() => toggleContact(item.id)}
-                  >
-                    <View style={styles.contactRow}>
-                      {item.connected === false && item.tileTime === true ? (
-                        <View style={styles.contactInfo}>
-                          <View style={styles.avatarContainer}>
-                            <View style={styles.avatarOuterLayer}>
-                              <View style={styles.avatarMiddleLayer}>
-                                <View style={styles.avatarInnerLayer}>
-                                  <Image
-                                    source={item.profile}
-                                    resizeMode="contain"
-                                    style={styles.avatarImage}
-                                  />
+              </View>
+              <View style={{ marginTop: RFPercentage(3) }}>
+                <SearchField
+                  placeholder="Search Name, Email or Phone Number"
+                  value={query}
+                  onChangeText={setQuery}
+                />
+              </View>
+
+              {/* Players */}
+              <View style={styles.listContainer}>
+                <Text style={styles.sectionTitleDisabled}>SUGGESTED</Text>
+                <FlatList
+                  data={filteredPlayers}
+                  keyExtractor={item => item.id.toString()}
+                  keyboardShouldPersistTaps="always"
+                  contentContainerStyle={styles.flatListContent}
+                  ListEmptyComponent={
+                    <Text
+                      style={{
+                        textAlign: 'center',
+                        marginTop: RFPercentage(2),
+                        color: COLORS.grey5,
+                      }}
+                    >
+                      No players found
+                    </Text>
+                  }
+                  renderItem={({ item }) => {
+                    const isSelected = selectedContacts.includes(item.id);
+                    return (
+                      <TouchableOpacity
+                        activeOpacity={0.8}
+                        onPress={() => toggleContact(item.id)}
+                      >
+                        <View style={styles.contactRow}>
+                          {item.connected === false &&
+                          item.tileTime === true ? (
+                            <View style={styles.contactInfo}>
+                              <View style={styles.avatarContainer}>
+                                <View style={styles.avatarOuterLayer}>
+                                  <View style={styles.avatarMiddleLayer}>
+                                    <View style={styles.avatarInnerLayer}>
+                                      <Image
+                                        source={item.profile}
+                                        resizeMode="contain"
+                                        style={styles.avatarImage}
+                                      />
+                                    </View>
+                                  </View>
                                 </View>
                               </View>
+                              <View style={styles.nameSection}>
+                                <Text style={styles.nameText}>{item.name}</Text>
+                                <Text style={styles.phoneText}>
+                                  {item.common}
+                                </Text>
+                              </View>
                             </View>
-                          </View>
-                          <View style={styles.nameSection}>
-                            <Text style={styles.nameText}>{item.name}</Text>
-                            <Text style={styles.phoneText}>{item.common}</Text>
-                          </View>
-                        </View>
-                      ) : item.connected === true && item.tileTime === false ? (
-                        <View style={styles.contactInfo}>
-                          <View style={styles.connectedAvatar}>
-                            <Image
-                              source={item.profile}
-                              resizeMode="cover"
-                              style={styles.connectedAvatarImage}
-                            />
-                            <Image
-                              source={ICONS.fb22}
-                              resizeMode="contain"
-                              style={styles.connectedFbIcon}
-                            />
-                          </View>
-                          <View style={styles.nameSection}>
-                            <Text style={styles.nameText}>{item.name}</Text>
-                            <Text style={styles.phoneText}>
-                              Not on TileTime
-                            </Text>
-                          </View>
-                        </View>
-                      ) : (
-                        <View style={styles.contactInfo}>
-                          <View style={styles.notOnTileTimeAvatar}>
-                            <Text style={styles.notOnTileTimeInitials}>JA</Text>
-                            <Image
-                              source={ICONS.contact22}
-                              resizeMode="contain"
-                              style={styles.connectedFbIcon}
-                            />
-                          </View>
-                          <View style={styles.nameSection}>
-                            <Text style={styles.nameText}>{item.name}</Text>
-                            <Text style={styles.phoneText}>
-                              Not on TileTime
-                            </Text>
-                          </View>
-                        </View>
-                      )}
+                          ) : item.connected === true &&
+                            item.tileTime === false ? (
+                            <View style={styles.contactInfo}>
+                              <View style={styles.connectedAvatar}>
+                                <Image
+                                  source={item.profile}
+                                  resizeMode="cover"
+                                  style={styles.connectedAvatarImage}
+                                />
+                                <Image
+                                  source={ICONS.fb22}
+                                  resizeMode="contain"
+                                  style={styles.connectedFbIcon}
+                                />
+                              </View>
+                              <View style={styles.nameSection}>
+                                <Text style={styles.nameText}>{item.name}</Text>
+                                <Text style={styles.phoneText}>
+                                  Not on TileTime
+                                </Text>
+                              </View>
+                            </View>
+                          ) : (
+                            <View style={styles.contactInfo}>
+                              <View style={styles.notOnTileTimeAvatar}>
+                                <Text style={styles.notOnTileTimeInitials}>
+                                  JA
+                                </Text>
+                                <Image
+                                  source={ICONS.contact22}
+                                  resizeMode="contain"
+                                  style={styles.connectedFbIcon}
+                                />
+                              </View>
+                              <View style={styles.nameSection}>
+                                <Text style={styles.nameText}>{item.name}</Text>
+                                <Text style={styles.phoneText}>
+                                  Not on TileTime
+                                </Text>
+                              </View>
+                            </View>
+                          )}
 
-                      <TouchableOpacity onPress={() => toggleContact(item.id)}>
-                        <Image
-                          resizeMode="contain"
-                          source={isSelected ? ICONS.checked : ICONS.uncheck}
-                          style={styles.checkIcon}
-                        />
+                          <TouchableOpacity
+                            onPress={() => toggleContact(item.id)}
+                          >
+                            <Image
+                              resizeMode="contain"
+                              source={
+                                isSelected ? ICONS.checked : ICONS.uncheck
+                              }
+                              style={styles.checkIcon}
+                            />
+                          </TouchableOpacity>
+                        </View>
                       </TouchableOpacity>
-                    </View>
-                  </TouchableOpacity>
-                );
-              }}
-            />
-          </View>
-        </View>
-      </ScrollView>
+                    );
+                  }}
+                />
+              </View>
+            </View>
+          </ScrollView>
 
-      {/* Bottom Button */}
-      {!keyboardIsVisible && (
-        <View style={styles.bottomBar}>
-          <View style={styles.bottomContent}>
-            <CustomButton
-              title="Save And Next"
-              disabled={selectedContacts.length === 0}
-              style={{
-                backgroundColor:
-                  selectedContacts.length > 0
-                    ? COLORS.primary
-                    : COLORS.disabled,
-              }}
-              onPress={() => {
-                navigation.navigate('CreateLessonInstructor');
-              }}
-            />
+          {/* Bottom Button */}
+          <View style={styles.bottomBar}>
+            <View style={styles.bottomContent}>
+              <CustomButton
+                title="Save And Next"
+                disabled={selectedContacts.length === 0}
+                style={{
+                  backgroundColor:
+                    selectedContacts.length > 0
+                      ? COLORS.primary
+                      : COLORS.disabled,
+                }}
+                onPress={() => {
+                  navigation.navigate('CreateLessonInstructor');
+                }}
+              />
+            </View>
           </View>
         </View>
-      )}
-    </View>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -248,7 +254,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     paddingBottom: RFPercentage(2),
-    paddingTop:RFPercentage(2)
+    paddingTop: RFPercentage(2),
   },
   contentContainer: {
     width: '90%',

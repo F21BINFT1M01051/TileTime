@@ -133,7 +133,7 @@ const NotificationCard = (props: Props) => {
                     fontSize: RFPercentage(1.3),
                     lineHeight: RFPercentage(1.3),
                     textAlign: 'center',
-                    includeFontPadding: false,
+                    top: RFPercentage(0.1),
                   }}
                 >
                   YES
@@ -159,7 +159,7 @@ const NotificationCard = (props: Props) => {
                     fontSize: RFPercentage(1.3),
                     lineHeight: RFPercentage(1.3),
                     textAlign: 'center',
-                    includeFontPadding: false,
+                    top: RFPercentage(0.1),
                   }}
                 >
                   NO
@@ -183,10 +183,9 @@ const NotificationCard = (props: Props) => {
                   style={{
                     fontFamily: FONTS.semiBold,
                     color: COLORS.primary,
-                     fontSize: RFPercentage(1.4),
+                    fontSize: RFPercentage(1.4),
                     lineHeight: RFPercentage(1.4),
                     textAlign: 'center',
-                    includeFontPadding: false,
                   }}
                 >
                   View Event

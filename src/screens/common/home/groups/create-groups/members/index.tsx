@@ -5,7 +5,9 @@ import {
   TouchableOpacity,
   View,
   FlatList,
-  Platform
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 import React, { useState } from 'react';
 import { COLORS, FONTS, IMAGES, ICONS } from '../../../../../../config/theme';
@@ -112,211 +114,215 @@ const Members = ({ selectedContacts, setSelectedContacts }: any) => {
       (player.common && player.common.toLowerCase().includes(searchText))
     );
   });
-  
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Invite Members</Text>
-
-      <TouchableOpacity activeOpacity={0.8} onPress={()=> setIsOn(!isOn)} style={styles.toggleRow}>
-        <Text style={styles.toggleLabel}>Members Can Invite Others</Text>
-        <ToggleSwitch
-          isOn={isOn}
-          onColor={COLORS.pink}
-          offColor={COLORS.switch}
-          size="small"
-          onToggle={() => setIsOn(!isOn)}
-        />
-      </TouchableOpacity>
-      <View style={{ marginTop: RFPercentage(4) }}>
-        <SearchField
-          placeholder="Search Name, Email or Phone Number"
-          value={quuery}
-          onChangeText={setQuery}
-        />
-      </View>
-      {enable === false && (
-        <View
-          style={{
-            width: '100%',
-            alignItems: 'center',
-            borderWidth: RFPercentage(0.1),
-            borderColor: '#DEDEDE',
-            borderRadius: RFPercentage(1.6),
-            backgroundColor: COLORS.white,
-            height: RFPercentage(30.5),
-            marginTop: RFPercentage(3),
-          }}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Invite Members</Text>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => setIsOn(!isOn)}
+          style={styles.toggleRow}
         >
-          <Text
-            style={{
-              color: '#1D211E',
-              fontSize: RFPercentage(1.8),
-              fontFamily: FONTS.regular,
-              textAlign: 'center',
-              marginTop: RFPercentage(1.8),
-            }}
-          >{`Enable Contact Access To Connect, Invite,\nAnd Message Friends.`}</Text>
-          <Image
-            source={IMAGES.contacts}
-            resizeMode="contain"
-            style={{ width: RFPercentage(30), height: RFPercentage(18) }}
+          <Text style={styles.toggleLabel}>Members Can Invite Others</Text>
+          <ToggleSwitch
+            isOn={isOn}
+            onColor={COLORS.pink}
+            offColor={COLORS.switch}
+            size="small"
+            onToggle={() => setIsOn(!isOn)}
           />
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={styles.enableButton}
-            onPress={() => setEnable(true)}
-          >
-            <Text style={styles.enableButtonText}>Enable Contact Access</Text>
-          </TouchableOpacity>
+        </TouchableOpacity>
+        <View style={{ marginTop: RFPercentage(4) }}>
+          <SearchField
+            placeholder="Search Name, Email or Phone Number"
+            value={quuery}
+            onChangeText={setQuery}
+          />
         </View>
-      )}
+        {enable === false && (
+          <View
+            style={{
+              width: '100%',
+              alignItems: 'center',
+              borderWidth: RFPercentage(0.1),
+              borderColor: '#DEDEDE',
+              borderRadius: RFPercentage(1.6),
+              backgroundColor: COLORS.white,
+              height: RFPercentage(30.5),
+              marginTop: RFPercentage(3),
+            }}
+          >
+            <Text
+              style={{
+                color: '#1D211E',
+                fontSize: RFPercentage(1.8),
+                fontFamily: FONTS.regular,
+                textAlign: 'center',
+                marginTop: RFPercentage(1.8),
+              }}
+            >{`Enable Contact Access To Connect, Invite,\nAnd Message Friends.`}</Text>
+            <Image
+              source={IMAGES.contacts}
+              resizeMode="contain"
+              style={{ width: RFPercentage(30), height: RFPercentage(18) }}
+            />
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={styles.enableButton}
+              onPress={() => setEnable(true)}
+            >
+              <Text style={styles.enableButtonText}>Enable Contact Access</Text>
+            </TouchableOpacity>
+          </View>
+        )}
 
-      <View>
-        <Text style={styles.sectionTitleDisabled}>SUGGESTED</Text>
-      </View>
-      <View>
-        <FlatList
-          data={filteredPlayers}
-          keyboardShouldPersistTaps="always"
-          keyExtractor={item => item.id.toString()}
-          contentContainerStyle={{paddingBottom:RFPercentage(8)}}
-          ListEmptyComponent={() =>
-            quuery ? (
-              <Text
-                style={{
-                  textAlign: 'center',
-                  marginTop: RFPercentage(3),
-                  fontFamily: FONTS.regular,
-                  fontSize: RFPercentage(1.8),
-                  color: COLORS.grey5,
-                }}
-              >
-                No players found
-              </Text>
-            ) : null
-          }
-          renderItem={({ item }) => {
-            const isSelected = selectedContacts.includes(item.id);
-            return (
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => toggleContact(item.id)}
-              >
-                <View style={styles.contactRow}>
-                  {item.connected === false && item.tileTime === true ? (
-                    <View style={styles.contactInfo}>
-                      <View style={styles.avatarContainer}>
-                        <View style={styles.avatarOuterLayer}>
-                          <View style={styles.avatarMiddleLayer}>
-                            <View style={styles.avatarInnerLayer}>
-                              <Image
-                                source={item.profile}
-                                resizeMode="contain"
-                                style={styles.avatarImage}
-                              />
+        <View>
+          <Text style={styles.sectionTitleDisabled}>SUGGESTED</Text>
+        </View>
+        <View>
+          <FlatList
+            data={filteredPlayers}
+            keyboardShouldPersistTaps="always"
+            keyExtractor={item => item.id.toString()}
+            contentContainerStyle={{ paddingBottom: RFPercentage(8) }}
+            ListEmptyComponent={() =>
+              quuery ? (
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    marginTop: RFPercentage(3),
+                    fontFamily: FONTS.regular,
+                    fontSize: RFPercentage(1.8),
+                    color: COLORS.grey5,
+                  }}
+                >
+                  No players found
+                </Text>
+              ) : null
+            }
+            renderItem={({ item }) => {
+              const isSelected = selectedContacts.includes(item.id);
+              return (
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => toggleContact(item.id)}
+                >
+                  <View style={styles.contactRow}>
+                    {item.connected === false && item.tileTime === true ? (
+                      <View style={styles.contactInfo}>
+                        <View style={styles.avatarContainer}>
+                          <View style={styles.avatarOuterLayer}>
+                            <View style={styles.avatarMiddleLayer}>
+                              <View style={styles.avatarInnerLayer}>
+                                <Image
+                                  source={item.profile}
+                                  resizeMode="contain"
+                                  style={styles.avatarImage}
+                                />
+                              </View>
                             </View>
                           </View>
                         </View>
+                        <View style={styles.nameSection}>
+                          <Text style={styles.nameText}>{item.name}</Text>
+                          <Text style={styles.phoneText}>{item.common}</Text>
+                        </View>
                       </View>
-                      <View style={styles.nameSection}>
-                        <Text style={styles.nameText}>{item.name}</Text>
-                        <Text style={styles.phoneText}>{item.common}</Text>
-                      </View>
-                    </View>
-                  ) : item.connected === true && item.tileTime === false ? (
-                    <View style={styles.contactInfo}>
-                      <View
-                        style={{
-                          width: RFPercentage(8),
-                          height: RFPercentage(8),
-                          borderRadius: RFPercentage(100),
-                        }}
-                      >
-                        <Image
-                          source={item.profile}
-                          resizeMode="cover"
+                    ) : item.connected === true && item.tileTime === false ? (
+                      <View style={styles.contactInfo}>
+                        <View
                           style={{
                             width: RFPercentage(8),
                             height: RFPercentage(8),
                             borderRadius: RFPercentage(100),
                           }}
-                        />
-                        <Image
-                          source={ICONS.fb22}
-                          resizeMode="contain"
-                          style={{
-                            width: RFPercentage(4),
-                            height: RFPercentage(4),
-                            position: 'absolute',
-                            bottom: RFPercentage(-1),
-                            right: RFPercentage(-0.6),
-                          }}
-                        />
+                        >
+                          <Image
+                            source={item.profile}
+                            resizeMode="cover"
+                            style={{
+                              width: RFPercentage(8),
+                              height: RFPercentage(8),
+                              borderRadius: RFPercentage(100),
+                            }}
+                          />
+                          <Image
+                            source={ICONS.fb22}
+                            resizeMode="contain"
+                            style={{
+                              width: RFPercentage(4),
+                              height: RFPercentage(4),
+                              position: 'absolute',
+                              bottom: RFPercentage(-1),
+                              right: RFPercentage(-0.6),
+                            }}
+                          />
+                        </View>
+                        <View style={styles.nameSection}>
+                          <Text style={styles.nameText}>{item.name}</Text>
+                          <Text
+                            style={styles.phoneText}
+                          >{`Not on TileTime`}</Text>
+                        </View>
                       </View>
-                      <View style={styles.nameSection}>
-                        <Text style={styles.nameText}>{item.name}</Text>
-                        <Text
-                          style={styles.phoneText}
-                        >{`Not on TileTime`}</Text>
-                      </View>
-                    </View>
-                  ) : (
-                    <View style={styles.contactInfo}>
-                      <View
-                        style={{
-                          width: RFPercentage(8),
-                          height: RFPercentage(8),
-                          borderRadius: RFPercentage(100),
-                          backgroundColor: '#FFFFE1',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <Text
+                    ) : (
+                      <View style={styles.contactInfo}>
+                        <View
                           style={{
-                            fontFamily: FONTS.semiBold,
-                            fontSize: RFPercentage(2.3),
-                            color: '#929212',
+                            width: RFPercentage(8),
+                            height: RFPercentage(8),
+                            borderRadius: RFPercentage(100),
+                            backgroundColor: '#FFFFE1',
+                            alignItems: 'center',
+                            justifyContent: 'center',
                           }}
                         >
-                          JA
-                        </Text>
-                        <Image
-                          source={ICONS.contact22}
-                          resizeMode="contain"
-                          style={{
-                            width: RFPercentage(4),
-                            height: RFPercentage(4),
-                            position: 'absolute',
-                            bottom: RFPercentage(-1),
-                            right: RFPercentage(-0.6),
-                          }}
-                        />
+                          <Text
+                            style={{
+                              fontFamily: FONTS.semiBold,
+                              fontSize: RFPercentage(2.3),
+                              color: '#929212',
+                            }}
+                          >
+                            JA
+                          </Text>
+                          <Image
+                            source={ICONS.contact22}
+                            resizeMode="contain"
+                            style={{
+                              width: RFPercentage(4),
+                              height: RFPercentage(4),
+                              position: 'absolute',
+                              bottom: RFPercentage(-1),
+                              right: RFPercentage(-0.6),
+                            }}
+                          />
+                        </View>
+                        <View style={styles.nameSection}>
+                          <Text style={styles.nameText}>{item.name}</Text>
+                          <Text
+                            style={styles.phoneText}
+                          >{`Not on TileTime`}</Text>
+                        </View>
                       </View>
-                      <View style={styles.nameSection}>
-                        <Text style={styles.nameText}>{item.name}</Text>
-                        <Text
-                          style={styles.phoneText}
-                        >{`Not on TileTime`}</Text>
-                      </View>
-                    </View>
-                  )}
+                    )}
 
-                  <TouchableOpacity onPress={() => toggleContact(item.id)}>
-                    <Image
-                      resizeMode="contain"
-                      source={isSelected ? ICONS.checked : ICONS.uncheck}
-                      style={styles.checkIcon}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </TouchableOpacity>
-            );
-          }}
-        />
+                    <TouchableOpacity onPress={() => toggleContact(item.id)}>
+                      <Image
+                        resizeMode="contain"
+                        source={isSelected ? ICONS.checked : ICONS.uncheck}
+                        style={styles.checkIcon}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                </TouchableOpacity>
+              );
+            }}
+          />
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -468,7 +474,7 @@ const styles = StyleSheet.create({
     color: COLORS.lightGrey,
     fontFamily: FONTS.regular,
     fontSize: RFPercentage(1.8),
-    marginTop: Platform.OS === "ios" ? RFPercentage(0.6) : RFPercentage(0.1),
+    marginTop: Platform.OS === 'ios' ? RFPercentage(0.6) : RFPercentage(0.1),
   },
   checkIcon: {
     width: RFPercentage(3),

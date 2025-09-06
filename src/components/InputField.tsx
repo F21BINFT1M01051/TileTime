@@ -7,12 +7,12 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Platform,
-  Clipboard,
   KeyboardTypeOptions,
 } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS } from '../config/theme';
 import Feather from 'react-native-vector-icons/Feather';
+import Clipboard from '@react-native-clipboard/clipboard';
 
 interface Props {
   placeholder: string;
@@ -51,7 +51,7 @@ const InputField: React.FC<Props> = ({
   hasError = false,
   length,
   disabled,
-  editable
+  editable,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [secureText, setSecureText] = useState(password);
@@ -65,9 +65,11 @@ const InputField: React.FC<Props> = ({
 
   const animatedIsFocused = useRef(new Animated.Value(value ? 1 : 0)).current;
 
-  const copyToClipboard = (value : any) => {
-    console.log(value)
-    Clipboard.setString(value);
+  const copyToClipboard = (value: string) => {
+    if (value) {
+      Clipboard.setString(value);
+      console.log('Copied:', value);
+    }
   };
 
   useEffect(() => {
@@ -96,7 +98,10 @@ const InputField: React.FC<Props> = ({
   };
 
   return (
-    <TouchableWithoutFeedback onPress={() => inputRef.current?.focus()} disabled={disabled}>
+    <TouchableWithoutFeedback
+      onPress={() => inputRef.current?.focus()}
+      disabled={disabled}
+    >
       <View style={[styles.container, style]}>
         <View style={styles.wrap}>
           <Animated.Text style={[labelStyle]}>{placeholder}</Animated.Text>

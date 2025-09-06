@@ -6,6 +6,7 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  Dimensions,
 } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import CustomButton from '../../../../../components/CustomButton';
@@ -15,22 +16,23 @@ import { COLORS, FONTS } from '../../../../../config/theme';
 import Nav from '../../../../../components/Nav';
 import { AboutFormRef } from './about';
 
-const steps = ['about', 'members'];
+
+const { height } = Dimensions.get('window');
 
 const CreateGroup = ({ navigation }: any) => {
   const [stepIndex, setStepIndex] = useState(0);
-  const [keyboardIsVisible, setKeyboardIsVisible] = useState(false);
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
   const aboutFormRef = useRef<AboutFormRef>(null);
   const [isAboutValid, setIsAboutValid] = useState(false);
-  const [progress, setProgress] = useState(0); // track progress explicitly
+  const [progress, setProgress] = useState(0);
   const [selectedContacts, setSelectedContacts] = useState<number[]>([]);
 
   useEffect(() => {
-    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
-      setKeyboardIsVisible(true);
+    const showSubscription = Keyboard.addListener('keyboardDidShow', e => {
+      setKeyboardHeight(e.endCoordinates.height);
     });
     const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
-      setKeyboardIsVisible(false);
+      setKeyboardHeight(0);
     });
 
     return () => {
@@ -73,77 +75,60 @@ const CreateGroup = ({ navigation }: any) => {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      style={{ flex: 1, backgroundColor: COLORS.white }}
-    >
-      <Nav
-        title="Create Group"
-        onPress={() => {
-          stepIndex === 0 ? navigation.goBack() : setStepIndex(stepIndex - 1);
-        }}
-      />
-      <ScrollView
-        style={{ flex: 1, backgroundColor: COLORS.white }}
-        contentContainerStyle={{ flexGrow: 1, paddingBottom: RFPercentage(5) }}
-        keyboardShouldPersistTaps="always"
-        showsVerticalScrollIndicator={false}
+    <View style={{ flex: 1, backgroundColor: COLORS.white }}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        keyboardVerticalOffset={-height}
       >
-        <View style={styles.progressBarBackground}>
-          <View style={[styles.progressBarFill, { width: `${progress}%` }]} />
-        </View>
+        <Nav
+          title="Create Group"
+          onPress={() => {
+            stepIndex === 0 ? navigation.goBack() : setStepIndex(stepIndex - 1);
+          }}
+        />
+        <ScrollView
+          style={{ flex: 1, backgroundColor: COLORS.white }}
+          contentContainerStyle={{
+            flexGrow: 1,
+            paddingBottom: keyboardHeight + RFPercentage(10),
+          }}
+          keyboardShouldPersistTaps="always"
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.progressBarBackground}>
+            <View style={[styles.progressBarFill, { width: `${progress}%` }]} />
+          </View>
 
-        <View style={styles.contentWrapper}>{renderStepContent()}</View>
-      </ScrollView>
+          <View style={styles.contentWrapper}>{renderStepContent()}</View>
+        </ScrollView>
 
-      {!keyboardIsVisible && (
-        <>
-          <View style={styles.bottomWrapper}>
-            <View style={styles.buttonContainer}>
-              <CustomButton
-                title={
-                  stepIndex === 0 ? 'Save And Next' : 'Send Invites & Next'
-                }
-                onPress={handleNext}
-                style={{
-                  backgroundColor:
-                    (stepIndex === 0 && !isAboutValid) ||
-                    (stepIndex === 1 && selectedContacts.length === 0)
-                      ? COLORS.disabled
-                      : COLORS.primary,
-                }}
-                disabled={
+        <View style={[styles.bottomWrapper]}>
+          <View style={styles.buttonContainer}>
+            <CustomButton
+              title={stepIndex === 0 ? 'Save And Next' : 'Send Invites & Next'}
+              onPress={handleNext}
+              style={{
+                backgroundColor:
                   (stepIndex === 0 && !isAboutValid) ||
                   (stepIndex === 1 && selectedContacts.length === 0)
-                }
-              />
-            </View>
+                    ? COLORS.disabled
+                    : COLORS.primary,
+              }}
+              disabled={
+                (stepIndex === 0 && !isAboutValid) ||
+                (stepIndex === 1 && selectedContacts.length === 0)
+              }
+            />
           </View>
-        </>
-      )}
-    </KeyboardAvoidingView>
+        </View>
+      </KeyboardAvoidingView>
+    </View>
   );
 };
 
 export default CreateGroup;
 
 const styles = StyleSheet.create({
-  header: {
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderBottomWidth: 1,
-    paddingBottom: RFPercentage(2.3),
-    borderColor: COLORS.fieldBorder,
-    paddingHorizontal: RFPercentage(2),
-    marginTop: RFPercentage(7),
-  },
-  headerText: {
-    fontFamily: FONTS.headline,
-    color: COLORS.primary,
-    fontSize: RFPercentage(2.7),
-    marginLeft: RFPercentage(1.2),
-  },
   progressBarBackground: {
     width: '90%',
     height: RFPercentage(0.8),
@@ -155,19 +140,7 @@ const styles = StyleSheet.create({
   },
   progressBarFill: {
     height: '100%',
-    backgroundColor: COLORS.pink, // current progress color
-    borderRadius: RFPercentage(100),
-  },
-  stepBarContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '90%',
-    alignSelf: 'center',
-    marginTop: RFPercentage(2),
-  },
-  stepBar: {
-    width: RFPercentage(7),
-    height: RFPercentage(0.8),
+    backgroundColor: COLORS.pink,
     borderRadius: RFPercentage(100),
   },
   contentWrapper: {
@@ -183,8 +156,6 @@ const styles = StyleSheet.create({
     borderTopColor: COLORS.lightWhite,
     backgroundColor: COLORS.white,
     paddingBottom: RFPercentage(4),
-    position: 'absolute',
-    bottom: 0,
   },
   buttonContainer: {
     width: '90%',

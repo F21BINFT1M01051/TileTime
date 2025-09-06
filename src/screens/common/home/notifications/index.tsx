@@ -202,7 +202,8 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(1.8),
     textAlign:'center',
     textAlignVertical:"center",
-    lineHeight:RFPercentage(2)
+    lineHeight:RFPercentage(2),
+    top:RFPercentage(0.1)
   },
   notificationListContainer: {
     width: '90%',

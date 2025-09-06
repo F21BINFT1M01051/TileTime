@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
   TextInput,
-  Platform,
+  KeyboardAvoidingView,
   FlatList,
   Keyboard,
   Animated,
@@ -56,6 +56,8 @@ const coHosts = [
     profile: IMAGES.profile1,
   },
 ];
+
+const { height } = Dimensions.get('window');
 
 const GuidedPlay = ({ route }: any) => {
   const { players, groups, link } = route.params;
@@ -179,221 +181,230 @@ const GuidedPlay = ({ route }: any) => {
   };
 
   const handleBack = () => {
-  if (stepIndex > 0) {
-    setStepIndex(stepIndex - 1);
-    setProgress(((stepIndex - 1) / finalSteps.length) * 100);
-  } else {
-    navigation.goBack();
-  }
-};
-
+    if (stepIndex > 0) {
+      setStepIndex(stepIndex - 1);
+      setProgress(((stepIndex - 1) / finalSteps.length) * 100);
+    } else {
+      navigation.goBack();
+    }
+  };
 
   return (
-    <View style={styles.mainContainer}>
-      {/* Header */}
-      <AuthHeader
-        title={role === 'Instructor' ? 'Create Guided Play' : 'Create Event'}
-        right={true}
-        rightText="Save Draft"
-        onPress={() => {
-          stepIndex === 0 ? navigation.goBack() : setStepIndex(stepIndex - 1);
-        }}
-      />
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollViewContent}
-         keyboardShouldPersistTaps="always"
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        keyboardVerticalOffset={-height}
       >
-        <View style={styles.progressBarBackground}>
-          <View
-            style={[
-              styles.progressBarFill,
-              { width: `${progress}%` }, 
-            ]}
+        <View style={styles.mainContainer}>
+          {/* Header */}
+          <AuthHeader
+            title={
+              role === 'Instructor' ? 'Create Guided Play' : 'Create Event'
+            }
+            right={true}
+            rightText="Save Draft"
+            onPress={() => {
+              stepIndex === 0
+                ? navigation.goBack()
+                : setStepIndex(stepIndex - 1);
+            }}
           />
-        </View>
-
-        <View style={styles.innerWrapper}>
-          <View style={styles.contentWrapper}>{renderStepContent()}</View>
-        </View>
-      </ScrollView>
-      {!keyboardIsVisible &&
-        (stepIndex === 0 ? (
-          <View style={styles.footer}>
-            <View style={styles.footerButtonWrapper}>
-              <CustomButton title="Save And Next" onPress={handleNext} />
-            </View>
-          </View>
-        ) : (
-          <View style={styles.bottomBar}>
-            <View style={styles.bottomContent}>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => {
-                  stepIndex === 0
-                    ? navigation.goBack()
-                    : setStepIndex(stepIndex - 1);
-                }}
-                style={styles.backButton}
-              >
-                <Text style={styles.backButtonText}>Back</Text>
-              </TouchableOpacity>
-              <CustomButton
-                title={
-                  stepIndex === finalSteps.length - 1
-                    ? 'Publish Event'
-                    : finalSteps[stepIndex] === 'instuctorSelection'
-                    ? 'Send Requests and Publish'
-                    : 'Save And Next'
-                }
-                style={styles.saveButton}
-                onPress={handleNext}
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.scrollViewContent}
+            keyboardShouldPersistTaps="always"
+          >
+            <View style={styles.progressBarBackground}>
+              <View
+                style={[styles.progressBarFill, { width: `${progress}%` }]}
               />
             </View>
-          </View>
-        ))}
 
-      <EventLive
-        visible={modalVisible}
-        onClose={() => setModalVisible(false)}
-      />
+            <View style={styles.innerWrapper}>
+              <View style={styles.contentWrapper}>{renderStepContent()}</View>
+            </View>
+          </ScrollView>
+          {stepIndex === 0 ? (
+            <View style={styles.footer}>
+              <View style={styles.footerButtonWrapper}>
+                <CustomButton title="Save And Next" onPress={handleNext} />
+              </View>
+            </View>
+          ) : (
+            <View style={styles.bottomBar}>
+              <View style={styles.bottomContent}>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => {
+                    stepIndex === 0
+                      ? navigation.goBack()
+                      : setStepIndex(stepIndex - 1);
+                  }}
+                  style={styles.backButton}
+                >
+                  <Text style={styles.backButtonText}>Back</Text>
+                </TouchableOpacity>
+                <CustomButton
+                  title={
+                    stepIndex === finalSteps.length - 1
+                      ? 'Publish Event'
+                      : finalSteps[stepIndex] === 'instuctorSelection'
+                      ? 'Send Requests and Publish'
+                      : 'Save And Next'
+                  }
+                  style={styles.saveButton}
+                  onPress={handleNext}
+                />
+              </View>
+            </View>
+          )}
+          <EventLive
+            visible={modalVisible}
+            onClose={() => setModalVisible(false)}
+          />
 
-      <Modal visible={modalVisible2} transparent animationType="none">
-        <BlurView
-          style={StyleSheet.absoluteFill}
-          blurType="dark"
-          blurAmount={5}
-          reducedTransparencyFallbackColor="white"
-        />
-        <TouchableWithoutFeedback onPress={() => setModalVisible2(false)}>
-          <View style={styles.overlay}>
-            <TouchableWithoutFeedback>
-              <Animated.View
-                style={[
-                  styles.modalContent,
-                  { transform: [{ translateY: slideAnim }] },
-                ]}
-              >
-                <View style={styles.modalInnerContent}>
-                  {/* Header */}
-                  <View style={styles.modalHeader}>
-                    <Text style={styles.modalTitle}>Add Co-Hosts</Text>
-                    <TouchableOpacity
-                      activeOpacity={0.8}
-                      onPress={() => setModalVisible2(false)}
-                    >
-                      <Image
-                        source={ICONS.cross}
-                        resizeMode="contain"
-                        tintColor={COLORS.lightGrey}
-                        style={styles.crossIcon}
-                      />
-                    </TouchableOpacity>
-                  </View>
+          <Modal visible={modalVisible2} transparent animationType="none">
+            <BlurView
+              style={StyleSheet.absoluteFill}
+              blurType="dark"
+              blurAmount={5}
+              reducedTransparencyFallbackColor="white"
+            />
+            <TouchableWithoutFeedback onPress={() => setModalVisible2(false)}>
+              <View style={styles.overlay}>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                  <Animated.View
+                    style={[
+                      styles.modalContent,
+                      { transform: [{ translateY: slideAnim }] },
+                    ]}
+                  >
+                    <View style={styles.modalInnerContent}>
+                      {/* Header */}
+                      <View style={styles.modalHeader}>
+                        <Text style={styles.modalTitle}>Add Co-Hosts</Text>
+                        <TouchableOpacity
+                          activeOpacity={0.8}
+                          onPress={() => setModalVisible2(false)}
+                        >
+                          <Image
+                            source={ICONS.cross}
+                            resizeMode="contain"
+                            tintColor={COLORS.lightGrey}
+                            style={styles.crossIcon}
+                          />
+                        </TouchableOpacity>
+                      </View>
 
-                  {/* Search */}
-                  <View style={styles.searchContainer}>
-                    <SearchField
-                      placeholder="Search by name"
-                      value={query}
-                      onChangeText={setQuery}
-                    />
-                  </View>
+                      {/* Search */}
+                      <View style={styles.searchContainer}>
+                        <SearchField
+                          placeholder="Search by name"
+                          value={query}
+                          onChangeText={setQuery}
+                        />
+                      </View>
 
-                  {/* List */}
-                  <View style={styles.flatListContainer}>
-                    <FlatList
-                      data={filteredHosts}
-                      keyExtractor={item => item.id.toString()}
-                      keyboardShouldPersistTaps="always"
-                      ListEmptyComponent={
-                        <Text style={styles.noResultText}>
-                          No results found
-                        </Text>
-                      }
-                      renderItem={({ item }) => {
-                        const isSelected = selectedContacts.includes(item.id);
-                        return (
-                          <TouchableOpacity
-                            activeOpacity={0.8}
-                            onPress={() => toggleContact(item.id)}
-                          >
-                            <View style={styles.contactRow}>
-                              <View style={styles.contactLeft}>
-                                <View style={styles.avatarOuterLayer}>
-                                  <View style={styles.avatarMiddleLayer}>
-                                    <View style={styles.avatarInnerLayer}>
-                                      <Image
-                                        source={item.profile}
-                                        resizeMode="cover"
-                                        style={styles.avatarImage}
-                                      />
-                                    </View>
-                                  </View>
-                                </View>
-                                <View style={styles.contactInfo}>
-                                  <Text style={styles.contactName}>
-                                    {item.name}
-                                  </Text>
-                                  <Text style={styles.contactMembers}>
-                                    {item.member}
-                                  </Text>
-                                </View>
-                              </View>
+                      {/* List */}
+                      <View style={styles.flatListContainer}>
+                        <FlatList
+                          data={filteredHosts}
+                          keyExtractor={item => item.id.toString()}
+                          keyboardShouldPersistTaps="always"
+                          ListEmptyComponent={
+                            <Text style={styles.noResultText}>
+                              No results found
+                            </Text>
+                          }
+                          renderItem={({ item }) => {
+                            const isSelected = selectedContacts.includes(
+                              item.id,
+                            );
+                            return (
                               <TouchableOpacity
+                                activeOpacity={0.8}
                                 onPress={() => toggleContact(item.id)}
                               >
-                                <Image
-                                  resizeMode="contain"
-                                  source={
-                                    isSelected ? ICONS.checked : ICONS.uncheck
-                                  }
-                                  style={styles.checkIcon}
-                                />
+                                <View style={styles.contactRow}>
+                                  <View style={styles.contactLeft}>
+                                    <View style={styles.avatarOuterLayer}>
+                                      <View style={styles.avatarMiddleLayer}>
+                                        <View style={styles.avatarInnerLayer}>
+                                          <Image
+                                            source={item.profile}
+                                            resizeMode="cover"
+                                            style={styles.avatarImage}
+                                          />
+                                        </View>
+                                      </View>
+                                    </View>
+                                    <View style={styles.contactInfo}>
+                                      <Text style={styles.contactName}>
+                                        {item.name}
+                                      </Text>
+                                      <Text style={styles.contactMembers}>
+                                        {item.member}
+                                      </Text>
+                                    </View>
+                                  </View>
+                                  <TouchableOpacity
+                                    onPress={() => toggleContact(item.id)}
+                                  >
+                                    <Image
+                                      resizeMode="contain"
+                                      source={
+                                        isSelected
+                                          ? ICONS.checked
+                                          : ICONS.uncheck
+                                      }
+                                      style={styles.checkIcon}
+                                    />
+                                  </TouchableOpacity>
+                                </View>
                               </TouchableOpacity>
-                            </View>
-                          </TouchableOpacity>
-                        );
-                      }}
-                    />
-                  </View>
-                </View>
-
-                {/* Footer */}
-                {!keyboardIsVisible && (
-                  <View style={styles.modalFooter}>
-                    <View style={styles.modalFooterInner}>
-                      <CustomButton
-                        title={
-                          selectedContacts.length > 0
-                            ? `Add ${selectedContacts.length} Co-Hosts`
-                            : `Add Co-Hosts`
-                        }
-                        onPress={() => {
-                          handleSelectedContacts(
-                            coHosts.filter(c =>
-                              selectedContacts.includes(c.id),
-                            ),
-                          );
-                          setModalVisible2(false);
-                        }}
-                        disabled={selectedContacts.length === 0}
-                        style={{
-                          backgroundColor:
-                            selectedContacts.length > 0
-                              ? COLORS.primary
-                              : COLORS.disabled,
-                        }}
-                      />
+                            );
+                          }}
+                        />
+                      </View>
                     </View>
-                  </View>
-                )}
-              </Animated.View>
+
+                    {/* Footer */}
+                    {!keyboardIsVisible && (
+                      <View style={styles.modalFooter}>
+                        <View style={styles.modalFooterInner}>
+                          <CustomButton
+                            title={
+                              selectedContacts.length > 0
+                                ? `Add ${selectedContacts.length} Co-Hosts`
+                                : `Add Co-Hosts`
+                            }
+                            onPress={() => {
+                              handleSelectedContacts(
+                                coHosts.filter(c =>
+                                  selectedContacts.includes(c.id),
+                                ),
+                              );
+                              setModalVisible2(false);
+                            }}
+                            disabled={selectedContacts.length === 0}
+                            style={{
+                              backgroundColor:
+                                selectedContacts.length > 0
+                                  ? COLORS.primary
+                                  : COLORS.disabled,
+                            }}
+                          />
+                        </View>
+                      </View>
+                    )}
+                  </Animated.View>
+                </TouchableWithoutFeedback>
+              </View>
             </TouchableWithoutFeedback>
-          </View>
-        </TouchableWithoutFeedback>
-      </Modal>
-    </View>
+          </Modal>
+        </View>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -406,6 +417,7 @@ const styles = StyleSheet.create({
   },
   scrollViewContent: {
     paddingBottom: RFPercentage(12),
+    flexGrow: 1,
   },
   progressBarBackground: {
     width: '90%',
@@ -575,7 +587,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   backButton: {
-    width:"30%",
+    width: '30%',
     height: RFPercentage(5.5),
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.primary,
@@ -589,6 +601,6 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.bold,
   },
   saveButton: {
-    width: "60%",
+    width: '60%',
   },
 });

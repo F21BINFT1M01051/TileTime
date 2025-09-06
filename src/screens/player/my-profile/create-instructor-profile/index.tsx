@@ -14,6 +14,7 @@ import {
   Dimensions,
   Modal,
   ImageBackground,
+  KeyboardAvoidingView,
 } from 'react-native';
 import React, { useState, useRef, useEffect } from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../../config/theme';
@@ -24,6 +25,8 @@ import AuthHeader from '../../../../components/AuthHeader';
 import Search from '../../../../components/SearchExperience';
 import CustomButton from '../../../../components/CustomButton';
 
+const { height } = Dimensions.get('window');
+
 const CreateInstructorProfile = ({ navigation }: any) => {
   const [state, setState] = useState(null);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -32,7 +35,6 @@ const CreateInstructorProfile = ({ navigation }: any) => {
   const [website, setWebsite] = React.useState('');
   const [Experience, setExperience] = useState('');
   const [Credential, setCredential] = useState('');
-  const [keyboardIsVisible, setKeyboardIsVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [name, setName] = useState('');
   const [city, setCity] = useState('');
@@ -67,20 +69,6 @@ const CreateInstructorProfile = ({ navigation }: any) => {
     });
   };
 
-  useEffect(() => {
-    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
-      setKeyboardIsVisible(true);
-    });
-    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
-      setKeyboardIsVisible(false);
-    });
-
-    return () => {
-      showSubscription.remove();
-      hideSubscription.remove();
-    };
-  }, []);
-
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -91,190 +79,193 @@ const CreateInstructorProfile = ({ navigation }: any) => {
         }
       }}
     >
-      <>
-        <AuthHeader title="Aditional Details" />
-        <ScrollView
-          contentContainerStyle={styles.scrollViewContent}
-          style={styles.scrollView}
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="always"
-        >
-          <View style={styles.container}>
-            <Text style={styles.title}>Build Your Instructor Profile</Text>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        keyboardVerticalOffset={-height}
+      >
+        <>
+          <AuthHeader title="Aditional Details" />
+          <ScrollView
+            contentContainerStyle={styles.scrollViewContent}
+            style={styles.scrollView}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="always"
+          >
+            <View style={styles.container}>
+              <Text style={styles.title}>Build Your Instructor Profile</Text>
 
-            <View style={styles.marginTop1}>
-              <InputField
-                placeholder="Full Name"
-                password={false}
-                value={name}
-                onChangeText={setName}
-              />
-            </View>
+              <View style={styles.marginTop1}>
+                <InputField
+                  placeholder="Full Name"
+                  password={false}
+                  value={name}
+                  onChangeText={setName}
+                />
+              </View>
 
-            <TouchableOpacity
-              style={styles.checkboxRow}
-              activeOpacity={0.8}
-              onPress={() => setChecked(!checked)}
-            >
               <TouchableOpacity
+                style={styles.checkboxRow}
                 activeOpacity={0.8}
                 onPress={() => setChecked(!checked)}
               >
-                <Image
-                  source={checked ? ICONS.checked : ICONS.uncheck}
-                  resizeMode="contain"
-                  style={styles.checkboxIcon}
-                />
-              </TouchableOpacity>
-              <Text style={styles.checkboxText}>Doing business as</Text>
-            </TouchableOpacity>
-
-            {checked && (
-              <InputField
-                placeholder="Enter Business Name"
-                password={false}
-                value={business}
-                onChangeText={setBusiness}
-              />
-            )}
-
-            <View style={styles.marginTop3}>
-              <Text style={styles.sectionHeading}>Cities you serve </Text>
-            </View>
-
-            <View style={styles.dropdowns}>
-              <View style={styles.dropdownHalf}>
-                <InputField
-                  placeholder="City"
-                  defaultColor={COLORS.placeholder}
-                  focusedColor={COLORS.focused}
-                  password={false}
-                  value={city}
-                  onChangeText={setCity}
-                  style={{
-                    paddingHorizontal: RFPercentage(0.7),
-                  }}
-                />
-
-                {!anotherCity && (
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    style={styles.addLocationRow}
-                    onPress={() => setAnotherCity(true)}
-                  >
-                    <Image
-                      source={ICONS.plus5}
-                      tintColor={COLORS.primary}
-                      resizeMode="contain"
-                      style={styles.plusIcon}
-                    />
-                    <Text style={styles.addLocationText}>
-                      Add Another Location
-                    </Text>
-                  </TouchableOpacity>
-                )}
-              </View>
-              <View style={styles.dropdownHalf}>
-                <DropdownField
-                  placeholder="State"
-                  data={['Beijing', 'Shanghai', 'Guangdong', 'Sichuan']}
-                  selectedValue={state}
-                  onValueChange={(val: any) => setState(val)}
-                  isDropdownVisible={isDropdownVisible2}
-                  setIsDropdownVisible={setIsDropdownVisible2}
-                  style={styles.dropdownField}
-                />
-              </View>
-            </View>
-            {anotherCity && (
-              <>
-                <View style={styles.dropdowns}>
-                  <View style={{ width: '48%' }}>
-                    <InputField
-                      placeholder="Another City"
-                      value={otherCity}
-                      onChangeText={setOtherCity}
-                      style={{
-                        paddingHorizontal: RFPercentage(0.7),
-                      }}
-                      password={false}
-                    />
-                  </View>
-
-                  <View style={{ width: '48%' }}>
-                    <DropdownField
-                      placeholder="State"
-                      data={['Beijing', 'Shanghai', 'Guangdong', 'Sichuan']}
-                      selectedValue={state2}
-                      onValueChange={(val: any) => setState2(val)}
-                      isDropdownVisible={isDropdownVisible3}
-                      setIsDropdownVisible={setIsDropdownVisible3}
-                      style={{ paddingHorizontal: RFPercentage(1) }}
-                    />
-                  </View>
-                </View>
-              </>
-            )}
-
-            <View style={styles.marginTop4}>
-              <Text style={styles.sectionHeading}>Add your website</Text>
-              <InputField
-                placeholder="Your Website URL"
-                value={website}
-                onChangeText={setWebsite}
-                password={false}
-                icon={
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => setChecked(!checked)}
+                >
                   <Image
-                    source={ICONS.globe}
+                    source={checked ? ICONS.checked : ICONS.uncheck}
                     resizeMode="contain"
-                    style={styles.globeIcon}
+                    style={styles.checkboxIcon}
                   />
-                }
-              />
-            </View>
+                </TouchableOpacity>
+                <Text style={styles.checkboxText}>Doing business as</Text>
+              </TouchableOpacity>
 
-            <View style={styles.marginTop4}>
-              <Text style={styles.sectionHeading}>
-                Share your coaching style and experience
-              </Text>
+              {checked && (
+                <InputField
+                  placeholder="Enter Business Name"
+                  password={false}
+                  value={business}
+                  onChangeText={setBusiness}
+                />
+              )}
 
-              <View style={styles.inputContainer}>
-                <Text style={styles.sectionLabel}>Your Experience</Text>
-                <View style={styles.marginTop1_5}>
-                  <Search
-                    placeholder="Search And Add Experience"
-                    value={Experience}
-                    onChangeText={setExperience}
-                    data={[
-                      'Beginner-Friendly',
-                      'Fast Paced',
-                      'Ender Friendly',
-                      'Free',
-                    ]}
+              <View style={styles.marginTop3}>
+                <Text style={styles.sectionHeading}>Cities you serve </Text>
+              </View>
+
+              <View style={styles.dropdowns}>
+                <View style={styles.dropdownHalf}>
+                  <InputField
+                    placeholder="City"
+                    defaultColor={COLORS.placeholder}
+                    focusedColor={COLORS.focused}
+                    password={false}
+                    value={city}
+                    onChangeText={setCity}
+                    style={{
+                      paddingHorizontal: RFPercentage(0.7),
+                    }}
                   />
+
+                  {!anotherCity && (
+                    <TouchableOpacity
+                      activeOpacity={0.8}
+                      style={styles.addLocationRow}
+                      onPress={() => setAnotherCity(true)}
+                    >
+                      <Image
+                        source={ICONS.plus5}
+                        tintColor={COLORS.primary}
+                        resizeMode="contain"
+                        style={styles.plusIcon}
+                      />
+                      <Text style={styles.addLocationText}>
+                        Add Another Location
+                      </Text>
+                    </TouchableOpacity>
+                  )}
                 </View>
-
-                <Text style={[styles.sectionLabel, styles.marginTop3]}>
-                  Credentials
-                </Text>
-                <View style={styles.marginTop1_5}>
-                  <Search
-                    placeholder="Search And Add Credentials"
-                    value={Credential}
-                    onChangeText={setCredential}
-                    data={[
-                      'OMM Certified',
-                      'MahjongLine Certified',
-                      'Gaming Industry Approved',
-                    ]}
+                <View style={styles.dropdownHalf}>
+                  <DropdownField
+                    placeholder="State"
+                    data={['Beijing', 'Shanghai', 'Guangdong', 'Sichuan']}
+                    selectedValue={state}
+                    onValueChange={(val: any) => setState(val)}
+                    isDropdownVisible={isDropdownVisible2}
+                    setIsDropdownVisible={setIsDropdownVisible2}
+                    style={styles.dropdownField}
                   />
                 </View>
               </View>
-            </View>
-          </View>
-        </ScrollView>
+              {anotherCity && (
+                <>
+                  <View style={styles.dropdowns}>
+                    <View style={{ width: '48%' }}>
+                      <InputField
+                        placeholder="Another City"
+                        value={otherCity}
+                        onChangeText={setOtherCity}
+                        style={{
+                          paddingHorizontal: RFPercentage(0.7),
+                        }}
+                        password={false}
+                      />
+                    </View>
 
-        {!keyboardIsVisible && (
+                    <View style={{ width: '48%' }}>
+                      <DropdownField
+                        placeholder="State"
+                        data={['Beijing', 'Shanghai', 'Guangdong', 'Sichuan']}
+                        selectedValue={state2}
+                        onValueChange={(val: any) => setState2(val)}
+                        isDropdownVisible={isDropdownVisible3}
+                        setIsDropdownVisible={setIsDropdownVisible3}
+                        style={{ paddingHorizontal: RFPercentage(1) }}
+                      />
+                    </View>
+                  </View>
+                </>
+              )}
+
+              <View style={styles.marginTop4}>
+                <Text style={styles.sectionHeading}>Add your website</Text>
+                <InputField
+                  placeholder="Your Website URL"
+                  value={website}
+                  onChangeText={setWebsite}
+                  password={false}
+                  icon={
+                    <Image
+                      source={ICONS.globe}
+                      resizeMode="contain"
+                      style={styles.globeIcon}
+                    />
+                  }
+                />
+              </View>
+
+              <View style={styles.marginTop4}>
+                <Text style={styles.sectionHeading}>
+                  Share your coaching style and experience
+                </Text>
+
+                <View style={styles.inputContainer}>
+                  <Text style={styles.sectionLabel}>Your Experience</Text>
+                  <View style={styles.marginTop1_5}>
+                    <Search
+                      placeholder="Search And Add Experience"
+                      value={Experience}
+                      onChangeText={setExperience}
+                      data={[
+                        'Beginner-Friendly',
+                        'Fast Paced',
+                        'Ender Friendly',
+                        'Free',
+                      ]}
+                    />
+                  </View>
+
+                  <Text style={[styles.sectionLabel, styles.marginTop3]}>
+                    Credentials
+                  </Text>
+                  <View style={styles.marginTop1_5}>
+                    <Search
+                      placeholder="Search And Add Credentials"
+                      value={Credential}
+                      onChangeText={setCredential}
+                      data={[
+                        'OMM Certified',
+                        'MahjongLine Certified',
+                        'Gaming Industry Approved',
+                      ]}
+                    />
+                  </View>
+                </View>
+              </View>
+            </View>
+          </ScrollView>
+
           <View style={styles.bottomBtnWrapper}>
             <CustomButton
               title="Save and Next"
@@ -282,83 +273,83 @@ const CreateInstructorProfile = ({ navigation }: any) => {
               onPress={openModal}
             />
           </View>
-        )}
 
-        <Modal
-          visible={isModalVisible}
-          transparent
-          animationType="none"
-          onRequestClose={closeModal}
-        >
-          <TouchableWithoutFeedback onPress={closeModal}>
-            <View style={styles.overLay}>
-              <TouchableWithoutFeedback>
-                <Animated.View
-                  style={[
-                    styles.modalContent,
-                    { transform: [{ translateY: slideAnim }] },
-                  ]}
-                >
-                  <ImageBackground
-                    source={ICONS.group33}
-                    resizeMode="contain"
-                    style={styles.modalBackground}
+          <Modal
+            visible={isModalVisible}
+            transparent
+            animationType="none"
+            onRequestClose={closeModal}
+          >
+            <TouchableWithoutFeedback onPress={closeModal}>
+              <View style={styles.overLay}>
+                <TouchableWithoutFeedback>
+                  <Animated.View
+                    style={[
+                      styles.modalContent,
+                      { transform: [{ translateY: slideAnim }] },
+                    ]}
                   >
-                    <View style={styles.modalProfileWrapper}>
-                      <View>
-                        <View style={styles.modalProfileImageWrapper}>
+                    <ImageBackground
+                      source={ICONS.group33}
+                      resizeMode="contain"
+                      style={styles.modalBackground}
+                    >
+                      <View style={styles.modalProfileWrapper}>
+                        <View>
+                          <View style={styles.modalProfileImageWrapper}>
+                            <Image
+                              source={IMAGES.chatProfile}
+                              style={styles.modalProfileImage}
+                            />
+                            <Image
+                              source={ICONS.star}
+                              resizeMode="contain"
+                              style={styles.modalStar}
+                            />
+                          </View>
+
+                          <View style={styles.instructorTag}>
+                            <Text style={styles.instructorTagText}>
+                              Instructor
+                            </Text>
+                          </View>
+                        </View>
+
+                        <View style={styles.modalStarContainer}>
                           <Image
-                            source={IMAGES.chatProfile}
-                            style={styles.modalProfileImage}
-                          />
-                          <Image
-                            source={ICONS.star}
+                            source={ICONS.stars2}
                             resizeMode="contain"
-                            style={styles.modalStar}
+                            style={styles.modalStar2}
                           />
                         </View>
+                      </View>
 
-                        <View style={styles.instructorTag}>
-                          <Text style={styles.instructorTagText}>
-                            Instructor
-                          </Text>
+                      <Text style={styles.modalText}>You're all set!</Text>
+                      <Text style={styles.subTitle}>
+                        {`Your instructor profile is now live.\nStart creating events, invite players,\nand share your expertise.`}
+                      </Text>
+
+                      <View style={styles.modalBtnWrapper}>
+                        <View style={styles.modalBtnInner}>
+                          <CustomButton
+                            title="Go To Home"
+                            style={styles.transparentBtn}
+                            textStyle={styles.transparentBtnText}
+                            onPress={() => {
+                              closeModal();
+                              navigation.navigate('InstructorTabs');
+                            }}
+                          />
                         </View>
                       </View>
-
-                      <View style={styles.modalStarContainer}>
-                        <Image
-                          source={ICONS.stars2}
-                          resizeMode="contain"
-                          style={styles.modalStar2}
-                        />
-                      </View>
-                    </View>
-
-                    <Text style={styles.modalText}>You're all set!</Text>
-                    <Text style={styles.subTitle}>
-                      {`Your instructor profile is now live.\nStart creating events, invite players,\nand share your expertise.`}
-                    </Text>
-
-                    <View style={styles.modalBtnWrapper}>
-                      <View style={styles.modalBtnInner}>
-                        <CustomButton
-                          title="Go To Home"
-                          style={styles.transparentBtn}
-                          textStyle={styles.transparentBtnText}
-                          onPress={() => {
-                            closeModal();
-                            navigation.navigate('InstructorTabs');
-                          }}
-                        />
-                      </View>
-                    </View>
-                  </ImageBackground>
-                </Animated.View>
-              </TouchableWithoutFeedback>
-            </View>
-          </TouchableWithoutFeedback>
-        </Modal>
-      </>
+                    </ImageBackground>
+                  </Animated.View>
+                </TouchableWithoutFeedback>
+              </View>
+            </TouchableWithoutFeedback>
+          </Modal>
+        </>
+      </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
 };
@@ -640,7 +631,7 @@ const styles = StyleSheet.create({
   instructorTag: {
     width: RFPercentage(8),
     height: RFPercentage(2.5),
-    backgroundColor: "#E4F7F6",
+    backgroundColor: '#E4F7F6',
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
@@ -670,7 +661,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     width: '100%',
-    backgroundColor:COLORS.white
+    backgroundColor: COLORS.white,
   },
   modalBtnInner: {
     width: '90%',

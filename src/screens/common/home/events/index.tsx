@@ -11,6 +11,7 @@ import {
   Animated,
   TouchableWithoutFeedback,
   SectionList,
+  Keyboard,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { COLORS, FONTS, IMAGES, ICONS } from '../../../../config/theme';
@@ -160,268 +161,282 @@ const Events = ({ navigation }: any) => {
       colors={[events.length > 0 ? COLORS.white : COLORS.white4, COLORS.white]}
       style={{ flex: 1 }}
     >
-      <TopNavigation title="My Events" right text="Saved Draft" />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <>
+          <TopNavigation title="My Events" right text="Saved Draft" />
 
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{ width: '90%', alignSelf: 'center' }}>
-          {events.length == 0 && (
-            <>
-              <View style={styles.wrap}>
-                <View style={{ width: '70%' }}>
-                  <Text style={styles.head}>
-                    {`Host an Event and\nBring People Together`}
-                  </Text>
-                </View>
-                <Image
-                  source={IMAGES.home66}
-                  resizeMode="contain"
-                  style={{
-                    width: RFPercentage(9),
-                    height: RFPercentage(9),
-                    bottom: RFPercentage(2),
-                  }}
-                />
-              </View>
-              <Text style={styles.sub}>
-                {`Events are a great way to gather players, share\nexperiences, and enjoy Mahjong as a community.`}
-              </Text>
-            </>
-          )}
-        </View>
-        {events.length > 0 ? (
-          <>
-            <ImageBackground
-              source={IMAGES.event9}
-              resizeMode="cover"
-              style={{ width: '100%', height: RFPercentage(16) }}
-            >
-              <View
-                style={{
-                  width: '90%',
-                  alignSelf: 'center',
-                  marginTop: RFPercentage(2.5),
-                }}
-              >
-                <SearchField
-                  placeholder="Search events"
-                  value={query}
-                  onChangeText={setQuery}
-                />
-              </View>
-            </ImageBackground>
-            <View style={styles.monthSelectorContainer}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <TouchableOpacity
-                  style={styles.monthButton}
-                  onPress={toggleCalendar}
-                >
-                  <Text style={styles.monthText}>
-                    {moment(selectedDate).format('MMMM')}
-                  </Text>
-                  <Feather
-                    name="chevron-down"
-                    color={COLORS.icon}
-                    size={RFPercentage(2.4)}
-                    style={styles.chevronIcon}
-                  />
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  onPress={() => setIsOn(!isOn)}
-                  style={{ flexDirection: 'row', alignItems: 'center' }}
-                >
-                  <Text
-                    style={{
-                      fontFamily: FONTS.regular,
-                      color: COLORS.primary,
-                      fontSize: RFPercentage(1.7),
-                      marginRight: RFPercentage(1),
-                    }}
-                  >
-                    List View
-                  </Text>
-                  <ToggleSwitch
-                    isOn={isOn}
-                    onColor={COLORS.pink}
-                    offColor={COLORS.switch}
-                    size="small"
-                    onToggle={() => setIsOn(!isOn)}
-                  />
-                </TouchableOpacity>
-              </View>
-              {isOn ? (
-                <View>
-                  <Text
-                    style={{
-                      fontFamily: FONTS.semiBold,
-                      fontSize: RFPercentage(1.8),
-                      marginTop: RFPercentage(3),
-                      color: COLORS.primary,
-                    }}
-                  >
-                    Upcoming Events
-                  </Text>
-                  {groupedUpcoming.length > 0 ? (
-                    <SectionList
-                      sections={groupedUpcoming}
-                      keyExtractor={(item, index) => item.id.toString() + index}
-                      renderSectionHeader={({ section: { title } }) => (
-                        <Text
-                          style={{
-                            fontFamily: FONTS.inter_semiBold,
-                            fontSize: RFPercentage(1.7),
-                            color: COLORS.primary,
-                            marginTop: RFPercentage(2.5),
-                            fontWeight: '700',
-                          }}
-                        >
-                          {title}
-                        </Text>
-                      )}
-                      renderItem={({ item }) => (
-                        <EventCard
-                          name={item.name}
-                          host={item.host}
-                          profile={item.profile}
-                          onPress={() =>
-                            navigation.navigate('InstructorEventDetail', {
-                              type: item.type,
-                            })
-                          }
-                        />
-                      )}
-                      contentContainerStyle={{
-                        marginVertical: RFPercentage(1),
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="always"
+          >
+            <View style={{ width: '90%', alignSelf: 'center' }}>
+              {events.length == 0 && (
+                <>
+                  <View style={styles.wrap}>
+                    <View style={{ width: '70%' }}>
+                      <Text style={styles.head}>
+                        {`Host an Event and\nBring People Together`}
+                      </Text>
+                    </View>
+                    <Image
+                      source={IMAGES.home66}
+                      resizeMode="contain"
+                      style={{
+                        width: RFPercentage(9),
+                        height: RFPercentage(9),
+                        bottom: RFPercentage(2),
                       }}
                     />
-                  ) : (
-                    <Text
-                      style={{
-                        color: COLORS.primary,
-                        textAlign: 'center',
-                        marginTop: RFPercentage(7),
-                        fontFamily: FONTS.medium,
-                        fontSize: RFPercentage(1.9),
-                      }}
-                    >
-                      No Event Found
-                    </Text>
-                  )}
-                </View>
-              ) : (
-                <TodayEvents />
+                  </View>
+                  <Text style={styles.sub}>
+                    {`Events are a great way to gather players, share\nexperiences, and enjoy Mahjong as a community.`}
+                  </Text>
+                </>
               )}
             </View>
-          </>
-        ) : (
-          <View style={styles.wrap2}>
-            <Image
-              source={IMAGES.event22}
-              resizeMode="contain"
-              style={styles.empty}
-            />
-            <View style={{ marginTop: RFPercentage(6) }}>
-              <CustomButton
-                title="Create Your First Event"
-                onPress={openModal}
-              />
-            </View>
-          </View>
-        )}
-      </ScrollView>
+            {events.length > 0 ? (
+              <>
+                <ImageBackground
+                  source={IMAGES.event9}
+                  resizeMode="cover"
+                  style={{ width: '100%', height: RFPercentage(18) }}
+                >
+                  <View
+                    style={{
+                      width: '90%',
+                      alignSelf: 'center',
+                      marginTop: RFPercentage(2.5),
+                    }}
+                  >
+                    <SearchField
+                      placeholder="Search events"
+                      value={query}
+                      onChangeText={setQuery}
+                    />
+                  </View>
+                </ImageBackground>
+                <View style={styles.monthSelectorContainer}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                    }}
+                  >
+                    <TouchableOpacity
+                      style={styles.monthButton}
+                      onPress={toggleCalendar}
+                    >
+                      <Text style={styles.monthText}>
+                        {moment(selectedDate).format('MMMM')}
+                      </Text>
+                      <Feather
+                        name="chevron-down"
+                        color={COLORS.icon}
+                        size={RFPercentage(2.4)}
+                        style={styles.chevronIcon}
+                      />
+                    </TouchableOpacity>
 
-      {/* Calender Modal */}
-      <Modal
-        visible={isCalendarVisible}
-        onRequestClose={toggleCalendar}
-        animationType="fade"
-        transparent
-      >
-        <BlurView
-          style={StyleSheet.absoluteFill}
-          blurType="dark"
-          blurAmount={5}
-          reducedTransparencyFallbackColor="white"
-        >
-          <TouchableWithoutFeedback onPress={() => setCalendarVisible(false)}>
-            <View style={styles.nativeModalWrapper}>
-              <View style={styles.calendarContainer}>
-                <Calendar
-                  style={styles.calendar}
-                  hideExtraDays
-                  onDayPress={day => {
-                    setSelectedDate(day.dateString);
-                    setCalendarVisible(false); // close calendar modal after selection (optional)
-                  }}
-                  markedDates={{
-                    [selectedDate]: {
-                      selected: true,
-                      selectedColor: COLORS.pink,
-                      selectedTextColor: COLORS.white,
-                    },
-                  }}
-                  theme={{
-                    backgroundColor: COLORS.white,
-                    calendarBackground: COLORS.white,
-                    textSectionTitleColor: COLORS.primary,
-                    selectedDayBackgroundColor: COLORS.pink,
-                    selectedDayTextColor: COLORS.white,
-                    todayTextColor: COLORS.pink,
-                    dayTextColor: COLORS.primary,
-                    textDayFontFamily: FONTS.inter_semiBold,
-                    textMonthFontFamily: FONTS.inter,
-                    textDayFontSize: RFPercentage(2.3),
-                    textMonthFontSize: RFPercentage(2),
-                    textDayHeaderFontSize: RFPercentage(2),
-                    textDayHeaderFontFamily: FONTS.inter_semiBold,
-                    arrowColor: COLORS.primary,
-                  }}
+                    <TouchableOpacity
+                      activeOpacity={0.8}
+                      onPress={() => setIsOn(!isOn)}
+                      style={{ flexDirection: 'row', alignItems: 'center' }}
+                    >
+                      <Text
+                        style={{
+                          fontFamily: FONTS.regular,
+                          color: COLORS.primary,
+                          fontSize: RFPercentage(1.7),
+                          marginRight: RFPercentage(1),
+                        }}
+                      >
+                        List View
+                      </Text>
+                      <ToggleSwitch
+                        isOn={isOn}
+                        onColor={COLORS.pink}
+                        offColor={COLORS.switch}
+                        size="small"
+                        onToggle={() => setIsOn(!isOn)}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  {isOn ? (
+                    <View>
+                      <Text
+                        style={{
+                          fontFamily: FONTS.semiBold,
+                          fontSize: RFPercentage(1.8),
+                          marginTop: RFPercentage(3),
+                          color: COLORS.primary,
+                        }}
+                      >
+                        Upcoming Events
+                      </Text>
+                      {groupedUpcoming.length > 0 ? (
+                        <SectionList
+                          sections={groupedUpcoming}
+                          keyExtractor={(item, index) =>
+                            item.id.toString() + index
+                          }
+                          renderSectionHeader={({ section: { title } }) => (
+                            <Text
+                              style={{
+                                fontFamily: FONTS.inter_semiBold,
+                                fontSize: RFPercentage(1.7),
+                                color: COLORS.primary,
+                                marginTop: RFPercentage(2.5),
+                                fontWeight: '700',
+                              }}
+                            >
+                              {title}
+                            </Text>
+                          )}
+                          renderItem={({ item }) => (
+                            <EventCard
+                              name={item.name}
+                              host={item.host}
+                              profile={item.profile}
+                              onPress={() =>
+                                navigation.navigate('InstructorEventDetail', {
+                                  type: item.type,
+                                })
+                              }
+                            />
+                          )}
+                          contentContainerStyle={{
+                            marginVertical: RFPercentage(1),
+                          }}
+                        />
+                      ) : (
+                        <Text
+                          style={{
+                            color: COLORS.primary,
+                            textAlign: 'center',
+                            marginTop: RFPercentage(7),
+                            fontFamily: FONTS.medium,
+                            fontSize: RFPercentage(1.9),
+                          }}
+                        >
+                          No Event Found
+                        </Text>
+                      )}
+                    </View>
+                  ) : (
+                    <TodayEvents />
+                  )}
+                </View>
+              </>
+            ) : (
+              <View style={styles.wrap2}>
+                <Image
+                  source={IMAGES.event22}
+                  resizeMode="contain"
+                  style={styles.empty}
                 />
+                <View style={{ marginTop: RFPercentage(6) }}>
+                  <CustomButton
+                    title="Create Your First Event"
+                    onPress={openModal}
+                  />
+                </View>
               </View>
-            </View>
-          </TouchableWithoutFeedback>
-        </BlurView>
-      </Modal>
+            )}
+          </ScrollView>
 
-      {/* Event Modal */}
-      <CreateEvent
-        visible={isModalVisible}
-        onClose={() => setIsModalVisible(false)}
-        title="Select Event Type"
-        selectedValue={selectedType}
-        onSelect={(value: any) => {
-          setSelectedType(value);
-          dispatch(setEventType(value));
-        }}
-        onConfirm={() => {
-          setIsModalVisible(false);
-          if (selectedType === 'Open Play') {
-            navigation.navigate('InvitePlayer');
-          } else if (
-            selectedType === 'Mahjong Lessons' &&
-            role === 'Instructor'
-          ) {
-            navigation.navigate('SelectPlayersInstructor');
-          } else if (selectedType === 'Mahjong Lessons' && role === 'Player') {
-            navigation.navigate('CreateLessonPlayer');
-          } else if (selectedType === 'Guided Play') {
-            navigation.navigate('GuidedPlay', {
-              players: false,
-              groups: false,
-              link: true,
-            });
-          } else {
-            setIsModalVisible(false);
-          }
-        }}
-      />
+          {/* Calender Modal */}
+          <Modal
+            visible={isCalendarVisible}
+            onRequestClose={toggleCalendar}
+            animationType="fade"
+            transparent
+          >
+            <BlurView
+              style={StyleSheet.absoluteFill}
+              blurType="dark"
+              blurAmount={5}
+              reducedTransparencyFallbackColor="white"
+            >
+              <TouchableWithoutFeedback
+                onPress={() => setCalendarVisible(false)}
+              >
+                <View style={styles.nativeModalWrapper}>
+                  <View style={styles.calendarContainer}>
+                    <Calendar
+                      style={styles.calendar}
+                      hideExtraDays
+                      onDayPress={day => {
+                        setSelectedDate(day.dateString);
+                        setCalendarVisible(false); // close calendar modal after selection (optional)
+                      }}
+                      markedDates={{
+                        [selectedDate]: {
+                          selected: true,
+                          selectedColor: COLORS.pink,
+                          selectedTextColor: COLORS.white,
+                        },
+                      }}
+                      theme={{
+                        backgroundColor: COLORS.white,
+                        calendarBackground: COLORS.white,
+                        textSectionTitleColor: COLORS.primary,
+                        selectedDayBackgroundColor: COLORS.pink,
+                        selectedDayTextColor: COLORS.white,
+                        todayTextColor: COLORS.pink,
+                        dayTextColor: COLORS.primary,
+                        textDayFontFamily: FONTS.inter_semiBold,
+                        textMonthFontFamily: FONTS.inter,
+                        textDayFontSize: RFPercentage(2.3),
+                        textMonthFontSize: RFPercentage(2),
+                        textDayHeaderFontSize: RFPercentage(2),
+                        textDayHeaderFontFamily: FONTS.inter_semiBold,
+                        arrowColor: COLORS.primary,
+                      }}
+                    />
+                  </View>
+                </View>
+              </TouchableWithoutFeedback>
+            </BlurView>
+          </Modal>
+
+          {/* Event Modal */}
+          <CreateEvent
+            visible={isModalVisible}
+            onClose={() => setIsModalVisible(false)}
+            title="Select Event Type"
+            selectedValue={selectedType}
+            onSelect={(value: any) => {
+              setSelectedType(value);
+              dispatch(setEventType(value));
+            }}
+            onConfirm={() => {
+              setIsModalVisible(false);
+              if (selectedType === 'Open Play') {
+                navigation.navigate('InvitePlayer');
+              } else if (
+                selectedType === 'Mahjong Lessons' &&
+                role === 'Instructor'
+              ) {
+                navigation.navigate('SelectPlayersInstructor');
+              } else if (
+                selectedType === 'Mahjong Lessons' &&
+                role === 'Player'
+              ) {
+                navigation.navigate('CreateLessonPlayer');
+              } else if (selectedType === 'Guided Play') {
+                navigation.navigate('GuidedPlay', {
+                  players: false,
+                  groups: false,
+                  link: true,
+                });
+              } else {
+                setIsModalVisible(false);
+              }
+            }}
+          />
+        </>
+      </TouchableWithoutFeedback>
     </LinearGradient>
   );
 };

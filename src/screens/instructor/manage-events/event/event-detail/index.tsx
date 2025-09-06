@@ -547,7 +547,7 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
                     };
                     setMessages(prev => [...prev, newMessage]);
                     setMessage('');
-                    Keyboard.dismiss();
+                    // Keyboard.dismiss();
                   }
                 }}
               >

@@ -355,7 +355,7 @@ const styles = StyleSheet.create({
   },
   homeTopBackground: {
     width: '100%',
-    height: RFPercentage(81),
+    height: RFPercentage(83),
     marginTop: RFPercentage(5),
     // paddingBottom: RFPercentage(2),
     marginVertical: Platform.OS === 'android' ? RFPercentage(2) : 0,

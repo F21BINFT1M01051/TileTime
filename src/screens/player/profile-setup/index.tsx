@@ -9,6 +9,8 @@ import {
   View,
   FlatList,
   ScrollView,
+  Dimensions,
+  KeyboardAvoidingView,
 } from 'react-native';
 import React, { useState, useRef, useEffect } from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../config/theme';
@@ -71,6 +73,8 @@ const data = [
   },
 ];
 
+const { height } = Dimensions.get('window');
+
 const MAX_LENGTH = 500;
 const PlayerProfileSetup = ({ navigation }: any) => {
   const [state, setState] = useState(null);
@@ -80,7 +84,6 @@ const PlayerProfileSetup = ({ navigation }: any) => {
   const [bio, setBio] = useState('');
   const [isOn, setIsOn] = useState(false);
   const formikRef = useRef<any>(null);
-  const [keyboardIsVisible, setKeyboardIsVisible] = useState(false);
 
   const pickImage = () => {
     const options = {
@@ -97,20 +100,6 @@ const PlayerProfileSetup = ({ navigation }: any) => {
       }
     });
   };
-
-  useEffect(() => {
-    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
-      setKeyboardIsVisible(true);
-    });
-    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
-      setKeyboardIsVisible(false);
-    });
-
-    return () => {
-      showSubscription.remove();
-      hideSubscription.remove();
-    };
-  }, []);
 
   const handleNext = async (values: any) => {
     if (!values.name || !values.city || !values.phoneNumber) {
@@ -142,266 +131,273 @@ const PlayerProfileSetup = ({ navigation }: any) => {
         }
       }}
     >
-      <>
-        <Formik
-          innerRef={formikRef}
-          initialValues={{
-            name: '',
-            city: '',
-            phoneNumber: '',
-          }}
-          validationSchema={validationSchema}
-          onSubmit={values => handleNext(values)}
-          validateOnBlur={true}
-          validateOnChange={true}
-        >
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            values,
-            errors,
-            touched,
-          }) => (
-            <>
-              <AuthHeader title="Set Up Your Profile" />
-              <ScrollView
-                style={{ flex: 1, backgroundColor: COLORS.white }}
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ paddingBottom: RFPercentage(8) }}
-                keyboardShouldPersistTaps="always"
-              >
-                <View style={styles.container}>
-                  <Text style={styles.title}>Enter Your Personal Details</Text>
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={pickImage}
-                    style={styles.profileContainer}
-                  >
-                    <View style={styles.imgInner}>
-                      <Image
-                        source={imageUri ? { uri: imageUri } : ICONS.gallery}
-                        resizeMode="cover"
-                        style={
-                          imageUri ? styles.profileImage : styles.defaultImg
-                        }
-                      />
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        keyboardVerticalOffset={-height}
+      >
+        <>
+          <Formik
+            innerRef={formikRef}
+            initialValues={{
+              name: '',
+              city: '',
+              phoneNumber: '',
+            }}
+            validationSchema={validationSchema}
+            onSubmit={values => handleNext(values)}
+            validateOnBlur={true}
+            validateOnChange={true}
+          >
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              touched,
+            }) => (
+              <>
+                <AuthHeader title="Set Up Your Profile" />
+                <ScrollView
+                  style={{ flex: 1, backgroundColor: COLORS.white }}
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={{ paddingBottom: RFPercentage(8) }}
+                  keyboardShouldPersistTaps="always"
+                >
+                  <View style={styles.container}>
+                    <Text style={styles.title}>
+                      Enter Your Personal Details
+                    </Text>
+                    <TouchableOpacity
+                      activeOpacity={0.8}
+                      onPress={pickImage}
+                      style={styles.profileContainer}
+                    >
+                      <View style={styles.imgInner}>
+                        <Image
+                          source={imageUri ? { uri: imageUri } : ICONS.gallery}
+                          resizeMode="cover"
+                          style={
+                            imageUri ? styles.profileImage : styles.defaultImg
+                          }
+                        />
 
-                      {imageUri ? (
-                        <>
+                        {imageUri ? (
+                          <>
+                            <TouchableOpacity
+                              activeOpacity={0.8}
+                              onPress={pickImage}
+                              style={styles.imgPicker}
+                            >
+                              <Image
+                                source={ICONS.edit}
+                                resizeMode="contain"
+                                style={styles.editIcon}
+                              />
+                            </TouchableOpacity>
+                          </>
+                        ) : (
                           <TouchableOpacity
                             activeOpacity={0.8}
                             onPress={pickImage}
-                            style={styles.imgPicker}
+                            style={styles.imgButton}
                           >
-                            <Image
-                              source={ICONS.edit}
-                              resizeMode="contain"
-                              style={styles.editIcon}
-                            />
+                            <Text style={styles.imgText}>Add your Picture</Text>
                           </TouchableOpacity>
-                        </>
-                      ) : (
-                        <TouchableOpacity
-                          activeOpacity={0.8}
-                          onPress={pickImage}
-                          style={styles.imgButton}
-                        >
-                          <Text style={styles.imgText}>Add your Picture</Text>
-                        </TouchableOpacity>
-                      )}
-                    </View>
-                  </TouchableOpacity>
-
-                  <View style={{ marginTop: RFPercentage(2.5) }}>
-                    <InputField
-                      placeholder="Full Name"
-                      onChangeText={handleChange('name')}
-                      handleBlur={handleBlur('name')}
-                      value={values.name}
-                      password={false}
-                      hasError={touched.name && errors.name ? true : false}
-                      defaultColor={COLORS.placeholder}
-                      focusedColor={COLORS.focused}
-                      errorColor={COLORS.red}
-                      style={{
-                        borderColor:
-                          touched.name && errors.name
-                            ? COLORS.red
-                            : COLORS.fieldBorder,
-                      }}
-                    />
-                    {touched.name && errors.name && (
-                      <View style={{ marginTop: RFPercentage(0.6) }}>
-                        <Text style={styles.error}>{errors?.name}</Text>
+                        )}
                       </View>
-                    )}
-                  </View>
+                    </TouchableOpacity>
 
-                  <View style={styles.bioWrapper}>
-                    <View style={styles.bioContainer}>
-                      <View style={{ width: '92%', alignSelf: 'center' }}>
-                        <View style={styles.bioHeader}>
-                          <Text style={styles.bioLabel}>Add Bio</Text>
-                          <Image
-                            source={ICONS.user2}
-                            resizeMode="contain"
-                            style={styles.user}
-                          />
-                        </View>
-                        <TextInput
-                          placeholder="Tell us about yourself..."
-                          placeholderTextColor={COLORS.placeholder}
-                          style={styles.bioInput}
-                          multiline={true}
-                          maxLength={MAX_LENGTH}
-                          value={bio}
-                          onChangeText={setBio}
-                          cursorColor={COLORS.primary}
-                          selectionColor={COLORS.primary}
-                        />
-                        <View style={styles.bars}>
-                          <Image
-                            source={ICONS.bars}
-                            resizeMode="contain"
-                            style={styles.imgBars}
-                          />
-                        </View>
-                      </View>
-                    </View>
-                  </View>
-                  <Text style={styles.bottom}>
-                    {MAX_LENGTH - bio.length} characters left
-                  </Text>
-
-                  <View style={{ marginTop: RFPercentage(3) }}>
-                    <Text style={styles.city}>Which city do you live in</Text>
-                  </View>
-                  <View style={styles.dropdowns}>
-                    <View style={{ width: '48%' }}>
+                    <View style={{ marginTop: RFPercentage(2.5) }}>
                       <InputField
-                        placeholder="City"
-                        value={values.city}
-                        onChangeText={handleChange('city')}
-                        handleBlur={handleBlur('city')}
-                        hasError={touched.city && errors.city ? true : false}
+                        placeholder="Full Name"
+                        onChangeText={handleChange('name')}
+                        handleBlur={handleBlur('name')}
+                        value={values.name}
+                        password={false}
+                        hasError={touched.name && errors.name ? true : false}
                         defaultColor={COLORS.placeholder}
                         focusedColor={COLORS.focused}
                         errorColor={COLORS.red}
                         style={{
                           borderColor:
-                            touched.city && errors.city
+                            touched.name && errors.name
                               ? COLORS.red
                               : COLORS.fieldBorder,
-                          paddingHorizontal: RFPercentage(0.7),
                         }}
-                        password={false}
                       />
-                      {touched.city && errors.city && (
+                      {touched.name && errors.name && (
                         <View style={{ marginTop: RFPercentage(0.6) }}>
-                          <Text style={styles.error}>{errors?.city}</Text>
+                          <Text style={styles.error}>{errors?.name}</Text>
                         </View>
                       )}
                     </View>
 
-                    <View style={{ width: '48%' }}>
-                      <DropdownField
-                        placeholder="State"
-                        data={['Beijing', 'Shanghai', 'Guangdong', 'Sichuan']}
-                        selectedValue={state}
-                        onValueChange={(val: any) => setState(val)}
-                        isDropdownVisible={isDropdownVisible2}
-                        setIsDropdownVisible={setIsDropdownVisible2}
-                        style={{ paddingHorizontal: RFPercentage(1) }}
-                      />
-                    </View>
-                  </View>
-
-                  <View style={{ marginTop: RFPercentage(4) }}>
-                    <Text style={styles.place}>Where can people find you</Text>
-                    <View>
-                      <InputField
-                        placeholder="Phone Number (Required)"
-                        value={values.phoneNumber}
-                        onChangeText={text => {
-                          const formatted = formatPhoneNumber(text);
-                          handleChange('phoneNumber')(formatted);
-                        }}
-                        handleBlur={handleBlur('phoneNumber')}
-                        hasError={
-                          touched.phoneNumber && errors.phoneNumber
-                            ? true
-                            : false
-                        }
-                        defaultColor={COLORS.placeholder}
-                        focusedColor={COLORS.focused}
-                        errorColor={COLORS.red}
-                        style={{
-                          borderColor:
-                            touched.phoneNumber && errors.phoneNumber
-                              ? COLORS.red
-                              : COLORS.fieldBorder,
-                        }}
-                        password={false}
-                        type="phone-pad"
-                        icon={
-                          <Image
-                            source={ICONS.phone}
-                            resizeMode="contain"
-                            style={{
-                              width: RFPercentage(2.2),
-                              height: RFPercentage(2.2),
-                            }}
+                    <View style={styles.bioWrapper}>
+                      <View style={styles.bioContainer}>
+                        <View style={{ width: '92%', alignSelf: 'center' }}>
+                          <View style={styles.bioHeader}>
+                            <Text style={styles.bioLabel}>Add Bio</Text>
+                            <Image
+                              source={ICONS.user2}
+                              resizeMode="contain"
+                              style={styles.user}
+                            />
+                          </View>
+                          <TextInput
+                            placeholder="Tell us about yourself..."
+                            placeholderTextColor={COLORS.placeholder}
+                            style={styles.bioInput}
+                            multiline={true}
+                            maxLength={MAX_LENGTH}
+                            value={bio}
+                            onChangeText={setBio}
+                            cursorColor={COLORS.primary}
+                            selectionColor={COLORS.primary}
                           />
-                        }
-                      />
-                      {/* {touched.phoneNumber && errors.phoneNumber && (
+                          <View style={styles.bars}>
+                            <Image
+                              source={ICONS.bars}
+                              resizeMode="contain"
+                              style={styles.imgBars}
+                            />
+                          </View>
+                        </View>
+                      </View>
+                    </View>
+                    <Text style={styles.bottom}>
+                      {MAX_LENGTH - bio.length} characters left
+                    </Text>
+
+                    <View style={{ marginTop: RFPercentage(3) }}>
+                      <Text style={styles.city}>Which city do you live in</Text>
+                    </View>
+                    <View style={styles.dropdowns}>
+                      <View style={{ width: '48%' }}>
+                        <InputField
+                          placeholder="City"
+                          value={values.city}
+                          onChangeText={handleChange('city')}
+                          handleBlur={handleBlur('city')}
+                          hasError={touched.city && errors.city ? true : false}
+                          defaultColor={COLORS.placeholder}
+                          focusedColor={COLORS.focused}
+                          errorColor={COLORS.red}
+                          style={{
+                            borderColor:
+                              touched.city && errors.city
+                                ? COLORS.red
+                                : COLORS.fieldBorder,
+                            paddingHorizontal: RFPercentage(0.7),
+                          }}
+                          password={false}
+                        />
+                        {touched.city && errors.city && (
+                          <View style={{ marginTop: RFPercentage(0.6) }}>
+                            <Text style={styles.error}>{errors?.city}</Text>
+                          </View>
+                        )}
+                      </View>
+
+                      <View style={{ width: '48%' }}>
+                        <DropdownField
+                          placeholder="State"
+                          data={['Beijing', 'Shanghai', 'Guangdong', 'Sichuan']}
+                          selectedValue={state}
+                          onValueChange={(val: any) => setState(val)}
+                          isDropdownVisible={isDropdownVisible2}
+                          setIsDropdownVisible={setIsDropdownVisible2}
+                          style={{ paddingHorizontal: RFPercentage(1) }}
+                        />
+                      </View>
+                    </View>
+
+                    <View style={{ marginTop: RFPercentage(4) }}>
+                      <Text style={styles.place}>
+                        Where can people find you
+                      </Text>
+                      <View>
+                        <InputField
+                          placeholder="Phone Number (Required)"
+                          value={values.phoneNumber}
+                          onChangeText={text => {
+                            const formatted = formatPhoneNumber(text);
+                            handleChange('phoneNumber')(formatted);
+                          }}
+                          handleBlur={handleBlur('phoneNumber')}
+                          hasError={
+                            touched.phoneNumber && errors.phoneNumber
+                              ? true
+                              : false
+                          }
+                          defaultColor={COLORS.placeholder}
+                          focusedColor={COLORS.focused}
+                          errorColor={COLORS.red}
+                          style={{
+                            borderColor:
+                              touched.phoneNumber && errors.phoneNumber
+                                ? COLORS.red
+                                : COLORS.fieldBorder,
+                          }}
+                          password={false}
+                          type="phone-pad"
+                          icon={
+                            <Image
+                              source={ICONS.phone}
+                              resizeMode="contain"
+                              style={{
+                                width: RFPercentage(2.2),
+                                height: RFPercentage(2.2),
+                              }}
+                            />
+                          }
+                        />
+                        {/* {touched.phoneNumber && errors.phoneNumber && (
                         <View style={{ marginTop: RFPercentage(0.6) }}>
                           <Text style={styles.error}>
                             {errors?.phoneNumber}
                           </Text>
                         </View>
                       )} */}
+                      </View>
                     </View>
+
+                    <View style={styles.inputContainer}>
+                      <FlatList
+                        data={data}
+                        scrollEnabled={false}
+                        keyExtractor={item => item.id.toString()}
+                        renderItem={({ item }) => (
+                          <SocialField
+                            icon={item.icon}
+                            name={item.name}
+                            navigation={item.navigationScreen}
+                            color={item.color}
+                            connected={item.connected}
+                          />
+                        )}
+                      />
+                    </View>
+
+                    <TouchableOpacity
+                      activeOpacity={0.8}
+                      onPress={() => setIsOn(!isOn)}
+                      style={styles.toggleRow}
+                    >
+                      <Text style={styles.toggleLabel}>
+                        Keep My Profile Private
+                      </Text>
+                      <ToggleSwitch
+                        isOn={isOn}
+                        onColor={COLORS.pink}
+                        offColor={COLORS.switch}
+                        size="small"
+                        onToggle={() => setIsOn(!isOn)}
+                      />
+                    </TouchableOpacity>
                   </View>
+                </ScrollView>
 
-                  <View style={styles.inputContainer}>
-                    <FlatList
-                      data={data}
-                      scrollEnabled={false}
-                      keyExtractor={item => item.id.toString()}
-                      renderItem={({ item }) => (
-                        <SocialField
-                          icon={item.icon}
-                          name={item.name}
-                          navigation={item.navigationScreen}
-                          color={item.color}
-                          connected={item.connected}
-                        />
-                      )}
-                    />
-                  </View>
-
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={() => setIsOn(!isOn)}
-                    style={styles.toggleRow}
-                  >
-                    <Text style={styles.toggleLabel}>
-                      Keep My Profile Private
-                    </Text>
-                    <ToggleSwitch
-                      isOn={isOn}
-                      onColor={COLORS.pink}
-                      offColor={COLORS.switch}
-                      size="small"
-                      onToggle={() => setIsOn(!isOn)}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </ScrollView>
-
-              {!keyboardIsVisible && (
                 <View style={styles.button}>
                   <CustomButton
                     title="Save"
@@ -417,11 +413,11 @@ const PlayerProfileSetup = ({ navigation }: any) => {
                     onPress={handleSubmit}
                   />
                 </View>
-              )}
-            </>
-          )}
-        </Formik>
-      </>
+              </>
+            )}
+          </Formik>
+        </>
+      </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
 };

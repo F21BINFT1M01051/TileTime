@@ -6,10 +6,12 @@ import {
   View,
   Keyboard,
   ScrollView,
-  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
   Platform,
+  KeyboardAvoidingView,
+  Dimensions,
 } from 'react-native';
-import { COLORS, FONTS, ICONS } from '../../../config/theme';
+import { COLORS, FONTS } from '../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import CustomButton from '../../../components/CustomButton';
 import About from './about';
@@ -17,35 +19,18 @@ import ProffessionalInfo from './proffessional';
 import { AboutFormRef } from './about';
 import AuthHeader from '../../../components/AuthHeader';
 
-const steps = ['about', 'professional'];
+const { height } = Dimensions.get('window');
 
 const InstructorProfileSetup = ({ navigation }: any) => {
   const [stepIndex, setStepIndex] = useState(0);
-  const [keyboardIsVisible, setKeyboardIsVisible] = useState(false);
   const aboutFormRef = useRef<AboutFormRef>(null);
   const [isAboutValid, setIsAboutValid] = useState(false);
-  const scrollViewRef = useRef<ScrollView>(null);
-  const [progress, setProgress] = useState(0); // percentage 0–100
-  const [hasExperience, setHasExperience] = useState(false); // <-- from Professional screen
-
-  useEffect(() => {
-    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
-      setKeyboardIsVisible(true);
-    });
-    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
-      setKeyboardIsVisible(false);
-    });
-
-    return () => {
-      showSubscription.remove();
-      hideSubscription.remove();
-    };
-  }, []);
+  const [progress, setProgress] = useState(0);
+  const [hasExperience, setHasExperience] = useState(false);
 
   const handleNext = async () => {
     try {
       if (stepIndex === 0 && aboutFormRef.current) {
-        // Validate About form
         const errors = await aboutFormRef.current.validateForm();
         if (Object.keys(errors).length === 0) {
           setStepIndex(stepIndex + 1);
@@ -73,50 +58,65 @@ const InstructorProfileSetup = ({ navigation }: any) => {
     }
   };
 
+  const dismissAll = () => {
+    Keyboard.dismiss();
+  };
+
   return (
-    <View style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <AuthHeader
-        title="Set Up Your Profile"
-        onPress={() => {
-          stepIndex === 0 ? navigation.goBack() : setStepIndex(stepIndex - 1);
-        }}
-      />
-      <ScrollView
-        style={{ flex: 1, backgroundColor: COLORS.white }}
-        contentContainerStyle={{ flexGrow: 1, paddingBottom: stepIndex === 0 ? RFPercentage(7) : RFPercentage(15) }}
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="always"
+    <TouchableWithoutFeedback onPress={dismissAll}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        keyboardVerticalOffset={-height}
       >
-        <View style={styles.progressBarBackground}>
-          <View style={[styles.progressBarFill, { width: `${progress}%` }]} />
-        </View>
+        <View style={{ flex: 1, backgroundColor: COLORS.white }}>
+          <AuthHeader
+            title="Set Up Your Profile"
+            onPress={() => {
+              stepIndex === 0
+                ? navigation.goBack()
+                : setStepIndex(stepIndex - 1);
+            }}
+          />
 
-        {/* Step Content */}
-        <View style={styles.contentWrapper}>{renderStepContent()}</View>
-      </ScrollView>
+          <View style={{ flex: 1 }}>
+            <ScrollView
+              style={{ flex: 1 }}
+              contentContainerStyle={{
+                paddingBottom:
+                  stepIndex === 0 ? RFPercentage(7) : RFPercentage(15),
+              }}
+              showsVerticalScrollIndicator={false}
+              keyboardShouldPersistTaps="always"
+            >
+              <View style={styles.progressBarBackground}>
+                <View
+                  style={[styles.progressBarFill, { width: `${progress}%` }]}
+                />
+              </View>
 
-      {!keyboardIsVisible && (
-        <>
-          {stepIndex !== 0 && (
-            <View style={{ width: '100%', backgroundColor: COLORS.white }}>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => {
-                  navigation.navigate('InstructorTabs');
-                }}
-                style={styles.skip}
-              >
-                <Text style={styles.skipText}>Skip For Now</Text>
-              </TouchableOpacity>
-            </View>
-          )}
+              <View style={styles.contentWrapper}>{renderStepContent()}</View>
+            </ScrollView>
+
+            {stepIndex !== 0 && (
+              <View style={{ width: '100%', backgroundColor: COLORS.white }}>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => {
+                    navigation.navigate('InstructorTabs');
+                  }}
+                  style={styles.skip}
+                >
+                  <Text style={styles.skipText}>Skip For Now</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          </View>
 
           <View style={styles.bottomWrapper}>
             <View style={styles.buttonContainer}>
               <CustomButton
                 title="Save And Next"
                 onPress={handleNext}
-                // disabled={stepIndex === 0 && !isAboutValid}
                 style={{
                   backgroundColor:
                     stepIndex === 0 && !isAboutValid
@@ -126,9 +126,9 @@ const InstructorProfileSetup = ({ navigation }: any) => {
               />
             </View>
           </View>
-        </>
-      )}
-    </View>
+        </View>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -177,6 +177,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     paddingBottom: RFPercentage(4),
   },
+
   buttonContainer: {
     width: '90%',
     alignSelf: 'center',

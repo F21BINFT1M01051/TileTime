@@ -25,8 +25,12 @@ const ProffessionalInfo = ({ setHasExperience }: ProffessionalInfoProps) => {
     setHasExperience(Experience.trim().length > 0);
   }, [Experience]);
 
+   const dismissAll = () => {
+      Keyboard.dismiss();
+    };
+
   return (
-    <TouchableWithoutFeedback>
+    <TouchableWithoutFeedback onPress={dismissAll}>
       <View style={styles.container}>
         <Text style={styles.headerText}>
           Share your coaching style and experience

@@ -148,10 +148,11 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '100%',
-    height: RFPercentage(4),
+    height: RFPercentage(5),
     fontFamily: FONTS.regular,
     color: COLORS.primary,
     fontSize: RFPercentage(1.8),
+    lineHeight:RFPercentage(1.8)
   },
   footerContainer: {
     marginTop: RFPercentage(6),

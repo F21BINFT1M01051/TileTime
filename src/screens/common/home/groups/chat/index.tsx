@@ -456,7 +456,10 @@ const ChatScreen = ({ route }: any) => {
                   <Image
                     source={ICONS.calender2}
                     resizeMode="contain"
-                    style={{ width: RFPercentage(3), height: RFPercentage(3) }}
+                    style={{
+                      width: RFPercentage(3),
+                      height: RFPercentage(3),
+                    }}
                   />
                 </TouchableOpacity>
               </>
@@ -469,57 +472,6 @@ const ChatScreen = ({ route }: any) => {
             resizeMode="cover"
             style={{ flex: 1 }}
           >
-            {messages.length === 0 && !keyboardVisible && (
-              <LinearGradient
-                colors={[
-                  'rgba(255, 255, 255, 0.4)',
-                  'rgba(255, 255, 255, 0.3)',
-                ]}
-              >
-                <View style={styles.todayBadge}>
-                  <Text style={styles.todayText}>Today</Text>
-                </View>
-
-                {isNew && isGroup && (
-                  <View style={styles.groupInfoCard}>
-                    <View style={styles.largeGroupIconContainer}>
-                      <Image
-                        source={IMAGES.customProfile}
-                        resizeMode="cover"
-                        style={styles.largeGroupIcon}
-                      />
-                    </View>
-                    <Text style={styles.createdText}>
-                      You created this group
-                    </Text>
-                    <Text style={styles.membersText}>Group - 2 Members</Text>
-                    <View style={styles.buttonContainer}>
-                      <CustomButton
-                        title="Add Members"
-                        // onPress={() => navigation.navigate('GroupDetails')}
-                        icon={ICONS.plus}
-                      />
-                    </View>
-                    <View style={styles.secondButtonContainer}>
-                      <CustomButton
-                        title="Share Group Link"
-                        onPress={() => {
-                          onShare();
-                        }}
-                        icon={ICONS.link}
-                      />
-                    </View>
-                  </View>
-                )}
-
-                <View style={styles.conversationPrompt}>
-                  <Text style={styles.conversationText}>
-                    {`Start a conversation, ask a\nquestion, or just say hi.`}
-                  </Text>
-                </View>
-              </LinearGradient>
-            )}
-
             <GiftedChat
               messages={messages}
               user={{
@@ -530,6 +482,49 @@ const ChatScreen = ({ route }: any) => {
               renderBubble={renderBubble}
               renderMessage={renderMessage}
               renderDay={renderDay}
+              inverted={true}
+              listViewProps={{
+                ListHeaderComponent: () =>
+                  messages.length === 0 && isNew && isGroup ? (
+                    <View style={{marginBottom:RFPercentage(20)}}>
+                      <View style={styles.todayBadge}>
+                        <Text style={styles.todayText}>Today</Text>
+                      </View>
+
+                      <View style={styles.groupInfoCard}>
+                        <View style={styles.largeGroupIconContainer}>
+                          <Image
+                            source={IMAGES.customProfile}
+                            resizeMode="cover"
+                            style={styles.largeGroupIcon}
+                          />
+                        </View>
+                        <Text style={styles.createdText}>
+                          You created this group
+                        </Text>
+                        <Text style={styles.membersText}>
+                          Group - 2 Members
+                        </Text>
+                        <View style={styles.buttonContainer}>
+                          <CustomButton title="Add Members" icon={ICONS.plus} />
+                        </View>
+                        <View style={styles.secondButtonContainer}>
+                          <CustomButton
+                            title="Share Group Link"
+                            onPress={onShare}
+                            icon={ICONS.link}
+                          />
+                        </View>
+                      </View>
+
+                      <View style={styles.conversationPrompt}>
+                        <Text style={styles.conversationText}>
+                          {`Start a conversation, ask a\nquestion, or just say hi.`}
+                        </Text>
+                      </View>
+                    </View>
+                  ) : null,
+              }}
               renderMessageImage={renderMessageImage}
               renderInputToolbar={() => (
                 <View style={styles.inputToolbarContainer}>

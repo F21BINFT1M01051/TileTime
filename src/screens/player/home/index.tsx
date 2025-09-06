@@ -357,7 +357,7 @@ const styles = StyleSheet.create({
   },
   homeTopBackground: {
     width: '100%',
-    height: RFPercentage(80),
+    height: RFPercentage(83),
     marginTop: RFPercentage(5),
   },
   homeTopContent: {

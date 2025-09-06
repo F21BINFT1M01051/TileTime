@@ -148,6 +148,7 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
   };
 
   return (
+    
     <TouchableWithoutFeedback
       onPress={() => {
         Keyboard.dismiss();
