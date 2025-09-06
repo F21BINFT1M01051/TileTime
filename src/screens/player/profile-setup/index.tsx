@@ -168,7 +168,8 @@ const PlayerProfileSetup = ({ navigation }: any) => {
               <ScrollView
                 style={{ flex: 1, backgroundColor: COLORS.white }}
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{paddingBottom:RFPercentage(4)}}
+                contentContainerStyle={{ paddingBottom: RFPercentage(8) }}
+                keyboardShouldPersistTaps="always"
               >
                 <View style={styles.container}>
                   <Text style={styles.title}>Enter Your Personal Details</Text>
@@ -381,7 +382,11 @@ const PlayerProfileSetup = ({ navigation }: any) => {
                     />
                   </View>
 
-                  <View style={styles.toggleRow}>
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() => setIsOn(!isOn)}
+                    style={styles.toggleRow}
+                  >
                     <Text style={styles.toggleLabel}>
                       Keep My Profile Private
                     </Text>
@@ -392,7 +397,7 @@ const PlayerProfileSetup = ({ navigation }: any) => {
                       size="small"
                       onToggle={() => setIsOn(!isOn)}
                     />
-                  </View>
+                  </TouchableOpacity>
                 </View>
               </ScrollView>
 

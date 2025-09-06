@@ -150,7 +150,7 @@ const MyProfileInstructor = ({ navigation }: any) => {
       >
         <View style={styles.innerContainer}>
           <View style={styles.profileRow}>
-            <View style={{width:"40%"}}>
+            <View style={{ width: '40%' }}>
               <ImageBackground
                 source={ICONS.premiumBorder}
                 resizeMode="contain"
@@ -186,7 +186,11 @@ const MyProfileInstructor = ({ navigation }: any) => {
             all skill levels - join the table and play your way.
           </Text>
 
-          <View style={styles.toggleRow}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => setIsOn(!isOn)}
+            style={styles.toggleRow}
+          >
             <Text style={styles.toggleLabel}>Keep My Profile Private</Text>
             <ToggleSwitch
               isOn={isOn}
@@ -195,7 +199,7 @@ const MyProfileInstructor = ({ navigation }: any) => {
               size="small"
               onToggle={() => setIsOn(!isOn)}
             />
-          </View>
+          </TouchableOpacity>
 
           <View style={{ marginTop: RFPercentage(5) }}>
             <Text style={styles.sectionTitle}>Credentials</Text>
@@ -353,7 +357,7 @@ const styles = StyleSheet.create({
     height: RFPercentage(4),
   },
   nameSection: {
-    width:"60%",
+    width: '60%',
   },
   nameText: {
     fontFamily: FONTS.headline,
@@ -370,7 +374,7 @@ const styles = StyleSheet.create({
     borderRadius: RFPercentage(1.3),
     marginTop: RFPercentage(1.8),
     height: RFPercentage(5.3),
-    width: "100%",
+    width: '100%',
   },
   bioText: {
     color: COLORS.primary,

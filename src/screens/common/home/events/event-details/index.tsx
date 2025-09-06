@@ -241,7 +241,7 @@ const EventDetails = ({ navigation }: any) => {
                   <Text style={styles.locationAddress}>
                     518 E 4th St, North Platte, NE 69101, United States
                   </Text>
-                  <TouchableOpacity style={styles.directionBtn}>
+                  <TouchableOpacity activeOpacity={0.8} style={styles.directionBtn}>
                     <Text style={styles.directionBtnText}>Get Directions</Text>
                   </TouchableOpacity>
                 </View>
@@ -303,6 +303,7 @@ const EventDetails = ({ navigation }: any) => {
                 icon={ICONS.x}
                 borderColor={COLORS.red}
                 color={COLORS.red}
+                onPress={()=> navigation.goBack()}
                 style={{ marginTop: RFPercentage(1.5) }}
               />
             </View>

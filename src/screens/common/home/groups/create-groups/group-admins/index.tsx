@@ -35,13 +35,13 @@ const admins = [
   },
 ];
 
-const GroupAdmins = ({ navigation }:any) => {
+const GroupAdmins = ({ navigation }: any) => {
   const [query, setQuery] = useState('');
 
   const filteredAdmins = useMemo(() => {
     if (!query.trim()) return admins;
     return admins.filter(item =>
-      item.name.toLowerCase().includes(query.toLowerCase())
+      item.name.toLowerCase().includes(query.toLowerCase()),
     );
   }, [query]);
 
@@ -62,6 +62,7 @@ const GroupAdmins = ({ navigation }:any) => {
           <FlatList
             data={filteredAdmins}
             keyExtractor={item => item.id.toString()}
+            keyboardShouldPersistTaps="always"
             contentContainerStyle={{ paddingBottom: RFPercentage(1) }}
             ListEmptyComponent={
               <Text
@@ -70,8 +71,9 @@ const GroupAdmins = ({ navigation }:any) => {
                   marginTop: RFPercentage(5),
                   color: COLORS.grey4,
                   fontFamily: FONTS.regular,
-                  fontSize:RFPercentage(1.8)
-                }}>
+                  fontSize: RFPercentage(1.8),
+                }}
+              >
                 No admin found
               </Text>
             }
@@ -140,7 +142,7 @@ const styles = StyleSheet.create({
   },
   subSectionSpacing: {
     marginTop: RFPercentage(1),
-    flex:1
+    flex: 1,
   },
   bottomWrapper: {
     width: '100%',

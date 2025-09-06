@@ -223,8 +223,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.pink3,
     borderTopRightRadius: RFPercentage(5),
     borderTopLeftRadius: RFPercentage(5),
-    marginTop:RFPercentage(13),
-    marginLeft:RFPercentage(2)
+    marginTop: RFPercentage(13),
+    marginLeft: RFPercentage(2),
   },
   nonMemberAvatarImage: {
     width: RFPercentage(10),

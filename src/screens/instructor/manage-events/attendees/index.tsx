@@ -127,7 +127,7 @@ const EventAttendees = () => {
         right={true}
         rightIcon={ICONS.upload2}
       />
-      <ScrollView>
+      <ScrollView   keyboardShouldPersistTaps="always" showsVerticalScrollIndicator={false}>
         <View style={styles.searchWrapper}>
           <SearchField
             placeholder="Search by name"
@@ -140,6 +140,7 @@ const EventAttendees = () => {
         <View style={styles.filterContainer}>
           <FlatList
             data={Filters}
+         
             keyExtractor={item => item.id.toString()}
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -166,6 +167,8 @@ const EventAttendees = () => {
                         activeFilter === item.name
                           ? COLORS.white
                           : COLORS.grey4,
+
+                           fontFamily:  activeFilter === item.name ? FONTS.semiBold : FONTS.medium,
                     },
                   ]}
                 >
@@ -180,6 +183,7 @@ const EventAttendees = () => {
         <View style={styles.attendeesWrapper}>
           <FlatList
             data={filteredAttendees}
+               keyboardShouldPersistTaps="always"
             keyExtractor={item => item.id.toString()}
             renderItem={({ item }) => (
               <View style={styles.attendeeCard}>
@@ -307,7 +311,7 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(3),
     marginRight: RFPercentage(1),
   },
-  filterText: { fontFamily: FONTS.medium, fontSize: RFPercentage(1.7) },
+  filterText: { fontSize: RFPercentage(1.7) , lineHeight:RFPercentage(1.7)},
   attendeesWrapper: {
     width: '90%',
     alignSelf: 'center',

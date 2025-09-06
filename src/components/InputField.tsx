@@ -30,6 +30,8 @@ interface Props {
   errorColor?: string;
   hasError?: boolean;
   length?: number;
+  disabled?: boolean;
+  editable?: boolean;
 }
 
 const InputField: React.FC<Props> = ({
@@ -48,6 +50,8 @@ const InputField: React.FC<Props> = ({
   errorColor = COLORS.red,
   hasError = false,
   length,
+  disabled,
+  editable
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [secureText, setSecureText] = useState(password);
@@ -61,7 +65,8 @@ const InputField: React.FC<Props> = ({
 
   const animatedIsFocused = useRef(new Animated.Value(value ? 1 : 0)).current;
 
-  const copyToClipboard = () => {
+  const copyToClipboard = (value : any) => {
+    console.log(value)
     Clipboard.setString(value);
   };
 
@@ -91,7 +96,7 @@ const InputField: React.FC<Props> = ({
   };
 
   return (
-    <TouchableWithoutFeedback onPress={() => inputRef.current?.focus()}>
+    <TouchableWithoutFeedback onPress={() => inputRef.current?.focus()} disabled={disabled}>
       <View style={[styles.container, style]}>
         <View style={styles.wrap}>
           <Animated.Text style={[labelStyle]}>{placeholder}</Animated.Text>
@@ -115,6 +120,7 @@ const InputField: React.FC<Props> = ({
             autoFocus={autoFocus}
             cursorColor={COLORS.primary}
             selectionColor={COLORS.primary}
+            editable={editable}
           />
 
           {password && (
@@ -134,7 +140,7 @@ const InputField: React.FC<Props> = ({
             <TouchableWithoutFeedback
               onPress={() => {
                 if (copy) {
-                  copyToClipboard();
+                  copyToClipboard(value);
                 } else {
                 }
               }}

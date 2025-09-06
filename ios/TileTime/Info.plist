@@ -24,6 +24,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+
+	<!-- App Icons -->
 	<key>CFBundleIcons</key>
 	<dict>
 		<key>CFBundlePrimaryIcon</key>
@@ -36,15 +38,16 @@
 			<false/>
 		</dict>
 	</dict>
+
+	<!-- Document & File Support -->
+	<key>UISupportsDocumentBrowser</key>
+	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
+
+	<!-- Permissions -->
 	<key>NSContactsUsageDescription</key>
 	<string>This app requires access to your contacts to share with friends.</string>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<false/>
-		<key>NSAllowsLocalNetworking</key>
-		<true/>
-	</dict>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app requires access to your photo library to let you select and upload photos.</string>
 	<key>NSCameraUsageDescription</key>
@@ -53,10 +56,33 @@
 	<string>This app requires access to your microphone when recording videos with sound.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app may use your location to improve the experience while in use.</string>
+
+	<!-- App Transport Security -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>localhost</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
+
+	<!-- Encryption -->
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+
+	<!-- React Native New Architecture -->
 	<key>RCTNewArchEnabled</key>
 	<true/>
+
+	<!-- Custom Fonts -->
 	<key>UIAppFonts</key>
 	<array>
 		<string>LeagueSpartan-Bold.ttf</string>
@@ -110,18 +136,26 @@
 		<string>LeagueSpartan-Light.ttf</string>
 		<string>LeagueSpartan-Thin.ttf</string>
 	</array>
+
+	<!-- Launch Screen -->
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+
+	<!-- Device Requirements -->
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>arm64</string>
 	</array>
+
+	<!-- Supported Orientations -->
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+
+	<!-- Status Bar -->
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>

@@ -42,7 +42,7 @@ const admins = [
   },
 ];
 
-const GroupMembers = ({navigation}  :any) => {
+const GroupMembers = ({ navigation }: any) => {
   const [visibleTooltipId, setVisibleTooltipId] = useState(null);
   const [query, setQuery] = useState('');
 
@@ -54,14 +54,18 @@ const GroupMembers = ({navigation}  :any) => {
   const filteredAdmins = useMemo(() => {
     if (!query.trim()) return admins;
     return admins.filter(item =>
-      item.name.toLowerCase().includes(query.toLowerCase())
+      item.name.toLowerCase().includes(query.toLowerCase()),
     );
   }, [query]);
 
   return (
     <TouchableWithoutFeedback onPress={dismissAll}>
       <View style={styles.container}>
-        <Nav title="Group Members" style={styles.navTitle} onPress={()=> navigation.goBack()} />
+        <Nav
+          title="Group Members"
+          style={styles.navTitle}
+          onPress={() => navigation.goBack()}
+        />
         <View style={styles.contentWrapper}>
           <SearchField
             placeholder="Search by name"
@@ -73,9 +77,17 @@ const GroupMembers = ({navigation}  :any) => {
               data={filteredAdmins}
               keyExtractor={item => item.id.toString()}
               contentContainerStyle={{ paddingBottom: RFPercentage(2) }}
-              keyboardShouldPersistTaps="handled"
+              keyboardShouldPersistTaps="always"
               ListEmptyComponent={
-                <Text style={{ textAlign: 'center', marginTop: RFPercentage(5), color: COLORS.grey4 , fontFamily:FONTS.regular, fontSize:RFPercentage(1.7)}}>
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    marginTop: RFPercentage(5),
+                    color: COLORS.grey4,
+                    fontFamily: FONTS.regular,
+                    fontSize: RFPercentage(1.7),
+                  }}
+                >
                   No member found
                 </Text>
               }
@@ -144,7 +156,7 @@ const styles = StyleSheet.create({
   },
   subSectionSpacing: {
     marginTop: RFPercentage(1),
-    flex:1
+    flex: 1,
   },
   bottomWrapper: {
     width: '100%',

@@ -157,7 +157,7 @@ const PlayerHome = ({ navigation }: any) => {
 
           <ImageBackground
             source={IMAGES.home_pic}
-            resizeMode="repeat"
+            resizeMode="cover"
             style={[
               styles.homeTopBackground,
               { marginTop: actions.length > 0 ? RFPercentage(2) : 0 },

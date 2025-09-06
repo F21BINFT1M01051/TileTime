@@ -8,7 +8,7 @@ import {
   ScrollView,
   Platform,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { COLORS, IMAGES, FONTS, ICONS } from '../../../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import CustomButton from '../../../../../../components/CustomButton';
@@ -17,8 +17,60 @@ import SettingsButton from '../../../../../../components/SettingsButton';
 import SocialField from '../../../../../../components/SocialField';
 import CommonGroup from '../../../../../../components/CommonGroups';
 import LinearGradient from 'react-native-linear-gradient';
+import CreateEvent from '../../../../../../components/CreateEvent';
+import AddToGroupModal from '../../../../../../components/AddToGroup';
+
+const players = [
+  {
+    id: 1,
+    name: 'Mahjong - Richie Rich Group',
+    profile: IMAGES.profile3,
+    members: 'Sophie, Ava and 29 more',
+  },
+  {
+    id: 2,
+    name: 'The Tile Society',
+    profile: IMAGES.profile3,
+    members: 'Sophie, Ava and 29 more',
+  },
+  {
+    id: 3,
+    name: 'Mahjong Masters Circle',
+    profile: IMAGES.customProfile,
+    members: 'Sophie, Ava and 29 more',
+  },
+];
 
 const UserDetails = ({ navigation }: any) => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedType, setSelectedType] = useState('');
+
+  const openModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const [isModalVisible2, setIsModalVisible2] = useState(false);
+  const [selectedContacts, setSelectedContacts] = useState([]);
+  const [query, setQuery] = useState('');
+
+  const filteredData = players.filter(item =>
+    item.name.toLowerCase().includes(query.toLowerCase()),
+  );
+
+  const toggleContact = (id: any) => {
+    setSelectedContacts(prev =>
+      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id],
+    );
+  };
+
+  const openModal2 = () => {
+    setIsModalVisible2(true);
+  };
+
+  const closeModal2 = () => {
+    setIsModalVisible2(false);
+  };
+
   return (
     <View style={styles.safeArea}>
       <View style={styles.headerBorder}>
@@ -73,7 +125,7 @@ const UserDetails = ({ navigation }: any) => {
                 title="Add to group"
                 icon={ICONS.add}
                 style={styles.buttonRounded}
-                onPress={() => {}}
+                onPress={openModal2}
               />
             </View>
             <View style={styles.buttonHalf}>
@@ -81,7 +133,7 @@ const UserDetails = ({ navigation }: any) => {
                 title="Create Event"
                 icon={ICONS.calender}
                 style={styles.buttonRounded}
-                onPress={() => {}}
+                onPress={openModal}
               />
             </View>
           </View>
@@ -99,7 +151,9 @@ const UserDetails = ({ navigation }: any) => {
             <DetailComponent
               title="Media and Documents"
               media={true}
-              onPress={() => {}}
+              onPress={() => {
+                navigation.navigate('ChatMedia');
+              }}
               style={{ borderBottomColor: COLORS.lightWhite }}
             />
           </View>
@@ -131,6 +185,27 @@ const UserDetails = ({ navigation }: any) => {
           </View>
         </View>
       </ScrollView>
+
+      <CreateEvent
+        visible={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+        title="Select Event Type"
+        selectedValue={selectedType}
+        onSelect={setSelectedType}
+        onConfirm={() => {
+          setIsModalVisible(false);
+          navigation.navigate('InvitePlayer');
+        }}
+      />
+      <AddToGroupModal
+        isVisible={isModalVisible2}
+        onClose={closeModal2}
+        query={query}
+        setQuery={setQuery}
+        filteredData={filteredData}
+        selectedContacts={selectedContacts}
+        toggleContact={toggleContact}
+      />
     </View>
   );
 };

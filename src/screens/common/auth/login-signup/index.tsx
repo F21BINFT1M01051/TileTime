@@ -49,6 +49,7 @@ const LoginSignUp = ({ navigation }: any) => {
         <ScrollView
           style={{ backgroundColor: COLORS.white, flex: 1 }}
           contentContainerStyle={{ flexGrow: 1 }}
+            keyboardShouldPersistTaps="always"
         >
           <ImageBackground
             source={IMAGES.auth}

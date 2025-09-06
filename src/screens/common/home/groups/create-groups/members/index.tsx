@@ -118,7 +118,7 @@ const Members = ({ selectedContacts, setSelectedContacts }: any) => {
     <View style={styles.container}>
       <Text style={styles.title}>Invite Members</Text>
 
-      <View style={styles.toggleRow}>
+      <TouchableOpacity activeOpacity={0.8} onPress={()=> setIsOn(!isOn)} style={styles.toggleRow}>
         <Text style={styles.toggleLabel}>Members Can Invite Others</Text>
         <ToggleSwitch
           isOn={isOn}
@@ -127,7 +127,7 @@ const Members = ({ selectedContacts, setSelectedContacts }: any) => {
           size="small"
           onToggle={() => setIsOn(!isOn)}
         />
-      </View>
+      </TouchableOpacity>
       <View style={{ marginTop: RFPercentage(4) }}>
         <SearchField
           placeholder="Search Name, Email or Phone Number"
@@ -178,7 +178,9 @@ const Members = ({ selectedContacts, setSelectedContacts }: any) => {
       <View>
         <FlatList
           data={filteredPlayers}
+          keyboardShouldPersistTaps="always"
           keyExtractor={item => item.id.toString()}
+          contentContainerStyle={{paddingBottom:RFPercentage(8)}}
           ListEmptyComponent={() =>
             quuery ? (
               <Text

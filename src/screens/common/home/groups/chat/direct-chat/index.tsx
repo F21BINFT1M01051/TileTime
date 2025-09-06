@@ -66,6 +66,7 @@ const DirectChatSelection = ({ navigation }: any) => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="always"
       >
         <View style={styles.contentContainer}>
           <Text

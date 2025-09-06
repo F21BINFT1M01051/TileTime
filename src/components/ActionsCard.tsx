@@ -265,5 +265,6 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontSize: RFPercentage(1.7),
     fontFamily: FONTS.medium,
+    lineHeight:RFPercentage(1.7)
   },
 });

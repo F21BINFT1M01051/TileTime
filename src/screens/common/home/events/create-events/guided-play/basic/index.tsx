@@ -103,6 +103,7 @@ const GuidedPlayBasic = () => {
   const [showPicker5, setShowPicker5] = useState(false);
   const [endOn, setEndOn] = useState(new Date());
   const [applies, setApplies] = useState([]);
+  const [isDropdownVisible3, setIsDropdownVisible3] = useState(false);
 
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState('Week');
@@ -322,6 +323,7 @@ const GuidedPlayBasic = () => {
               style={{ alignSelf: 'center' }}
               textColor={COLORS.primary}
               accentColor={COLORS.pink}
+              themeVariant="light"
             />
           )}
 
@@ -369,6 +371,7 @@ const GuidedPlayBasic = () => {
                     style={{ alignSelf: 'center' }}
                     textColor={COLORS.primary} // changes text color
                     accentColor={COLORS.pink}
+                    themeVariant="light"
                   />
                 )}
 
@@ -393,6 +396,7 @@ const GuidedPlayBasic = () => {
                     style={{ alignSelf: 'center' }}
                     textColor={COLORS.primary}
                     accentColor={COLORS.pink}
+                    themeVariant="light"
                   />
                 )}
 
@@ -417,6 +421,7 @@ const GuidedPlayBasic = () => {
                     style={{ alignSelf: 'center' }}
                     textColor={COLORS.primary} // changes text color
                     accentColor={COLORS.pink}
+                    themeVariant="light"
                   />
                 )}
               </View>
@@ -424,7 +429,11 @@ const GuidedPlayBasic = () => {
           )}
 
           {/* Paid Event */}
-          <View style={styles.toggleRow}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => setIsOn(!isOn)}
+            style={styles.toggleRow}
+          >
             <Text style={styles.toggleLabel}>Make This a Paid Event</Text>
             <ToggleSwitch
               isOn={isOn}
@@ -433,7 +442,7 @@ const GuidedPlayBasic = () => {
               size="small"
               onToggle={() => setIsOn(!isOn)}
             />
-          </View>
+          </TouchableOpacity>
 
           {/* If Paid Event */}
           {isOn && (
@@ -449,7 +458,11 @@ const GuidedPlayBasic = () => {
                 value={seats}
                 onChangeText={setSeats}
               />
-              <View style={styles.toggleRow}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => setIsOn2(!isOn2)}
+                style={styles.toggleRow}
+              >
                 <Text style={styles.toggleLabel}>Enable Waitlist</Text>
                 <ToggleSwitch
                   isOn={isOn2}
@@ -458,8 +471,12 @@ const GuidedPlayBasic = () => {
                   size="small"
                   onToggle={() => setIsOn2(!isOn2)}
                 />
-              </View>
-              <View style={styles.toggleRow}>
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => setIsOn3(!isOn3)}
+                style={styles.toggleRow}
+              >
                 <Text style={styles.toggleLabel}>
                   Payment Required to confirm seat
                 </Text>
@@ -470,8 +487,12 @@ const GuidedPlayBasic = () => {
                   size="small"
                   onToggle={() => setIsOn3(!isOn3)}
                 />
-              </View>
-              <View style={styles.toggleRow}>
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => setIsOn4(!isOn4)}
+                style={styles.toggleRow}
+              >
                 <Text style={styles.toggleLabel}>Enable Refunds</Text>
                 <ToggleSwitch
                   isOn={isOn4}
@@ -480,7 +501,7 @@ const GuidedPlayBasic = () => {
                   size="small"
                   onToggle={() => setIsOn4(!isOn4)}
                 />
-              </View>
+              </TouchableOpacity>
 
               {/* Refund Eligibility */}
               <View>
@@ -503,7 +524,11 @@ const GuidedPlayBasic = () => {
           )}
 
           {/* Recurring Event */}
-          <View style={styles.toggleRow}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => setRecurring(!recurring)}
+            style={styles.toggleRow}
+          >
             <Text style={styles.toggleLabel}>Make This a Recurring Event</Text>
             <ToggleSwitch
               isOn={recurring}
@@ -512,7 +537,7 @@ const GuidedPlayBasic = () => {
               size="small"
               onToggle={() => setRecurring(!recurring)}
             />
-          </View>
+          </TouchableOpacity>
 
           {/* If Recurring */}
           {recurring && (
@@ -561,6 +586,7 @@ const GuidedPlayBasic = () => {
                               height: RFPercentage(0.1),
                               backgroundColor: COLORS.lightWhite,
                               alignSelf: 'center',
+                              marginVertical:RFPercentage(0.4)
                             }}
                           ></View>
                           <TouchableOpacity
@@ -691,15 +717,15 @@ const GuidedPlayBasic = () => {
                           position: 'absolute',
                           bottom: RFPercentage(5),
                           zIndex: 999,
-                          alignSelf:"center",
-                          backgroundColor:COLORS.white,
-                          borderWidth:1,
-                          borderColor:COLORS.lightWhite,
-                          borderRadius:RFPercentage(1)
-
+                          alignSelf: 'center',
+                          backgroundColor: COLORS.white,
+                          borderWidth: 1,
+                          borderColor: COLORS.lightWhite,
+                          borderRadius: RFPercentage(1),
                         }}
                         textColor={COLORS.primary} // changes text color
                         accentColor={COLORS.pink}
+                        themeVariant="light"
                       />
                     )}
                   </View>
@@ -787,8 +813,8 @@ const GuidedPlayBasic = () => {
             data={['American', 'War Mahjong', 'Hong Kong', 'Mahjong Titans']}
             selectedValue={varient}
             onValueChange={(val: any) => setVarient(val)}
-            isDropdownVisible={isDropdownVisible2}
-            setIsDropdownVisible={setIsDropdownVisible2}
+            isDropdownVisible={isDropdownVisible3}
+            setIsDropdownVisible={setIsDropdownVisible3}
           />
         </View>
       </ScrollView>
@@ -806,7 +832,7 @@ const styles = StyleSheet.create({
   },
   // ScrollView content styles
   scrollViewContent: {
-    paddingBottom: RFPercentage(2),
+    paddingBottom: RFPercentage(10),
   },
   // Inner wrapper for content
   innerWrapper: {
@@ -1213,9 +1239,12 @@ const styles = StyleSheet.create({
     borderColor: COLORS.grey7,
     alignSelf: 'center',
     width: '90%',
+    height:RFPercentage(11),
+    // alignItems:'center',
+    justifyContent:'center'
   },
   dropdownItem: {
-    padding: RFPercentage(1),
+    padding: RFPercentage(1.3),
     fontSize: RFPercentage(1.7),
     fontFamily: FONTS.regular,
     color: COLORS.focused,

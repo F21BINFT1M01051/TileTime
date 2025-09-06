@@ -57,7 +57,6 @@ const formatDate = (date: Date) => {
   return moment(date).format('D MMMM YYYY');
 };
 
-
 const CreateLessonPlayer = ({ navigation }: any) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -226,6 +225,7 @@ const CreateLessonPlayer = ({ navigation }: any) => {
               style={{ alignSelf: 'center' }}
               textColor={COLORS.primary}
               accentColor={COLORS.pink}
+              themeVariant="light"
             />
           )}
 
@@ -273,6 +273,7 @@ const CreateLessonPlayer = ({ navigation }: any) => {
                     style={{ alignSelf: 'center' }}
                     textColor={COLORS.primary}
                     accentColor={COLORS.pink}
+                    themeVariant="light"
                   />
                 )}
 
@@ -300,6 +301,7 @@ const CreateLessonPlayer = ({ navigation }: any) => {
                     style={{ alignSelf: 'center' }}
                     textColor={COLORS.primary}
                     accentColor={COLORS.pink}
+                    themeVariant="light"
                   />
                 )}
 
@@ -327,6 +329,7 @@ const CreateLessonPlayer = ({ navigation }: any) => {
                     style={{ alignSelf: 'center' }}
                     textColor={COLORS.primary}
                     accentColor={COLORS.pink}
+                    themeVariant="light"
                   />
                 )}
               </View>
@@ -334,7 +337,11 @@ const CreateLessonPlayer = ({ navigation }: any) => {
           )}
 
           {/* Recurring Event */}
-          <View style={styles.toggleRow}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => setRecurring(!recurring)}
+            style={styles.toggleRow}
+          >
             <Text style={styles.toggleLabel}>Make This a Recurring Event</Text>
             <ToggleSwitch
               isOn={recurring}
@@ -343,7 +350,7 @@ const CreateLessonPlayer = ({ navigation }: any) => {
               size="small"
               onToggle={() => setRecurring(!recurring)}
             />
-          </View>
+          </TouchableOpacity>
 
           {/* If Recurring */}
           {recurring && (
@@ -504,9 +511,7 @@ const CreateLessonPlayer = ({ navigation }: any) => {
                       activeOpacity={0.8}
                       style={styles.dateButton}
                     >
-                      <Text style={styles.dateText}>
-                        {formatDate(endOn)}
-                      </Text>
+                      <Text style={styles.dateText}>{formatDate(endOn)}</Text>
                     </TouchableOpacity>
 
                     {showPicker5 && (
@@ -527,6 +532,7 @@ const CreateLessonPlayer = ({ navigation }: any) => {
                         }}
                         textColor={COLORS.primary} // changes text color
                         accentColor={COLORS.pink}
+                        themeVariant="light"
                       />
                     )}
                   </View>

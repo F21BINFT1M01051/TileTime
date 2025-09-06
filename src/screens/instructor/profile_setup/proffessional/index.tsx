@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
+  ScrollView,
 } from 'react-native';
 import React, { useState } from 'react';
 import { COLORS, FONTS } from '../../../../config/theme';

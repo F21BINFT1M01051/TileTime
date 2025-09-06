@@ -81,7 +81,7 @@ const SearchScreen = ({ navigation }: any) => {
     <View style={styles.container}>
       <HomeNavigator title="Search Players and Groups" />
 
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="always">
         <View style={styles.searchWrapper}>
           <SearchField
             placeholder="Search by name"
@@ -92,6 +92,7 @@ const SearchScreen = ({ navigation }: any) => {
           <FlatList
             data={filteredData}
             keyExtractor={item => item.id.toString()}
+            keyboardShouldPersistTaps="always"
             contentContainerStyle={styles.flatListContent}
             scrollEnabled={false}
             ListEmptyComponent={
@@ -345,7 +346,7 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(1.8),
     fontFamily: FONTS.medium,
     textAlign: 'center',
-    marginTop: RFPercentage(0.3),
+    marginTop: RFPercentage(0.5),
   },
   qouteIcon: {
     width: RFPercentage(8),
@@ -355,7 +356,7 @@ const styles = StyleSheet.create({
     top: RFPercentage(1.7),
   },
   groupDescriptionWrapper: {
-    marginTop: RFPercentage(3),
+    marginTop: RFPercentage(2),
     width: '70%',
   },
   groupDescription: {

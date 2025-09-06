@@ -498,7 +498,11 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
         </ScrollView>
         {tab === 'Discussion' && (
           <View style={styles.inputToolbarContainer}>
-            <View style={styles.toggleRow}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => setIsOn(!isOn)}
+              style={styles.toggleRow}
+            >
               <Text style={styles.toggleLabel}>
                 Turn On Discussion for This Event
               </Text>
@@ -509,7 +513,7 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
                 size="small"
                 onToggle={() => setIsOn(!isOn)}
               />
-            </View>
+            </TouchableOpacity>
 
             <View style={styles.inputBar}>
               <TouchableOpacity onPress={() => setAttachmentModalVisible(true)}>

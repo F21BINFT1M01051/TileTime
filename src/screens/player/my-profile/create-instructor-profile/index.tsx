@@ -97,6 +97,7 @@ const CreateInstructorProfile = ({ navigation }: any) => {
           contentContainerStyle={styles.scrollViewContent}
           style={styles.scrollView}
           showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="always"
         >
           <View style={styles.container}>
             <Text style={styles.title}>Build Your Instructor Profile</Text>
@@ -515,7 +516,7 @@ const styles = StyleSheet.create({
   },
   scrollViewContent: {
     flexGrow: 1,
-    paddingBottom: RFPercentage(6),
+    paddingBottom: RFPercentage(8),
   },
   headerWrapper: {
     borderBottomWidth: RFPercentage(0.1),

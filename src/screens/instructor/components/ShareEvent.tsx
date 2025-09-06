@@ -128,6 +128,8 @@ const ShareEvent = ({ visible, onClose, style }: any) => {
                     value="tiletime.com/events/1124-adde"
                     defaultColor={COLORS.focused}
                     copy={true}
+                    disabled={true}
+                    editable={false}
                   />
                 </View>
 
@@ -135,6 +137,7 @@ const ShareEvent = ({ visible, onClose, style }: any) => {
                 <FlatList
                   data={share}
                   keyExtractor={item => item.id.toString()}
+                  scrollEnabled={false}
                   contentContainerStyle={styles.flatListContainer}
                   renderItem={({ item }) => (
                     <TouchableOpacity
@@ -150,7 +153,12 @@ const ShareEvent = ({ visible, onClose, style }: any) => {
                       <Image
                         source={ICONS.right}
                         resizeMode="contain"
-                        style={{width:RFPercentage(1.5), height:RFPercentage(1.5), position:"absolute", right:RFPercentage(2)}}
+                        style={{
+                          width: RFPercentage(1.5),
+                          height: RFPercentage(1.5),
+                          position: 'absolute',
+                          right: RFPercentage(2),
+                        }}
                       />
                     </TouchableOpacity>
                   )}

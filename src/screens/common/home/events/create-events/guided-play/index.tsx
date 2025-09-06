@@ -202,6 +202,7 @@ const GuidedPlay = ({ route }: any) => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollViewContent}
+         keyboardShouldPersistTaps="always"
       >
         <View style={styles.progressBarBackground}>
           <View
@@ -304,6 +305,7 @@ const GuidedPlay = ({ route }: any) => {
                     <FlatList
                       data={filteredHosts}
                       keyExtractor={item => item.id.toString()}
+                      keyboardShouldPersistTaps="always"
                       ListEmptyComponent={
                         <Text style={styles.noResultText}>
                           No results found

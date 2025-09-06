@@ -83,8 +83,9 @@ const InstructorProfileSetup = ({ navigation }: any) => {
       />
       <ScrollView
         style={{ flex: 1, backgroundColor: COLORS.white }}
-        contentContainerStyle={{ flexGrow: 1, paddingBottom: RFPercentage(5) }}
+        contentContainerStyle={{ flexGrow: 1, paddingBottom: stepIndex === 0 ? RFPercentage(7) : RFPercentage(15) }}
         showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="always"
       >
         <View style={styles.progressBarBackground}>
           <View style={[styles.progressBarFill, { width: `${progress}%` }]} />

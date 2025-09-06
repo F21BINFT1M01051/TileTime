@@ -85,8 +85,8 @@ const CreateGroup = ({ navigation }: any) => {
       />
       <ScrollView
         style={{ flex: 1, backgroundColor: COLORS.white }}
-        contentContainerStyle={{ flexGrow: 1, paddingBottom: RFPercentage(2) }}
-        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{ flexGrow: 1, paddingBottom: RFPercentage(5) }}
+        keyboardShouldPersistTaps="always"
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.progressBarBackground}>
@@ -183,6 +183,8 @@ const styles = StyleSheet.create({
     borderTopColor: COLORS.lightWhite,
     backgroundColor: COLORS.white,
     paddingBottom: RFPercentage(4),
+    position: 'absolute',
+    bottom: 0,
   },
   buttonContainer: {
     width: '90%',

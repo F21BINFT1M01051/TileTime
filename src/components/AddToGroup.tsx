@@ -106,6 +106,7 @@ const AddToGroupModal = ({
                 {/* List */}
                 <View style={styles.flatListContainer}>
                   <FlatList
+                  keyboardShouldPersistTaps="always"
                     data={filteredData}
                     keyExtractor={item => item.id.toString()}
                     ListEmptyComponent={

@@ -211,7 +211,11 @@ const MyProfilePlayer = ({ navigation }: any) => {
           </View>
 
           {/* Private Profile */}
-          <View style={styles.toggleRow}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => setIsOn(!isOn)}
+            style={styles.toggleRow}
+          >
             <Text style={styles.toggleLabel}>Keep My Profile Private</Text>
             <ToggleSwitch
               isOn={isOn}
@@ -220,7 +224,7 @@ const MyProfilePlayer = ({ navigation }: any) => {
               size="small"
               onToggle={() => setIsOn(!isOn)}
             />
-          </View>
+          </TouchableOpacity>
 
           {/* Premium Modal */}
           <View style={styles.premiumBox}>

@@ -508,7 +508,11 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
           />
         </View>
 
-        <View style={styles.toggleRow}>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => setIsOn(!isOn)}
+          style={styles.toggleRow}
+        >
           <Text style={styles.toggleLabel}>Keep My Profile Private</Text>
           <ToggleSwitch
             isOn={isOn}
@@ -517,7 +521,7 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
             size="small"
             onToggle={() => setIsOn(!isOn)}
           />
-        </View>
+        </TouchableOpacity>
       </View>
     </TouchableWithoutFeedback>
   );

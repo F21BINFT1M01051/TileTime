@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
     marginVertical: 0,
     paddingVertical: 0,
     textAlignVertical: 'center',
-    lineHeight: RFPercentage(2),
+    lineHeight: RFPercentage(1.8),
+    height: RFPercentage(4),
   },
 });

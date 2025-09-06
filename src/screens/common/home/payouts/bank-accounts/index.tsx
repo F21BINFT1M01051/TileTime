@@ -5,8 +5,9 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Keyboard,
 } from 'react-native';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { COLORS, FONTS, ICONS } from '../../../../../config/theme';
 import AuthHeader from '../../../../../components/AuthHeader';
 import { RFPercentage } from 'react-native-responsive-fontsize';
@@ -14,21 +15,43 @@ import SearchField from '../../../../../components/SearchField';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const banks = [
-  { id: 1, icon: ICONS.us },
-  { id: 2, icon: ICONS.usa },
-  { id: 3, icon: ICONS.td },
-  { id: 4, icon: ICONS.chase },
-  { id: 5, icon: ICONS.america },
-  { id: 6, icon: ICONS.us },
-  { id: 7, icon: ICONS.usa },
-  { id: 8, icon: ICONS.td },
-  { id: 9, icon: ICONS.chase },
-  { id: 10, icon: ICONS.america },
-  { id: 11, icon: ICONS.chase },
-  { id: 12, icon: ICONS.america },
+  { id: 1, name: 'Bank of America', icon: ICONS.america },
+  { id: 2, name: 'Chase Bank', icon: ICONS.chase },
+  { id: 3, name: 'TD Bank', icon: ICONS.td },
+  { id: 4, name: 'US Bank', icon: ICONS.us },
+  { id: 5, name: 'Wells Fargo', icon: ICONS.usa },
+  { id: 6, name: 'Citibank', icon: ICONS.america },
+  { id: 7, name: 'TD Bank', icon: ICONS.td },
+  { id: 8, name: 'US Bank', icon: ICONS.us },
+  { id: 9, name: 'Wells Fargo', icon: ICONS.usa },
+  { id: 10, name: 'Bank of America', icon: ICONS.america },
+  { id: 11, name: 'Chase Bank', icon: ICONS.chase },
+  { id: 12, name: 'TD Bank', icon: ICONS.td },
 ];
 
 const BankAccounts = () => {
+  const [search, setSearch] = useState('');
+  const [selectedBank, setSelectedBank] = useState<number | null>(null);
+  const [keyboardIsVisible, setKeyboardIsVisible] = useState(false);
+
+  const filteredBanks = banks.filter(bank =>
+    bank.name.toLowerCase().includes(search.toLowerCase()),
+  );
+
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
+      setKeyboardIsVisible(true);
+    });
+    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardIsVisible(false);
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, []);
+
   return (
     <View style={styles.container}>
       <AuthHeader title="Setup Bank Account" />
@@ -41,36 +64,70 @@ const BankAccounts = () => {
         </Text>
 
         <View style={styles.searchWrap}>
-          <SearchField placeholder="Search your bank" />
+          <SearchField
+            placeholder="Search your bank"
+            value={search}
+            onChangeText={setSearch}
+          />
         </View>
 
         <View style={styles.listWrap}>
           <FlatList
-            data={banks}
+            data={filteredBanks}
+            keyboardShouldPersistTaps="always"
             numColumns={3}
             keyExtractor={item => item.id.toString()}
             scrollEnabled={false}
             columnWrapperStyle={styles.columnWrapper}
-            contentContainerStyle={{paddingBottom:RFPercentage(1)}}
+            contentContainerStyle={{ paddingBottom: RFPercentage(1) }}
             renderItem={({ item }) => {
+              const isSelected = selectedBank === item.id;
               return (
-                <TouchableOpacity activeOpacity={0.8} style={styles.bankCard}>
-                  <Image source={item.icon} resizeMode="contain" style={styles.bankLogo} />
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  style={[
+                    styles.bankCard,
+                    {
+                      borderColor: isSelected ? COLORS.pink : COLORS.lightWhite,
+                    },
+                  ]}
+                  onPress={() => setSelectedBank(item.id)}
+                >
+                  <Image
+                    source={item.icon}
+                    resizeMode="contain"
+                    style={styles.bankLogo}
+                  />
                 </TouchableOpacity>
               );
             }}
           />
         </View>
+        {!keyboardIsVisible && (
+          <>
+            <TouchableOpacity activeOpacity={0.8} style={styles.manualWrap}>
+              <Text style={styles.manualText}>
+                Enter bank details manually instead
+              </Text>
+              <AntDesign
+                name="arrowright"
+                size={RFPercentage(1.8)}
+                color={COLORS.primary}
+                style={styles.manualIcon}
+              />
+            </TouchableOpacity>
 
-        <TouchableOpacity activeOpacity={0.8} style={styles.manualWrap}>
-          <Text style={styles.manualText}>Enter bank details manually instead</Text>
-          <AntDesign name="arrowright" size={RFPercentage(1.8)} color={COLORS.primary} style={styles.manualIcon} />
-        </TouchableOpacity>
-
-        <TouchableOpacity activeOpacity={0.8} style={styles.nextBtn}>
-          <Text style={styles.nextText}>Next</Text>
-          <AntDesign name="arrowright" size={RFPercentage(2)} color={COLORS.white} style={styles.nextIcon} />
-        </TouchableOpacity>
+            <TouchableOpacity activeOpacity={0.8} style={styles.nextBtn}>
+              <Text style={styles.nextText}>Next</Text>
+              <AntDesign
+                name="arrowright"
+                size={RFPercentage(2)}
+                color={COLORS.white}
+                style={styles.nextIcon}
+              />
+            </TouchableOpacity>
+          </>
+        )}
       </View>
     </View>
   );
@@ -106,17 +163,16 @@ const styles = StyleSheet.create({
   },
   listWrap: {
     marginTop: RFPercentage(0.5),
-   
   },
   columnWrapper: {
     gap: RFPercentage(1),
     marginTop: RFPercentage(1),
   },
   bankCard: {
-    width:"31%",
+    width: '31%',
     height: RFPercentage(8),
     backgroundColor: COLORS.white,
-    borderWidth: RFPercentage(0.1),
+    borderWidth: RFPercentage(0.2), // thicker border to show green clearly
     borderColor: COLORS.lightWhite,
     alignItems: 'center',
     justifyContent: 'center',
@@ -126,7 +182,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.11,
     shadowRadius: 3.2,
     elevation: 5,
-    borderBottomWidth: RFPercentage(0.3),
   },
   bankLogo: {
     width: RFPercentage(9),

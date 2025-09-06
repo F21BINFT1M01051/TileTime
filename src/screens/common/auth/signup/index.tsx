@@ -44,6 +44,7 @@ const SignUp = ({ navigation }: any) => {
       });
       return;
     } else {
+      Keyboard.dismiss()
       navigation.navigate('RoleSelection');
     }
   };
@@ -58,6 +59,7 @@ const SignUp = ({ navigation }: any) => {
           style={{ backgroundColor: COLORS.white, flex: 1 }}
           contentContainerStyle={{ flexGrow: 1 }}
           showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="always"
         >
           <ImageBackground
             source={IMAGES.auth}

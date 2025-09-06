@@ -193,13 +193,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: RFPercentage(2),
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: RFPercentage(2.9),
+    borderRadius: RFPercentage(100),
     marginTop: RFPercentage(3),
     marginRight: RFPercentage(1),
   },
   filterText: {
     fontFamily: FONTS.medium,
     fontSize: RFPercentage(1.8),
+    textAlign:'center',
+    textAlignVertical:"center",
+    lineHeight:RFPercentage(2)
   },
   notificationListContainer: {
     width: '90%',

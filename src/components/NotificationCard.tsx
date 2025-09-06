@@ -76,7 +76,7 @@ const NotificationCard = (props: Props) => {
               </View>
             </>
           )}
-          <View style={{ width: '85%', marginLeft: RFPercentage(1.4) }}>
+          <View style={{ width: '80%', marginLeft: RFPercentage(1.4) }}>
             <Text
               style={{
                 color: COLORS.primary,
@@ -95,7 +95,7 @@ const NotificationCard = (props: Props) => {
               fontSize: RFPercentage(1.6),
               fontFamily: FONTS.regular,
               position: 'absolute',
-              right: RFPercentage(-1),
+              right: RFPercentage(-1.2),
               textAlign: 'right',
             }}
           >
@@ -116,7 +116,7 @@ const NotificationCard = (props: Props) => {
               <TouchableOpacity
                 activeOpacity={0.8}
                 style={{
-                  width: RFPercentage(6),
+                  width: RFPercentage(6.5),
                   height: RFPercentage(2.7),
                   borderRadius: RFPercentage(100),
                   alignItems: 'center',
@@ -131,6 +131,9 @@ const NotificationCard = (props: Props) => {
                     fontFamily: FONTS.semiBold,
                     color: COLORS.white,
                     fontSize: RFPercentage(1.3),
+                    lineHeight: RFPercentage(1.3),
+                    textAlign: 'center',
+                    includeFontPadding: false,
                   }}
                 >
                   YES
@@ -139,7 +142,7 @@ const NotificationCard = (props: Props) => {
               <TouchableOpacity
                 activeOpacity={0.8}
                 style={{
-                  width: RFPercentage(6),
+                  width: RFPercentage(6.5),
                   height: RFPercentage(2.7),
                   borderRadius: RFPercentage(100),
                   alignItems: 'center',
@@ -154,6 +157,9 @@ const NotificationCard = (props: Props) => {
                     fontFamily: FONTS.semiBold,
                     color: COLORS.red,
                     fontSize: RFPercentage(1.3),
+                    lineHeight: RFPercentage(1.3),
+                    textAlign: 'center',
+                    includeFontPadding: false,
                   }}
                 >
                   NO
@@ -163,7 +169,7 @@ const NotificationCard = (props: Props) => {
                 onPress={props.onPress3}
                 activeOpacity={0.8}
                 style={{
-                  width: RFPercentage(8.5),
+                  width: RFPercentage(9.3),
                   height: RFPercentage(2.7),
                   borderRadius: RFPercentage(100),
                   alignItems: 'center',
@@ -177,7 +183,10 @@ const NotificationCard = (props: Props) => {
                   style={{
                     fontFamily: FONTS.semiBold,
                     color: COLORS.primary,
-                    fontSize: RFPercentage(1.4),
+                     fontSize: RFPercentage(1.4),
+                    lineHeight: RFPercentage(1.4),
+                    textAlign: 'center',
+                    includeFontPadding: false,
                   }}
                 >
                   View Event

@@ -70,7 +70,11 @@ const PlayerProfile = ({ navigation }: any) => {
             onPress={() => navigation.goBack()}
             style={styles.zIndexHigh}
           >
-           <Image source={ICONS.back} resizeMode='contain' style={{width:RFPercentage(3), height:RFPercentage(3)}} />
+            <Image
+              source={ICONS.back}
+              resizeMode="contain"
+              style={{ width: RFPercentage(3), height: RFPercentage(3) }}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -78,14 +82,14 @@ const PlayerProfile = ({ navigation }: any) => {
         <View style={styles.fullWidth}>
           <ImageBackground
             source={IMAGES.single}
-            resizeMode="repeat"
+            resizeMode="cover"
             style={styles.backgroundImage}
           >
             <LinearGradient
-              colors={['rgba(255, 255, 255, 0.3)', 'rgba(255, 255, 255, 0.8)']}
+              colors={['rgba(255, 255, 255, 0.3)', 'rgba(255, 255, 255, 0.2)']}
               style={{
                 width: '100%',
-                height: RFPercentage(25),
+                height: RFPercentage(27),
               }}
             >
               <View style={styles.avatarOuterLayer}>
@@ -183,12 +187,12 @@ export default PlayerProfile;
 
 const styles = StyleSheet.create({
   safeArea: { backgroundColor: COLORS.white, flex: 1 },
-  fullWidth: { width: '100%', marginTop:RFPercentage(10) },
+  fullWidth: { width: '100%' },
   zIndexHigh: { zIndex: 999999 },
   backgroundImage: {
     width: '100%',
-    height: RFPercentage(24),
-    top: RFPercentage(-14),
+    height: RFPercentage(26),
+    // top: RFPercentage(-14),
   },
   headerBorder: {
     borderBottomWidth: 1,
@@ -203,7 +207,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: Platform.OS === 'android' ? RFPercentage(7) : RFPercentage(7.6),
   },
-  mainContent: { width: '90%', alignSelf: 'center', bottom: RFPercentage(17) },
+  mainContent: { width: '90%', alignSelf: 'center', bottom: RFPercentage(5)},
   avatarOuterLayer: {
     width: RFPercentage(11),
     height: RFPercentage(12.5),
@@ -211,8 +215,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.purple,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop:RFPercentage(8),
-    marginLeft:RFPercentage(2.5)
+    marginTop: RFPercentage(8),
+    marginLeft: RFPercentage(2.5),
   },
   avatarMiddleLayer: {
     backgroundColor: COLORS.green2,
@@ -256,7 +260,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontSize: RFPercentage(1.9),
     marginTop: RFPercentage(1),
-    lineHeight:RFPercentage(2)
+    lineHeight: RFPercentage(2),
   },
   buttonRow: {
     width: '100%',

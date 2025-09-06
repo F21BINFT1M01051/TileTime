@@ -135,19 +135,25 @@ const groupByDate = (events: any) => {
 
 const Events = ({ navigation }: any) => {
   const [isCalendarVisible, setCalendarVisible] = useState(false);
-  const events = [];
+  const events = ['9'];
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedType, setSelectedType] = useState('');
   const dispatch = useDispatch();
   const role = useSelector(state => state.userFlow.userFlow);
   const [isOn, setIsOn] = useState(false);
   const [query, setQuery] = useState('');
+  const [selectedDate, setSelectedDate] = useState(today);
 
   const openModal = () => {
     setIsModalVisible(true);
   };
   const toggleCalendar = () => setCalendarVisible(!isCalendarVisible);
-  const groupedUpcoming = groupByDate(upcoming);
+  const filteredUpcoming = upcoming.filter(
+    event =>
+      event.name.toLowerCase().includes(query.toLowerCase()) ||
+      event.host.toLowerCase().includes(query.toLowerCase()),
+  );
+  const groupedUpcoming = groupByDate(filteredUpcoming);
 
   return (
     <LinearGradient
@@ -215,7 +221,9 @@ const Events = ({ navigation }: any) => {
                   style={styles.monthButton}
                   onPress={toggleCalendar}
                 >
-                  <Text style={styles.monthText}>August</Text>
+                  <Text style={styles.monthText}>
+                    {moment(selectedDate).format('MMMM')}
+                  </Text>
                   <Feather
                     name="chevron-down"
                     color={COLORS.icon}
@@ -224,7 +232,11 @@ const Events = ({ navigation }: any) => {
                   />
                 </TouchableOpacity>
 
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => setIsOn(!isOn)}
+                  style={{ flexDirection: 'row', alignItems: 'center' }}
+                >
                   <Text
                     style={{
                       fontFamily: FONTS.regular,
@@ -242,7 +254,7 @@ const Events = ({ navigation }: any) => {
                     size="small"
                     onToggle={() => setIsOn(!isOn)}
                   />
-                </View>
+                </TouchableOpacity>
               </View>
               {isOn ? (
                 <View>
@@ -256,36 +268,52 @@ const Events = ({ navigation }: any) => {
                   >
                     Upcoming Events
                   </Text>
-                  <SectionList
-                    sections={groupedUpcoming}
-                    keyExtractor={(item, index) => item.id.toString() + index}
-                    renderSectionHeader={({ section: { title } }) => (
-                      <Text
-                        style={{
-                          fontFamily: FONTS.inter_semiBold,
-                          fontSize: RFPercentage(1.7),
-                          color: COLORS.primary,
-                          marginTop: RFPercentage(2.5),
-                          fontWeight: '700',
-                        }}
-                      >
-                        {title}
-                      </Text>
-                    )}
-                    renderItem={({ item }) => (
-                      <EventCard
-                        name={item.name}
-                        host={item.host}
-                        profile={item.profile}
-                        onPress={() =>
-                          navigation.navigate('InstructorEventDetail', {
-                            type: item.type,
-                          })
-                        }
-                      />
-                    )}
-                    contentContainerStyle={{ marginVertical: RFPercentage(1) }}
-                  />
+                  {groupedUpcoming.length > 0 ? (
+                    <SectionList
+                      sections={groupedUpcoming}
+                      keyExtractor={(item, index) => item.id.toString() + index}
+                      renderSectionHeader={({ section: { title } }) => (
+                        <Text
+                          style={{
+                            fontFamily: FONTS.inter_semiBold,
+                            fontSize: RFPercentage(1.7),
+                            color: COLORS.primary,
+                            marginTop: RFPercentage(2.5),
+                            fontWeight: '700',
+                          }}
+                        >
+                          {title}
+                        </Text>
+                      )}
+                      renderItem={({ item }) => (
+                        <EventCard
+                          name={item.name}
+                          host={item.host}
+                          profile={item.profile}
+                          onPress={() =>
+                            navigation.navigate('InstructorEventDetail', {
+                              type: item.type,
+                            })
+                          }
+                        />
+                      )}
+                      contentContainerStyle={{
+                        marginVertical: RFPercentage(1),
+                      }}
+                    />
+                  ) : (
+                    <Text
+                      style={{
+                        color: COLORS.primary,
+                        textAlign: 'center',
+                        marginTop: RFPercentage(7),
+                        fontFamily: FONTS.medium,
+                        fontSize: RFPercentage(1.9),
+                      }}
+                    >
+                      No Event Found
+                    </Text>
+                  )}
                 </View>
               ) : (
                 <TodayEvents />
@@ -328,8 +356,12 @@ const Events = ({ navigation }: any) => {
                 <Calendar
                   style={styles.calendar}
                   hideExtraDays
+                  onDayPress={day => {
+                    setSelectedDate(day.dateString);
+                    setCalendarVisible(false); // close calendar modal after selection (optional)
+                  }}
                   markedDates={{
-                    [today]: {
+                    [selectedDate]: {
                       selected: true,
                       selectedColor: COLORS.pink,
                       selectedTextColor: COLORS.white,
@@ -372,17 +404,14 @@ const Events = ({ navigation }: any) => {
           setIsModalVisible(false);
           if (selectedType === 'Open Play') {
             navigation.navigate('InvitePlayer');
-          }
-          else if (
+          } else if (
             selectedType === 'Mahjong Lessons' &&
             role === 'Instructor'
           ) {
             navigation.navigate('SelectPlayersInstructor');
-          }
-          else if (selectedType === 'Mahjong Lessons' && role === 'Player') {
+          } else if (selectedType === 'Mahjong Lessons' && role === 'Player') {
             navigation.navigate('CreateLessonPlayer');
-          } 
-          else if (selectedType === 'Guided Play') {
+          } else if (selectedType === 'Guided Play') {
             navigation.navigate('GuidedPlay', {
               players: false,
               groups: false,

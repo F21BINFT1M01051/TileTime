@@ -5,6 +5,9 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
 } from 'react-native';
 import React from 'react';
 import { COLORS, FONTS, ICONS } from '../../../../../config/theme';
@@ -16,55 +19,68 @@ const Stripe = ({ navigation }: any) => {
   const [checked, setChecked] = React.useState(false);
 
   return (
-    <View style={styles.container}>
-      <AuthHeader title="Setup Stripe" />
-      <View style={styles.innerContainer}>
-        <Image source={ICONS.stripe2} resizeMode="cover" style={styles.logo} />
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    >
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+      >
+        <AuthHeader title="Setup Stripe" />
 
-        <View style={styles.card}>
-          <View style={styles.formWrap}>
-            <Text style={styles.heading}>Sign In to your account</Text>
+        <View style={styles.innerContainer}>
+          <Image
+            source={ICONS.stripe2}
+            resizeMode="cover"
+            style={styles.logo}
+          />
 
-            <Text style={[styles.label, { marginTop: RFPercentage(2.4) }]}>
-              Email
-            </Text>
-            <View style={styles.inputWrapper}>
-              <TextInput
-                placeholder=""
-                placeholderTextColor={COLORS.placeholder}
-                style={styles.input}
-                cursorColor={COLORS.primary}
-                selectionColor={COLORS.primary}
-              />
+          <View style={styles.card}>
+            <View style={styles.formWrap}>
+              <Text style={styles.heading}>Sign In to your account</Text>
+
+              <Text style={[styles.label, { marginTop: RFPercentage(2.4) }]}>
+                Email
+              </Text>
+              <View style={styles.inputWrapper}>
+                <TextInput
+                  placeholder="Enter your email"
+                  placeholderTextColor={COLORS.placeholder}
+                  style={styles.input}
+                  cursorColor={COLORS.primary}
+                  selectionColor={COLORS.primary}
+                  keyboardType="email-address"
+                />
+              </View>
+
+              <View
+                style={[styles.passwordRow, { marginTop: RFPercentage(2.4) }]}
+              >
+                <Text style={styles.label}>Password</Text>
+                <TouchableOpacity activeOpacity={0.8}>
+                  <Text style={styles.forgetPassword}>
+                    Forgot your password?
+                  </Text>
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.inputWrapper}>
+                <TextInput
+                  placeholder="Enter your password"
+                  placeholderTextColor={COLORS.placeholder}
+                  style={styles.input}
+                  cursorColor={COLORS.primary}
+                  selectionColor={COLORS.primary}
+                  secureTextEntry
+                />
+              </View>
             </View>
 
-            <View
-              style={[styles.passwordRow, { marginTop: RFPercentage(2.4) }]}
-            >
-              <Text style={styles.label}>Password</Text>
-              <TouchableOpacity activeOpacity={0.8}>
-                <Text style={styles.forgetPassword}>Forget your password?</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.inputWrapper}>
-              <TextInput
-                placeholder=""
-                placeholderTextColor={COLORS.placeholder}
-                style={styles.input}
-                cursorColor={COLORS.primary}
-                selectionColor={COLORS.primary}
-              />
-            </View>
-          </View>
-
-          <View style={styles.actionWrap}>
-            <TouchableOpacity
-              style={styles.checkWrap}
-              activeOpacity={0.8}
-              onPress={() => setChecked(!checked)}
-            >
+            <View style={styles.actionWrap}>
               <TouchableOpacity
+                style={styles.checkWrap}
                 activeOpacity={0.8}
                 onPress={() => setChecked(!checked)}
               >
@@ -73,20 +89,22 @@ const Stripe = ({ navigation }: any) => {
                   resizeMode="contain"
                   style={styles.checkboxIcon}
                 />
+                <Text style={styles.business}>
+                  Stay Signed In For This Week
+                </Text>
               </TouchableOpacity>
-              <Text style={styles.business}>Stay Signed In For This Week</Text>
-            </TouchableOpacity>
 
-            <CustomButton
-              title="Continue"
-              onPress={() => {}}
-              textStyle={styles.continueText}
-              style={styles.continueBtn}
-            />
+              <CustomButton
+                title="Continue"
+                onPress={() => {}}
+                textStyle={styles.continueText}
+                style={styles.continueBtn}
+              />
+            </View>
           </View>
         </View>
-      </View>
-    </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -146,13 +164,17 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(1),
     paddingHorizontal: RFPercentage(1),
     borderRadius: RFPercentage(0.5),
+    justifyContent: 'center',
   },
   input: {
     width: '100%',
-    height: RFPercentage(4.5),
+    // height: RFPercentage(4.5),
     fontFamily: FONTS.regular,
     color: COLORS.primary,
     fontSize: RFPercentage(1.6),
+    lineHeight: RFPercentage(2),
+    paddingVertical: 0,
+    marginVertical: 0,
   },
   passwordRow: {
     flexDirection: 'row',

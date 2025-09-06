@@ -48,7 +48,7 @@ const EditEventBasic = () => {
         title="Edit Basics"
         style={{ fontFamily: FONTS.semiBold, fontSize: RFPercentage(1.9) }}
       />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="always">
         <View style={{ width: '90%', alignSelf: 'center' }}>
           <InputField
             placeholder="Event Title"
@@ -102,6 +102,7 @@ const EditEventBasic = () => {
               style={{ alignSelf: 'center' }}
               textColor={COLORS.primary}
               accentColor={COLORS.pink}
+               themeVariant="light" 
             />
           )}
 
@@ -129,6 +130,7 @@ const EditEventBasic = () => {
               style={{ alignSelf: 'center' }}
               textColor={COLORS.primary}
               accentColor={COLORS.pink}
+               themeVariant="light" 
             />
           )}
         </View>

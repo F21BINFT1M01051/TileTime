@@ -88,6 +88,7 @@ const SelectPlayers = ({ navigation }: any) => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="always"
       >
         <AuthHeader title="Select Players" />
         <View style={styles.contentContainer}>
@@ -105,6 +106,7 @@ const SelectPlayers = ({ navigation }: any) => {
             <FlatList
               data={filteredPlayers}
               keyExtractor={item => item.id.toString()}
+              keyboardShouldPersistTaps="always"
               contentContainerStyle={styles.flatListContent}
               ListEmptyComponent={
                 <Text

@@ -58,6 +58,7 @@ const Login = ({ navigation }: any) => {
           style={{ backgroundColor: COLORS.white, flex: 1 }}
           contentContainerStyle={{ flexGrow: 1 }}
             showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="always"
         >
           <ImageBackground
             source={IMAGES.auth}
@@ -275,14 +276,14 @@ const styles = StyleSheet.create({
   },
   buttonWrapper: {
     width: '100%',
-    marginTop: RFPercentage(18),
+    marginTop: RFPercentage(8),
   },
   signupContainer: {
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    marginTop: RFPercentage(5),
+    marginTop: RFPercentage(4),
   },
   noAccountText: {
     fontFamily: FONTS.regular,

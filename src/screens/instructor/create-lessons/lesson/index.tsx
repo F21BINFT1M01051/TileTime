@@ -161,11 +161,13 @@ const CreateLessonInstructor = ({ navigation }: any) => {
 
   return (
     <View style={styles.container}>
+      <AuthHeader title="Create Lesson" right={true} rightText="Save Draft" />
+
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="always"
       >
-        <AuthHeader title="Create Lesson" right={true} rightText="Save Draft" />
         <View style={styles.contentContainer}>
           <View>
             <InputField
@@ -237,6 +239,7 @@ const CreateLessonInstructor = ({ navigation }: any) => {
               style={{ alignSelf: 'center' }}
               textColor={COLORS.primary}
               accentColor={COLORS.pink}
+              themeVariant="light"
             />
           )}
 
@@ -284,6 +287,7 @@ const CreateLessonInstructor = ({ navigation }: any) => {
                     style={{ alignSelf: 'center' }}
                     textColor={COLORS.primary}
                     accentColor={COLORS.pink}
+                    themeVariant="light"
                   />
                 )}
 
@@ -311,6 +315,7 @@ const CreateLessonInstructor = ({ navigation }: any) => {
                     style={{ alignSelf: 'center' }}
                     textColor={COLORS.primary}
                     accentColor={COLORS.pink}
+                    themeVariant="light"
                   />
                 )}
 
@@ -338,6 +343,7 @@ const CreateLessonInstructor = ({ navigation }: any) => {
                     style={{ alignSelf: 'center' }}
                     textColor={COLORS.primary}
                     accentColor={COLORS.pink}
+                    themeVariant="light"
                   />
                 )}
               </View>
@@ -345,7 +351,11 @@ const CreateLessonInstructor = ({ navigation }: any) => {
           )}
 
           {/* Paid Event */}
-          <View style={styles.toggleRow}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => setIsOn(!isOn)}
+            style={styles.toggleRow}
+          >
             <Text style={styles.toggleLabel}>Make This a Paid Event</Text>
             <ToggleSwitch
               isOn={isOn}
@@ -354,7 +364,7 @@ const CreateLessonInstructor = ({ navigation }: any) => {
               size="small"
               onToggle={() => setIsOn(!isOn)}
             />
-          </View>
+          </TouchableOpacity>
 
           {/* If Paid Event */}
           {isOn && (
@@ -370,7 +380,11 @@ const CreateLessonInstructor = ({ navigation }: any) => {
                 value={seats}
                 onChangeText={setSeats}
               />
-              <View style={styles.toggleRow}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => setIsOn2(!isOn2)}
+                style={styles.toggleRow}
+              >
                 <Text style={styles.toggleLabel}>Enable Waitlist</Text>
                 <ToggleSwitch
                   isOn={isOn2}
@@ -379,8 +393,12 @@ const CreateLessonInstructor = ({ navigation }: any) => {
                   size="small"
                   onToggle={() => setIsOn2(!isOn2)}
                 />
-              </View>
-              <View style={styles.toggleRow}>
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => setIsOn3(!isOn3)}
+                style={styles.toggleRow}
+              >
                 <Text style={styles.toggleLabel}>
                   Payment Required to confirm seat
                 </Text>
@@ -391,8 +409,12 @@ const CreateLessonInstructor = ({ navigation }: any) => {
                   size="small"
                   onToggle={() => setIsOn3(!isOn3)}
                 />
-              </View>
-              <View style={styles.toggleRow}>
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => setIsOn4(!isOn4)}
+                style={styles.toggleRow}
+              >
                 <Text style={styles.toggleLabel}>Enable Refunds</Text>
                 <ToggleSwitch
                   isOn={isOn4}
@@ -401,7 +423,7 @@ const CreateLessonInstructor = ({ navigation }: any) => {
                   size="small"
                   onToggle={() => setIsOn4(!isOn4)}
                 />
-              </View>
+              </TouchableOpacity>
 
               {/* Refund Eligibility */}
               <View>
@@ -424,7 +446,11 @@ const CreateLessonInstructor = ({ navigation }: any) => {
           )}
 
           {/* Recurring Event */}
-          <View style={styles.toggleRow}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => setRecurring(!recurring)}
+            style={styles.toggleRow}
+          >
             <Text style={styles.toggleLabel}>Make This A Recurring Event</Text>
             <ToggleSwitch
               isOn={recurring}
@@ -433,7 +459,7 @@ const CreateLessonInstructor = ({ navigation }: any) => {
               size="small"
               onToggle={() => setRecurring(!recurring)}
             />
-          </View>
+          </TouchableOpacity>
 
           {/* If Recurring */}
           {recurring && (
@@ -480,6 +506,7 @@ const CreateLessonInstructor = ({ navigation }: any) => {
                               height: RFPercentage(0.1),
                               backgroundColor: COLORS.lightWhite,
                               alignSelf: 'center',
+                              marginVertical:RFPercentage(0.4)
                             }}
                           ></View>
                           <TouchableOpacity
@@ -616,6 +643,7 @@ const CreateLessonInstructor = ({ navigation }: any) => {
                         }}
                         textColor={COLORS.primary} // changes text color
                         accentColor={COLORS.pink}
+                        themeVariant="light"
                       />
                     )}
                   </View>
@@ -977,6 +1005,8 @@ const styles = StyleSheet.create({
     borderColor: COLORS.grey7,
     alignSelf: 'center',
     width: '90%',
+    height:RFPercentage(11),
+    justifyContent:"center"
   },
   dropdownItem: {
     padding: RFPercentage(1),

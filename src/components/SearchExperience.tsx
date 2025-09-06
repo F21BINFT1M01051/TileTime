@@ -7,6 +7,7 @@ import {
   FlatList,
   Keyboard,
   Image,
+  ScrollView,
 } from 'react-native';
 import React, { useState, useRef } from 'react';
 import { COLORS, FONTS, ICONS } from '../config/theme';
@@ -34,10 +35,8 @@ const Search = ({ placeholder, value, onChangeText, data }: Props) => {
       setSelectedItems([...selectedItems, item]);
     }
     onChangeText('');
-    setShowDropdown(false);
-    requestAnimationFrame(() => {
-      inputRef.current?.blur();
-    });
+    // Don't hide the dropdown immediately to allow for multiple selections
+    // Keep the keyboard open by not blurring the input
   };
 
   const removeItem = (itemToRemove: string) => {
@@ -85,16 +84,18 @@ const Search = ({ placeholder, value, onChangeText, data }: Props) => {
       {/*  Dropdown Shown ABOVE selected items */}
       {showDropdown && value.length > 0 && (
         <View style={styles.dropdownContainer}>
-          <FlatList
-            data={filteredData}
+          <ScrollView 
+            nestedScrollEnabled={true}
+            style={styles.dropdownScrollView}
             keyboardShouldPersistTaps="always"
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }) => {
+          >
+            {filteredData.map((item, index) => {
               const isLastItem =
                 index === filteredData.length - 1 &&
                 (filteredData.includes(value) || value.length === 0);
               return (
                 <TouchableOpacity
+                  key={index.toString()}
                   style={[
                     styles.dropdownItem,
                     isLastItem ? { borderBottomWidth: 0 } : null,
@@ -104,41 +105,40 @@ const Search = ({ placeholder, value, onChangeText, data }: Props) => {
                   <Text style={styles.dropdownText}>{item}</Text>
                 </TouchableOpacity>
               );
-            }}
-            ListFooterComponent={
-              value.length > 0 && !filteredData.includes(value) ? (
-                <TouchableOpacity
+            })}
+            
+            {value.length > 0 && !filteredData.includes(value) && (
+              <TouchableOpacity
+                style={[
+                  styles.dropdownItem,
+                  {
+                    borderBottomWidth: 0,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  },
+                ]}
+                onPress={() => handleSelect(value)}
+              >
+                <Image
+                  source={ICONS.plus}
+                  tintColor={COLORS.primary}
+                  resizeMode="contain"
+                  style={{ width: RFPercentage(2), height: RFPercentage(2) }}
+                />
+                <Text
                   style={[
-                    styles.dropdownItem,
+                    styles.dropdownText,
                     {
-                      borderBottomWidth: 0,
-                      flexDirection: 'row',
-                      alignItems: 'center',
+                      fontFamily: FONTS.semiBold,
+                      color: COLORS.primary,
                     },
                   ]}
-                  onPress={() => handleSelect(value)}
                 >
-                  <Image
-                    source={ICONS.plus}
-                    tintColor={COLORS.primary}
-                    resizeMode="contain"
-                    style={{ width: RFPercentage(2), height: RFPercentage(2) }}
-                  />
-                  <Text
-                    style={[
-                      styles.dropdownText,
-                      {
-                        fontFamily: FONTS.semiBold,
-                        color: COLORS.primary,
-                      },
-                    ]}
-                  >
-                    Add {value}
-                  </Text>
-                </TouchableOpacity>
-              ) : null
-            }
-          />
+                  Add {value}
+                </Text>
+              </TouchableOpacity>
+            )}
+          </ScrollView>
         </View>
       )}
 
@@ -202,9 +202,11 @@ const styles = StyleSheet.create({
     borderWidth: RFPercentage(0.1),
     maxHeight: RFPercentage(25),
     zIndex: 999, // Ensure it appears above selected items
+  
+  },
+  dropdownScrollView: {
     paddingVertical: RFPercentage(1),
   },
-
   dropdownItem: {
     borderBottomWidth: RFPercentage(0.1),
     borderBottomColor: COLORS.fieldBorder,

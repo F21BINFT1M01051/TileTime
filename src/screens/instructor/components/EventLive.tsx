@@ -128,6 +128,8 @@ const EventLive = ({ visible, onClose , style}: any) => {
                     value="tiletime.com/events/1124-adde"
                     defaultColor={COLORS.focused}
                     copy={true}
+                    disabled={true}
+                    editable={false}
                   />
                 </View>
 
@@ -158,6 +160,7 @@ const EventLive = ({ visible, onClose , style}: any) => {
                   data={share}
                   keyExtractor={item => item.id.toString()}
                   numColumns={2}
+                  scrollEnabled={false}
                   contentContainerStyle={styles.flatListContainer}
                   columnWrapperStyle={styles.flatListColumn}
                   renderItem={({ item }) => (
@@ -241,7 +244,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: FONTS.headline,
     color: COLORS.primary,
-    fontSize: RFPercentage(2.6),
+    fontSize: RFPercentage(2.7),
   },
   stars: {
     width: RFPercentage(3.5),
@@ -261,6 +264,7 @@ const styles = StyleSheet.create({
     color: COLORS.lightGrey,
     fontSize: RFPercentage(1.8),
     marginTop: RFPercentage(1),
+    lineHeight:RFPercentage(2)
   },
   gp2: {
     width: RFPercentage(8),

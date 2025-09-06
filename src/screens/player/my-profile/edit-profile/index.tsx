@@ -119,6 +119,7 @@ const EditProfile = () => {
           style={styles.scrollContainer}
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="always"
         >
           <View style={styles.container}>
             <TouchableOpacity
@@ -299,7 +300,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
   },
   scrollContent: {
-    paddingBottom: RFPercentage(5),
+    paddingBottom: RFPercentage(8),
   },
   headerWrapper: {
     borderBottomWidth: RFPercentage(0.1),

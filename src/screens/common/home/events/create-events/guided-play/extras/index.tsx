@@ -62,7 +62,11 @@ const GuidedPlayExtras = ({
         </View>
 
         {/* Toggle Switches */}
-        <View style={styles.toggleRow}>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => setIsOn(!isOn)}
+          style={styles.toggleRow}
+        >
           <Text style={styles.toggleLabel}>
             Make Event Visible To Anyone On TileTime
           </Text>
@@ -73,8 +77,12 @@ const GuidedPlayExtras = ({
             size="small"
             onToggle={() => setIsOn(!isOn)}
           />
-        </View>
-        <View style={styles.toggleRow}>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => setIsOn2(!isOn2)}
+          style={styles.toggleRow}
+        >
           <Text style={styles.toggleLabel}>Enable Event Chat</Text>
           <ToggleSwitch
             isOn={isOn2}
@@ -83,8 +91,12 @@ const GuidedPlayExtras = ({
             size="small"
             onToggle={() => setIsOn2(!isOn2)}
           />
-        </View>
-        <View style={styles.toggleRow}>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => setIsOn3(!isOn3)}
+          style={styles.toggleRow}
+        >
           <Text style={styles.toggleLabel}>Enable reminder</Text>
           <ToggleSwitch
             isOn={isOn3}
@@ -93,7 +105,7 @@ const GuidedPlayExtras = ({
             size="small"
             onToggle={() => setIsOn3(!isOn3)}
           />
-        </View>
+        </TouchableOpacity>
 
         {/* Remind Drop Down */}
         <View style={styles.dropdownWrapper}>
@@ -108,7 +120,11 @@ const GuidedPlayExtras = ({
         </View>
 
         {/* Co host section */}
-        <View style={styles.toggleRow}>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => setIsOn4(!isOn4)}
+          style={styles.toggleRow}
+        >
           <Text style={styles.toggleLabel}>Include Co-Host</Text>
           <ToggleSwitch
             isOn={isOn4}
@@ -117,7 +133,7 @@ const GuidedPlayExtras = ({
             size="small"
             onToggle={() => setIsOn4(!isOn4)}
           />
-        </View>
+        </TouchableOpacity>
         {isOn4 && (
           <>
             {selectedContacts.length > 0 ? (

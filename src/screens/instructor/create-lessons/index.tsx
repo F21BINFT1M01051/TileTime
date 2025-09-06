@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
   Keyboard,
-  Platform
+  Platform,
 } from 'react-native';
 import React, { useState, useMemo, useEffect } from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../config/theme';
@@ -85,12 +85,14 @@ const SelectPlayersInstructor = ({ navigation }: any) => {
 
   return (
     <View style={styles.container}>
+      <AuthHeader title="Select Players" />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="always"
       >
         {/* Header */}
-        <AuthHeader title="Select Players" />
+
         <View style={styles.contentContainer}>
           <View>
             <Text
@@ -246,6 +248,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     paddingBottom: RFPercentage(2),
+    paddingTop:RFPercentage(2)
   },
   contentContainer: {
     width: '90%',

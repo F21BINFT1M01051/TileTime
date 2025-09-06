@@ -10,12 +10,12 @@ const DoubleSwitch = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.row}>
-        <Image
-          source={ICONS.send2}
-          resizeMode="contain"
-          style={styles.icon}
-        />
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() => setIsOn(!isOn)}
+        style={styles.row}
+      >
+        <Image source={ICONS.send2} resizeMode="contain" style={styles.icon} />
         <Text style={styles.label}>Send messages</Text>
         <ToggleSwitch
           isOn={isOn}
@@ -25,14 +25,14 @@ const DoubleSwitch = () => {
           onToggle={() => setIsOn(!isOn)}
           style={styles.toggle}
         />
-      </View>
+      </TouchableOpacity>
 
-      <View style={styles.rowWithMargin}>
-        <Image
-          source={ICONS.user5}
-          resizeMode="contain"
-          style={styles.icon}
-        />
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() => setIsOn2(!isOn2)}
+        style={styles.rowWithMargin}
+      >
+        <Image source={ICONS.user5} resizeMode="contain" style={styles.icon} />
         <Text style={styles.label}>Add other members</Text>
         <ToggleSwitch
           isOn={isOn2}
@@ -42,7 +42,7 @@ const DoubleSwitch = () => {
           onToggle={() => setIsOn2(!isOn2)}
           style={styles.toggle}
         />
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };
