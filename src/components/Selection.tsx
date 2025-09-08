@@ -5,8 +5,9 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Animated,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import { COLORS, FONTS, ICONS, IMAGES } from '../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
@@ -17,9 +18,31 @@ interface Props {
   isSelected: boolean;
   onSelect: () => void;
   icon: any;
+  showWarning?: boolean;
 }
 
-const Selection = ({ title, subTitle, isSelected, onSelect, icon }: Props) => {
+const Selection = ({
+  title,
+  subTitle,
+  isSelected,
+  onSelect,
+  icon,
+  showWarning,
+}: Props) => {
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (isSelected && showWarning) {
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 800, // fade duration
+        useNativeDriver: true,
+      }).start();
+    } else {
+      fadeAnim.setValue(0); // reset when not selected
+    }
+  }, [isSelected, showWarning]);
+
   return (
     <TouchableOpacity
       activeOpacity={0.8}
@@ -64,10 +87,44 @@ const Selection = ({ title, subTitle, isSelected, onSelect, icon }: Props) => {
               <Text style={styles.title}>{title}</Text>
               <Text style={styles.subTitle}>{subTitle}</Text>
             </View>
+            {showWarning && (
+              <Animated.View
+                style={{
+                  opacity: fadeAnim,
+                  width: '100%',
+                  backgroundColor: '#FFF4D1',
+                  paddingHorizontal: RFPercentage(1.5),
+                  height: RFPercentage(6),
+                  borderRadius: RFPercentage(1.3),
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginTop: RFPercentage(2),
+                }}
+              >
+                <Image
+                  source={ICONS.warn}
+                  resizeMode="contain"
+                  style={{
+                    width: RFPercentage(2.3),
+                    height: RFPercentage(2.3),
+                  }}
+                />
+                <Text
+                  style={{
+                    color: COLORS.primary,
+                    fontFamily: FONTS.regular,
+                    fontSize: RFPercentage(1.6),
+                    marginLeft: RFPercentage(1),
+                    lineHeight: RFPercentage(1.7),
+                  }}
+                >
+                  {`Choosing Instructor doesn’t limit you, you can\nstill register and play in events as a Player.`}
+                </Text>
+              </Animated.View>
+            )}
           </View>
         </ImageBackground>
       ) : (
-        // when not selected -> just white container without image
         <View style={styles.innerWrapper}>
           <View style={styles.header}>
             <Image source={icon} resizeMode="contain" style={styles.icon} />

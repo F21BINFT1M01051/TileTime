@@ -443,7 +443,10 @@ const GuidedPlayBasic = () => {
                       onChange={(e, selectedDate) =>
                         selectedDate && setStartTime(selectedDate)
                       }
-                      style={{ backgroundColor: COLORS.white }}
+                      style={{ backgroundColor: COLORS.white , alignSelf:"center"}}
+                      textColor={COLORS.primary}
+                      accentColor={COLORS.pink}
+                      themeVariant="light"
                     />
                   </View>
                 )}
@@ -527,6 +530,9 @@ const GuidedPlayBasic = () => {
                         selectedDate && setEndTime(selectedDate)
                       }
                       style={{ backgroundColor: COLORS.white }}
+                      textColor={COLORS.primary}
+                      accentColor={COLORS.pink}
+                      themeVariant="light"
                     />
                   </View>
                 )}

@@ -46,6 +46,7 @@ const RoleSelection = ({ navigation }: any) => {
                 dispatch(setUserFlow('Instructor'));
               }}
               icon={ICONS.teacher}
+              showWarning={true}
             />
             <Selection
               title="As Player"
@@ -56,6 +57,7 @@ const RoleSelection = ({ navigation }: any) => {
                 dispatch(setUserFlow('Player'));
               }}
               icon={ICONS.user6}
+              showWarning={false}
             />
           </View>
         </View>

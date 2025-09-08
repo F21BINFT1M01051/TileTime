@@ -1,4 +1,12 @@
-import { StyleSheet, Image, View, Platform, ScrollView, TouchableOpacity, Text } from 'react-native';
+import {
+  StyleSheet,
+  Image,
+  View,
+  Platform,
+  ScrollView,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 import React, { useState } from 'react';
 import { COLORS, FONTS, ICONS } from '../../../../config/theme';
 import AuthHeader from '../../../../components/AuthHeader';
@@ -180,7 +188,10 @@ const EditEventBasic = () => {
                 onChange={(e, selectedDate) =>
                   selectedDate && setStartTime(selectedDate)
                 }
-                style={{ backgroundColor: COLORS.white }}
+                style={{ backgroundColor: COLORS.white, alignSelf:"center" }}
+                textColor={COLORS.primary}
+                accentColor={COLORS.pink}
+                themeVariant="light"
               />
             </View>
           )}

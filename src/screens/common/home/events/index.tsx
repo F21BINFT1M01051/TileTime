@@ -136,7 +136,7 @@ const groupByDate = (events: any) => {
 
 const Events = ({ navigation }: any) => {
   const [isCalendarVisible, setCalendarVisible] = useState(false);
-  const events = [];
+  const events = ['9'];
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedType, setSelectedType] = useState('');
   const dispatch = useDispatch();
@@ -262,7 +262,7 @@ const Events = ({ navigation }: any) => {
                       />
                     </TouchableOpacity>
                   </View>
-                  {isOn ? (
+                  {/* {isOn ? (
                     <View>
                       <Text
                         style={{
@@ -323,9 +323,9 @@ const Events = ({ navigation }: any) => {
                         </Text>
                       )}
                     </View>
-                  ) : (
+                  ) : ( */}
                     <TodayEvents />
-                  )}
+                  {/* )} */}
                 </View>
               </>
             ) : (

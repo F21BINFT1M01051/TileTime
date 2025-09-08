@@ -64,7 +64,7 @@ export const COLORS = {
   green1: '#77ADB8',
   authGradient1: 'rgba(255, 255, 255, 0.4)',
   authGradient2: 'rgba(255, 255, 255, 0.5)',
-  white4 : "#F5FDFF"
+  white4: '#F5FDFF',
 };
 
 export const IMAGES = {
@@ -229,6 +229,7 @@ export const ICONS = {
   td: require('../assets/icons/td.png'),
   chase: require('../assets/icons/chase.png'),
   america: require('../assets/icons/america.png'),
+  warn: require('../assets/icons/warn.png'),
 };
 
 export const FONTS = {

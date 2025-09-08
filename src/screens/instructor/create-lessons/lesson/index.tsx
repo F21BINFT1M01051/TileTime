@@ -365,7 +365,13 @@ const CreateLessonInstructor = ({ navigation }: any) => {
                           onChange={(e, selectedDate) =>
                             selectedDate && setStartTime(selectedDate)
                           }
-                          style={{ backgroundColor: COLORS.white }}
+                          style={{
+                            backgroundColor: COLORS.white,
+                            alignSelf: 'center',
+                          }}
+                          textColor={COLORS.primary}
+                          accentColor={COLORS.pink}
+                          themeVariant="light"
                         />
                       </View>
                     )}
@@ -454,7 +460,10 @@ const CreateLessonInstructor = ({ navigation }: any) => {
                           onChange={(e, selectedDate) =>
                             selectedDate && setEndTime(selectedDate)
                           }
-                          style={{ backgroundColor: COLORS.white }}
+                          style={{ backgroundColor: COLORS.white, alignSelf:"center" }}
+                          textColor={COLORS.primary}
+                          accentColor={COLORS.pink}
+                          themeVariant="light"
                         />
                       </View>
                     )}
