@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,42 +8,45 @@ import {
   FlatList,
   Linking,
 } from 'react-native';
-import React, { useState } from 'react';
+import {
+  pick,
+  keepLocalCopy,
+  isKnownType,
+} from '@react-native-documents/picker';
 import { COLORS, FONTS, ICONS } from '../../../../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import { pick } from '@react-native-documents/picker';
 
 const GuidedPlayAttachments = () => {
   const [attachments, setAttachments] = useState([]);
 
   const pickDocument = async () => {
-    console.log('hi');
     try {
-      const res = await pick({
-        type: ['image/*', 'application/pdf'],
-        allowMultiSelection: false,
-        copyTo: 'cachesDirectory',
-      });
-
-      if (res && res.length > 0) {
-        setAttachments(prev => [...prev, ...res]);
-      }
+      const result = await pick();
+      if (!result) return;
+      const files = Array.isArray(result) ? result : [result];
+      const localCopies = await Promise.all(
+        files.map(async file => {
+          const localCopy = await keepLocalCopy(file, {
+            directory: 'cachesDirectory',
+          });
+          return { ...file, fileCopyUri: localCopy.fileCopyUri };
+        }),
+      );
+      setAttachments(prev => [...prev, ...localCopies]);
     } catch (err) {
       if (err?.message?.includes('cancelled')) {
         console.log('User cancelled');
       } else {
-        console.log('Error: ', err);
+        console.log('Error picking document: ', err);
       }
     }
   };
 
-  // Remove attachment by index
-  const removeAttachment = (index: number) => {
+  const removeAttachment = index => {
     setAttachments(prev => prev.filter((_, i) => i !== index));
   };
 
-  // View file
-  const viewAttachment = (item: DocumentPickerResponse) => {
+  const viewAttachment = item => {
     const fileUri = item.fileCopyUri || item.uri;
     if (fileUri) {
       Linking.openURL(fileUri).catch(err =>
@@ -62,7 +66,7 @@ const GuidedPlayAttachments = () => {
         </View>
 
         {attachments.length > 0 ? (
-          <>
+          <View>
             <FlatList
               data={attachments}
               keyExtractor={(item, index) => index.toString()}
@@ -71,11 +75,11 @@ const GuidedPlayAttachments = () => {
                 <TouchableOpacity
                   activeOpacity={0.8}
                   style={styles.fileCard}
-                  onPress={() => viewAttachment(item)} // 👈 Tap to view
+                  // onPress={() => viewAttachment(item)}
                 >
                   <View style={styles.fileRow}>
                     <View style={styles.filePreview}>
-                      {item.type?.includes('image') ? (
+                      {isKnownType(item, 'image/*') ? (
                         <Image
                           source={{ uri: item.fileCopyUri || item.uri }}
                           style={styles.fileImage}
@@ -91,8 +95,8 @@ const GuidedPlayAttachments = () => {
 
                     <View style={styles.fileTextWrapper}>
                       <Text style={styles.fileName}>
-                        {item?.name.length > 25
-                          ? item.name.slice(0, 25) + `...`
+                        {item?.name?.length > 25
+                          ? item.name.slice(0, 25) + '...'
                           : item.name}
                       </Text>
                       <Text style={styles.fileHint}>Tap to View</Text>
@@ -119,7 +123,7 @@ const GuidedPlayAttachments = () => {
                 <Text style={styles.addMoreText}>Add Attachment(s)</Text>
               </TouchableOpacity>
             </View>
-          </>
+          </View>
         ) : (
           <View style={[styles.imageUploadBox, { borderStyle: 'dashed' }]}>
             <Image
@@ -146,7 +150,7 @@ const GuidedPlayAttachments = () => {
 
 export default GuidedPlayAttachments;
 
-// --- styles remain same from last version ---
+// --- styles ---
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.white },
   innerWrapper: { width: '100%', alignSelf: 'center' },
@@ -184,6 +188,17 @@ const styles = StyleSheet.create({
     height: RFPercentage(7),
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: COLORS.white,
+    borderRadius: RFPercentage(1),
+    // ✅ Shadow for iOS
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 3.84,
   },
   fileImage: {
     width: RFPercentage(5.5),
@@ -208,7 +223,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
-    marginTop: RFPercentage(2),
+    marginTop: RFPercentage(4),
   },
   addMoreText: {
     color: COLORS.primary,
