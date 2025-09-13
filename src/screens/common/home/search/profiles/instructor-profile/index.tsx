@@ -137,13 +137,27 @@ const InstructorProfile = ({ navigation }: any) => {
           </View>
 
           <View style={styles.sectionMargin}>
-            <CommonGroup />
+            <CommonGroup onPress={() => navigation.navigate('CommonGroups')} />
           </View>
           <View style={styles.sectionMargin}>
-            <CommonGroup futureEvents />
+            <CommonGroup
+              futureEvents
+              onPress={() =>
+                navigation.navigate('CommonEvents', {
+                  title: 'Next Events To Attend',
+                })
+              }
+            />
           </View>
           <View style={styles.sectionMargin}>
-            <CommonGroup pastEvents />
+            <CommonGroup
+              pastEvents
+              onPress={() =>
+                navigation.navigate('CommonEvents', {
+                  title: 'Past Events Attended',
+                })
+              }
+            />
           </View>
         </View>
       </ScrollView>

@@ -1,15 +1,15 @@
 import {
   FlatList,
   StyleSheet,
-  Text,
   View,
-  Keyboard,
+  Text,
   TouchableWithoutFeedback,
+  Keyboard,
   Modal,
   TouchableOpacity,
 } from 'react-native';
 import React, { useState, useMemo } from 'react';
-import { COLORS, FONTS, ICONS, IMAGES } from '../../../../../../config/theme';
+import { COLORS, FONTS, IMAGES } from '../../../../../../config/theme';
 import Nav from '../../../../../../components/Nav';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import AdminCard from '../../../../../../components/AdminCard';
@@ -44,7 +44,7 @@ const admins = [
   },
 ];
 
-const GroupMembers = ({ navigation }: any) => {
+const EventCoHosts = ({ navigation }: any) => {
   const [visibleTooltipId, setVisibleTooltipId] = useState(null);
   const [query, setQuery] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
@@ -67,7 +67,7 @@ const GroupMembers = ({ navigation }: any) => {
       <View style={{ flex: 1 }}>
         <View style={styles.container}>
           <Nav
-            title="Group Members"
+            title="Co - Hosts"
             style={styles.navTitle}
             onPress={() => navigation.goBack()}
           />
@@ -81,8 +81,8 @@ const GroupMembers = ({ navigation }: any) => {
               <FlatList
                 data={filteredAdmins}
                 keyExtractor={item => item.id.toString()}
-                contentContainerStyle={{ paddingBottom: RFPercentage(2) }}
                 keyboardShouldPersistTaps="always"
+                contentContainerStyle={{ paddingBottom: RFPercentage(1) }}
                 ListEmptyComponent={
                   <Text
                     style={{
@@ -90,31 +90,33 @@ const GroupMembers = ({ navigation }: any) => {
                       marginTop: RFPercentage(5),
                       color: COLORS.grey4,
                       fontFamily: FONTS.regular,
-                      fontSize: RFPercentage(1.7),
+                      fontSize: RFPercentage(1.8),
                     }}
                   >
-                    No member found
+                    No Co-Host found
                   </Text>
                 }
-                renderItem={({ item }) => (
-                  <View style={{ marginTop: RFPercentage(2) }}>
-                    <AdminCard
-                      title={item.name}
-                      subTitle={item.since}
-                      profile
-                      member={true}
-                      self={item.you}
-                      userId={item.id}
-                      visibleTooltipId={visibleTooltipId}
-                      setVisibleTooltipId={setVisibleTooltipId}
-                      admin
-                      onRemove={() => {
-                        setSelectedAdmin(item);
-                        setModalVisible(true);
-                      }}
-                    />
-                  </View>
-                )}
+                renderItem={({ item }) => {
+                  return (
+                    <View style={{ marginTop: RFPercentage(2) }}>
+                      <AdminCard
+                        title={item.name}
+                        subTitle={item.since}
+                        admin={true}
+                        self={item.you}
+                        profile
+                        userId={item.id}
+                        visibleTooltipId={visibleTooltipId}
+                        setVisibleTooltipId={setVisibleTooltipId}
+                        onRemove={() => {
+                          setSelectedAdmin(item);
+                          setModalVisible(true);
+                        }}
+                        event={true}
+                      />
+                    </View>
+                  );
+                }}
               />
             </View>
           </View>
@@ -158,7 +160,7 @@ const GroupMembers = ({ navigation }: any) => {
                     fontSize: RFPercentage(1.9),
                   }}
                 >
-                  Remove {selectedAdmin?.name} from this group?
+                  Remove {selectedAdmin?.name} from event?
                 </Text>
                 <TouchableOpacity
                   activeOpacity={0.8}
@@ -210,7 +212,7 @@ const GroupMembers = ({ navigation }: any) => {
   );
 };
 
-export default GroupMembers;
+export default EventCoHosts;
 
 const styles = StyleSheet.create({
   container: {
@@ -224,7 +226,7 @@ const styles = StyleSheet.create({
   contentWrapper: {
     width: '90%',
     alignSelf: 'center',
-    marginTop: RFPercentage(2.5),
+    marginTop: RFPercentage(3),
     flex: 1,
   },
   sectionTitle: {
@@ -252,7 +254,7 @@ const styles = StyleSheet.create({
   bottomWrapper: {
     width: '100%',
     paddingVertical: RFPercentage(2),
-    borderTopWidth: RFPercentage(0.1),
+    borderTopWidth: 1,
     borderTopColor: COLORS.lightWhite,
     backgroundColor: COLORS.white,
     paddingBottom: RFPercentage(4),

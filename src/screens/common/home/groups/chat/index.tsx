@@ -26,8 +26,9 @@ import CustomButton from '../../../../../components/CustomButton';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { pick } from '@react-native-documents/picker';
-// import Contacts from 'react-native-contacts';
-import LinearGradient from 'react-native-linear-gradient';
+import CreateEvent from '../../../../../components/CreateEvent';
+import { useDispatch, useSelector } from 'react-redux';
+import { setEventType } from '../../../../../redux/event-type/Actions';
 
 moment.updateLocale('en', {
   relativeTime: {
@@ -48,34 +49,19 @@ moment.updateLocale('en', {
   },
 });
 
-const ChatScreen = ({ route }: any) => {
+const ChatScreen = ({ route, navigation }: any) => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
-  const navigation = useNavigation();
   const { isGroup, isNew } = route.params;
   const [attachmentModalVisible, setAttachmentModalVisible] = useState(false);
-  const [keyboardVisible, setKeyboardVisible] = useState(false);
-  const giftedChatRef = useRef(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedType, setSelectedType] = useState('');
+  const dispatch = useDispatch();
+  const role = useSelector(state => state.userFlow.userFlow);
 
-  useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow',
-      () => {
-        setKeyboardVisible(true);
-      },
-    );
-    const keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide',
-      () => {
-        setKeyboardVisible(false);
-      },
-    );
-
-    return () => {
-      keyboardDidShowListener.remove();
-      keyboardDidHideListener.remove();
-    };
-  }, []);
+  const openModal = () => {
+    setIsModalVisible(true);
+  };
 
   const onShare = async () => {
     try {
@@ -428,7 +414,12 @@ const ChatScreen = ({ route }: any) => {
                     right: 0,
                   }}
                 >
-                  <TouchableOpacity activeOpacity={0.8}>
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() => {
+                      openModal();
+                    }}
+                  >
                     <Image
                       source={ICONS.calender2}
                       resizeMode="contain"
@@ -437,7 +428,7 @@ const ChatScreen = ({ route }: any) => {
                   </TouchableOpacity>
                   <TouchableOpacity
                     activeOpacity={0.8}
-                    // onPress={() => navigation.navigate('GroupDetails')}
+                    onPress={() => navigation.navigate('AddMembers')}
                   >
                     <Image
                       source={ICONS.userAdd}
@@ -452,7 +443,12 @@ const ChatScreen = ({ route }: any) => {
               </>
             ) : (
               <>
-                <TouchableOpacity style={styles.dotsButton} onPress={() => {}}>
+                <TouchableOpacity
+                  style={styles.dotsButton}
+                  onPress={() => {
+                    openModal();
+                  }}
+                >
                   <Image
                     source={ICONS.calender2}
                     resizeMode="contain"
@@ -486,7 +482,7 @@ const ChatScreen = ({ route }: any) => {
               listViewProps={{
                 ListHeaderComponent: () =>
                   messages.length === 0 && isNew && isGroup ? (
-                    <View style={{marginBottom:RFPercentage(20)}}>
+                    <View style={{ marginBottom: RFPercentage(20) }}>
                       <View style={styles.todayBadge}>
                         <Text style={styles.todayText}>Today</Text>
                       </View>
@@ -506,7 +502,11 @@ const ChatScreen = ({ route }: any) => {
                           Group - 2 Members
                         </Text>
                         <View style={styles.buttonContainer}>
-                          <CustomButton title="Add Members" icon={ICONS.plus} />
+                          <CustomButton
+                            title="Add Members"
+                            icon={ICONS.plus}
+                            onPress={() => navigation.navigate('AddMembers')}
+                          />
                         </View>
                         <View style={styles.secondButtonContainer}>
                           <CustomButton
@@ -678,6 +678,41 @@ const ChatScreen = ({ route }: any) => {
             </View>
           </TouchableWithoutFeedback>
         </Modal>
+
+        <CreateEvent
+          visible={isModalVisible}
+          onClose={() => setIsModalVisible(false)}
+          title="Select Event Type"
+          selectedValue={selectedType}
+          onSelect={(value: any) => {
+            setSelectedType(value);
+            dispatch(setEventType(value));
+          }}
+          onConfirm={() => {
+            setIsModalVisible(false);
+            if (selectedType === 'Open Play') {
+              navigation.navigate('InvitePlayer');
+            } else if (
+              selectedType === 'Mahjong Lessons' &&
+              role === 'Instructor'
+            ) {
+              navigation.navigate('SelectPlayersInstructor');
+            } else if (
+              selectedType === 'Mahjong Lessons' &&
+              role === 'Player'
+            ) {
+              navigation.navigate('CreateLessonPlayer');
+            } else if (selectedType === 'Guided Play') {
+              navigation.navigate('GuidedPlay', {
+                players: false,
+                groups: false,
+                link: true,
+              });
+            } else {
+              setIsModalVisible(false);
+            }
+          }}
+        />
       </View>
     </TouchableWithoutFeedback>
   );

@@ -49,6 +49,14 @@ import PayPal from '../../screens/common/home/payouts/paypal';
 import Stripe from '../../screens/common/home/payouts/stripe';
 import BankAccounts from '../../screens/common/home/payouts/bank-accounts';
 import UserDetails from '../../screens/common/home/groups/chat/user-details';
+import ForgetPassword from '../../screens/common/auth/forget-password';
+import PrivacyPolicy from '../../screens/common/auth/privacy';
+import CommonGroups from '../../screens/common/home/search/profiles/common/groups';
+import CommonEvents from '../../screens/common/home/search/profiles/common/events';
+import AddMembers from '../../screens/common/home/groups/create-groups/add-member';
+import EventCoHosts from '../../screens/common/home/events/event-details/co-hosts';
+import EventAttendeesV2 from '../../screens/common/home/events/event-details/event-attendees';
+import EventAttachments from '../../screens/common/home/events/event-details/event-attachments';
 
 export type RootStackParamList = {
   OnBoarding: undefined;
@@ -98,6 +106,14 @@ export type RootStackParamList = {
   Stripe: undefined;
   BankAccounts: undefined;
   UserDetails: undefined;
+  ForgetPassword: undefined;
+  PrivacyPolicy: undefined;
+  CommonGroups: undefined;
+  CommonEvents: undefined;
+  AddMembers: undefined;
+  EventCoHosts: undefined;
+  EventAttendeesV2: undefined;
+  EventAttachments: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -110,6 +126,7 @@ const Navigator: React.FC = () => {
           headerShown: false,
         }}
       >
+        <Stack.Screen name="InstructorTabs" component={InstructorTabs} />
 
         {/* ----------------Common Flow----------- */}
         <Stack.Screen name="OnBoarding" component={OnBoarding} />
@@ -134,6 +151,14 @@ const Navigator: React.FC = () => {
         <Stack.Screen name="EventDetails" component={EventDetails} />
         <Stack.Screen name="Payouts" component={Payouts} />
         <Stack.Screen name="UserDetails" component={UserDetails} />
+        <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
+        <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
+        <Stack.Screen name="CommonGroups" component={CommonGroups} />
+        <Stack.Screen name="CommonEvents" component={CommonEvents} />
+        <Stack.Screen name="AddMembers" component={AddMembers} />
+        <Stack.Screen name="EventCoHosts" component={EventCoHosts} />
+        <Stack.Screen name="EventAttendeesV2" component={EventAttendeesV2} />
+        <Stack.Screen name="EventAttachments" component={EventAttachments} />
 
         <Stack.Screen
           name="DirectChatSelection"
@@ -179,7 +204,7 @@ const Navigator: React.FC = () => {
         />
 
         {/* ------------------------Instructor Flow------------------- */}
-        <Stack.Screen name="InstructorTabs" component={InstructorTabs} />
+        {/* <Stack.Screen name="InstructorTabs" component={InstructorTabs} /> */}
         <Stack.Screen
           name="InstructorProfileSetup"
           component={InstructorProfileSetup}

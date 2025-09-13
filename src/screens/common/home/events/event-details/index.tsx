@@ -164,7 +164,7 @@ const EventDetails = ({ navigation }: any) => {
 
           {/* Co-Hosts */}
           <View style={{ marginTop: RFPercentage(4.5) }}>
-            <TouchableOpacity activeOpacity={0.8} style={styles.card}>
+            <TouchableOpacity activeOpacity={0.8} style={styles.card} onPress={()=> navigation.navigate("EventCoHosts")}>
               <View style={styles.cardInner}>
                 <View>
                   <Text style={styles.cardTitle}>Co - Hosts</Text>
@@ -196,11 +196,11 @@ const EventDetails = ({ navigation }: any) => {
           </View>
 
           {/* Attendees */}
-          <DetailComponent title="Attendees" onPress={() => {}} />
+          <DetailComponent title="Attendees" onPress={() => {navigation.navigate("EventAttendeesV2")}} />
 
           {/* Attachments */}
           <View style={styles.sectionSpacing}>
-            <TouchableOpacity activeOpacity={0.8} style={styles.attachmentCard}>
+            <TouchableOpacity activeOpacity={0.8} style={styles.attachmentCard} onPress={()=> navigation.navigate("EventAttachments")}>
               <View style={styles.cardInner}>
                 <View>
                   <Text style={styles.cardTitle}>Attachments</Text>
@@ -292,9 +292,7 @@ const EventDetails = ({ navigation }: any) => {
             </View>
             <View style={{ marginTop: RFPercentage(2) }}>
               <CustomButton
-                onPress={() => {
-                  // navigation.navigate('InviteFriends');
-                }}
+                  onPress={onShare}
                 title="Invite Friends"
               />
 

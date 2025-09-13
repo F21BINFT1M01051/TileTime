@@ -44,7 +44,7 @@ const admins = [
   },
 ];
 
-const GroupMembers = ({ navigation }: any) => {
+const EventAttendeesV2 = ({ navigation }: any) => {
   const [visibleTooltipId, setVisibleTooltipId] = useState(null);
   const [query, setQuery] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
@@ -67,7 +67,7 @@ const GroupMembers = ({ navigation }: any) => {
       <View style={{ flex: 1 }}>
         <View style={styles.container}>
           <Nav
-            title="Group Members"
+            title="Attendees"
             style={styles.navTitle}
             onPress={() => navigation.goBack()}
           />
@@ -93,7 +93,7 @@ const GroupMembers = ({ navigation }: any) => {
                       fontSize: RFPercentage(1.7),
                     }}
                   >
-                    No member found
+                    No Attendee found
                   </Text>
                 }
                 renderItem={({ item }) => (
@@ -112,6 +112,7 @@ const GroupMembers = ({ navigation }: any) => {
                         setSelectedAdmin(item);
                         setModalVisible(true);
                       }}
+                      event
                     />
                   </View>
                 )}
@@ -210,7 +211,7 @@ const GroupMembers = ({ navigation }: any) => {
   );
 };
 
-export default GroupMembers;
+export default EventAttendeesV2;
 
 const styles = StyleSheet.create({
   container: {

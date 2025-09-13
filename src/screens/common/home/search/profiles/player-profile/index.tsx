@@ -145,13 +145,13 @@ const PlayerProfile = ({ navigation }: any) => {
 
           {/* Common Info */}
           <View style={styles.sectionMargin}>
-            <CommonGroup />
+            <CommonGroup onPress={() => navigation.navigate('CommonGroups')} />
           </View>
           <View style={styles.sectionMargin}>
-            <CommonGroup futureEvents />
+            <CommonGroup futureEvents onPress={()=> navigation.navigate("CommonEvents", {title : "Next Events To Attend"})} />
           </View>
           <View style={styles.sectionMargin}>
-            <CommonGroup pastEvents />
+            <CommonGroup pastEvents onPress={()=> navigation.navigate("CommonEvents", {title : "Past Events Attended"})} />
           </View>
         </View>
 
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: Platform.OS === 'android' ? RFPercentage(7) : RFPercentage(7.6),
   },
-  mainContent: { width: '90%', alignSelf: 'center', bottom: RFPercentage(5)},
+  mainContent: { width: '90%', alignSelf: 'center', bottom: RFPercentage(5) },
   avatarOuterLayer: {
     width: RFPercentage(11),
     height: RFPercentage(12.5),

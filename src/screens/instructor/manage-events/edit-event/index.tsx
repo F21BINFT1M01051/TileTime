@@ -209,7 +209,7 @@ const EditEventBasic = () => {
       </ScrollView>
       <View style={styles.bottomBar}>
         <View style={styles.bottomContent}>
-          <CustomButton title="Save And Next" onPress={() => {}} />
+          <CustomButton title="Save" onPress={() => {}} />
         </View>
       </View>
     </View>

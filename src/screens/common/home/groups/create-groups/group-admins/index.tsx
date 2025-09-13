@@ -5,6 +5,8 @@ import {
   Text,
   TouchableWithoutFeedback,
   Keyboard,
+  Modal,
+  TouchableOpacity,
 } from 'react-native';
 import React, { useState, useMemo } from 'react';
 import { COLORS, FONTS, IMAGES } from '../../../../../../config/theme';
@@ -12,7 +14,7 @@ import Nav from '../../../../../../components/Nav';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import AdminCard from '../../../../../../components/AdminCard';
 import SearchField from '../../../../../../components/SearchField';
-import CustomButton from '../../../../../../components/CustomButton';
+import { BlurView } from '@react-native-community/blur';
 
 const admins = [
   {
@@ -43,7 +45,15 @@ const admins = [
 ];
 
 const GroupAdmins = ({ navigation }: any) => {
+  const [visibleTooltipId, setVisibleTooltipId] = useState(null);
   const [query, setQuery] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedAdmin, setSelectedAdmin] = useState(null);
+
+  const dismissAll = () => {
+    Keyboard.dismiss();
+    setVisibleTooltipId(null);
+  };
 
   const filteredAdmins = useMemo(() => {
     if (!query.trim()) return admins;
@@ -53,62 +63,149 @@ const GroupAdmins = ({ navigation }: any) => {
   }, [query]);
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
-        <Nav
-          title="Group Admins"
-          style={styles.navTitle}
-          onPress={() => navigation.goBack()}
-        />
-        <View style={styles.contentWrapper}>
-          <SearchField
-            placeholder="Search by name"
-            value={query}
-            onChangeText={setQuery}
+    <TouchableWithoutFeedback onPress={dismissAll}>
+      <View style={{flex:1}}>
+        <View style={styles.container}>
+          <Nav
+            title="Group Admins"
+            style={styles.navTitle}
+            onPress={() => navigation.goBack()}
           />
-          <View style={styles.subSectionSpacing}>
-            <FlatList
-              data={filteredAdmins}
-              keyExtractor={item => item.id.toString()}
-              keyboardShouldPersistTaps="always"
-              contentContainerStyle={{ paddingBottom: RFPercentage(1) }}
-              ListEmptyComponent={
+          <View style={styles.contentWrapper}>
+            <SearchField
+              placeholder="Search by name"
+              value={query}
+              onChangeText={setQuery}
+            />
+            <View style={styles.subSectionSpacing}>
+              <FlatList
+                data={filteredAdmins}
+                keyExtractor={item => item.id.toString()}
+                keyboardShouldPersistTaps="always"
+                contentContainerStyle={{ paddingBottom: RFPercentage(1) }}
+                ListEmptyComponent={
+                  <Text
+                    style={{
+                      textAlign: 'center',
+                      marginTop: RFPercentage(5),
+                      color: COLORS.grey4,
+                      fontFamily: FONTS.regular,
+                      fontSize: RFPercentage(1.8),
+                    }}
+                  >
+                    No admin found
+                  </Text>
+                }
+                renderItem={({ item }) => {
+                  return (
+                    <View style={{ marginTop: RFPercentage(2) }}>
+                      <AdminCard
+                        title={item.name}
+                        subTitle={item.since}
+                        admin={true}
+                        self={item.you}
+                        profile
+                        userId={item.id}
+                        visibleTooltipId={visibleTooltipId}
+                        setVisibleTooltipId={setVisibleTooltipId}
+                        onRemove={() => {
+                          setSelectedAdmin(item);
+                          setModalVisible(true);
+                        }}
+                      />
+                    </View>
+                  );
+                }}
+              />
+            </View>
+          </View>
+        </View>
+        <Modal
+          visible={modalVisible}
+          onRequestClose={() => setModalVisible(false)}
+          animationType="fade"
+          transparent
+        >
+          <BlurView
+            style={StyleSheet.absoluteFill}
+            blurType="dark"
+            blurAmount={5}
+            reducedTransparencyFallbackColor="white"
+          />
+          <TouchableWithoutFeedback>
+            <View
+              style={{
+                position: 'absolute',
+                bottom: RFPercentage(5),
+                width: '90%',
+                alignSelf: 'center',
+              }}
+            >
+              <View
+                style={{
+                  width: '100%',
+                  height: RFPercentage(12),
+                  borderRadius: RFPercentage(2.5),
+                  backgroundColor: COLORS.white,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
                 <Text
                   style={{
-                    textAlign: 'center',
-                    marginTop: RFPercentage(5),
-                    color: COLORS.grey4,
+                    color: COLORS.primary,
                     fontFamily: FONTS.regular,
-                    fontSize: RFPercentage(1.8),
+                    textAlign: 'center',
+                    fontSize: RFPercentage(1.9),
                   }}
                 >
-                  No admin found
+                  Remove {selectedAdmin?.name} from this group?
                 </Text>
-              }
-              renderItem={({ item }) => {
-                return (
-                  <View style={{ marginTop: RFPercentage(2) }}>
-                    <AdminCard
-                      title={item.name}
-                      subTitle={item.since}
-                      admin={true}
-                      self={item.you}
-                      profile
-                      userId={item.id}
-                      visibleTooltipId={null}
-                      setVisibleTooltipId={() => {}}
-                    />
-                  </View>
-                );
-              }}
-            />
-          </View>
-        </View>
-        <View style={styles.bottomWrapper}>
-          <View style={styles.buttonContainer}>
-            <CustomButton title="Save" onPress={() => {}} />
-          </View>
-        </View>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => setModalVisible(false)}
+                >
+                  <Text
+                    style={{
+                      color: COLORS.red,
+                      fontFamily: FONTS.semiBold,
+                      textAlign: 'center',
+                      fontSize: RFPercentage(2),
+                      marginTop: RFPercentage(2.7),
+                    }}
+                  >
+                    Remove
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => setModalVisible(false)}
+                style={{
+                  width: '100%',
+                  height: RFPercentage(6),
+                  alignItems: 'center',
+                  justifyContent: 'center',
+
+                  backgroundColor: COLORS.white,
+                  borderRadius: RFPercentage(2),
+                  marginTop: RFPercentage(2),
+                }}
+              >
+                <Text
+                  style={{
+                    color: COLORS.primary,
+                    fontFamily: FONTS.bold,
+                    textAlign: 'center',
+                    fontSize: RFPercentage(2),
+                  }}
+                >
+                  Cancel
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </TouchableWithoutFeedback>
+        </Modal>
       </View>
     </TouchableWithoutFeedback>
   );

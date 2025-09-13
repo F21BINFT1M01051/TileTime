@@ -108,7 +108,7 @@ const EventLiveLessons = ({ visible, onClose, title, subtitle }: any) => {
               <View style={styles.modalFooter}>
                 <View style={styles.modalFooterInner}>
                   <SocialField
-                    name="Go to Dashboard"
+                    name="Go to Home"
                     onPress={() => {
                       onClose();
                      navigation.navigate('InstructorTabs');

@@ -18,6 +18,8 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 import SearchField from '../../../../components/SearchField';
 import { BlurView } from '@react-native-community/blur';
 import SocialField from '../../../../components/SocialField';
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import Share from 'react-native-share';
 
 const { height } = Dimensions.get('window');
 
@@ -119,6 +121,66 @@ const EventAttendees = () => {
     return matchesSearch && matchesFilter;
   });
 
+  const exportAttendeesPDF = async () => {
+    try {
+      // HTML content for the PDF
+      let htmlContent = `
+      <h1>Attendees List</h1>
+      <table style="width:100%; border-collapse: collapse;">
+        <tr>
+          <th style="border:1px solid #000; padding:8px;">Name</th>
+          <th style="border:1px solid #000; padding:8px;">Status</th>
+          <th style="border:1px solid #000; padding:8px;">Since</th>
+        </tr>
+        ${filteredAttendees
+          .map(
+            item => `
+            <tr>
+              <td style="border:1px solid #000; padding:8px;">${item.name}</td>
+              <td style="border:1px solid #000; padding:8px;">${item.status}</td>
+              <td style="border:1px solid #000; padding:8px;">${item.since}</td>
+            </tr>`,
+          )
+          .join('')}
+      </table>
+    `;
+
+      // Generate PDF
+      const options = {
+        html: htmlContent,
+        fileName: 'attendees_list',
+        directory: 'Documents',
+      };
+
+      const file = await RNHTMLtoPDF.convert(options);
+
+      // Share PDF
+      await Share.open({
+        title: 'Attendees List',
+        url: `file://${file.filePath}`,
+        type: 'application/pdf',
+      });
+    } catch (error) {
+      console.log('Error generating PDF:', error);
+    }
+  };
+
+ const createPDF = async () => {
+    try {
+      let options = {
+        html: '<h1>PDF TEST</h1>',
+        fileName: 'test',
+        base64: true,
+        directory: 'Documents',
+      };
+
+      let results = await RNHTMLtoPDF.convert(options); // Correct method
+      console.log('PDF file path:', results.filePath);
+    } catch (error) {
+      console.log('Error generating PDF:', error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <AuthHeader
@@ -126,8 +188,12 @@ const EventAttendees = () => {
         style={styles.headerTitle}
         right={true}
         rightIcon={ICONS.upload2}
+        onPress2={exportAttendeesPDF}
       />
-      <ScrollView   keyboardShouldPersistTaps="always" showsVerticalScrollIndicator={false}>
+      <ScrollView
+        keyboardShouldPersistTaps="always"
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.searchWrapper}>
           <SearchField
             placeholder="Search by name"
@@ -140,7 +206,6 @@ const EventAttendees = () => {
         <View style={styles.filterContainer}>
           <FlatList
             data={Filters}
-         
             keyExtractor={item => item.id.toString()}
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -168,7 +233,10 @@ const EventAttendees = () => {
                           ? COLORS.white
                           : COLORS.grey4,
 
-                           fontFamily:  activeFilter === item.name ? FONTS.semiBold : FONTS.medium,
+                      fontFamily:
+                        activeFilter === item.name
+                          ? FONTS.semiBold
+                          : FONTS.medium,
                     },
                   ]}
                 >
@@ -183,7 +251,7 @@ const EventAttendees = () => {
         <View style={styles.attendeesWrapper}>
           <FlatList
             data={filteredAttendees}
-               keyboardShouldPersistTaps="always"
+            keyboardShouldPersistTaps="always"
             keyExtractor={item => item.id.toString()}
             renderItem={({ item }) => (
               <View style={styles.attendeeCard}>
@@ -311,7 +379,7 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(3),
     marginRight: RFPercentage(1),
   },
-  filterText: { fontSize: RFPercentage(1.7) , lineHeight:RFPercentage(1.7)},
+  filterText: { fontSize: RFPercentage(1.7), lineHeight: RFPercentage(1.7) },
   attendeesWrapper: {
     width: '90%',
     alignSelf: 'center',

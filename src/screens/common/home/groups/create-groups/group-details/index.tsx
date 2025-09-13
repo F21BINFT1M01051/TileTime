@@ -7,6 +7,8 @@ import {
   Image,
   ScrollView,
   Platform,
+  Modal,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import React, { useState } from 'react';
 import { COLORS, IMAGES, FONTS, ICONS } from '../../../../../../config/theme';
@@ -19,10 +21,16 @@ import SettingsButton from '../../../../../../components/SettingsButton';
 import SocialField from '../../../../../../components/SocialField';
 import CreateEvent from '../../../../../../components/CreateEvent';
 import LinearGradient from 'react-native-linear-gradient';
+import { useDispatch, useSelector } from 'react-redux';
+import { setEventType } from '../../../../../../redux/event-type/Actions';
+import { BlurView } from '@react-native-community/blur';
 
 const GroupDetails = ({ navigation }: any) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedType, setSelectedType] = useState('');
+  const dispatch = useDispatch();
+  const role = useSelector(state => state.userFlow.userFlow);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const openModal = () => {
     setIsModalVisible(true);
@@ -50,7 +58,11 @@ const GroupDetails = ({ navigation }: any) => {
               navigation.navigate('GroupDetails');
             }}
           >
-            <View style={styles.editButton}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => navigation.navigate('CreateGroup')}
+              style={styles.editButton}
+            >
               <Image
                 source={ICONS.pen}
                 resizeMode="contain"
@@ -61,7 +73,7 @@ const GroupDetails = ({ navigation }: any) => {
                 }}
               />
               <Text style={styles.editText}>Edit</Text>
-            </View>
+            </TouchableOpacity>
           </TouchableOpacity>
         </View>
       </View>
@@ -102,7 +114,7 @@ const GroupDetails = ({ navigation }: any) => {
                 title="Add Member"
                 icon={ICONS.add}
                 style={styles.customButton}
-                onPress={() => {}}
+                onPress={() => navigation.navigate('AddMembers')}
               />
             </View>
             <View style={styles.buttonWrapper}>
@@ -125,7 +137,9 @@ const GroupDetails = ({ navigation }: any) => {
             <DetailComponent
               title="Media and Documents"
               media={true}
-              onPress={() => {navigation.navigate("ChatMedia")}}
+              onPress={() => {
+                navigation.navigate('ChatMedia');
+              }}
             />
           </View>
           <View style={styles.sectionMarginTop3}>
@@ -159,7 +173,7 @@ const GroupDetails = ({ navigation }: any) => {
             color={COLORS.red}
             icon={ICONS.trash}
             borderColor={COLORS.red}
-            navigation=""
+            onPress={() => setModalVisible(true)}
           />
         </View>
       </ScrollView>
@@ -169,12 +183,139 @@ const GroupDetails = ({ navigation }: any) => {
         onClose={() => setIsModalVisible(false)}
         title="Select Event Type"
         selectedValue={selectedType}
-        onSelect={setSelectedType}
+        onSelect={(value: any) => {
+          setSelectedType(value);
+          dispatch(setEventType(value));
+        }}
         onConfirm={() => {
           setIsModalVisible(false);
-          navigation.navigate('InvitePlayer');
+          if (selectedType === 'Open Play') {
+            navigation.navigate('InvitePlayer');
+          } else if (
+            selectedType === 'Mahjong Lessons' &&
+            role === 'Instructor'
+          ) {
+            navigation.navigate('SelectPlayersInstructor');
+          } else if (selectedType === 'Mahjong Lessons' && role === 'Player') {
+            navigation.navigate('CreateLessonPlayer');
+          } else if (selectedType === 'Guided Play') {
+            navigation.navigate('GuidedPlay', {
+              players: false,
+              groups: false,
+              link: true,
+            });
+          } else {
+            setIsModalVisible(false);
+          }
         }}
       />
+
+      <Modal
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+        animationType="fade"
+        transparent
+      >
+        <BlurView
+          style={StyleSheet.absoluteFill}
+          blurType="dark"
+          blurAmount={5}
+          reducedTransparencyFallbackColor="white"
+        />
+        <TouchableWithoutFeedback>
+          <View
+            style={{
+              width: '90%',
+              alignSelf: 'center',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: '100%',
+            }}
+          >
+            <View
+              style={{
+                width: '90%',
+                borderRadius: RFPercentage(3),
+                backgroundColor: COLORS.white,
+                alignItems: 'center',
+                justifyContent: 'center',
+                paddingVertical: RFPercentage(4),
+                paddingBottom:RFPercentage(3)
+              }}
+            >
+              <Text
+                style={{
+                  color: COLORS.primary,
+                  fontFamily: FONTS.medium,
+                  textAlign: 'center',
+                  fontSize: RFPercentage(2.1),
+                }}
+              >
+                Delete this Group?
+              </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginTop: RFPercentage(3.4),
+                }}
+              >
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => setModalVisible(false)}
+                  style={{
+                    width: '38%',
+                    height: RFPercentage(5),
+                    borderWidth: 1,
+                    borderColor: COLORS.primary,
+                    borderRadius: RFPercentage(2),
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginRight: RFPercentage(3),
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: COLORS.primary,
+                      fontFamily: FONTS.bold,
+                      textAlign: 'center',
+                      fontSize: RFPercentage(2),
+                    }}
+                  >
+                    Don’t Delete
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => setModalVisible(false)}
+                  style={{
+                    width: '38%',
+                    height: RFPercentage(5),
+                    borderWidth: 1,
+                    borderColor: COLORS.red,
+                    borderRadius: RFPercentage(2),
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: COLORS.red,
+                      fontFamily: FONTS.bold,
+                      textAlign: 'center',
+                      fontSize: RFPercentage(2.1),
+                    }}
+                  >
+                    Delete
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
     </View>
   );
 };
@@ -223,7 +364,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     width: '90%',
     alignSelf: 'center',
-    bottom:RFPercentage(5)
+    bottom: RFPercentage(5),
   },
   largeGroupIconContainer: {
     width: RFPercentage(12),
@@ -234,8 +375,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: RFPercentage(100),
     borderBottomRightRadius: RFPercentage(100),
     borderTopRightRadius: RFPercentage(100),
-    marginTop:RFPercentage(5),
-    marginLeft:RFPercentage(2.5)
+    marginTop: RFPercentage(5),
+    marginLeft: RFPercentage(2.5),
   },
   largeGroupIcon: {
     width: RFPercentage(11.9),
@@ -255,8 +396,9 @@ const styles = StyleSheet.create({
   groupDesc: {
     fontFamily: FONTS.regular,
     color: COLORS.primary,
-    fontSize: RFPercentage(2),
+    fontSize: RFPercentage(1.9),
     marginTop: RFPercentage(1),
+    lineHeight: RFPercentage(2.1),
   },
   buttonRow: {
     width: '100%',

@@ -27,6 +27,8 @@ interface Props {
   visibleTooltipId?: string | number | null;
   setVisibleTooltipId?: (id: string | number | null) => void;
   userId?: string | number;
+  onRemove?: () => void;
+  event?: boolean;
 }
 
 const AdminCard = (props: Props) => {
@@ -130,7 +132,7 @@ const AdminCard = (props: Props) => {
           <View style={styles.adminBadge}>
             <Text style={styles.adminBadgeText}>Admin</Text>
           </View>
-        ) : props.admin ? (
+        ) : props.admin && !props.self ? (
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={toggleTooltip}
@@ -159,8 +161,16 @@ const AdminCard = (props: Props) => {
               <Text style={styles.view}>View Profile</Text>
             </TouchableOpacity>
             <View style={styles.divider}></View>
-            <TouchableOpacity>
-              <Text style={styles.remove}>Remove from Group</Text>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => {
+                props.setVisibleTooltipId(null);
+                props.onRemove && props.onRemove();
+              }}
+            >
+              <Text style={styles.remove}>
+                {`Remove from ${props.event ? 'Event' : 'Group'}`}
+              </Text>
             </TouchableOpacity>
           </View>
         )}
@@ -197,7 +207,7 @@ const styles = StyleSheet.create({
   admin: {
     color: COLORS.grey4,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.7),
     marginTop: RFPercentage(0.8),
   },
   subTitleText: {
@@ -216,7 +226,7 @@ const styles = StyleSheet.create({
   avatarOuterLayer: {
     width: RFPercentage(5),
     height: RFPercentage(6),
-    borderRadius: RFPercentage(2.5),
+    borderRadius: RFPercentage(2),
     backgroundColor: COLORS.purple,
     alignItems: 'center',
     justifyContent: 'center',
@@ -225,7 +235,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.green2,
     width: RFPercentage(5),
     height: RFPercentage(6),
-    borderRadius: RFPercentage(2.5),
+    borderRadius: RFPercentage(2),
     alignItems: 'center',
     justifyContent: 'center',
     right: RFPercentage(0.1),
@@ -234,7 +244,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.pink3,
     width: RFPercentage(5),
     height: RFPercentage(6),
-    borderRadius: RFPercentage(2.5),
+    borderRadius: RFPercentage(2),
     alignItems: 'center',
     justifyContent: 'center',
     right: RFPercentage(0.1),
@@ -242,7 +252,7 @@ const styles = StyleSheet.create({
   avatarImage: {
     width: RFPercentage(5),
     height: RFPercentage(6),
-    borderRadius: RFPercentage(2.5),
+    borderRadius: RFPercentage(2),
     right: RFPercentage(0.1),
   },
   nonMemberAvatarWrapper: {
@@ -266,7 +276,7 @@ const styles = StyleSheet.create({
     width: RFPercentage(7.5),
     height: RFPercentage(3),
     borderRadius: RFPercentage(100),
-    backgroundColor: "#ECEDFF",
+    backgroundColor: '#ECEDFF',
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.white3,
     alignItems: 'center',

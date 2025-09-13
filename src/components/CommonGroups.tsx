@@ -77,11 +77,12 @@ const past = [
 interface Props {
   pastEvents?: boolean;
   futureEvents?: boolean;
+  onPress ? : ()=> void
 }
 
 const CommonGroup = (props: Props) => {
   return (
-    <TouchableOpacity activeOpacity={0.8} style={styles.container}>
+    <TouchableOpacity  onPress={props.onPress} activeOpacity={0.8} style={styles.container}>
       <View style={styles.innerWrapper}>
         <View style={styles.headerRow}>
           <Text style={styles.title}>

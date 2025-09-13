@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ImageBackground,
+  Linking,
 } from 'react-native';
 import React, { useState } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -57,8 +58,8 @@ const Login = ({ navigation }: any) => {
         <ScrollView
           style={{ backgroundColor: COLORS.white, flex: 1 }}
           contentContainerStyle={{ flexGrow: 1 }}
-            showsVerticalScrollIndicator={false}
-            keyboardShouldPersistTaps="always"
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="always"
         >
           <ImageBackground
             source={IMAGES.auth}
@@ -177,7 +178,11 @@ const Login = ({ navigation }: any) => {
                       )}
                     </View>
 
-                    <TouchableOpacity style={styles.forgotPasswordButton}>
+                    <TouchableOpacity
+                      activeOpacity={0.8}
+                      onPress={() => navigation.navigate('ForgetPassword')}
+                      style={styles.forgotPasswordButton}
+                    >
                       <Text style={styles.forgotPasswordText}>
                         Forgot Password?
                       </Text>
@@ -211,10 +216,29 @@ const Login = ({ navigation }: any) => {
                   <Text style={styles.signupText}>Sign Up</Text>
                 </TouchableOpacity>
               </View>
-              <TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => navigation.navigate('PrivacyPolicy')}
+              >
                 <Text style={styles.footerText}>Privacy & Terms</Text>
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity
+              activeOpacity={0.8}
+                onPress={async () => {
+                  const email = 'alston@tiletime.com';
+                  const url = `mailto:${email}`;
+
+                  try {
+                    const supported = await Linking.canOpenURL(url);
+                    if (supported) {
+                      await Linking.openURL(url);
+                    } else {
+                    }
+                  } catch (err) {
+                    console.log('Error opening email link:', err);
+                  }
+                }}
+              >
                 <Text style={styles.footerText}>Contact Us</Text>
               </TouchableOpacity>
             </View>

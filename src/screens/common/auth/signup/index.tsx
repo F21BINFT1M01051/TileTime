@@ -10,6 +10,7 @@ import {
   Platform,
   ScrollView,
   ImageBackground,
+  Linking,
 } from 'react-native';
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -44,7 +45,7 @@ const SignUp = ({ navigation }: any) => {
       });
       return;
     } else {
-      Keyboard.dismiss()
+      Keyboard.dismiss();
       navigation.navigate('RoleSelection');
     }
   };
@@ -206,10 +207,29 @@ const SignUp = ({ navigation }: any) => {
                   <Text style={styles.signInLink}>Log In</Text>
                 </TouchableOpacity>
               </View>
-              <TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => navigation.navigate('PrivacyPolicy')}
+              >
                 <Text style={styles.footerText}>Privacy & Terms</Text>
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={async () => {
+                  const email = 'alston@tiletime.com';
+                  const url = `mailto:${email}`;
+
+                  try {
+                    const supported = await Linking.canOpenURL(url);
+                    if (supported) {
+                      await Linking.openURL(url);
+                    } else {
+                    }
+                  } catch (err) {
+                    console.log('Error opening email link:', err);
+                  }
+                }}
+              >
                 <Text style={styles.footerText}>Contact Us</Text>
               </TouchableOpacity>
             </View>

@@ -32,6 +32,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { pick } from '@react-native-documents/picker';
 // import Contacts from 'react-native-contacts';
+import { BlurView } from '@react-native-community/blur';
 
 const InstructorEventDetail = ({ navigation, route }: any) => {
   const { type } = route.params;
@@ -41,6 +42,7 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
   const [isOn, setIsOn] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [attachmentModalVisible, setAttachmentModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const openModal = () => {
     setIsModalVisible(true);
@@ -199,14 +201,14 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
 
             <View style={styles.dotsButton}>
               <View style={styles.editButton}>
-                <TouchableOpacity activeOpacity={0.8}>
+                <TouchableOpacity activeOpacity={0.8} onPress={()=> navigation.navigate("EventDetails")}>
                   <Image
                     source={ICONS.Eye}
                     resizeMode="contain"
                     style={styles.iconSmall}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={0.8}>
+                <TouchableOpacity activeOpacity={0.8} onPress={()=> setModalVisible(true)}>
                   <Image
                     source={ICONS.copy2}
                     resizeMode="contain"
@@ -650,6 +652,114 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
                     );
                   }}
                 />
+              </View>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
+
+      <Modal
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+        animationType="fade"
+        transparent
+      >
+        <BlurView
+          style={StyleSheet.absoluteFill}
+          blurType="dark"
+          blurAmount={5}
+          reducedTransparencyFallbackColor="white"
+        />
+        <TouchableWithoutFeedback>
+          <View
+            style={{
+              width: '90%',
+              alignSelf: 'center',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: '100%',
+            }}
+          >
+            <View
+              style={{
+                width: '90%',
+                borderRadius: RFPercentage(3),
+                backgroundColor: COLORS.white,
+                alignItems: 'center',
+                justifyContent: 'center',
+                paddingVertical: RFPercentage(4),
+                paddingBottom: RFPercentage(3),
+              }}
+            >
+              <Text
+                style={{
+                  color: COLORS.primary,
+                  fontFamily: FONTS.medium,
+                  textAlign: 'center',
+                  fontSize: RFPercentage(2.1),
+                }}
+              >
+               You want to duplicate this event?
+              </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginTop: RFPercentage(3.4),
+                }}
+              >
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => setModalVisible(false)}
+                  style={{
+                    width: '38%',
+                    height: RFPercentage(5),
+                    borderWidth: 1,
+                    borderColor: COLORS.primary,
+                    borderRadius: RFPercentage(2),
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginRight: RFPercentage(3),
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: COLORS.primary,
+                      fontFamily: FONTS.bold,
+                      textAlign: 'center',
+                      fontSize: RFPercentage(2),
+                    }}
+                  >
+                    Cancel
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => setModalVisible(false)}
+                  style={{
+                    width: '38%',
+                    height: RFPercentage(5),
+                    borderWidth: 1,
+                    borderColor: COLORS.primary,
+                    borderRadius: RFPercentage(2),
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor:COLORS.primary
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: COLORS.white,
+                      fontFamily: FONTS.bold,
+                      textAlign: 'center',
+                      fontSize: RFPercentage(2.1),
+                    }}
+                  >
+                    Yes
+                  </Text>
+                </TouchableOpacity>
               </View>
             </View>
           </View>

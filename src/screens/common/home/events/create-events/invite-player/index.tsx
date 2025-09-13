@@ -44,7 +44,7 @@ const InvitePlayer = ({ navigation }: any) => {
       <ScrollView>
         <View style={styles.contentContainer}>
           <Text style={styles.headingText}>
-          { `How would you like to get\nplayers in?`}
+            {`How would you like to get\nplayers in?`}
           </Text>
           <View style={styles.listContainer}>
             <FlatList
@@ -73,22 +73,6 @@ const InvitePlayer = ({ navigation }: any) => {
           </View>
         </View>
       </ScrollView>
-      <View style={styles.bottomBar}>
-        <View style={styles.bottomContent}>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => navigation.goBack()}
-            style={styles.backButton}
-          >
-            <Text style={styles.backButtonText}>Back</Text>
-          </TouchableOpacity>
-          <CustomButton
-            title="Save And Next"
-            style={styles.saveButton}
-            onPress={() => {}}
-          />
-        </View>
-      </View>
     </View>
   );
 };
@@ -131,7 +115,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   backButton: {
-    width: "30%",
+    width: '30%',
     height: RFPercentage(5.5),
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.primary,
@@ -145,6 +129,6 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.bold,
   },
   saveButton: {
-    width: "60%",
+    width: '60%',
   },
 });

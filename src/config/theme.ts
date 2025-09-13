@@ -230,6 +230,7 @@ export const ICONS = {
   chase: require('../assets/icons/chase.png'),
   america: require('../assets/icons/america.png'),
   warn: require('../assets/icons/warn.png'),
+  mail: require('../assets/icons/verify-mail.png'),
 };
 
 export const FONTS = {
