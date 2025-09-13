@@ -20,176 +20,71 @@ const NotificationCard = (props: Props) => {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
-      style={[
-        {
-          width: '100%',
-          borderBottomWidth: RFPercentage(0.1),
-          borderBottomColor: COLORS.lightWhite,
-          marginTop: RFPercentage(1),
-          justifyContent: 'flex-end',
-          paddingVertical: RFPercentage(1.5),
-        },
-        props.style,
-      ]}
+      style={[styles.container, props.style]}
     >
-      <View style={{ width: '90%', alignSelf: 'center' }}>
-        <View
-          style={{
-            width: '100%',
-            alignSelf: 'center',
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
+      <View style={styles.innerWrapper}>
+        <View style={styles.row}>
           {props.player ? (
-            <>
-              <View style={styles.avatarOuterLayer}>
-                <View style={styles.avatarMiddleLayer}>
-                  <View style={styles.avatarInnerLayer}>
-                    <Image
-                      source={IMAGES.customProfile}
-                      resizeMode="cover"
-                      style={styles.avatarImage}
-                    />
-                  </View>
+            <View style={styles.avatarOuterLayer}>
+              <View style={styles.avatarMiddleLayer}>
+                <View style={styles.avatarInnerLayer}>
+                  <Image
+                    source={IMAGES.customProfile}
+                    resizeMode="cover"
+                    style={styles.avatarImage}
+                  />
                 </View>
               </View>
-            </>
+            </View>
           ) : props.admin ? (
-            <>
-              <View style={styles.nonMemberAvatarWrapper}>
-                <Image
-                  source={IMAGES.chatProfile}
-                  resizeMode="contain"
-                  style={styles.nonMemberAvatarImage}
-                />
-              </View>
-            </>
+            <View style={styles.nonMemberAvatarWrapper}>
+              <Image
+                source={IMAGES.chatProfile}
+                resizeMode="contain"
+                style={styles.nonMemberAvatarImage}
+              />
+            </View>
           ) : (
-            <>
-              <View style={styles.largeGroupIconContainer}>
-                <Image
-                  source={IMAGES.customProfile}
-                  resizeMode="cover"
-                  style={styles.largeGroupIcon}
-                />
-              </View>
-            </>
+            <View style={styles.largeGroupIconContainer}>
+              <Image
+                source={IMAGES.customProfile}
+                resizeMode="cover"
+                style={styles.largeGroupIcon}
+              />
+            </View>
           )}
-          <View style={{ width: '80%', marginLeft: RFPercentage(1.4) }}>
+
+          <View style={styles.notificationTextWrapper}>
             <Text
-              style={{
-                color: COLORS.primary,
-                fontSize: RFPercentage(1.9),
-                fontFamily: props.unread ? FONTS.semiBold : FONTS.regular,
-                lineHeight: RFPercentage(2.1),
-              }}
+              style={[
+                styles.notificationText,
+                { fontFamily: props.unread ? FONTS.semiBold : FONTS.regular },
+              ]}
             >
               {props.notification}
             </Text>
           </View>
 
-          <Text
-            style={{
-              color: COLORS.lightGrey,
-              fontSize: RFPercentage(1.6),
-              fontFamily: FONTS.regular,
-              position: 'absolute',
-              right: RFPercentage(-1.2),
-              textAlign: 'right',
-            }}
-          >
-            {props.time}
-          </Text>
+          <Text style={styles.timeText}>{props.time}</Text>
         </View>
 
-        <View style={{ width: '70%', alignSelf: 'center' }}>
+        <View style={styles.eventWrapper}>
           {props.eventInvite && (
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginTop: RFPercentage(1),
-                gap: RFPercentage(0.7),
-              }}
-            >
-              <TouchableOpacity
-                activeOpacity={0.8}
-                style={{
-                  width: RFPercentage(6.5),
-                  height: RFPercentage(2.7),
-                  borderRadius: RFPercentage(100),
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: COLORS.primary,
-                  borderWidth: RFPercentage(0.1),
-                  borderColor: COLORS.primary,
-                }}
-              >
-                <Text
-                  style={{
-                    fontFamily: FONTS.semiBold,
-                    color: COLORS.white,
-                    fontSize: RFPercentage(1.3),
-                    lineHeight: RFPercentage(1.3),
-                    textAlign: 'center',
-                    top: RFPercentage(0.1),
-                  }}
-                >
-                  YES
-                </Text>
+            <View style={styles.eventRow}>
+              <TouchableOpacity activeOpacity={0.8} style={styles.yesButton}>
+                <Text style={styles.yesText}>YES</Text>
               </TouchableOpacity>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                style={{
-                  width: RFPercentage(6.5),
-                  height: RFPercentage(2.7),
-                  borderRadius: RFPercentage(100),
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: COLORS.white,
-                  borderWidth: RFPercentage(0.1),
-                  borderColor: COLORS.red,
-                }}
-              >
-                <Text
-                  style={{
-                    fontFamily: FONTS.semiBold,
-                    color: COLORS.red,
-                    fontSize: RFPercentage(1.3),
-                    lineHeight: RFPercentage(1.3),
-                    textAlign: 'center',
-                    top: RFPercentage(0.1),
-                  }}
-                >
-                  NO
-                </Text>
+
+              <TouchableOpacity activeOpacity={0.8} style={styles.noButton}>
+                <Text style={styles.noText}>NO</Text>
               </TouchableOpacity>
+
               <TouchableOpacity
                 onPress={props.onPress3}
                 activeOpacity={0.8}
-                style={{
-                  width: RFPercentage(9.3),
-                  height: RFPercentage(2.7),
-                  borderRadius: RFPercentage(100),
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: COLORS.white,
-                  borderWidth: RFPercentage(0.1),
-                  borderColor: COLORS.primary,
-                }}
+                style={styles.viewEventButton}
               >
-                <Text
-                  style={{
-                    fontFamily: FONTS.semiBold,
-                    color: COLORS.primary,
-                    fontSize: RFPercentage(1.4),
-                    lineHeight: RFPercentage(1.4),
-                    textAlign: 'center',
-                  }}
-                >
-                  View Event
-                </Text>
+                <Text style={styles.viewEventText}>View Event</Text>
               </TouchableOpacity>
             </View>
           )}
@@ -202,6 +97,105 @@ const NotificationCard = (props: Props) => {
 export default NotificationCard;
 
 const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    borderBottomWidth: RFPercentage(0.1),
+    borderBottomColor: COLORS.lightWhite,
+    marginTop: RFPercentage(1),
+    justifyContent: 'flex-end',
+    paddingVertical: RFPercentage(1.5),
+  },
+  innerWrapper: {
+    width: '90%',
+    alignSelf: 'center',
+  },
+  row: {
+    width: '100%',
+    alignSelf: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  notificationTextWrapper: {
+    width: '80%',
+    marginLeft: RFPercentage(1.4),
+  },
+  notificationText: {
+    color: COLORS.primary,
+    fontSize: RFPercentage(1.9),
+    lineHeight: RFPercentage(2.1),
+  },
+  timeText: {
+    color: COLORS.lightGrey,
+    fontSize: RFPercentage(1.6),
+    fontFamily: FONTS.regular,
+    position: 'absolute',
+    right: RFPercentage(-1.2),
+    textAlign: 'right',
+  },
+  eventWrapper: {
+    width: '70%',
+    alignSelf: 'center',
+  },
+  eventRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: RFPercentage(1),
+    gap: RFPercentage(0.7),
+  },
+  yesButton: {
+    width: RFPercentage(6.5),
+    height: RFPercentage(2.7),
+    borderRadius: RFPercentage(100),
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: COLORS.primary,
+    borderWidth: RFPercentage(0.1),
+    borderColor: COLORS.primary,
+  },
+  yesText: {
+    fontFamily: FONTS.semiBold,
+    color: COLORS.white,
+    fontSize: RFPercentage(1.3),
+    lineHeight: RFPercentage(1.3),
+    textAlign: 'center',
+    top: RFPercentage(0.1),
+  },
+  noButton: {
+    width: RFPercentage(6.5),
+    height: RFPercentage(2.7),
+    borderRadius: RFPercentage(100),
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: COLORS.white,
+    borderWidth: RFPercentage(0.1),
+    borderColor: COLORS.red,
+  },
+  noText: {
+    fontFamily: FONTS.semiBold,
+    color: COLORS.red,
+    fontSize: RFPercentage(1.3),
+    lineHeight: RFPercentage(1.3),
+    textAlign: 'center',
+    top: RFPercentage(0.1),
+  },
+  viewEventButton: {
+    width: RFPercentage(9.3),
+    height: RFPercentage(2.7),
+    borderRadius: RFPercentage(100),
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: COLORS.white,
+    borderWidth: RFPercentage(0.1),
+    borderColor: COLORS.primary,
+  },
+  viewEventText: {
+    fontFamily: FONTS.semiBold,
+    color: COLORS.primary,
+    fontSize: RFPercentage(1.4),
+    lineHeight: RFPercentage(1.4),
+    textAlign: 'center',
+  },
+  // already existing styles
   avatarOuterLayer: {
     width: RFPercentage(4.5),
     height: RFPercentage(5.5),

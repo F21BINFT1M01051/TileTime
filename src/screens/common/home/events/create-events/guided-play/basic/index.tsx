@@ -388,52 +388,13 @@ const GuidedPlayBasic = () => {
                   }
                 />
                 {showPicker3 && Platform.OS === 'ios' && (
-                  <View
-                    style={{
-                      position: 'absolute',
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      backgroundColor: COLORS.white,
-                      borderRadius: RFPercentage(2),
-                      paddingBottom: RFPercentage(3),
-                      shadowColor: '#000',
-                      shadowOffset: { width: 0, height: -3 },
-                      shadowOpacity: 0.1,
-                      shadowRadius: 4,
-                      zIndex: 999,
-                      borderWidth: RFPercentage(0.1),
-                      borderColor: COLORS.lightWhite,
-                    }}
-                  >
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        padding: RFPercentage(3),
-                      }}
-                    >
+                  <View style={styles.calenderModal}>
+                    <View style={styles.calenderRow}>
                       <TouchableOpacity onPress={() => setShowPicker3(false)}>
-                        <Text
-                          style={{
-                            color: COLORS.grey4,
-                            fontFamily: FONTS.semiBold,
-                            fontSize: RFPercentage(1.8),
-                          }}
-                        >
-                          Cancel
-                        </Text>
+                        <Text style={styles.cancel}>Cancel</Text>
                       </TouchableOpacity>
                       <TouchableOpacity onPress={() => setShowPicker3(false)}>
-                        <Text
-                          style={{
-                            color: COLORS.pink,
-                            fontFamily: FONTS.semiBold,
-                            fontSize: RFPercentage(1.8),
-                          }}
-                        >
-                          Confirm
-                        </Text>
+                        <Text style={styles.confirm}>Confirm</Text>
                       </TouchableOpacity>
                     </View>
                     <DateTimePicker
@@ -443,7 +404,10 @@ const GuidedPlayBasic = () => {
                       onChange={(e, selectedDate) =>
                         selectedDate && setStartTime(selectedDate)
                       }
-                      style={{ backgroundColor: COLORS.white , alignSelf:"center"}}
+                      style={{
+                        backgroundColor: COLORS.white,
+                        alignSelf: 'center',
+                      }}
                       textColor={COLORS.primary}
                       accentColor={COLORS.pink}
                       themeVariant="light"
@@ -475,48 +439,21 @@ const GuidedPlayBasic = () => {
                 />
                 {showPicker4 && Platform.OS === 'ios' && (
                   <View
-                    style={{
-                      position: 'absolute',
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      backgroundColor: COLORS.white,
-                      borderRadius: RFPercentage(2),
-                      paddingBottom: RFPercentage(3),
-                      shadowColor: '#000',
-                      shadowOffset: { width: 0, height: -3 },
-                      shadowOpacity: 0.1,
-                      shadowRadius: 4,
-                      zIndex: 999,
-                      borderWidth: RFPercentage(0.1),
-                      borderColor: COLORS.lightWhite,
-                    }}
+                    style={styles.calenderModal}
                   >
                     <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        padding: RFPercentage(3),
-                      }}
+                      style={styles.calenderRow}
                     >
                       <TouchableOpacity onPress={() => setShowPicker4(false)}>
                         <Text
-                          style={{
-                            color: COLORS.grey4,
-                            fontFamily: FONTS.semiBold,
-                            fontSize: RFPercentage(1.8),
-                          }}
+                          style={styles.cancel}
                         >
                           Cancel
                         </Text>
                       </TouchableOpacity>
                       <TouchableOpacity onPress={() => setShowPicker4(false)}>
                         <Text
-                          style={{
-                            color: COLORS.pink,
-                            fontFamily: FONTS.semiBold,
-                            fontSize: RFPercentage(1.8),
-                          }}
+                          style={styles.confirm}
                         >
                           Confirm
                         </Text>
@@ -1046,6 +983,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: COLORS.white,
   },
+  calenderModal: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: COLORS.white,
+    borderRadius: RFPercentage(2),
+    paddingBottom: RFPercentage(3),
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -3 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    zIndex: 999,
+    borderWidth: RFPercentage(0.1),
+    borderColor: COLORS.lightWhite,
+  },
   changeImageIcon: {
     width: RFPercentage(1.6),
     height: RFPercentage(1.6),
@@ -1057,7 +1010,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginLeft: RFPercentage(0.6),
   },
-
+  confirm: {
+    color: COLORS.pink,
+    fontFamily: FONTS.semiBold,
+    fontSize: RFPercentage(1.8),
+  },
   // Bio input styles
   bioWrapper: {
     marginTop: RFPercentage(2),
@@ -1084,6 +1041,16 @@ const styles = StyleSheet.create({
     height: RFPercentage(10),
     paddingHorizontal: 0,
     paddingVertical: 0,
+  },
+  calenderRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: RFPercentage(3),
+  },
+  cancel: {
+    color: COLORS.grey4,
+    fontFamily: FONTS.semiBold,
+    fontSize: RFPercentage(1.8),
   },
   bioIconWrapper: {
     alignSelf: 'flex-end',

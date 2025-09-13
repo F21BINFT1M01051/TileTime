@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
   zIndexHigh: { zIndex: 999999 },
   backgroundImage: {
     width: '100%',
-    height: RFPercentage(26),
+    height: RFPercentage(25),
     // top: RFPercentage(-14),
   },
   headerBorder: {

@@ -262,7 +262,7 @@ const Events = ({ navigation }: any) => {
                       />
                     </TouchableOpacity>
                   </View>
-                  {/* {isOn ? (
+                  {isOn ? (
                     <View>
                       <Text
                         style={{
@@ -323,9 +323,9 @@ const Events = ({ navigation }: any) => {
                         </Text>
                       )}
                     </View>
-                  ) : ( */}
+                  ) : (
                     <TodayEvents />
-                  {/* )} */}
+                  )}
                 </View>
               </>
             ) : (
