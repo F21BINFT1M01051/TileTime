@@ -58,7 +58,8 @@ const Cards2 = [
   },
 ];
 
-const EventDetails = ({ navigation }: any) => {
+const EventDetails = ({ navigation, route }: any) => {
+  const { preview } = route.params;
   const onShare = async () => {
     try {
       const result = await Share.share({
@@ -83,9 +84,9 @@ const EventDetails = ({ navigation }: any) => {
   return (
     <View style={styles.container}>
       <AuthHeader
-        title="Event Details"
+        title={preview ? 'Preview Event' : 'Event Details'}
         style={styles.headerTitle}
-        right={true}
+        right={preview ? false : true}
         rightIcon={ICONS.share}
         onPress2={onShare}
       />
@@ -164,7 +165,11 @@ const EventDetails = ({ navigation }: any) => {
 
           {/* Co-Hosts */}
           <View style={{ marginTop: RFPercentage(4.5) }}>
-            <TouchableOpacity activeOpacity={0.8} style={styles.card} onPress={()=> navigation.navigate("EventCoHosts")}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={styles.card}
+              onPress={() => navigation.navigate('EventCoHosts')}
+            >
               <View style={styles.cardInner}>
                 <View>
                   <Text style={styles.cardTitle}>Co - Hosts</Text>
@@ -196,11 +201,20 @@ const EventDetails = ({ navigation }: any) => {
           </View>
 
           {/* Attendees */}
-          <DetailComponent title="Attendees" onPress={() => {navigation.navigate("EventAttendeesV2")}} />
+          <DetailComponent
+            title="Attendees"
+            onPress={() => {
+              navigation.navigate('EventAttendeesV2');
+            }}
+          />
 
           {/* Attachments */}
           <View style={styles.sectionSpacing}>
-            <TouchableOpacity activeOpacity={0.8} style={styles.attachmentCard} onPress={()=> navigation.navigate("EventAttachments")}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={styles.attachmentCard}
+              onPress={() => navigation.navigate('EventAttachments')}
+            >
               <View style={styles.cardInner}>
                 <View>
                   <Text style={styles.cardTitle}>Attachments</Text>
@@ -241,7 +255,10 @@ const EventDetails = ({ navigation }: any) => {
                   <Text style={styles.locationAddress}>
                     518 E 4th St, North Platte, NE 69101, United States
                   </Text>
-                  <TouchableOpacity activeOpacity={0.8} style={styles.directionBtn}>
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    style={styles.directionBtn}
+                  >
                     <Text style={styles.directionBtnText}>Get Directions</Text>
                   </TouchableOpacity>
                 </View>
@@ -276,37 +293,38 @@ const EventDetails = ({ navigation }: any) => {
             }}
           />
         </View>
+        {preview ? null : (
+          <View style={styles.footer}>
+            <View style={{ width: '90%', alignSelf: 'center' }}>
+              <View style={styles.confirm}>
+                <Image
+                  source={ICONS.greenCheck}
+                  resizeMode="contain"
+                  style={{
+                    width: RFPercentage(3.8),
+                    height: RFPercentage(3.8),
+                  }}
+                />
+                <View style={{ marginLeft: RFPercentage(1.5) }}>
+                  <Text style={styles.txt}>Your Seat Is Confirmed</Text>
+                  <Text style={styles.sub}>See you in 5 days</Text>
+                </View>
+              </View>
+              <View style={{ marginTop: RFPercentage(2) }}>
+                <CustomButton onPress={onShare} title="Invite Friends" />
 
-        <View style={styles.footer}>
-          <View style={{ width: '90%', alignSelf: 'center' }}>
-            <View style={styles.confirm}>
-              <Image
-                source={ICONS.greenCheck}
-                resizeMode="contain"
-                style={{ width: RFPercentage(3.8), height: RFPercentage(3.8) }}
-              />
-              <View style={{ marginLeft: RFPercentage(1.5) }}>
-                <Text style={styles.txt}>Your Seat Is Confirmed</Text>
-                <Text style={styles.sub}>See you in 5 days</Text>
+                <SocialField
+                  name="Not Attending, Cancel"
+                  icon={ICONS.x}
+                  borderColor={COLORS.red}
+                  color={COLORS.red}
+                  onPress={() => navigation.goBack()}
+                  style={{ marginTop: RFPercentage(1.5) }}
+                />
               </View>
             </View>
-            <View style={{ marginTop: RFPercentage(2) }}>
-              <CustomButton
-                  onPress={onShare}
-                title="Invite Friends"
-              />
-
-              <SocialField
-                name="Not Attending, Cancel"
-                icon={ICONS.x}
-                borderColor={COLORS.red}
-                color={COLORS.red}
-                onPress={()=> navigation.goBack()}
-                style={{ marginTop: RFPercentage(1.5) }}
-              />
-            </View>
           </View>
-        </View>
+        )}
       </ScrollView>
     </View>
   );

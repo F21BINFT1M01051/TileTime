@@ -95,8 +95,17 @@ const ActionsCard = () => {
   });
 
   return (
-    <View style={[styles.container, { paddingBottom: expanded ? RFPercentage(0) : RFPercentage(2),}]}>
-      <TouchableOpacity activeOpacity={0.8} onPress={toggleExpand} style={styles.header}>
+    <View
+      style={[
+        styles.container,
+        { paddingBottom: expanded ? RFPercentage(0) : RFPercentage(2) },
+      ]}
+    >
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={toggleExpand}
+        style={styles.header}
+      >
         <View>
           <Text style={styles.headerTitle}>Getting Started</Text>
           <Text style={styles.headerSubTitle}>
@@ -162,7 +171,13 @@ const ActionsCard = () => {
                     if (item.button === 'Invite') {
                       onShare();
                     } else {
-                      navigation.navigate(item.navigationScreen);
+                      if (item.navigationScreen === 'EventDetails') {
+                        navigation.navigate(item.navigationScreen, {
+                          preview: false,
+                        });
+                      } else {
+                        navigation.navigate(item.navigationScreen);
+                      }
                     }
                   }}
                   style={styles.stepButton}
@@ -189,7 +204,6 @@ const styles = StyleSheet.create({
     borderWidth: RFPercentage(0.1),
     borderBottomWidth: RFPercentage(0.5),
     borderColor: COLORS.lightWhite,
-   
   },
   header: {
     width: '90%',
@@ -265,6 +279,6 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontSize: RFPercentage(1.7),
     fontFamily: FONTS.medium,
-    lineHeight:RFPercentage(1.7)
+    lineHeight: RFPercentage(1.7),
   },
 });

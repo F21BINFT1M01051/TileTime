@@ -29,19 +29,19 @@ const data = [
     id: 2,
     name: 'Description',
     subtitle: 'Coaching Session',
-    navigateTo: 'EditEventBasic',
+    navigateTo: 'EditEventDescription',
   },
   {
     id: 3,
     name: 'Admission Details',
     subtitle: 'Event Type, Price, Seats and more',
-    navigateTo: 'EditEventBasic',
+    navigateTo: 'EditEventAdmissionDetails',
   },
   {
     id: 4,
     name: 'Game Details',
     subtitle: 'Game variant, Tables, Groups and more',
-    navigateTo: 'EditEventBasic',
+    navigateTo: 'EditEventGameDetails',
   },
 ];
 
@@ -190,6 +190,10 @@ const EditEventDetails = ({ visible, onClose, style }: any) => {
                   <TouchableOpacity
                     activeOpacity={0.8}
                     style={styles.attachmentCard}
+                    onPress={() => {
+                      onClose();
+                      navigation.navigate('EventAttachments');
+                    }}
                   >
                     <View style={styles.cardInner}>
                       <View>
@@ -225,7 +229,14 @@ const EditEventDetails = ({ visible, onClose, style }: any) => {
                 </View>
 
                 <View style={{ marginTop: RFPercentage(2) }}>
-                  <TouchableOpacity activeOpacity={0.8} style={styles.card}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      onClose();
+                      navigation.navigate('EditAddOneExtra');
+                    }}
+                    activeOpacity={0.8}
+                    style={styles.card}
+                  >
                     <View style={styles.cardInner}>
                       <View>
                         <Text style={styles.cardTitle}>Add ons and Extra</Text>

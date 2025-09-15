@@ -6,8 +6,8 @@ import {
   FlatList,
   ScrollView,
 } from 'react-native';
-import React from 'react';
-import { COLORS, IMAGES, FONTS, ICONS } from '../../../../config/theme';
+import React, { useState } from 'react';
+import { COLORS, FONTS } from '../../../../config/theme';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import Insights from '../../../../components/Insights';
@@ -26,9 +26,27 @@ const InsightsData2 = [
   { id: 4, name: 'New Players This Month', subText: '23%' },
 ];
 
-const EventInsights = ({ navigation }: any) => {
+const filterOptions = [
+  'Overall',
+  'This Week',
+  'Last Week',
+  'This Month',
+  'Last Month',
+  'Last 3 Months',
+];
+
+const EventInsights = ({ navigation }) => {
+  const [selectedFilter, setSelectedFilter] = useState('All Time');
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleSelect = item => {
+    setSelectedFilter(item);
+    setShowDropdown(false);
+  };
+
   return (
     <View style={styles.container}>
+      {/* Header */}
       <View style={styles.headerBorder}>
         <View style={styles.headerContainer}>
           <TouchableOpacity
@@ -44,32 +62,59 @@ const EventInsights = ({ navigation }: any) => {
             <Text style={styles.headerTitle}>Event Insights</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity activeOpacity={0.8} style={styles.dotsButton}>
-            <Text style={styles.allTimeText}>All Time</Text>
-            <Feather
-              name={'chevron-down'}
-              size={RFPercentage(1.6)}
-              color={COLORS.green4}
-            />
-          </TouchableOpacity>
+          {/* Dropdown trigger */}
+          <View style={{ position: 'relative' }}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={styles.dotsButton}
+              onPress={() => setShowDropdown(!showDropdown)}
+            >
+              <Text style={styles.allTimeText}>{selectedFilter}</Text>
+              <Feather
+                name={showDropdown ? 'chevron-up' : 'chevron-down'}
+                size={RFPercentage(1.6)}
+                color={COLORS.green4}
+              />
+            </TouchableOpacity>
+
+            {/* Dropdown menu */}
+            {showDropdown && (
+              <View style={styles.dropdownContainer}>
+                {filterOptions.map((option, index) => (
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    key={option}
+                    style={[
+                      styles.dropdownItem,
+                      index !== filterOptions.length - 1 &&
+                        styles.dropdownItemBorder,
+                    ]}
+                    onPress={() => handleSelect(option)}
+                  >
+                    <Text style={styles.dropdownText}>{option}</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            )}
+          </View>
         </View>
       </View>
+
+      {/* Content */}
       <ScrollView>
         <View style={styles.contentContainer}>
-          <View>
-            <FlatList
-              data={InsightsData}
-              keyExtractor={item => item.id.toString()}
-              numColumns={2}
-              scrollEnabled={false}
-              columnWrapperStyle={styles.flatListColumn}
-              renderItem={({ item }) => (
-                <View style={styles.flexOne}>
-                  <Insights name={item.name} subText={item.subText} />
-                </View>
-              )}
-            />
-          </View>
+          <FlatList
+            data={InsightsData}
+            keyExtractor={item => item.id.toString()}
+            numColumns={2}
+            scrollEnabled={false}
+            columnWrapperStyle={styles.flatListColumn}
+            renderItem={({ item }) => (
+              <View style={styles.flexOne}>
+                <Insights name={item.name} subText={item.subText} />
+              </View>
+            )}
+          />
 
           <View style={styles.paymentCard}>
             <View style={styles.innerCard}>
@@ -110,10 +155,7 @@ const EventInsights = ({ navigation }: any) => {
 export default EventInsights;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.white,
-  },
+  container: { flex: 1, backgroundColor: COLORS.white },
   headerBorder: {
     borderBottomWidth: 1,
     borderBottomColor: COLORS.fieldBorder,
@@ -126,35 +168,60 @@ const styles = StyleSheet.create({
     width: '90%',
     alignSelf: 'center',
     marginTop: RFPercentage(8),
+    justifyContent: 'space-between',
   },
-  editButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
+  editButton: { flexDirection: 'row', alignItems: 'center' },
   headerTitle: {
     color: COLORS.primary,
     fontFamily: FONTS.semiBold,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(2),
     marginLeft: RFPercentage(1),
   },
   dotsButton: {
-    position: 'absolute',
-    right: 0,
-    zIndex: 9999,
-    width: RFPercentage(10),
-    height: RFPercentage(3.5),
+    height: RFPercentage(3.8),
     backgroundColor: '#E4F7F6',
-    borderRadius: RFPercentage(100),
+    borderRadius: RFPercentage(1.5),
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
-    paddingHorizontal: RFPercentage(1),
+    paddingHorizontal: RFPercentage(1.5),
   },
   allTimeText: {
     fontFamily: FONTS.medium,
-    fontSize: RFPercentage(1.4),
+    fontSize: RFPercentage(1.5),
     color: COLORS.primary,
     marginRight: RFPercentage(0.5),
+  },
+  dropdownContainer: {
+    position: 'absolute',
+    top: RFPercentage(5),
+    right: RFPercentage(-1),
+    backgroundColor: COLORS.white,
+    borderWidth: 1,
+    borderColor: COLORS.lightWhite,
+    borderRadius: RFPercentage(1),
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    shadowOffset: { width: 0, height: 1 },
+    zIndex: 1000,
+    width: RFPercentage(17),
+  },
+  dropdownItem: {
+    paddingVertical: RFPercentage(1.5),
+    paddingHorizontal: RFPercentage(2),
+  },
+
+  dropdownItemBorder: {
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.lightWhite,
+  },
+  dropdownText: {
+    fontFamily: FONTS.medium,
+    fontSize: RFPercentage(1.6),
+    color: COLORS.primary,
+    textAlign: 'center',
   },
   contentContainer: {
     width: '90%',
@@ -166,9 +233,7 @@ const styles = StyleSheet.create({
     gap: RFPercentage(1.8),
     marginTop: RFPercentage(1.9),
   },
-  flexOne: {
-    flex: 1,
-  },
+  flexOne: { flex: 1 },
   paymentCard: {
     width: '100%',
     backgroundColor: COLORS.white,
@@ -181,10 +246,7 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(2),
     borderBottomColor: 'rgba(230, 247, 250, 0.6)',
   },
-  innerCard: {
-    width: '90%',
-    alignSelf: 'center',
-  },
+  innerCard: { width: '90%', alignSelf: 'center' },
   paymentTitle: {
     color: COLORS.primary,
     fontFamily: FONTS.bold,
@@ -208,7 +270,5 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular,
     fontSize: RFPercentage(1.6),
   },
-  bottomList: {
-    marginTop: RFPercentage(0.5),
-  },
+  bottomList: { marginTop: RFPercentage(0.5) },
 });

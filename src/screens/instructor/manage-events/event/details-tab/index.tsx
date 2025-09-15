@@ -10,6 +10,7 @@ import React from 'react';
 import { COLORS, ICONS, FONTS, IMAGES } from '../../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import SocialField from '../../../../../components/SocialField';
+import { useNavigation } from '@react-navigation/native';
 const attachments = [
   { id: 1, profile: ICONS.attach },
   { id: 2, profile: ICONS.attach },
@@ -21,7 +22,8 @@ const cohosts = [
   { id: 2, profile: IMAGES.chatProfile },
 ];
 
-const Details = ({ type }: any) => {
+const Details = ({ type,  }: any) => {
+  const navigation = useNavigation()
   return (
     <View
       style={{
@@ -30,7 +32,7 @@ const Details = ({ type }: any) => {
       }}
     >
       {type === 'Lessons' ? (
-        <TouchableOpacity activeOpacity={0.8} style={styles.insightBox}>
+        <TouchableOpacity onPress={()=> navigation.navigate("EditEventBasic")} activeOpacity={0.8} style={styles.insightBox}>
           <View style={styles.insightContent}>
             <View>
               <Text style={styles.insightTitle}>Basics</Text>
@@ -49,7 +51,7 @@ const Details = ({ type }: any) => {
         </TouchableOpacity>
       ) : (
         <>
-          <TouchableOpacity activeOpacity={0.8} style={styles.insightBox}>
+          <TouchableOpacity onPress={()=> navigation.navigate("EditEventBasic")} activeOpacity={0.8} style={styles.insightBox}>
             <View style={styles.insightContent}>
               <View>
                 <Text style={styles.insightTitle}>Basics</Text>
@@ -68,7 +70,7 @@ const Details = ({ type }: any) => {
           </TouchableOpacity>
 
           <View style={styles.sectionSpacing}>
-            <TouchableOpacity activeOpacity={0.8} style={styles.attachmentCard}>
+            <TouchableOpacity onPress={()=> navigation.navigate("EventAttachments")} activeOpacity={0.8} style={styles.attachmentCard}>
               <View style={styles.cardInner}>
                 <View>
                   <Text style={styles.cardTitle}>Attachments</Text>
@@ -101,7 +103,7 @@ const Details = ({ type }: any) => {
           </View>
 
           <View style={{ marginTop: RFPercentage(2) }}>
-            <TouchableOpacity activeOpacity={0.8} style={styles.card}>
+            <TouchableOpacity activeOpacity={0.8} onPress={()=> navigation.navigate("EditAddOneExtra")} style={styles.card}>
               <View style={styles.cardInner}>
                 <View>
                   <Text style={styles.cardTitle}>Add ons and Extra</Text>
@@ -139,76 +141,10 @@ const Details = ({ type }: any) => {
               </View>
             </TouchableOpacity>
           </View>
-
-          {type === 'Guided Play' && (
-            <View style={{ marginTop: RFPercentage(2) }}>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                style={[styles.card, { height: RFPercentage(17) }]}
-              >
-                <View style={styles.cardInner}>
-                  <View>
-                    <Text style={styles.cardTitle}>Instructor Details</Text>
-                    <Text
-                      style={[
-                        styles.insightSub,
-                        { marginTop: RFPercentage(0.8) },
-                      ]}
-                    >
-                      Instructors Needed, Payment and more
-                    </Text>
-                    <FlatList
-                      horizontal
-                      data={cohosts}
-                      keyExtractor={item => item.id.toString()}
-                      contentContainerStyle={styles.cohostList}
-                      renderItem={({ item }) => (
-                        <View style={styles.cohostImageWrapper}>
-                          <Image
-                            source={item.profile}
-                            resizeMode="cover"
-                            style={styles.cohostImage}
-                          />
-                          {item.id === 2 && (
-                            <View
-                              style={[
-                                styles.cohostImageWrapper,
-                                {
-                                  position: 'absolute',
-                                  left: RFPercentage(-0.3),
-                                  bottom: RFPercentage(0.2),
-                                  backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                                },
-                              ]}
-                            />
-                          )}
-                        </View>
-                      )}
-                    />
-                  </View>
-                  <TouchableOpacity activeOpacity={0.8}>
-                    <Image
-                      source={ICONS.right}
-                      resizeMode="contain"
-                      style={styles.rightIcon}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </TouchableOpacity>
-            </View>
-          )}
         </>
       )}
 
-      <View style={{ marginTop: RFPercentage(5) }}>
-        {type === 'Lessons' && (
-          <SocialField
-            name="Change Time And Date"
-            icon={ICONS.pen3}
-            borderColor={COLORS.primary}
-            color={COLORS.primary}
-          />
-        )}
+      <View style={{ marginTop: RFPercentage(6) }}>
         <SocialField
           name="Cancel Event"
           icon={ICONS.x}
@@ -231,7 +167,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.lightWhite,
     borderBottomWidth: RFPercentage(0.5),
     borderRadius: RFPercentage(2),
-    marginTop: RFPercentage(4),
+    marginTop: RFPercentage(2),
     justifyContent: 'center',
     borderBottomColor: 'rgba(230, 247, 250, 0.6)',
   },

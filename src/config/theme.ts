@@ -231,6 +231,9 @@ export const ICONS = {
   america: require('../assets/icons/america.png'),
   warn: require('../assets/icons/warn.png'),
   mail: require('../assets/icons/verify-mail.png'),
+  share33: require('../assets/icons/share33.png'),
+  broadcast: require('../assets/icons/broadcast.png'),
+  broad: require('../assets/icons/broad.png'),
 };
 
 export const FONTS = {

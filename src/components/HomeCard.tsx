@@ -19,7 +19,7 @@ interface Props {
 const HomeCard = (props: Props) => {
   const navigation = useNavigation()
   return (
-    <TouchableOpacity activeOpacity={0.8} onPress={()=> navigation.navigate("EventDetails")} style={styles.container}>
+    <TouchableOpacity activeOpacity={0.8} onPress={()=> navigation.navigate("EventDetails",{preview:false})} style={styles.container}>
       {
         props.free && (
           <Image source={ICONS.free} resizeMode='contain' style={{width:RFPercentage(5), height:RFPercentage(5), position:'absolute', left:0, top:0, zIndex:99}} />

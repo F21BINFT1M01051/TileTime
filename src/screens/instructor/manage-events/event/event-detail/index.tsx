@@ -23,25 +23,13 @@ import LinearGradient from 'react-native-linear-gradient';
 import CustomButton from '../../../../../components/CustomButton';
 import DetailComponent from '../../../../../components/DetailComponent';
 import Details from '../details-tab';
-import { GiftedChat, Bubble } from 'react-native-gifted-chat';
-import ToggleSwitch from 'toggle-switch-react-native';
-import { launchImageLibrary } from 'react-native-image-picker';
 import EditEventDetails from '../../../components/EditEventDetails';
 import ShareEvent from '../../../components/ShareEvent';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { pick } from '@react-native-documents/picker';
-// import Contacts from 'react-native-contacts';
 import { BlurView } from '@react-native-community/blur';
 
 const InstructorEventDetail = ({ navigation, route }: any) => {
   const { type } = route.params;
-  const [tab, setTab] = useState('Details');
-  const [messages, setMessages] = useState([]);
-  const [message, setMessage] = useState('');
-  const [isOn, setIsOn] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [attachmentModalVisible, setAttachmentModalVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
   const openModal = () => {
@@ -53,132 +41,6 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
   const openModal2 = () => {
     setIsModalVisible2(true);
   };
-
-  const scrollViewRef = useRef(null);
-
-  useEffect(() => {
-    if (messages.length > 0) {
-      scrollViewRef.current?.scrollToEnd({ animated: true });
-    }
-  }, [messages]);
-
-  // Image Picker
-  const handleImagePick = () => {
-    launchImageLibrary(
-      {
-        mediaType: 'photo',
-        quality: 1,
-        includeBase64: false,
-        maxWidth: 9999,
-        maxHeight: 9999,
-      },
-      response => {
-        if (
-          !response.didCancel &&
-          !response.errorCode &&
-          response.assets?.length
-        ) {
-          const image = response.assets[0];
-
-          const newMessage = {
-            _id: Date.now(),
-            createdAt: new Date(),
-            user: {
-              _id: 1,
-              name: 'You',
-              avatar: 'https://placeimg.com/140/140/any',
-            },
-            image: image.uri,
-          };
-
-          setMessages(prev => GiftedChat.append(prev, [newMessage]));
-          setAttachmentModalVisible(false);
-        }
-      },
-    );
-  };
-
-  const pickDocument = async () => {
-    try {
-      const res = await pick({
-        type: ['application/pdf', 'public.item'],
-        allowMultiSelection: false,
-        copyTo: 'cachesDirectory',
-      });
-
-      if (res && res[0]) {
-        const newMessage = {
-          _id: Date.now(),
-          createdAt: new Date(),
-          user: {
-            _id: 1,
-            name: 'You',
-            avatar: 'https://placeimg.com/140/140/any',
-          },
-          text: `📄 Document: ${res[0].name}`,
-        };
-        setMessages(prev => GiftedChat.append(prev, [newMessage]));
-        setAttachmentModalVisible(false);
-      }
-    } catch (err) {
-      if (err?.message?.includes('cancelled')) {
-        console.log('User cancelled');
-      } else {
-        console.log('Error picking doc: ', err);
-      }
-    }
-  };
-
-  // Contact picker
-  // const pickContact = async () => {
-  //   try {
-  //     const granted = await Contacts.requestPermission();
-  //     if (granted === 'authorized') {
-  //       const contacts = await Contacts.getAll();
-  //       if (contacts.length > 0) {
-  //         const contact = contacts[0];
-  //         const newMessage = {
-  //           _id: Date.now(),
-  //           createdAt: new Date(),
-  //           user: {
-  //             _id: 1,
-  //             name: 'You',
-  //             avatar: 'https://placeimg.com/140/140/any',
-  //           },
-  //           text: `👤 Contact: ${contact.givenName} ${contact.familyName}`,
-  //         };
-  //         setMessages(prev => GiftedChat.append(prev, [newMessage]));
-  //         setAttachmentModalVisible(false);
-  //       }
-  //     }
-  //   } catch (err) {
-  //     console.log('Error picking contact: ', err);
-  //   }
-  // };
-
-  const ShareOptions = [
-    {
-      id: 1,
-      name: 'Gallery',
-      icon: 'images',
-      color: COLORS.pink3,
-      onPress: () => handleImagePick(),
-    },
-    {
-      id: 2,
-      name: 'Documents',
-      icon: 'documents',
-      color: COLORS.green2,
-      onPress: () => pickDocument(),
-    },
-    {
-      id: 3,
-      name: 'Contacts',
-      icon: 'contacts',
-      color: COLORS.yellow,
-      // onPress: () => pickContact(),
-    },
-  ];
 
   return (
     <KeyboardAvoidingView
@@ -201,14 +63,22 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
 
             <View style={styles.dotsButton}>
               <View style={styles.editButton}>
-                <TouchableOpacity activeOpacity={0.8} onPress={()=> navigation.navigate("EventDetails")}>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() =>
+                    navigation.navigate('EventDetails', { preview: true })
+                  }
+                >
                   <Image
                     source={ICONS.Eye}
                     resizeMode="contain"
                     style={styles.iconSmall}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={0.8} onPress={()=> setModalVisible(true)}>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => setModalVisible(true)}
+                >
                   <Image
                     source={ICONS.copy2}
                     resizeMode="contain"
@@ -222,9 +92,7 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
         <ScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
-          contentContainerStyle={{
-            paddingBottom: tab === 'Details' ? RFPercentage(4) : 0,
-          }}
+          contentContainerStyle={{paddingBottom:RFPercentage(5)}}
         >
           {/* Header */}
           <ImageBackground
@@ -234,7 +102,7 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
           >
             {/* Badge */}
 
-            <View
+            {/* <View
               style={{
                 width: '90%',
                 alignSelf: 'center',
@@ -250,11 +118,11 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
                 }}
                 resizeMode="contain"
               />
-            </View>
+            </View> */}
 
             {/* Event Info */}
             <LinearGradient
-              colors={['rgba(255, 255, 255, 0.5)', COLORS.white]}
+              colors={['rgba(255, 255, 255, 0)', COLORS.white]}
               style={styles.linearGradient}
             >
               <View style={styles.innerWrapper}>
@@ -307,42 +175,36 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
           {/* Buttons */}
           <View style={styles.wrapper90}>
             <View style={styles.bottomContent}>
-              {type === 'Guided Play' ? (
-                <>
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={openModal}
-                    style={[styles.backButton, { width: RFPercentage(12) }]}
-                  >
-                    <Text style={styles.backButtonText}>Edit</Text>
-                  </TouchableOpacity>
-                  <CustomButton
-                    title={'Share'}
-                    style={{ width: RFPercentage(13) }}
-                    onPress={openModal2}
-                  />
-                  <CustomButton
-                    title={'Broadcast'}
-                    style={{ width: RFPercentage(14) }}
-                    onPress={openModal2}
-                  />
-                </>
-              ) : (
-                <>
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={openModal}
-                    style={styles.backButton}
-                  >
-                    <Text style={styles.backButtonText}>Edit</Text>
-                  </TouchableOpacity>
-                  <CustomButton
-                    title={'Share Event'}
-                    style={styles.saveButton}
-                    onPress={openModal2}
-                  />
-                </>
-              )}
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={openModal}
+                style={[styles.backButton, { width: '35%' }]}
+              >
+                <Text style={styles.backButtonText}>Edit</Text>
+              </TouchableOpacity>
+              <CustomButton
+                title={'Broadcast'}
+                style={{ width: '45%' }}
+                onPress={()=> navigation.navigate("EventBroadCast", {isNew:true})}
+              />
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={openModal2}
+                style={{
+                  width: '12%',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Image
+                  source={ICONS.share33}
+                  resizeMode="contain"
+                  style={{
+                    width: RFPercentage(2.8),
+                    height: RFPercentage(2.8),
+                  }}
+                />
+              </TouchableOpacity>
             </View>
 
             {/* Attendees */}
@@ -378,190 +240,11 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
             </TouchableOpacity>
           </View>
 
-          {/* Tabs */}
-          <View style={styles.tabBar}>
-            <View style={styles.tabRow}>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => setTab('Details')}
-                style={[
-                  styles.tabButton,
-                  tab === 'Details' && styles.activeTab,
-                ]}
-              >
-                <Text
-                  style={[
-                    styles.tabText,
-                    tab === 'Details' && styles.activeTabText,
-                  ]}
-                >
-                  Event Details
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => setTab('Discussion')}
-                style={[
-                  styles.tabButton,
-                  styles.tabMargin,
-                  tab === 'Discussion' && styles.activeTab,
-                ]}
-              >
-                <Text
-                  style={[
-                    styles.tabText,
-                    tab === 'Discussion' && styles.activeTabText,
-                  ]}
-                >
-                  Discussion
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-
           {/* Tab Content */}
           <View style={{ width: '100%', alignSelf: 'center' }}>
-            {tab === 'Details' ? (
-              <Details type={type} />
-            ) : isOn ? (
-              <ImageBackground
-                source={ICONS.eventChat}
-                resizeMode="cover"
-                style={{
-                  maxHeight: RFPercentage(60),
-                  minHeight: RFPercentage(40),
-                }}
-              >
-                <View>
-                  {/* Messages Scroll */}
-                  <ScrollView
-                    ref={scrollViewRef}
-                    contentContainerStyle={{
-                      padding: RFPercentage(2),
-                    }}
-                    showsVerticalScrollIndicator={false}
-                  >
-                    {messages.map((msg, index) => (
-                      <View key={index} style={styles.messageRow}>
-                        <View style={styles.messageBubble}>
-                          <View
-                            style={{
-                              flexDirection: 'row',
-                              alignItems: 'center',
-                            }}
-                          >
-                            <Image
-                              source={IMAGES.chatProfile}
-                              resizeMode="contain"
-                              style={{
-                                width: RFPercentage(4),
-                                height: RFPercentage(4),
-                              }}
-                            />
-                            <Text style={styles.name}>You</Text>
-                            <Text style={styles.time}>
-                              {moment(msg.createdAt).fromNow()}
-                            </Text>
-                          </View>
-                          {msg.image ? (
-                            <Image
-                              source={{ uri: msg.image }}
-                              style={styles.messageImage}
-                            />
-                          ) : (
-                            <Text style={styles.messageText}>{msg.text}</Text>
-                          )}
-                        </View>
-                      </View>
-                    ))}
-                  </ScrollView>
-                </View>
-              </ImageBackground>
-            ) : (
-              <View style={styles.wrap2}>
-                <Image
-                  source={ICONS.locked}
-                  resizeMode="contain"
-                  style={{
-                    width: RFPercentage(10),
-                    height: RFPercentage(10),
-                  }}
-                />
-                <Text style={styles.chatEmpty}>
-                  Discussion is Off for This Event
-                </Text>
-                <Text style={styles.detail}>
-                  Once enabled, you and your attendees can chat, ask questions,
-                  and stay updated, all in one place.
-                </Text>
-              </View>
-            )}
+            <Details type={type} />
           </View>
         </ScrollView>
-        {tab === 'Discussion' && (
-          <View style={styles.inputToolbarContainer}>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => setIsOn(!isOn)}
-              style={styles.toggleRow}
-            >
-              <Text style={styles.toggleLabel}>
-                Turn On Discussion for This Event
-              </Text>
-              <ToggleSwitch
-                isOn={isOn}
-                onColor={COLORS.pink}
-                offColor={COLORS.switch}
-                size="small"
-                onToggle={() => setIsOn(!isOn)}
-              />
-            </TouchableOpacity>
-
-            <View style={styles.inputBar}>
-              <TouchableOpacity onPress={() => setAttachmentModalVisible(true)}>
-                <Image
-                  source={ICONS.plus6}
-                  style={styles.plusIcon}
-                  resizeMode="contain"
-                />
-              </TouchableOpacity>
-
-              <TextInput
-                style={styles.messageInput}
-                placeholder="Type your message here"
-                placeholderTextColor={COLORS.search}
-                value={message}
-                onChangeText={setMessage}
-                editable={isOn}
-                multiline={true}
-                scrollEnabled={true}
-                textAlignVertical="top"
-                cursorColor={COLORS.primary}
-                selectionColor={COLORS.primary}
-              />
-
-              <TouchableOpacity
-                onPress={() => {
-                  if (message.trim()) {
-                    const newMessage = {
-                      _id: Date.now(),
-                      text: message,
-                    };
-                    setMessages(prev => [...prev, newMessage]);
-                    setMessage('');
-                    // Keyboard.dismiss();
-                  }
-                }}
-              >
-                <Image
-                  source={ICONS.send}
-                  style={styles.sendButtonIcon}
-                  resizeMode="contain"
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-        )}
 
         {/* Edit Modal */}
         <EditEventDetails
@@ -575,88 +258,6 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
           onClose={() => setIsModalVisible2(false)}
         />
       </View>
-
-      <Modal
-        visible={attachmentModalVisible}
-        animationType="fade"
-        transparent
-        onRequestClose={() => setAttachmentModalVisible(false)}
-      >
-        <TouchableWithoutFeedback
-          onPress={() => setAttachmentModalVisible(false)}
-        >
-          <View style={styles.modalOverlay}>
-            <View style={styles.modalContainer}>
-              <Text style={styles.modalTitle}>Share</Text>
-
-              <View
-                style={{
-                  width: '100%',
-                  alignItems: 'center',
-                  marginTop: RFPercentage(1),
-                }}
-              >
-                <FlatList
-                  data={ShareOptions}
-                  keyExtractor={item => item.id.toString()}
-                  horizontal
-                  renderItem={({ item }) => {
-                    return (
-                      <TouchableOpacity
-                        onPress={item.onPress}
-                        activeOpacity={0.8}
-                        style={{
-                          marginHorizontal: RFPercentage(3),
-                          alignItems: 'center',
-                        }}
-                      >
-                        <View
-                          style={{
-                            width: RFPercentage(7),
-                            height: RFPercentage(7),
-                            borderRadius: RFPercentage(100),
-                            backgroundColor: item.color,
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          {item.name === 'Contacts' ? (
-                            <View>
-                              <MaterialIcons
-                                name={item.icon}
-                                size={RFPercentage(2.8)}
-                                color={COLORS.white}
-                              />
-                            </View>
-                          ) : (
-                            <View>
-                              <Ionicons
-                                name={item.icon}
-                                size={RFPercentage(2.8)}
-                                color={COLORS.white}
-                              />
-                            </View>
-                          )}
-                        </View>
-                        <Text
-                          style={{
-                            color: COLORS.grey3,
-                            fontFamily: FONTS.medium,
-                            fontSize: RFPercentage(1.7),
-                            marginTop: RFPercentage(1),
-                          }}
-                        >
-                          {item.name}
-                        </Text>
-                      </TouchableOpacity>
-                    );
-                  }}
-                />
-              </View>
-            </View>
-          </View>
-        </TouchableWithoutFeedback>
-      </Modal>
 
       <Modal
         visible={modalVisible}
@@ -699,7 +300,7 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
                   fontSize: RFPercentage(2.1),
                 }}
               >
-               You want to duplicate this event?
+                You want to duplicate this event?
               </Text>
               <View
                 style={{
@@ -746,7 +347,7 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
                     borderRadius: RFPercentage(2),
                     alignItems: 'center',
                     justifyContent: 'center',
-                    backgroundColor:COLORS.primary
+                    backgroundColor: COLORS.primary,
                   }}
                 >
                   <Text
@@ -807,7 +408,7 @@ const styles = StyleSheet.create({
   },
   groupImage: {
     width: '100%',
-    height: RFPercentage(28),
+    height: RFPercentage(23.6),
   },
   wrap2: {
     alignItems: 'center',
@@ -818,7 +419,7 @@ const styles = StyleSheet.create({
   },
   linearGradient: {
     width: '100%',
-    marginTop: RFPercentage(5.5),
+    marginTop: RFPercentage(1),
     paddingVertical: RFPercentage(2),
     height: '100%',
   },
@@ -927,7 +528,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   backButton: {
-    width: RFPercentage(14),
+    width: '40%',
     height: RFPercentage(5.5),
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.primary,

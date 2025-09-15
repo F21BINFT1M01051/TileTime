@@ -15,20 +15,21 @@ import {
   ScrollView,
   Share,
   KeyboardAvoidingView,
+  Dimensions,
 } from 'react-native';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
-import { COLORS, FONTS, ICONS, IMAGES } from '../../../../../config/theme';
+import { COLORS, FONTS, ICONS, IMAGES } from '../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import moment from 'moment';
 import { launchImageLibrary } from 'react-native-image-picker';
-import { useNavigation } from '@react-navigation/native';
-import CustomButton from '../../../../../components/CustomButton';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { pick } from '@react-native-documents/picker';
-import CreateEvent from '../../../../../components/CreateEvent';
+import CreateEvent from '../../../../components/CreateEvent';
 import { useDispatch, useSelector } from 'react-redux';
-import { setEventType } from '../../../../../redux/event-type/Actions';
+import { setEventType } from '../../../../redux/event-type/Actions';
+
+const { height } = Dimensions.get('window');
 
 moment.updateLocale('en', {
   relativeTime: {
@@ -49,40 +50,15 @@ moment.updateLocale('en', {
   },
 });
 
-const ChatScreen = ({ route, navigation }: any) => {
+const EventBroadCast = ({ route, navigation }: any) => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
-  const { isGroup, isNew } = route.params;
+  const { isNew } = route.params;
   const [attachmentModalVisible, setAttachmentModalVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedType, setSelectedType] = useState('');
   const dispatch = useDispatch();
   const role = useSelector(state => state.userFlow.userFlow);
-
-  const openModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const onShare = async () => {
-    try {
-      const result = await Share.share({
-        message: 'Check out this awesome content! 🚀',
-        url: 'https://example.com',
-      });
-
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-          console.log('Shared with activity type: ', result.activityType);
-        } else {
-          console.log('Shared successfully');
-        }
-      } else if (result.action === Share.dismissedAction) {
-        console.log('Dismissed');
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
 
   // useEffect(() => {
   //   const testMessage = {
@@ -215,27 +191,6 @@ const ChatScreen = ({ route, navigation }: any) => {
               isUser ? styles.rightBubble : styles.leftBubble,
             ]}
           >
-            <View style={styles.bubbleHeader}>
-              <Image
-                source={isUser ? IMAGES.chatProfile : IMAGES.profile2}
-                style={
-                  isUser ? styles.bubbleAvatarRight : styles.bubbleAvatarLeft
-                }
-              />
-              <View style={styles.messageMeta}>
-                <Text
-                  style={isUser ? styles.usernameRight : styles.usernameLeft}
-                >
-                  {currentMessage.user.name}
-                </Text>
-                <Text
-                  style={isUser ? styles.timeTextRight : styles.timeTextLeft}
-                >
-                  {moment(currentMessage.createdAt).fromNow()}
-                </Text>
-              </View>
-            </View>
-
             {currentMessage.image ? (
               renderMessageImage(props)
             ) : (
@@ -364,109 +319,70 @@ const ChatScreen = ({ route, navigation }: any) => {
             </TouchableOpacity>
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={() =>
-                navigation.navigate(isGroup ? 'GroupDetails' : 'UserDetails')
-              }
+              onPress={() => {
+                navigation.navigate('EventDetails', { preview: true });
+              }}
             >
-              {isGroup ? (
-                <>
-                  <View style={styles.groupIconContainer}>
-                    <Image
-                      source={IMAGES.customProfile}
-                      resizeMode="cover"
-                      style={styles.groupIcon}
-                    />
-                  </View>
-                </>
-              ) : (
-                <>
-                  <View style={styles.avatarOuterLayer}>
-                    <View style={styles.avatarMiddleLayer}>
-                      <View style={styles.avatarInnerLayer}>
-                        <Image
-                          source={IMAGES.profile2}
-                          resizeMode="cover"
-                          style={styles.avatarImage}
-                        />
-                      </View>
-                    </View>
-                  </View>
-                </>
-              )}
+              <View style={styles.groupIconContainer}>
+                <Image
+                  source={IMAGES.customProfile}
+                  resizeMode="cover"
+                  style={styles.groupIcon}
+                />
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={() =>
-                navigation.navigate(isGroup ? 'GroupDetails' : 'UserDetails')
-              }
+              onPress={() => {
+                navigation.navigate('EventDetails', { preview: true });
+              }}
             >
               <Text style={styles.groupNameText}>
-                {isGroup ? `Mahjong - Richie Rich Gr..` : `Sophie Reynolds`}
+                {`Four Winds: Community Mahjong...`}
               </Text>
             </TouchableOpacity>
-
-            {isGroup ? (
-              <>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    position: 'absolute',
-                    right: 0,
-                  }}
-                >
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={() => {
-                      openModal();
-                    }}
-                  >
-                    <Image
-                      source={ICONS.calender2}
-                      resizeMode="contain"
-                      style={styles.cal}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={() => navigation.navigate('AddMembers')}
-                  >
-                    <Image
-                      source={ICONS.userAdd}
-                      resizeMode="contain"
-                      style={{
-                        width: RFPercentage(2.6),
-                        height: RFPercentage(2.6),
-                      }}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </>
-            ) : (
-              <>
-                <TouchableOpacity
-                  style={styles.dotsButton}
-                  onPress={() => {
-                    openModal();
-                  }}
-                >
-                  <Image
-                    source={ICONS.calender2}
-                    resizeMode="contain"
-                    style={{
-                      width: RFPercentage(3),
-                      height: RFPercentage(3),
-                    }}
-                  />
-                </TouchableOpacity>
-              </>
-            )}
           </View>
         </View>
         <View style={styles.chatContainer}>
+          {messages.length > 0 && (
+            <View style={styles.stickyBanner}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Image
+                  source={ICONS.broad}
+                  resizeMode="contain"
+                  style={{
+                    width: RFPercentage(3.8),
+                    height: RFPercentage(3.8),
+                  }}
+                />
+                <View style={{ width: '85%', marginLeft: RFPercentage(1.5) }}>
+                  <Text
+                    style={{
+                      fontFamily: FONTS.semiBold,
+                      color: COLORS.primary,
+                      fontSize: RFPercentage(1.9),
+                    }}
+                  >
+                    Event Broadcast
+                  </Text>
+                  <Text
+                    style={{
+                      color: COLORS.lightGrey,
+                      fontFamily: FONTS.regular,
+                      fontSize: RFPercentage(1.7),
+                      marginTop: RFPercentage(0.5),
+                    }}
+                  >
+                    Messages sent from here will be delivered to all attendees
+                  </Text>
+                </View>
+              </View>
+            </View>
+          )}
           <ImageBackground
             source={IMAGES.chat}
             resizeMode="cover"
-            style={{ flex: 1 }}
+            style={{ flex: 1 , paddingTop:RFPercentage(2)}}
           >
             <GiftedChat
               messages={messages}
@@ -475,52 +391,65 @@ const ChatScreen = ({ route, navigation }: any) => {
                 name: 'You',
                 avatar: 'https://placeimg.com/140/140/any',
               }}
-              alignTop={true}
               renderBubble={renderBubble}
               renderMessage={renderMessage}
               renderDay={renderDay}
               inverted={true}
+              alignTop={true}
               listViewProps={{
                 ListHeaderComponent: () =>
-                  messages.length === 0 && isNew && isGroup ? (
-                    <View style={{ marginBottom: RFPercentage(20) }}>
-                      <View style={styles.todayBadge}>
-                        <Text style={styles.todayText}>Today</Text>
-                      </View>
-
+                  messages.length === 0 && isNew ? (
+                    <View style={{ marginBottom: height * 0.43 }}>
                       <View style={styles.groupInfoCard}>
-                        <View style={styles.largeGroupIconContainer}>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            width: '90%',
+                            alignSelf: 'center',
+                          }}
+                        >
                           <Image
-                            source={IMAGES.customProfile}
-                            resizeMode="cover"
-                            style={styles.largeGroupIcon}
+                            source={ICONS.broadcast}
+                            resizeMode="contain"
+                            style={{
+                              width: RFPercentage(9),
+                              height: RFPercentage(9),
+                            }}
                           />
+                          <Text
+                            style={{
+                              fontFamily: FONTS.bold,
+                              color: COLORS.primary,
+                              fontSize: RFPercentage(3.4),
+                              textAlign: 'center',
+                              width: '80%',
+                              right: RFPercentage(0.5),
+                            }}
+                          >
+                            This is your event broadcast space
+                          </Text>
                         </View>
-                        <Text style={styles.createdText}>
-                          You created this group
+                        <Text
+                          style={{
+                            fontFamily: FONTS.regular,
+                            color: COLORS.icon,
+                            fontSize: RFPercentage(1.9),
+                            lineHeight: RFPercentage(2),
+                            width: '90%',
+                            alignSelf: 'center',
+                            marginTop: RFPercentage(1.4),
+                            textAlign: 'center',
+                          }}
+                        >
+                          Keep your attendees updated! Share event details,
+                          reminders, and announcements here
                         </Text>
-                        <Text style={styles.membersText}>
-                          Group - 2 Members
-                        </Text>
-                        <View style={styles.buttonContainer}>
-                          <CustomButton
-                            title="Add Members"
-                            icon={ICONS.plus}
-                            onPress={() => navigation.navigate('AddMembers')}
-                          />
-                        </View>
-                        <View style={styles.secondButtonContainer}>
-                          <CustomButton
-                            title="Share Group Link"
-                            onPress={onShare}
-                            icon={ICONS.link}
-                          />
-                        </View>
                       </View>
 
                       <View style={styles.conversationPrompt}>
                         <Text style={styles.conversationText}>
-                          {`Start a conversation, ask a\nquestion, or just say hi.`}
+                          {`Share your first update`}
                         </Text>
                       </View>
                     </View>
@@ -719,7 +648,7 @@ const ChatScreen = ({ route, navigation }: any) => {
   );
 };
 
-export default ChatScreen;
+export default EventBroadCast;
 
 const styles = StyleSheet.create({
   container: {
@@ -733,22 +662,20 @@ const styles = StyleSheet.create({
     paddingBottom: RFPercentage(2),
   },
   groupIconContainer: {
-    width: RFPercentage(5),
+    width: RFPercentage(4),
     height: RFPercentage(5),
-    borderRadius: RFPercentage(100),
+    borderRadius: RFPercentage(1.2),
     backgroundColor: COLORS.yellow,
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: RFPercentage(2),
   },
   groupIcon: {
-    width: RFPercentage(5),
+    width: RFPercentage(4),
     height: RFPercentage(5),
-    borderTopRightRadius: RFPercentage(100),
-    right: RFPercentage(0.5),
-    borderTopLeftRadius: RFPercentage(100),
-    borderBottomRightRadius: RFPercentage(100),
-    borderBottomLeftRadius: RFPercentage(1),
+    right: RFPercentage(0.3),
+    borderRadius: RFPercentage(1.2),
+    bottom: RFPercentage(0.2),
   },
   cal: {
     width: RFPercentage(2.6),
@@ -833,7 +760,7 @@ const styles = StyleSheet.create({
   },
   groupInfoCard: {
     width: '90%',
-    padding: RFPercentage(3),
+    paddingVertical: RFPercentage(3),
     alignItems: 'center',
     backgroundColor: COLORS.white,
     borderWidth: RFPercentage(0.1),
@@ -841,7 +768,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: RFPercentage(1.5),
     marginTop: RFPercentage(3),
-    paddingBottom: RFPercentage(4),
+    // paddingBottom: RFPercentage(2),
   },
   largeGroupIconContainer: {
     width: RFPercentage(8),
@@ -884,18 +811,18 @@ const styles = StyleSheet.create({
   },
   conversationPrompt: {
     alignSelf: 'center',
-    height: RFPercentage(7),
+    height: RFPercentage(5.4),
     backgroundColor: COLORS.white,
-    borderRadius: RFPercentage(1.5),
     marginTop: RFPercentage(3),
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: RFPercentage(1.3),
+    width: '100%',
   },
   conversationText: {
     color: COLORS.primary,
-    fontFamily: FONTS.medium,
-    fontSize: RFPercentage(1.8),
+    fontFamily: FONTS.semiBold,
+    fontSize: RFPercentage(1.9),
     textAlign: 'center',
     lineHeight: RFPercentage(2),
   },
@@ -974,13 +901,11 @@ const styles = StyleSheet.create({
   textLeft: {
     color: COLORS.grey4,
     fontFamily: FONTS.regular,
-    marginTop: RFPercentage(2),
     fontSize: RFPercentage(1.8),
   },
   textRight: {
     color: COLORS.white,
     fontFamily: FONTS.regular,
-    marginTop: RFPercentage(2),
     fontSize: RFPercentage(1.8),
   },
   imageMessage: {
@@ -1079,5 +1004,20 @@ const styles = StyleSheet.create({
     paddingVertical: RFPercentage(2),
     borderBottomWidth: 1,
     borderBottomColor: COLORS.lightWhite,
+  },
+  stickyBanner: {
+    position: 'absolute',
+    top: 0,
+    alignSelf: 'center',
+    backgroundColor: COLORS.white,
+    paddingHorizontal: RFPercentage(2),
+    paddingVertical: RFPercentage(1.5),
+    zIndex: 10,
+    width: '100%',
+  },
+  bannerText: {
+    color: COLORS.white,
+    fontFamily: FONTS.medium,
+    fontSize: RFPercentage(2),
   },
 });

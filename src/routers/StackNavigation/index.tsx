@@ -57,6 +57,11 @@ import AddMembers from '../../screens/common/home/groups/create-groups/add-membe
 import EventCoHosts from '../../screens/common/home/events/event-details/co-hosts';
 import EventAttendeesV2 from '../../screens/common/home/events/event-details/event-attendees';
 import EventAttachments from '../../screens/common/home/events/event-details/event-attachments';
+import EditEventDescription from '../../screens/instructor/manage-events/edit-description';
+import EditEventAdmissionDetails from '../../screens/instructor/manage-events/edit-admissionDetails';
+import EditEventGameDetails from '../../screens/instructor/manage-events/edit-gameDetails';
+import EditAddOneExtra from '../../screens/instructor/manage-events/edit-addOnesExtra';
+import EventBroadCast from '../../screens/instructor/manage-events/event-broadcast';
 
 export type RootStackParamList = {
   OnBoarding: undefined;
@@ -114,6 +119,11 @@ export type RootStackParamList = {
   EventCoHosts: undefined;
   EventAttendeesV2: undefined;
   EventAttachments: undefined;
+  EditEventDescription: undefined;
+  EditEventAdmissionDetails:undefined;
+  EditEventGameDetails:undefined;
+  EditAddOneExtra: undefined;
+  EventBroadCast:undefined
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -159,6 +169,11 @@ const Navigator: React.FC = () => {
         <Stack.Screen name="EventCoHosts" component={EventCoHosts} />
         <Stack.Screen name="EventAttendeesV2" component={EventAttendeesV2} />
         <Stack.Screen name="EventAttachments" component={EventAttachments} />
+        <Stack.Screen name="EditEventDescription" component={EditEventDescription} />
+        <Stack.Screen name="EditEventAdmissionDetails" component={EditEventAdmissionDetails} />
+        <Stack.Screen name="EditEventGameDetails" component={EditEventGameDetails} />
+        <Stack.Screen name="EditAddOneExtra" component={EditAddOneExtra} />
+        <Stack.Screen name="EventBroadCast" component={EventBroadCast} />
 
         <Stack.Screen
           name="DirectChatSelection"

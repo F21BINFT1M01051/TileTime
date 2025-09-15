@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { IMAGES, COLORS, FONTS, ICONS } from '../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
@@ -8,11 +8,12 @@ interface Props {
   attendees: number;
   status: string;
   profile: any;
+  onPress?: () => void;
 }
 
 export default function HomeGroupCard(props: Props) {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity activeOpacity={0.8} style={styles.container} onPress={props.onPress}>
       <View style={styles.largeGroupIconContainer}>
         <Image
           source={props.profile}
@@ -27,7 +28,7 @@ export default function HomeGroupCard(props: Props) {
           <Text style={styles.tagText}>{props.status}</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 

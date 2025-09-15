@@ -9,6 +9,11 @@ import {
   View,
   Share,
   Platform,
+  Modal,
+  TouchableWithoutFeedback,
+  Animated,
+  Keyboard,
+  Easing,
 } from 'react-native';
 import React, { useState, useRef } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -23,6 +28,7 @@ import EventCalendar from '../../../components/EventCalendar';
 import CreateEvent from '../../../components/CreateEvent';
 import { useDispatch } from 'react-redux';
 import { setEventType } from '../../../redux/event-type/Actions';
+import { BlurView } from '@react-native-community/blur';
 
 const Groups = [
   {
@@ -100,6 +106,29 @@ const InstructorHome = ({ navigation }: any) => {
 
   const openModal = () => {
     setIsModalVisible(true);
+  };
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible2, setModalVisible2] = useState(false);
+  const [selectedGroup, setSelectedGroup] = useState(null);
+
+  const slideAnim = React.useRef(new Animated.Value(100)).current;
+
+  React.useEffect(() => {
+    if (modalVisible2) {
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 500,
+        easing: Easing.out(Easing.ease),
+        useNativeDriver: true,
+      }).start();
+    } else {
+      slideAnim.setValue(100);
+    }
+  }, [modalVisible2]);
+
+  const dismissAll = () => {
+    Keyboard.dismiss();
   };
 
   return (
@@ -278,6 +307,10 @@ const InstructorHome = ({ navigation }: any) => {
                       profile={item.profile}
                       status={item.status}
                       attendees={item.attendees}
+                      onPress={() => {
+                        setSelectedGroup(item);
+                        setModalVisible(true);
+                      }}
                     />
                   </View>
                 );
@@ -313,6 +346,115 @@ const InstructorHome = ({ navigation }: any) => {
           }
         }}
       />
+
+      <Modal
+        visible={modalVisible}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <BlurView
+          style={StyleSheet.absoluteFill}
+          blurType="dark"
+          blurAmount={5}
+          reducedTransparencyFallbackColor="white"
+        />
+        <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
+          <View style={styles.overLay}>
+            <TouchableWithoutFeedback>
+              <View style={styles.modalContent2}>
+                <TouchableOpacity
+                  onPress={() => setModalVisible(false)}
+                  style={styles.closeButton}
+                >
+                  <Image source={ICONS.cross} style={styles.closeIcon} />
+                </TouchableOpacity>
+
+                <View style={styles.largeGroupIconContainer}>
+                  <Image
+                    source={IMAGES.customProfile}
+                    style={styles.largeGroupIcon}
+                  />
+                </View>
+
+                <Text style={styles.modalText}>
+                  Join {selectedGroup?.title}
+                </Text>
+                <Text style={styles.modalSubText}>
+                  Group – {selectedGroup?.attendees} Members
+                </Text>
+
+                <View style={styles.modalButtonWrapper}>
+                  <CustomButton
+                    title="Join Group Now"
+                    onPress={() => {
+                      setModalVisible(false);
+                      setModalVisible2(true);
+                    }}
+                  />
+                </View>
+              </View>
+            </TouchableWithoutFeedback>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
+
+      {/* Bottom Sheet Modal */}
+      <Modal
+        visible={modalVisible2}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setModalVisible2(false)}
+      >
+        <BlurView
+          style={StyleSheet.absoluteFill}
+          blurType="dark"
+          blurAmount={5}
+          reducedTransparencyFallbackColor="white"
+        />
+        <TouchableWithoutFeedback onPress={() => setModalVisible2(false)}>
+          <View style={[styles.overLay, styles.bottomSheetOverlay]}>
+            <TouchableWithoutFeedback>
+              <Animated.View
+                style={[
+                  styles.bottomSheet,
+                  { transform: [{ translateY: slideAnim }] },
+                ]}
+              >
+                <TouchableOpacity
+                  onPress={() => setModalVisible2(false)}
+                  style={styles.closeButton}
+                >
+                  <Image source={ICONS.cross} style={styles.closeIcon} />
+                </TouchableOpacity>
+                <Image
+                  source={ICONS.group22}
+                  resizeMode="cover"
+                  style={styles.groupImage}
+                />
+                <View style={styles.groupInfoWrapper}>
+                  <Text style={styles.groupName}>Emily Girls Group</Text>
+                  <Text style={styles.groupInviteNote}>
+                    This Group Is Invite-only
+                  </Text>
+
+                  <Image
+                    source={ICONS.qoutes}
+                    resizeMode="contain"
+                    style={styles.qouteIcon}
+                  />
+                </View>
+                <View style={styles.groupDescriptionWrapper}>
+                  <Text style={styles.groupDescription}>
+                    Reach out to a member you know for an invite or the group
+                    link.
+                  </Text>
+                </View>
+              </Animated.View>
+            </TouchableWithoutFeedback>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
     </LinearGradient>
   );
 };
@@ -484,5 +626,111 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.headline,
     color: COLORS.primary,
     fontSize: RFPercentage(2.6),
+  },
+  overLay: {
+    flex: 1,
+    // backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  bottomSheetOverlay: {
+    justifyContent: 'flex-end',
+  },
+  modalContent2: {
+    backgroundColor: COLORS.white,
+    padding: RFPercentage(3.5),
+    borderRadius: RFPercentage(2),
+    width: '90%',
+    alignItems: 'center',
+  },
+  closeButton: {
+    position: 'absolute',
+    right: RFPercentage(2),
+    top: RFPercentage(2),
+  },
+  closeIcon: {
+    width: RFPercentage(3),
+    height: RFPercentage(3),
+    tintColor: COLORS.lightGrey,
+  },
+  largeGroupIconContainer: {
+    width: RFPercentage(7.8),
+    height: RFPercentage(7.8),
+    borderRadius: RFPercentage(100),
+    backgroundColor: COLORS.yellow,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  largeGroupIcon: {
+    width: RFPercentage(7.8),
+    height: RFPercentage(7.8),
+    borderTopRightRadius: RFPercentage(100),
+    right: RFPercentage(0.5),
+    borderTopLeftRadius: RFPercentage(100),
+    borderBottomRightRadius: RFPercentage(100),
+    borderBottomLeftRadius: RFPercentage(1),
+  },
+  modalText: {
+    fontSize: RFPercentage(1.8),
+    fontFamily: FONTS.semiBold,
+    color: COLORS.primary,
+    marginTop: RFPercentage(2.3),
+  },
+  modalSubText: {
+    color: COLORS.lightGrey,
+    fontSize: RFPercentage(1.7),
+    fontFamily: FONTS.regular,
+    marginTop: RFPercentage(0.6),
+  },
+  modalButtonWrapper: {
+    marginTop: RFPercentage(3.5),
+    width: '100%',
+  },
+  bottomSheet: {
+    backgroundColor: COLORS.white,
+    padding: RFPercentage(3),
+    borderTopLeftRadius: RFPercentage(3),
+    borderTopRightRadius: RFPercentage(3),
+    width: '100%',
+    alignItems: 'center',
+    paddingVertical: RFPercentage(5),
+  },
+  groupImage: {
+    width: RFPercentage(45),
+    height: RFPercentage(15),
+    left: RFPercentage(1.5),
+  },
+  groupInfoWrapper: {
+    marginTop: RFPercentage(2),
+  },
+  groupName: {
+    fontFamily: FONTS.headline,
+    fontSize: RFPercentage(3),
+    color: COLORS.primary,
+    textAlign: 'center',
+  },
+  groupInviteNote: {
+    color: COLORS.primary,
+    fontSize: RFPercentage(1.8),
+    fontFamily: FONTS.medium,
+    textAlign: 'center',
+    marginTop: RFPercentage(0.5),
+  },
+  qouteIcon: {
+    width: RFPercentage(8),
+    height: RFPercentage(4),
+    position: 'absolute',
+    right: RFPercentage(-7.5),
+    top: RFPercentage(1.7),
+  },
+  groupDescriptionWrapper: {
+    marginTop: RFPercentage(2),
+    width: '70%',
+  },
+  groupDescription: {
+    textAlign: 'center',
+    color: COLORS.lightGrey,
+    fontSize: RFPercentage(1.8),
+    fontFamily: FONTS.regular,
   },
 });

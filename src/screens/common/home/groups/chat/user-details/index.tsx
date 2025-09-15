@@ -159,7 +159,7 @@ const UserDetails = ({ navigation }: any) => {
           </View>
 
           <View style={styles.sectionMargin}>
-            <CommonGroup />
+            <CommonGroup onPress={() => navigation.navigate('CommonGroups')} />
           </View>
 
           <View style={styles.sectionMargin}>
@@ -236,9 +236,9 @@ const styles = StyleSheet.create({
   },
   mainContent: { width: '90%', alignSelf: 'center', bottom: RFPercentage(17) },
   avatarOuterLayer: {
-    width: RFPercentage(11),
-    height: RFPercentage(12.5),
-    borderRadius: RFPercentage(4.8),
+    width: RFPercentage(10),
+    height: RFPercentage(11.5),
+    borderRadius: RFPercentage(4.2),
     backgroundColor: COLORS.purple,
     alignItems: 'center',
     justifyContent: 'center',
@@ -247,26 +247,26 @@ const styles = StyleSheet.create({
   },
   avatarMiddleLayer: {
     backgroundColor: COLORS.green2,
-    width: RFPercentage(11),
-    height: RFPercentage(12.5),
-    borderRadius: RFPercentage(4.8),
+    width: RFPercentage(10),
+    height: RFPercentage(11.5),
+    borderRadius: RFPercentage(4.2),
     alignItems: 'center',
     justifyContent: 'center',
     right: RFPercentage(0.3),
   },
   avatarInnerLayer: {
     backgroundColor: COLORS.pink3,
-    width: RFPercentage(11),
-    height: RFPercentage(12.5),
-    borderRadius: RFPercentage(4.8),
+    width: RFPercentage(10),
+    height: RFPercentage(11.5),
+    borderRadius: RFPercentage(4.2),
     alignItems: 'center',
     justifyContent: 'center',
     right: RFPercentage(0.3),
   },
   avatarImage: {
-    width: RFPercentage(11),
-    height: RFPercentage(12.5),
-    borderRadius: RFPercentage(4.8),
+    width: RFPercentage(10),
+    height: RFPercentage(11.5),
+    borderRadius: RFPercentage(4.2),
     right: RFPercentage(0.3),
     bottom: RFPercentage(0.2),
   },

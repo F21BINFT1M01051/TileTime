@@ -344,6 +344,15 @@ const Events = ({ navigation }: any) => {
               </View>
             )}
           </ScrollView>
+          {!isOn && (
+            <TouchableOpacity
+              style={styles.fab}
+              activeOpacity={0.8}
+              onPress={openModal}
+            >
+              <Text style={{color:COLORS.white, fontFamily:FONTS.bold, fontSize:RFPercentage(1.8)}}>+ New Event</Text>
+            </TouchableOpacity>
+          )}
 
           {/* Calender Modal */}
           <Modal
@@ -677,5 +686,16 @@ const styles = StyleSheet.create({
     width: '90%',
     alignSelf: 'center',
     marginTop: RFPercentage(2),
+  },
+  fab: {
+    position: 'absolute',
+    bottom: RFPercentage(0),
+    right: RFPercentage(2),
+    backgroundColor: COLORS.primary,
+    width: RFPercentage(14),
+    height: RFPercentage(5),
+    borderRadius: RFPercentage(100),
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
