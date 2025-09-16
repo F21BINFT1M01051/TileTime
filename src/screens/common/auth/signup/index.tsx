@@ -11,6 +11,7 @@ import {
   ScrollView,
   ImageBackground,
   Linking,
+  Alert,
 } from 'react-native';
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -217,16 +218,24 @@ const SignUp = ({ navigation }: any) => {
                 activeOpacity={0.8}
                 onPress={async () => {
                   const email = 'alston@tiletime.com';
-                  const url = `mailto:${email}`;
+                  const subject = 'Support'; 
+                  const body = 'Hello..,'; 
 
-                  try {
-                    const supported = await Linking.canOpenURL(url);
-                    if (supported) {
+                  if (Platform.OS === 'android') {
+                    const url = `mailto:${email}?subject=${encodeURIComponent(
+                      subject,
+                    )}&body=${encodeURIComponent(body)}`;
+
+                    try {
                       await Linking.openURL(url);
-                    } else {
+                    } catch (err) {
+                      console.log('Error opening Gmail:', err);
                     }
-                  } catch (err) {
-                    console.log('Error opening email link:', err);
+                  } else {
+                    const url = `mailto:${email}?subject=${encodeURIComponent(
+                      subject,
+                    )}&body=${encodeURIComponent(body)}`;
+                    await Linking.openURL(url);
                   }
                 }}
               >
