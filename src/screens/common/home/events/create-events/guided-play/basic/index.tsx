@@ -187,696 +187,676 @@ const GuidedPlayBasic = () => {
 
   return (
     <View style={styles.mainContainer}>
-      <ScrollView
+      {/* <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollViewContent}
-      >
-        <View style={styles.innerWrapper}>
-          <View style={styles.sectionHeader}>
-            <Text style={styles.eventTitle}>Event Basics</Text>
-            <Text style={styles.eventSubtitle}>
-              Set the basics: name your event and define the experience.
-            </Text>
-          </View>
+      > */}
+      <View style={styles.innerWrapper}>
+        <View style={styles.sectionHeader}>
+          <Text style={styles.eventTitle}>Event Basics</Text>
+          <Text style={styles.eventSubtitle}>
+            Set the basics: name your event and define the experience.
+          </Text>
+        </View>
 
-          {/* Banner Image */}
-          <View
-            style={[
-              styles.imageUploadBox,
-              { borderStyle: imageUri ? 'solid' : 'dashed' },
-            ]}
-          >
-            {imageUri ? (
-              <Image
-                source={{ uri: imageUri }}
-                resizeMode="cover"
-                style={styles.uploadedImage}
-              />
-            ) : (
-              <>
-                <Image
-                  source={ICONS.upload}
-                  resizeMode="contain"
-                  style={styles.uploadIcon}
-                />
-                <TouchableOpacity
-                  onPress={pickImage}
-                  style={styles.uploadButton}
-                  activeOpacity={0.8}
-                >
-                  <Text style={styles.uploadButtonText}>
-                    Upload Banner Image
-                  </Text>
-                </TouchableOpacity>
-                <Text style={styles.imageHint}>
-                  Suggested dimensions: 1200x600
-                </Text>
-              </>
-            )}
-          </View>
-
-          {imageUri && (
-            <View style={styles.changeImageWrapper}>
-              <TouchableOpacity
-                onPress={pickImage}
-                style={styles.changeImageButton}
-                activeOpacity={0.8}
-              >
-                <Image
-                  source={ICONS.pen33}
-                  resizeMode="contain"
-                  style={styles.changeImageIcon}
-                />
-                <Text style={styles.changeImageText}>Change Image</Text>
-              </TouchableOpacity>
-            </View>
-          )}
-
-          {/* Event Title */}
-          <View style={{ marginTop: imageUri ? RFPercentage(-2) : 0 }}>
-            <InputField
-              placeholder="Event Title"
-              value={title}
-              onChangeText={setTitle}
+        {/* Event Date */}
+        <FocusedSelection
+          placeholder="Event Date"
+          selectedText={formatDate(date)}
+          onPress={() => setShowPicker(!showPicker)}
+          icon={
+            <Image
+              source={ICONS.cl}
+              resizeMode="contain"
+              style={styles.dateIcon}
             />
-          </View>
-
-          {/* Event Description */}
-          <View style={styles.bioWrapper}>
-            <View style={styles.bioContainer}>
-              <View style={styles.bioInputWrapper}>
-                <TextInput
-                  placeholder="Event Description"
-                  placeholderTextColor={COLORS.placeholder}
-                  style={styles.bioInput}
-                  multiline
-                  maxLength={150}
-                  value={description}
-                  onChangeText={setDescription}
-                  cursorColor={COLORS.primary}
-                  selectionColor={COLORS.primary}
-                />
-              </View>
-              <View style={styles.bioIconWrapper}>
-                <Image
-                  source={ICONS.bars}
-                  resizeMode="contain"
-                  style={styles.bioIcon}
-                />
-              </View>
-            </View>
-          </View>
-
-          {/* Location */}
-          <InputField
-            placeholder="Location"
-            value={location}
-            onChangeText={setLocation}
-            icon={
-              <Image
-                source={ICONS.location}
-                resizeMode="contain"
-                style={styles.locationIcon}
-              />
-            }
+          }
+        />
+        {showPicker && (
+          <DateTimePicker
+            value={date}
+            mode="date"
+            onChange={onChange}
+            display={Platform.OS === 'ios' ? 'inline' : 'default'}
+            style={{ alignSelf: 'center' }}
+            textColor={COLORS.primary}
+            accentColor={COLORS.pink}
+            themeVariant="light"
           />
+        )}
 
-          {/* Event Date */}
-          <FocusedSelection
-            placeholder="Event Date"
-            selectedText={formatDate(date)}
-            onPress={() => setShowPicker(!showPicker)}
-            icon={
-              <Image
-                source={ICONS.cl}
-                resizeMode="contain"
-                style={styles.dateIcon}
-              />
-            }
-          />
-          {showPicker && (
-            <DateTimePicker
-              value={date}
-              mode="date"
-              onChange={onChange}
-              display={Platform.OS === 'ios' ? 'inline' : 'default'}
-              style={{ alignSelf: 'center' }}
-              textColor={COLORS.primary}
-              accentColor={COLORS.pink}
-              themeVariant="light"
-            />
-          )}
-
-          {/* Multi Day */}
+        {/* Multi Day */}
+        <TouchableOpacity
+          style={styles.checkWrap}
+          activeOpacity={0.8}
+          onPress={() => setChecked(!checked)}
+        >
           <TouchableOpacity
-            style={styles.checkWrap}
             activeOpacity={0.8}
             onPress={() => setChecked(!checked)}
           >
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => setChecked(!checked)}
-            >
-              <Image
-                source={checked ? ICONS.checked : ICONS.uncheck}
-                resizeMode="contain"
-                style={styles.checkIcon}
-              />
-            </TouchableOpacity>
-            <Text style={styles.business}>This is a Multi-Day Event</Text>
+            <Image
+              source={checked ? ICONS.checked : ICONS.uncheck}
+              resizeMode="contain"
+              style={styles.checkIcon}
+            />
           </TouchableOpacity>
+          <Text style={styles.business}>This is a Multi-Day Event</Text>
+        </TouchableOpacity>
 
-          {/* If Multi Day event */}
-          {checked && (
-            <>
-              <View style={styles.multiDayWrapper}>
-                <FocusedSelection
-                  placeholder="Event End Date"
-                  selectedText={formatDate(endDate)}
-                  onPress={() => setShowPicker2(!showPicker2)}
-                  icon={
-                    <Image
-                      source={ICONS.cl}
-                      resizeMode="contain"
-                      style={styles.dateIcon}
-                    />
-                  }
-                />
-                {showPicker2 && (
-                  <DateTimePicker
-                    value={endDate}
-                    mode="date"
-                    onChange={onChangeDate}
-                    display={Platform.OS === 'ios' ? 'inline' : 'default'}
-                    style={{ alignSelf: 'center' }}
-                    textColor={COLORS.primary} // changes text color
-                    accentColor={COLORS.pink}
-                    themeVariant="light"
+        {/* If Multi Day event */}
+        {checked && (
+          <>
+            <View style={styles.multiDayWrapper}>
+              <FocusedSelection
+                placeholder="Event End Date"
+                selectedText={formatDate(endDate)}
+                onPress={() => setShowPicker2(!showPicker2)}
+                icon={
+                  <Image
+                    source={ICONS.cl}
+                    resizeMode="contain"
+                    style={styles.dateIcon}
                   />
-                )}
-
-                <FocusedSelection
-                  placeholder="Start Time"
-                  selectedText={formatTime(startTime)}
-                  onPress={() => setShowPicker3(!showPicker3)}
-                  icon={
-                    <Image
-                      source={ICONS.clock}
-                      resizeMode="contain"
-                      style={styles.dateIcon}
-                    />
-                  }
+                }
+              />
+              {showPicker2 && (
+                <DateTimePicker
+                  value={endDate}
+                  mode="date"
+                  onChange={onChangeDate}
+                  display={Platform.OS === 'ios' ? 'inline' : 'default'}
+                  style={{ alignSelf: 'center' }}
+                  textColor={COLORS.primary} // changes text color
+                  accentColor={COLORS.pink}
+                  themeVariant="light"
                 />
-                {showPicker3 && Platform.OS === 'ios' && (
-                  <View style={styles.calenderModal}>
-                    <View style={styles.calenderRow}>
-                      <TouchableOpacity onPress={() => setShowPicker3(false)}>
-                        <Text style={styles.cancel}>Cancel</Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity onPress={() => setShowPicker3(false)}>
-                        <Text style={styles.confirm}>Confirm</Text>
-                      </TouchableOpacity>
-                    </View>
-                    <DateTimePicker
-                      value={startTime}
-                      mode="time"
-                      display="spinner"
-                      onChange={(e, selectedDate) =>
-                        selectedDate && setStartTime(selectedDate)
-                      }
-                      style={{
-                        backgroundColor: COLORS.white,
-                        alignSelf: 'center',
-                      }}
-                      textColor={COLORS.primary}
-                      accentColor={COLORS.pink}
-                      themeVariant="light"
-                    />
-                  </View>
-                )}
+              )}
 
-                {/* For Android keep it simple */}
-                {showPicker3 && Platform.OS === 'android' && (
+              <FocusedSelection
+                placeholder="Start Time"
+                selectedText={formatTime(startTime)}
+                onPress={() => setShowPicker3(!showPicker3)}
+                icon={
+                  <Image
+                    source={ICONS.clock}
+                    resizeMode="contain"
+                    style={styles.dateIcon}
+                  />
+                }
+              />
+              {showPicker3 && Platform.OS === 'ios' && (
+                <View style={styles.calenderModal}>
+                  <View style={styles.calenderRow}>
+                    <TouchableOpacity onPress={() => setShowPicker3(false)}>
+                      <Text style={styles.cancel}>Cancel</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => setShowPicker3(false)}>
+                      <Text style={styles.confirm}>Confirm</Text>
+                    </TouchableOpacity>
+                  </View>
                   <DateTimePicker
                     value={startTime}
                     mode="time"
-                    display="default"
-                    onChange={onChangeStartTime}
+                    display="spinner"
+                    onChange={(e, selectedDate) =>
+                      selectedDate && setStartTime(selectedDate)
+                    }
+                    style={{
+                      backgroundColor: COLORS.white,
+                      alignSelf: 'center',
+                    }}
+                    textColor={COLORS.primary}
+                    accentColor={COLORS.pink}
+                    themeVariant="light"
                   />
-                )}
+                </View>
+              )}
 
-                <FocusedSelection
-                  placeholder="End Time"
-                  selectedText={formatTime(endTime)}
-                  onPress={() => setShowPicker4(!showPicker4)}
-                  icon={
-                    <Image
-                      source={ICONS.clock}
-                      resizeMode="contain"
-                      style={styles.dateIcon}
-                    />
-                  }
+              {/* For Android keep it simple */}
+              {showPicker3 && Platform.OS === 'android' && (
+                <DateTimePicker
+                  value={startTime}
+                  mode="time"
+                  display="default"
+                  onChange={onChangeStartTime}
                 />
-                {showPicker4 && Platform.OS === 'ios' && (
-                  <View
-                    style={styles.calenderModal}
-                  >
-                    <View
-                      style={styles.calenderRow}
-                    >
-                      <TouchableOpacity onPress={() => setShowPicker4(false)}>
-                        <Text
-                          style={styles.cancel}
-                        >
-                          Cancel
-                        </Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity onPress={() => setShowPicker4(false)}>
-                        <Text
-                          style={styles.confirm}
-                        >
-                          Confirm
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
-                    <DateTimePicker
-                      value={endTime}
-                      mode="time"
-                      display="spinner"
-                      onChange={(e, selectedDate) =>
-                        selectedDate && setEndTime(selectedDate)
-                      }
-                      style={{ backgroundColor: COLORS.white }}
-                      textColor={COLORS.primary}
-                      accentColor={COLORS.pink}
-                      themeVariant="light"
-                    />
-                  </View>
-                )}
+              )}
 
-                {/* For Android keep it simple */}
-                {showPicker4 && Platform.OS === 'android' && (
+              <FocusedSelection
+                placeholder="End Time"
+                selectedText={formatTime(endTime)}
+                onPress={() => setShowPicker4(!showPicker4)}
+                icon={
+                  <Image
+                    source={ICONS.clock}
+                    resizeMode="contain"
+                    style={styles.dateIcon}
+                  />
+                }
+              />
+              {showPicker4 && Platform.OS === 'ios' && (
+                <View style={styles.calenderModal}>
+                  <View style={styles.calenderRow}>
+                    <TouchableOpacity onPress={() => setShowPicker4(false)}>
+                      <Text style={styles.cancel}>Cancel</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => setShowPicker4(false)}>
+                      <Text style={styles.confirm}>Confirm</Text>
+                    </TouchableOpacity>
+                  </View>
                   <DateTimePicker
                     value={endTime}
                     mode="time"
-                    display="default"
-                    onChange={onChangeEndTime}
+                    display="spinner"
+                    onChange={(e, selectedDate) =>
+                      selectedDate && setEndTime(selectedDate)
+                    }
+                    style={{ backgroundColor: COLORS.white }}
+                    textColor={COLORS.primary}
+                    accentColor={COLORS.pink}
+                    themeVariant="light"
                   />
-                )}
-              </View>
+                </View>
+              )}
+
+              {/* For Android keep it simple */}
+              {showPicker4 && Platform.OS === 'android' && (
+                <DateTimePicker
+                  value={endTime}
+                  mode="time"
+                  display="default"
+                  onChange={onChangeEndTime}
+                />
+              )}
+            </View>
+          </>
+        )}
+
+        {/* Banner Image */}
+        <View
+          style={[
+            styles.imageUploadBox,
+            { borderStyle: imageUri ? 'solid' : 'dashed' },
+          ]}
+        >
+          {imageUri ? (
+            <Image
+              source={{ uri: imageUri }}
+              resizeMode="cover"
+              style={styles.uploadedImage}
+            />
+          ) : (
+            <>
+              <Image
+                source={ICONS.upload}
+                resizeMode="contain"
+                style={styles.uploadIcon}
+              />
+              <TouchableOpacity
+                onPress={pickImage}
+                style={styles.uploadButton}
+                activeOpacity={0.8}
+              >
+                <Text style={styles.uploadButtonText}>Upload Banner Image</Text>
+              </TouchableOpacity>
+              <Text style={styles.imageHint}>
+                Suggested dimensions: 1200x600
+              </Text>
             </>
           )}
+        </View>
 
-          {/* Paid Event */}
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => setIsOn(!isOn)}
-            style={styles.toggleRow}
-          >
-            <Text style={styles.toggleLabel}>Make This a Paid Event</Text>
-            <ToggleSwitch
-              isOn={isOn}
-              onColor={COLORS.pink}
-              offColor={COLORS.switch}
-              size="small"
-              onToggle={() => setIsOn(!isOn)}
-            />
-          </TouchableOpacity>
-
-          {/* If Paid Event */}
-          {isOn && (
-            <View style={styles.admissionDetailsWrapper}>
-              <Text style={styles.admissionTitle}>Admission Details</Text>
-              <InputField
-                placeholder="Set Admission Price"
-                value={price}
-                onChangeText={setPrice}
+        {imageUri && (
+          <View style={styles.changeImageWrapper}>
+            <TouchableOpacity
+              onPress={pickImage}
+              style={styles.changeImageButton}
+              activeOpacity={0.8}
+            >
+              <Image
+                source={ICONS.pen33}
+                resizeMode="contain"
+                style={styles.changeImageIcon}
               />
-              <InputField
-                placeholder="Total Seats Available"
-                value={seats}
-                onChangeText={setSeats}
-              />
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => setIsOn2(!isOn2)}
-                style={styles.toggleRow}
-              >
-                <Text style={styles.toggleLabel}>Enable Waitlist</Text>
-                <ToggleSwitch
-                  isOn={isOn2}
-                  onColor={COLORS.pink}
-                  offColor={COLORS.switch}
-                  size="small"
-                  onToggle={() => setIsOn2(!isOn2)}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => setIsOn3(!isOn3)}
-                style={styles.toggleRow}
-              >
-                <Text style={styles.toggleLabel}>
-                  Payment Required to confirm seat
-                </Text>
-                <ToggleSwitch
-                  isOn={isOn3}
-                  onColor={COLORS.pink}
-                  offColor={COLORS.switch}
-                  size="small"
-                  onToggle={() => setIsOn3(!isOn3)}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => setIsOn4(!isOn4)}
-                style={styles.toggleRow}
-              >
-                <Text style={styles.toggleLabel}>Enable Refunds</Text>
-                <ToggleSwitch
-                  isOn={isOn4}
-                  onColor={COLORS.pink}
-                  offColor={COLORS.switch}
-                  size="small"
-                  onToggle={() => setIsOn4(!isOn4)}
-                />
-              </TouchableOpacity>
+              <Text style={styles.changeImageText}>Change Image</Text>
+            </TouchableOpacity>
+          </View>
+        )}
 
-              {/* Refund Eligibility */}
-              <View>
-                <DropdownField
-                  placeholder="Refund Eligibility"
-                  data={[
-                    '24 hours before event',
-                    '16 hours before event',
-                    '8 hours before event',
-                    '4 hours before event',
-                  ]}
-                  selectedValue={refund}
-                  onValueChange={(val: any) => setRefund(val)}
-                  isDropdownVisible={isDropdownVisible2}
-                  setIsDropdownVisible={setIsDropdownVisible2}
-                  style={styles.dropdownField}
-                />
-              </View>
+        {/* Event Title */}
+        <View style={{ marginTop: imageUri ? RFPercentage(-2) : 0 }}>
+          <InputField
+            placeholder="Event Title"
+            value={title}
+            onChangeText={setTitle}
+          />
+        </View>
+
+        {/* Event Description */}
+        <View style={styles.bioWrapper}>
+          <View style={styles.bioContainer}>
+            <View style={styles.bioInputWrapper}>
+              <TextInput
+                placeholder="Event Description"
+                placeholderTextColor={COLORS.placeholder}
+                style={styles.bioInput}
+                multiline
+                maxLength={150}
+                value={description}
+                onChangeText={setDescription}
+                cursorColor={COLORS.primary}
+                selectionColor={COLORS.primary}
+              />
             </View>
-          )}
+            <View style={styles.bioIconWrapper}>
+              <Image
+                source={ICONS.bars}
+                resizeMode="contain"
+                style={styles.bioIcon}
+              />
+            </View>
+          </View>
+        </View>
 
-          {/* Recurring Event */}
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => setRecurring(!recurring)}
-            style={styles.toggleRow}
-          >
-            <Text style={styles.toggleLabel}>Make This a Recurring Event</Text>
-            <ToggleSwitch
-              isOn={recurring}
-              onColor={COLORS.pink}
-              offColor={COLORS.switch}
-              size="small"
-              onToggle={() => setRecurring(!recurring)}
+        {/* Location */}
+        <InputField
+          placeholder="Location"
+          value={location}
+          onChangeText={setLocation}
+          icon={
+            <Image
+              source={ICONS.location}
+              resizeMode="contain"
+              style={styles.locationIcon}
             />
-          </TouchableOpacity>
+          }
+        />
 
-          {/* If Recurring */}
-          {recurring && (
-            <>
-              <View style={styles.recurringContainer}>
-                <View>
-                  <Text style={styles.repeatTitle}>
-                    Set how often you'd like this session to repeat
-                  </Text>
-                  <View style={styles.repeatRow}>
-                    <Text style={styles.repeatLabel}>Repeat every</Text>
-                    <TextInput
-                      placeholder="1"
-                      placeholderTextColor={COLORS.placeholder}
-                      style={styles.repeatInput}
-                      cursorColor={COLORS.primary}
-                      selectionColor={COLORS.primary}
-                      maxLength={2}
-                      keyboardType="number-pad"
-                    />
-                    <View style={{ position: 'relative' }}>
-                      <TouchableOpacity
-                        activeOpacity={0.8}
-                        style={styles.weekButton}
-                        onPress={() => setDropdownVisible(!dropdownVisible)}
-                      >
-                        <Text style={styles.weekText}>{selectedOption}</Text>
-                        <FontAwesome
-                          name={dropdownVisible ? 'caret-up' : 'caret-down'}
-                          size={RFPercentage(2)}
-                          color={COLORS.pink}
-                        />
-                      </TouchableOpacity>
+        {/* Paid Event */}
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => setIsOn(!isOn)}
+          style={styles.toggleRow}
+        >
+          <Text style={styles.toggleLabel}>Make This a Paid Event</Text>
+          <ToggleSwitch
+            isOn={isOn}
+            onColor={COLORS.pink}
+            offColor={COLORS.switch}
+            size="small"
+            onToggle={() => setIsOn(!isOn)}
+          />
+        </TouchableOpacity>
 
-                      {/* Dropdown Options */}
-                      {dropdownVisible && (
-                        <View style={styles.dropdown}>
-                          <TouchableOpacity
-                            onPress={() => handleSelect('Week')}
-                          >
-                            <Text style={styles.dropdownItem}>Week</Text>
-                          </TouchableOpacity>
-                          <View
-                            style={{
-                              width: '90%',
-                              height: RFPercentage(0.1),
-                              backgroundColor: COLORS.lightWhite,
-                              alignSelf: 'center',
-                              marginVertical: RFPercentage(0.4),
-                            }}
-                          ></View>
-                          <TouchableOpacity
-                            onPress={() => handleSelect('Month')}
-                          >
-                            <Text style={styles.dropdownItem}>Month</Text>
-                          </TouchableOpacity>
-                        </View>
-                      )}
-                    </View>
+        {/* If Paid Event */}
+        {isOn && (
+          <View style={styles.admissionDetailsWrapper}>
+            <Text style={styles.admissionTitle}>Admission Details</Text>
+            <InputField
+              placeholder="Set Admission Price"
+              value={price}
+              onChangeText={setPrice}
+              type="phone-pad"
+            />
+            <InputField
+              placeholder="Total Seats Available"
+              value={seats}
+              onChangeText={setSeats}
+              type="phone-pad"
+            />
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => setIsOn2(!isOn2)}
+              style={styles.toggleRow}
+            >
+              <Text style={styles.toggleLabel}>Enable Waitlist</Text>
+              <ToggleSwitch
+                isOn={isOn2}
+                onColor={COLORS.pink}
+                offColor={COLORS.switch}
+                size="small"
+                onToggle={() => setIsOn2(!isOn2)}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => setIsOn3(!isOn3)}
+              style={styles.toggleRow}
+            >
+              <Text style={styles.toggleLabel}>
+                Payment Required to confirm seat
+              </Text>
+              <ToggleSwitch
+                isOn={isOn3}
+                onColor={COLORS.pink}
+                offColor={COLORS.switch}
+                size="small"
+                onToggle={() => setIsOn3(!isOn3)}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => setIsOn4(!isOn4)}
+              style={styles.toggleRow}
+            >
+              <Text style={styles.toggleLabel}>Enable Refunds</Text>
+              <ToggleSwitch
+                isOn={isOn4}
+                onColor={COLORS.pink}
+                offColor={COLORS.switch}
+                size="small"
+                onToggle={() => setIsOn4(!isOn4)}
+              />
+            </TouchableOpacity>
+
+            {/* Refund Eligibility */}
+            <View>
+              <DropdownField
+                placeholder="Refund Eligibility"
+                data={[
+                  '24 hours before event',
+                  '16 hours before event',
+                  '8 hours before event',
+                  '4 hours before event',
+                ]}
+                selectedValue={refund}
+                onValueChange={(val: any) => setRefund(val)}
+                isDropdownVisible={isDropdownVisible2}
+                setIsDropdownVisible={setIsDropdownVisible2}
+                style={styles.dropdownField}
+              />
+            </View>
+          </View>
+        )}
+
+        {/* Recurring Event */}
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => setRecurring(!recurring)}
+          style={styles.toggleRow}
+        >
+          <Text style={styles.toggleLabel}>Make This a Recurring Event</Text>
+          <ToggleSwitch
+            isOn={recurring}
+            onColor={COLORS.pink}
+            offColor={COLORS.switch}
+            size="small"
+            onToggle={() => setRecurring(!recurring)}
+          />
+        </TouchableOpacity>
+
+        {/* If Recurring */}
+        {recurring && (
+          <>
+            <View style={styles.recurringContainer}>
+              <View>
+                <Text style={styles.repeatTitle}>
+                  Set how often you'd like this session to repeat
+                </Text>
+                <View style={styles.repeatRow}>
+                  <Text style={styles.repeatLabel}>Repeat every</Text>
+                  <TextInput
+                    placeholder="1"
+                    placeholderTextColor={COLORS.placeholder}
+                    style={styles.repeatInput}
+                    cursorColor={COLORS.primary}
+                    selectionColor={COLORS.primary}
+                    maxLength={2}
+                    keyboardType="number-pad"
+                  />
+                  <View style={{ position: 'relative' }}>
+                    <TouchableOpacity
+                      activeOpacity={0.8}
+                      style={styles.weekButton}
+                      onPress={() => setDropdownVisible(!dropdownVisible)}
+                    >
+                      <Text style={styles.weekText}>{selectedOption}</Text>
+                      <FontAwesome
+                        name={dropdownVisible ? 'caret-up' : 'caret-down'}
+                        size={RFPercentage(2)}
+                        color={COLORS.pink}
+                      />
+                    </TouchableOpacity>
+
+                    {/* Dropdown Options */}
+                    {dropdownVisible && (
+                      <View style={styles.dropdown}>
+                        <TouchableOpacity onPress={() => handleSelect('Week')}>
+                          <Text style={styles.dropdownItem}>Week</Text>
+                        </TouchableOpacity>
+                        <View
+                          style={{
+                            width: '90%',
+                            height: RFPercentage(0.1),
+                            backgroundColor: COLORS.lightWhite,
+                            alignSelf: 'center',
+                            marginVertical: RFPercentage(0.4),
+                          }}
+                        ></View>
+                        <TouchableOpacity onPress={() => handleSelect('Month')}>
+                          <Text style={styles.dropdownItem}>Month</Text>
+                        </TouchableOpacity>
+                      </View>
+                    )}
                   </View>
+                </View>
 
-                  <Text style={styles.repeatOnLabel}>Repeat on</Text>
-                  <FlatList
-                    data={Days}
-                    horizontal
-                    contentContainerStyle={styles.dayList}
-                    keyExtractor={item => item.id.toString()}
-                    showsHorizontalScrollIndicator={false}
-                    renderItem={({ item }) => {
-                      return (
-                        <TouchableOpacity
-                          onPress={() => setSelectedDay(item.id)}
-                          activeOpacity={0.8}
+                <Text style={styles.repeatOnLabel}>Repeat on</Text>
+                <FlatList
+                  data={Days}
+                  horizontal
+                  contentContainerStyle={styles.dayList}
+                  keyExtractor={item => item.id.toString()}
+                  showsHorizontalScrollIndicator={false}
+                  renderItem={({ item }) => {
+                    return (
+                      <TouchableOpacity
+                        onPress={() => setSelectedDay(item.id)}
+                        activeOpacity={0.8}
+                        style={[
+                          styles.dayButton,
+                          {
+                            backgroundColor:
+                              selectedDay === item.id
+                                ? 'rgba(96, 203, 224, 0.16)'
+                                : COLORS.white,
+                          },
+                        ]}
+                      >
+                        <Text
                           style={[
-                            styles.dayButton,
+                            styles.dayText,
                             {
-                              backgroundColor:
+                              color:
                                 selectedDay === item.id
-                                  ? 'rgba(96, 203, 224, 0.16)'
-                                  : COLORS.white,
+                                  ? COLORS.pink
+                                  : COLORS.lightGrey,
                             },
                           ]}
                         >
-                          <Text
-                            style={[
-                              styles.dayText,
-                              {
-                                color:
-                                  selectedDay === item.id
-                                    ? COLORS.pink
-                                    : COLORS.lightGrey,
-                              },
-                            ]}
-                          >
-                            {item.name}
-                          </Text>
-                        </TouchableOpacity>
-                      );
-                    }}
-                  />
+                          {item.name}
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  }}
+                />
 
-                  {/* Recurring Ends */}
-                  <Text style={styles.endsLabel}>Ends</Text>
+                {/* Recurring Ends */}
+                <Text style={styles.endsLabel}>Ends</Text>
+                <TouchableOpacity
+                  onPress={() => setSelectedGroup('never')}
+                  activeOpacity={0.8}
+                  style={[styles.radioRow, { marginTop: RFPercentage(2) }]}
+                >
                   <TouchableOpacity
                     onPress={() => setSelectedGroup('never')}
+                    style={[
+                      styles.radioButton,
+                      {
+                        borderColor:
+                          selectedGroup === 'never'
+                            ? COLORS.pink
+                            : COLORS.radio,
+                        backgroundColor:
+                          selectedGroup === 'never'
+                            ? 'transparent'
+                            : COLORS.radio2,
+                      },
+                    ]}
+                  >
+                    {selectedGroup === 'never' && (
+                      <View style={styles.radioDot} />
+                    )}
+                  </TouchableOpacity>
+                  <Text style={styles.radioLabel}>Never</Text>
+                </TouchableOpacity>
+
+                <View style={styles.radioDateRow}>
+                  <TouchableOpacity
+                    onPress={() => setSelectedGroup('on')}
                     activeOpacity={0.8}
-                    style={[styles.radioRow, { marginTop: RFPercentage(2) }]}
+                    style={styles.radioRow}
                   >
                     <TouchableOpacity
-                      onPress={() => setSelectedGroup('never')}
+                      onPress={() => setSelectedGroup('on')}
                       style={[
                         styles.radioButton,
                         {
                           borderColor:
-                            selectedGroup === 'never'
-                              ? COLORS.pink
-                              : COLORS.radio,
+                            selectedGroup === 'on' ? COLORS.pink : COLORS.radio,
                           backgroundColor:
-                            selectedGroup === 'never'
+                            selectedGroup === 'on'
                               ? 'transparent'
                               : COLORS.radio2,
                         },
                       ]}
                     >
-                      {selectedGroup === 'never' && (
+                      {selectedGroup === 'on' && (
                         <View style={styles.radioDot} />
                       )}
                     </TouchableOpacity>
-                    <Text style={styles.radioLabel}>Never</Text>
+                    <Text style={styles.radioLabel}>On</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => setShowPicker5(true)}
+                    activeOpacity={0.8}
+                    style={styles.dateButton}
+                  >
+                    <Text style={styles.dateText}>{endOn.toDateString()}</Text>
                   </TouchableOpacity>
 
-                  <View style={styles.radioDateRow}>
-                    <TouchableOpacity
-                      onPress={() => setSelectedGroup('on')}
-                      activeOpacity={0.8}
-                      style={styles.radioRow}
-                    >
-                      <TouchableOpacity
-                        onPress={() => setSelectedGroup('on')}
-                        style={[
-                          styles.radioButton,
-                          {
-                            borderColor:
-                              selectedGroup === 'on'
-                                ? COLORS.pink
-                                : COLORS.radio,
-                            backgroundColor:
-                              selectedGroup === 'on'
-                                ? 'transparent'
-                                : COLORS.radio2,
-                          },
-                        ]}
-                      >
-                        {selectedGroup === 'on' && (
-                          <View style={styles.radioDot} />
-                        )}
-                      </TouchableOpacity>
-                      <Text style={styles.radioLabel}>On</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      onPress={() => setShowPicker5(true)}
-                      activeOpacity={0.8}
-                      style={styles.dateButton}
-                    >
-                      <Text style={styles.dateText}>
-                        {endOn.toDateString()}
-                      </Text>
-                    </TouchableOpacity>
-
-                    {showPicker5 && (
-                      <DateTimePicker
-                        value={endOn}
-                        mode="date"
-                        onChange={endOnDate}
-                        display={Platform.OS === 'ios' ? 'inline' : 'default'}
-                        style={{
-                          position: 'absolute',
-                          bottom: RFPercentage(5),
-                          zIndex: 999,
-                          alignSelf: 'center',
-                          backgroundColor: COLORS.white,
-                          borderWidth: 1,
-                          borderColor: COLORS.lightWhite,
-                          borderRadius: RFPercentage(1),
-                        }}
-                        textColor={COLORS.primary} // changes text color
-                        accentColor={COLORS.pink}
-                        themeVariant="light"
-                      />
-                    )}
-                  </View>
-                  <View style={styles.radioSessionRow}>
+                  {showPicker5 && (
+                    <DateTimePicker
+                      value={endOn}
+                      mode="date"
+                      onChange={endOnDate}
+                      display={Platform.OS === 'ios' ? 'inline' : 'default'}
+                      style={{
+                        position: 'absolute',
+                        bottom: RFPercentage(5),
+                        zIndex: 999,
+                        alignSelf: 'center',
+                        backgroundColor: COLORS.white,
+                        borderWidth: 1,
+                        borderColor: COLORS.lightWhite,
+                        borderRadius: RFPercentage(1),
+                      }}
+                      textColor={COLORS.primary} // changes text color
+                      accentColor={COLORS.pink}
+                      themeVariant="light"
+                    />
+                  )}
+                </View>
+                <View style={styles.radioSessionRow}>
+                  <TouchableOpacity
+                    onPress={() => setSelectedGroup('after')}
+                    activeOpacity={0.8}
+                    style={styles.radioRow}
+                  >
                     <TouchableOpacity
                       onPress={() => setSelectedGroup('after')}
-                      activeOpacity={0.8}
-                      style={styles.radioRow}
+                      style={[
+                        styles.radioButton,
+                        {
+                          borderColor:
+                            selectedGroup === 'after'
+                              ? COLORS.pink
+                              : COLORS.radio,
+                          backgroundColor:
+                            selectedGroup === 'after'
+                              ? 'transparent'
+                              : COLORS.radio2,
+                        },
+                      ]}
                     >
-                      <TouchableOpacity
-                        onPress={() => setSelectedGroup('after')}
-                        style={[
-                          styles.radioButton,
-                          {
-                            borderColor:
-                              selectedGroup === 'after'
-                                ? COLORS.pink
-                                : COLORS.radio,
-                            backgroundColor:
-                              selectedGroup === 'after'
-                                ? 'transparent'
-                                : COLORS.radio2,
-                          },
-                        ]}
-                      >
-                        {selectedGroup === 'after' && (
-                          <View style={styles.radioDot} />
-                        )}
-                      </TouchableOpacity>
-                      <Text style={styles.radioLabel}>After</Text>
+                      {selectedGroup === 'after' && (
+                        <View style={styles.radioDot} />
+                      )}
                     </TouchableOpacity>
-                    <TouchableOpacity
-                      activeOpacity={0.8}
-                      style={styles.sessionButton}
-                    >
-                      <Text style={styles.sessionText}>5 Sessions</Text>
-                    </TouchableOpacity>
-                  </View>
+                    <Text style={styles.radioLabel}>After</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    style={styles.sessionButton}
+                  >
+                    <Text style={styles.sessionText}>5 Sessions</Text>
+                  </TouchableOpacity>
                 </View>
               </View>
-            </>
-          )}
+            </View>
+          </>
+        )}
 
-          {/* Additional Details */}
-          <Text style={styles.additionalDetailsTitle}>Additional details</Text>
-          <Text style={styles.sectionTitle}>Select What Applies</Text>
-        </View>
+        {/* Additional Details */}
+        <Text style={styles.additionalDetailsTitle}>Additional details</Text>
+        <Text style={styles.sectionTitle}>Select What Applies</Text>
+      </View>
 
-        <ScrollView
-          horizontal
-          style={styles.badgeWrapper}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.badgeContent}
-        >
-          {experience.map(item => {
-            const isSelected = applies.includes(item.id);
-            return (
-              <TouchableOpacity
-                activeOpacity={0.8}
-                key={item.id}
+      <ScrollView
+        horizontal
+        style={styles.badgeWrapper}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.badgeContent}
+      >
+        {experience.map(item => {
+          const isSelected = applies.includes(item.id);
+          return (
+            <TouchableOpacity
+              activeOpacity={0.8}
+              key={item.id}
+              style={[
+                styles.experienceBadge,
+                isSelected && { backgroundColor: COLORS.primary },
+              ]}
+              onPress={() => toggleSelection(item.id)}
+            >
+              <Text
                 style={[
-                  styles.experienceBadge,
-                  isSelected && { backgroundColor: COLORS.primary },
+                  styles.badgeText,
+                  isSelected && { color: COLORS.white },
+                  isSelected && { fontFamily: FONTS.semiBold },
                 ]}
-                onPress={() => toggleSelection(item.id)}
               >
-                <Text
-                  style={[
-                    styles.badgeText,
-                    isSelected && { color: COLORS.white },
-                    isSelected && { fontFamily: FONTS.semiBold },
-                  ]}
-                >
-                  {item.name}
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
-        </ScrollView>
-
-        {/* Game Varient */}
-        <View style={styles.dropdownWrapper}>
-          <DropdownField
-            placeholder="Choose game variant"
-            data={['American', 'War Mahjong', 'Hong Kong', 'Mahjong Titans']}
-            selectedValue={varient}
-            onValueChange={(val: any) => setVarient(val)}
-            isDropdownVisible={isDropdownVisible3}
-            setIsDropdownVisible={setIsDropdownVisible3}
-          />
-        </View>
+                {item.name}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
       </ScrollView>
+
+      {/* Game Varient */}
+      <View style={styles.dropdownWrapper}>
+        <DropdownField
+          placeholder="Choose game variant"
+          data={['American (NMJL)', 'Chinese', 'Riichi', 'Wright-Patterson']}
+          selectedValue={varient}
+          onValueChange={(val: any) => setVarient(val)}
+          isDropdownVisible={isDropdownVisible3}
+          setIsDropdownVisible={setIsDropdownVisible3}
+        />
+      </View>
+      {/* </ScrollView> */}
     </View>
   );
 };
@@ -912,6 +892,7 @@ const styles = StyleSheet.create({
   // Section header styles
   sectionHeader: {
     marginTop: RFPercentage(3),
+    marginBottom: RFPercentage(1.5),
   },
   eventTitle: {
     color: COLORS.primary,
@@ -938,7 +919,7 @@ const styles = StyleSheet.create({
   uploadedImage: {
     width: '100%',
     height: '100%',
-    borderRadius: RFPercentage(2),
+    borderRadius: RFPercentage(1.5),
   },
   uploadIcon: {
     width: RFPercentage(8),
@@ -959,6 +940,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.bold,
     fontSize: RFPercentage(1.8),
     textAlign: 'center',
+    lineHeight: RFPercentage(1.8),
   },
   imageHint: {
     color: COLORS.grey4,
@@ -1009,6 +991,7 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(1.8),
     textAlign: 'center',
     marginLeft: RFPercentage(0.6),
+    lineHeight: RFPercentage(1.8),
   },
   confirm: {
     color: COLORS.pink,
@@ -1308,6 +1291,7 @@ const styles = StyleSheet.create({
     color: COLORS.grey3,
     fontSize: RFPercentage(1.7),
     fontFamily: FONTS.medium,
+    bottom: Platform.OS === 'android' ? 2 : 0,
   },
   // Dropdown wrapper for game variant
   dropdownWrapper: {

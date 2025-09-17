@@ -63,7 +63,7 @@ const EventInsights = ({ navigation }) => {
           </TouchableOpacity>
 
           {/* Dropdown trigger */}
-          <View style={{ position: 'relative' }}>
+          <View style={{ position: 'relative', zIndex: 1000, elevation: 1000 }}>
             <TouchableOpacity
               activeOpacity={0.8}
               style={styles.dotsButton}
@@ -77,19 +77,17 @@ const EventInsights = ({ navigation }) => {
               />
             </TouchableOpacity>
 
-            {/* Dropdown menu */}
             {showDropdown && (
               <View style={styles.dropdownContainer}>
                 {filterOptions.map((option, index) => (
                   <TouchableOpacity
-                    activeOpacity={0.8}
                     key={option}
+                    onPress={() => handleSelect(option)}
                     style={[
                       styles.dropdownItem,
                       index !== filterOptions.length - 1 &&
                         styles.dropdownItemBorder,
                     ]}
-                    onPress={() => handleSelect(option)}
                   >
                     <Text style={styles.dropdownText}>{option}</Text>
                   </TouchableOpacity>
@@ -101,13 +99,42 @@ const EventInsights = ({ navigation }) => {
       </View>
 
       {/* Content */}
-      <ScrollView>
-        <View style={styles.contentContainer}>
+      <View style={styles.contentContainer}>
+        <FlatList
+          data={InsightsData}
+          keyExtractor={item => item.id.toString()}
+          numColumns={2}
+          scrollEnabled={false}
+          columnWrapperStyle={styles.flatListColumn}
+          renderItem={({ item }) => (
+            <View style={styles.flexOne}>
+              <Insights name={item.name} subText={item.subText} />
+            </View>
+          )}
+        />
+
+        <View style={styles.paymentCard}>
+          <View style={styles.innerCard}>
+            <Text style={styles.paymentTitle}>Payment Completion Rate</Text>
+            <ProgressBar
+              progress={0.4}
+              color={COLORS.green}
+              style={styles.progress}
+              animatedValue={0.4}
+            />
+            <View style={styles.paymentRow}>
+              <Text style={styles.paymentText}>26% Confirmed</Text>
+              <Text style={styles.paymentText}>Dropped</Text>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.bottomList}>
           <FlatList
-            data={InsightsData}
+            data={InsightsData2}
+            scrollEnabled={false}
             keyExtractor={item => item.id.toString()}
             numColumns={2}
-            scrollEnabled={false}
             columnWrapperStyle={styles.flatListColumn}
             renderItem={({ item }) => (
               <View style={styles.flexOne}>
@@ -115,39 +142,8 @@ const EventInsights = ({ navigation }) => {
               </View>
             )}
           />
-
-          <View style={styles.paymentCard}>
-            <View style={styles.innerCard}>
-              <Text style={styles.paymentTitle}>Payment Completion Rate</Text>
-              <ProgressBar
-                progress={0.4}
-                color={COLORS.green}
-                style={styles.progress}
-                animatedValue={0.4}
-              />
-              <View style={styles.paymentRow}>
-                <Text style={styles.paymentText}>26% Confirmed</Text>
-                <Text style={styles.paymentText}>Dropped</Text>
-              </View>
-            </View>
-          </View>
-
-          <View style={styles.bottomList}>
-            <FlatList
-              data={InsightsData2}
-              scrollEnabled={false}
-              keyExtractor={item => item.id.toString()}
-              numColumns={2}
-              columnWrapperStyle={styles.flatListColumn}
-              renderItem={({ item }) => (
-                <View style={styles.flexOne}>
-                  <Insights name={item.name} subText={item.subText} />
-                </View>
-              )}
-            />
-          </View>
         </View>
-      </ScrollView>
+      </View>
     </View>
   );
 };
@@ -176,6 +172,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.semiBold,
     fontSize: RFPercentage(2),
     marginLeft: RFPercentage(1),
+    lineHeight: RFPercentage(2),
   },
   dotsButton: {
     height: RFPercentage(3.8),
@@ -191,6 +188,7 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(1.5),
     color: COLORS.primary,
     marginRight: RFPercentage(0.5),
+    lineHeight: RFPercentage(1.5),
   },
   dropdownContainer: {
     position: 'absolute',
@@ -205,7 +203,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 2,
     shadowOffset: { width: 0, height: 1 },
-    zIndex: 1000,
+    zIndex: 999999,
     width: RFPercentage(17),
   },
   dropdownItem: {

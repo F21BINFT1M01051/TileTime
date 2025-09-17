@@ -169,5 +169,6 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontFamily: FONTS.medium2,
     marginLeft: RFPercentage(0.6),
+    lineHeight:RFPercentage(1.4)
   },
 });

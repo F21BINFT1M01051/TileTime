@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     width: '100%',
-    height: RFPercentage(28),
+    height: RFPercentage(26),
     top: RFPercentage(-6),
   },
 

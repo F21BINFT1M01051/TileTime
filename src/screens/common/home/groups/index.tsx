@@ -31,7 +31,7 @@ const Groups = ({ navigation }: any) => {
         onPress={() => navigation.navigate('CreateGroup')}
         text="+ New group"
       />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="always">
         <View
           style={{
             width: '90%',

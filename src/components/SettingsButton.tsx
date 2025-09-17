@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontSize: RFPercentage(2),
     marginLeft: RFPercentage(1.5),
+    lineHeight:RFPercentage(2)
   },
   toggleSwitch: {
     position: 'absolute',

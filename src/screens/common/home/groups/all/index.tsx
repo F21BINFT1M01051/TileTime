@@ -4,6 +4,7 @@ import {
   FlatList,
   TouchableOpacity,
   StyleSheet,
+  Platform,
 } from 'react-native';
 import React, { useState } from 'react';
 import SearchField from '../../../../../components/SearchField';
@@ -228,6 +229,7 @@ const All = () => {
       <View style={styles.filterContainer}>
         <FlatList
           data={Filters}
+          keyboardShouldPersistTaps="always"
           keyExtractor={item => item.id.toString()}
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -268,6 +270,7 @@ const All = () => {
 
       <FlatList
         data={getFilteredData()}
+        keyboardShouldPersistTaps="always"
         keyExtractor={item => item.id.toString()}
         ListEmptyComponent={() => (
           <Text
@@ -330,5 +333,6 @@ const styles = StyleSheet.create({
   filterText: {
     fontFamily: FONTS.medium,
     fontSize: RFPercentage(1.8),
+    bottom:Platform.OS === 'android' ? 2 : 0
   },
 });

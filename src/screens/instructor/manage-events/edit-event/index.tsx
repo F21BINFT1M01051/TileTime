@@ -68,6 +68,7 @@ const EditEventBasic = () => {
               placeholder="Event Title"
               value={Title}
               onChangeText={setTitle}
+              defaultColor={COLORS.primary}
             />
             <DropdownField
               placeholder="Event Type"
@@ -86,6 +87,7 @@ const EditEventBasic = () => {
               placeholder="Location"
               value={location}
               onChangeText={setLocation}
+              defaultColor={COLORS.primary}
               icon={
                 <Image
                   source={ICONS.location}

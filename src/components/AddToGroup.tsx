@@ -71,9 +71,13 @@ const AddToGroupModal = ({
         blurAmount={5}
         reducedTransparencyFallbackColor="white"
       />
-      <TouchableWithoutFeedback onPress={onClose}>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          onClose();
+        }}
+      >
         <View style={styles.overlay}>
-          <TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <Animated.View
               style={[
                 styles.modalContent,
@@ -106,7 +110,7 @@ const AddToGroupModal = ({
                 {/* List */}
                 <View style={styles.flatListContainer}>
                   <FlatList
-                  keyboardShouldPersistTaps="always"
+                    keyboardShouldPersistTaps="always"
                     data={filteredData}
                     keyExtractor={item => item.id.toString()}
                     ListEmptyComponent={

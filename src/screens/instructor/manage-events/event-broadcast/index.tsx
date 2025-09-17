@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, } from 'react';
 import {
   View,
   StyleSheet,
@@ -12,9 +12,6 @@ import {
   Modal,
   TouchableWithoutFeedback,
   FlatList,
-  ScrollView,
-  Share,
-  KeyboardAvoidingView,
   Dimensions,
 } from 'react-native';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
@@ -302,10 +299,7 @@ const EventBroadCast = ({ route, navigation }: any) => {
   ];
 
   return (
-    <TouchableWithoutFeedback
-      onPress={() => Keyboard.dismiss()}
-      accessible={false}
-    >
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
         {/* Header */}
         <View style={styles.headerBorder}>
@@ -343,7 +337,13 @@ const EventBroadCast = ({ route, navigation }: any) => {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.chatContainer}>
+        {/* <View style={styles.chatContainer}> */}
+
+        <ImageBackground
+          source={IMAGES.chat}
+          resizeMode="cover"
+          style={{ flex: 1, paddingTop: RFPercentage(2) }}
+        >
           {messages.length > 0 && (
             <View style={styles.stickyBanner}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -370,7 +370,8 @@ const EventBroadCast = ({ route, navigation }: any) => {
                       color: COLORS.lightGrey,
                       fontFamily: FONTS.regular,
                       fontSize: RFPercentage(1.7),
-                      marginTop: RFPercentage(0.5),
+                      marginTop:
+                        Platform.OS === 'android' ? 0 : RFPercentage(0.5),
                     }}
                   >
                     Messages sent from here will be delivered to all attendees
@@ -379,153 +380,149 @@ const EventBroadCast = ({ route, navigation }: any) => {
               </View>
             </View>
           )}
-          <ImageBackground
-            source={IMAGES.chat}
-            resizeMode="cover"
-            style={{ flex: 1 , paddingTop:RFPercentage(2)}}
-          >
-            <GiftedChat
-              messages={messages}
-              user={{
-                _id: 1,
-                name: 'You',
-                avatar: 'https://placeimg.com/140/140/any',
-              }}
-              renderBubble={renderBubble}
-              renderMessage={renderMessage}
-              renderDay={renderDay}
-              inverted={true}
-              alignTop={true}
-              listViewProps={{
-                ListHeaderComponent: () =>
-                  messages.length === 0 && isNew ? (
-                    <View style={{ marginBottom: height * 0.43 }}>
-                      <View style={styles.groupInfoCard}>
-                        <View
+          <GiftedChat
+            messages={messages}
+            user={{
+              _id: 1,
+              name: 'You',
+              avatar: 'https://placeimg.com/140/140/any',
+            }}
+            messagesContainerStyle={{ flex: 1 }}
+            renderBubble={renderBubble}
+            renderMessage={renderMessage}
+            renderDay={renderDay}
+            listViewProps={{
+              keyboardShouldPersistTaps: 'handled',
+              contentContainerStyle: { flexGrow: 1 },
+              ListHeaderComponent: () =>
+                messages.length === 0 && isNew ? (
+                  <View style={{marginBottom:height*0.42}}>
+                    <View style={styles.groupInfoCard}>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          width: '90%',
+                          alignSelf: 'center',
+                        }}
+                      >
+                        <Image
+                          source={ICONS.broadcast}
+                          resizeMode="contain"
                           style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            width: '90%',
-                            alignSelf: 'center',
+                            width: RFPercentage(9),
+                            height: RFPercentage(9),
                           }}
-                        >
-                          <Image
-                            source={ICONS.broadcast}
-                            resizeMode="contain"
-                            style={{
-                              width: RFPercentage(9),
-                              height: RFPercentage(9),
-                            }}
-                          />
-                          <Text
-                            style={{
-                              fontFamily: FONTS.bold,
-                              color: COLORS.primary,
-                              fontSize: RFPercentage(3.4),
-                              textAlign: 'center',
-                              width: '80%',
-                              right: RFPercentage(0.5),
-                            }}
-                          >
-                            This is your event broadcast space
-                          </Text>
-                        </View>
+                        />
                         <Text
                           style={{
-                            fontFamily: FONTS.regular,
-                            color: COLORS.icon,
-                            fontSize: RFPercentage(1.9),
-                            lineHeight: RFPercentage(2),
-                            width: '90%',
-                            alignSelf: 'center',
-                            marginTop: RFPercentage(1.4),
+                            fontFamily: FONTS.bold,
+                            color: COLORS.primary,
+                            fontSize: RFPercentage(3.4),
                             textAlign: 'center',
+                            width: '80%',
+                            right: RFPercentage(0.5),
                           }}
                         >
-                          Keep your attendees updated! Share event details,
-                          reminders, and announcements here
+                          This is your event broadcast space
                         </Text>
                       </View>
-
-                      <View style={styles.conversationPrompt}>
-                        <Text style={styles.conversationText}>
-                          {`Share your first update`}
-                        </Text>
-                      </View>
+                      <Text
+                        style={{
+                          fontFamily: FONTS.regular,
+                          color: COLORS.icon,
+                          fontSize: RFPercentage(1.9),
+                          lineHeight: RFPercentage(2),
+                          width: '90%',
+                          alignSelf: 'center',
+                          marginTop: RFPercentage(1.4),
+                          textAlign: 'center',
+                        }}
+                      >
+                        Keep your attendees updated! Share event details,
+                        reminders, and announcements here
+                      </Text>
                     </View>
-                  ) : null,
-              }}
-              renderMessageImage={renderMessageImage}
-              renderInputToolbar={() => (
-                <View style={styles.inputToolbarContainer}>
-                  <View style={styles.inputBar}>
-                    <TouchableOpacity
-                      onPress={() => setAttachmentModalVisible(true)}
-                      style={{
-                        position: 'absolute',
-                        left: 0,
-                        bottom: RFPercentage(1.5),
-                        marginHorizontal: RFPercentage(1),
-                      }}
-                    >
-                      <Image
-                        source={ICONS.plus6}
-                        style={styles.plusIcon}
-                        resizeMode="contain"
-                      />
-                    </TouchableOpacity>
 
-                    <TextInput
-                      style={styles.messageInput}
-                      placeholder="Type your message here"
-                      placeholderTextColor={COLORS.search}
-                      value={message}
-                      onChangeText={setMessage}
-                      multiline={true}
-                      scrollEnabled={true}
-                      textAlignVertical="top"
-                      cursorColor={COLORS.primary}
-                      selectionColor={COLORS.primary}
-                    />
-
-                    <TouchableOpacity
-                      style={{
-                        position: 'absolute',
-                        right: 0,
-                        bottom: RFPercentage(1.5),
-                        marginHorizontal: RFPercentage(2),
-                      }}
-                      onPress={() => {
-                        if (message.trim()) {
-                          const newMessage = {
-                            _id: Date.now(),
-                            text: message,
-                            createdAt: new Date(),
-                            user: {
-                              _id: 1,
-                              name: 'You',
-                              avatar: 'https://placeimg.com/140/140/any',
-                            },
-                          };
-                          setMessages(prev =>
-                            GiftedChat.append(prev, [newMessage]),
-                          );
-                          setMessage('');
-                        }
-                      }}
-                    >
-                      <Image
-                        source={ICONS.send}
-                        style={styles.sendButtonIcon}
-                        resizeMode="contain"
-                      />
-                    </TouchableOpacity>
+                    <View style={styles.conversationPrompt}>
+                      <Text style={styles.conversationText}>
+                        {`Share your first update`}
+                      </Text>
+                    </View>
                   </View>
+                ) : null,
+            }}
+            renderMessageImage={renderMessageImage}
+            renderInputToolbar={() => (
+              <View style={styles.inputToolbarContainer}>
+                <View style={styles.inputBar}>
+                  <TouchableOpacity
+                    onPress={() => setAttachmentModalVisible(true)}
+                    style={{
+                      position: 'absolute',
+                      left: 0,
+                      bottom: RFPercentage(1.5),
+                      marginHorizontal: RFPercentage(1),
+                    }}
+                  >
+                    <Image
+                      source={ICONS.plus6}
+                      style={styles.plusIcon}
+                      resizeMode="contain"
+                    />
+                  </TouchableOpacity>
+
+                  <TextInput
+                    style={styles.messageInput}
+                    placeholder="Type your message here"
+                    placeholderTextColor={COLORS.search}
+                    value={message}
+                    onChangeText={setMessage}
+                    multiline={true}
+                    scrollEnabled={true}
+                    textAlignVertical="top"
+                    cursorColor={COLORS.primary}
+                    selectionColor={COLORS.primary}
+                  />
+
+                  <TouchableOpacity
+                    style={{
+                      position: 'absolute',
+                      right: 0,
+                      bottom: RFPercentage(1.5),
+                      marginHorizontal: RFPercentage(2),
+                    }}
+                    onPress={() => {
+                      if (message.trim()) {
+                        const newMessage = {
+                          _id: Date.now(),
+                          text: message,
+                          createdAt: new Date(),
+                          user: {
+                            _id: 1,
+                            name: 'You',
+                            avatar: 'https://placeimg.com/140/140/any',
+                          },
+                        };
+                        setMessages(prev =>
+                          GiftedChat.append(prev, [newMessage]),
+                        );
+                        setMessage('');
+                      }
+                    }}
+                  >
+                    <Image
+                      source={ICONS.send}
+                      style={styles.sendButtonIcon}
+                      resizeMode="contain"
+                    />
+                  </TouchableOpacity>
                 </View>
-              )}
-            />
-          </ImageBackground>
-        </View>
+              </View>
+            )}
+          />
+        </ImageBackground>
+        {/* </View> */}
 
         <Modal
           visible={attachmentModalVisible}

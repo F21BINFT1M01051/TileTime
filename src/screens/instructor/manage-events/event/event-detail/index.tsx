@@ -92,7 +92,7 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
         <ScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
-          contentContainerStyle={{paddingBottom:RFPercentage(5)}}
+          contentContainerStyle={{ paddingBottom: RFPercentage(5) }}
         >
           {/* Header */}
           <ImageBackground
@@ -185,7 +185,9 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
               <CustomButton
                 title={'Broadcast'}
                 style={{ width: '45%' }}
-                onPress={()=> navigation.navigate("EventBroadCast", {isNew:true})}
+                onPress={() =>
+                  navigation.navigate('EventBroadCast', { isNew: true })
+                }
               />
               <TouchableOpacity
                 activeOpacity={0.8}
@@ -271,7 +273,7 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
           blurAmount={5}
           reducedTransparencyFallbackColor="white"
         />
-        <TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
           <View
             style={{
               width: '90%',
@@ -330,6 +332,7 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
                       fontFamily: FONTS.bold,
                       textAlign: 'center',
                       fontSize: RFPercentage(2),
+                      lineHeight: RFPercentage(2),
                     }}
                   >
                     Cancel
@@ -356,6 +359,7 @@ const InstructorEventDetail = ({ navigation, route }: any) => {
                       fontFamily: FONTS.bold,
                       textAlign: 'center',
                       fontSize: RFPercentage(2.1),
+                      lineHeight: RFPercentage(2),
                     }}
                   >
                     Yes
@@ -489,7 +493,7 @@ const styles = StyleSheet.create({
     height: RFPercentage(3.3),
     paddingHorizontal: RFPercentage(1),
     borderRadius: RFPercentage(100),
-    maxWidth: RFPercentage(14),
+    maxWidth: RFPercentage(15),
   },
   locationChip: {
     backgroundColor: COLORS.location,
@@ -498,7 +502,7 @@ const styles = StyleSheet.create({
     height: RFPercentage(3.3),
     paddingHorizontal: RFPercentage(1),
     borderRadius: RFPercentage(100),
-    width: RFPercentage(17),
+    width: RFPercentage(18),
   },
   chipIconImg: {
     width: RFPercentage(2),

@@ -356,7 +356,7 @@ const styles = StyleSheet.create({
     height: RFPercentage(3.5),
     paddingHorizontal: RFPercentage(1),
     borderRadius: RFPercentage(100),
-    maxWidth: RFPercentage(14),
+    maxWidth: RFPercentage(15),
   },
   locationChip: {
     backgroundColor: COLORS.location,
@@ -365,7 +365,7 @@ const styles = StyleSheet.create({
     height: RFPercentage(3.5),
     paddingHorizontal: RFPercentage(1),
     borderRadius: RFPercentage(100),
-    width: RFPercentage(12),
+    width: RFPercentage(13),
     marginLeft: RFPercentage(1),
   },
   chipIconImage: { width: RFPercentage(2), height: RFPercentage(2) },
@@ -374,6 +374,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontFamily: FONTS.medium2,
     marginLeft: RFPercentage(0.6),
+    lineHeight:RFPercentage(1.5)
   },
   eventImageWrapper: {
     width: '100%',
@@ -443,6 +444,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontFamily: FONTS.bold,
     fontSize: RFPercentage(1.6),
+    lineHeight:RFPercentage(1.7)
   },
   hostDetails: { marginLeft: RFPercentage(2), width: RFPercentage(25) },
   hostName: {
@@ -576,6 +578,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontFamily: FONTS.bold,
     fontSize: RFPercentage(1.7),
+    lineHeight:RFPercentage(1.7)
   },
   locImage: { width: RFPercentage(12), height: RFPercentage(12) },
   footer: {

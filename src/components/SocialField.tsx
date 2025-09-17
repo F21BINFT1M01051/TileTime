@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: FONTS.bold,
     fontSize: RFPercentage(2),
+    lineHeight:RFPercentage(2)
   },
   connectedContainer: {
     width: '90%',

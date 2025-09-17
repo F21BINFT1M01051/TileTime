@@ -58,7 +58,7 @@ const FocusedSelection: React.FC<Props> = ({
     ...styles.label,
     top: animatedIsFocused.interpolate({
       inputRange: [0, 1],
-      outputRange: [RFPercentage(7) / 2.8, RFPercentage(1.2)],
+      outputRange: [RFPercentage(7) / 2.8, RFPercentage(0.8)],
     }),
     fontSize: animatedIsFocused.interpolate({
       inputRange: [0, 1],

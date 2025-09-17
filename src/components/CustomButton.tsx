@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Image, Platform, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS } from '../config/theme';
@@ -35,7 +35,7 @@ export default CustomButton;
 const styles = StyleSheet.create({
   button: {
     width: '100%',
-    height: RFPercentage(5.8),
+    height: RFPercentage(6),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: COLORS.primary,
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontFamily: FONTS.bold,
     fontSize: RFPercentage(2),
+    bottom:Platform.OS === 'android' ? 2 : 0
   },
   img: {
     width: RFPercentage(2.5),

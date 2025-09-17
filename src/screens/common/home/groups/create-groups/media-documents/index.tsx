@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
   Dimensions,
+  Platform,
 } from 'react-native';
 import React, { useState } from 'react';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../../../../config/theme';
@@ -191,6 +192,7 @@ const styles = StyleSheet.create({
   tabText: {
     fontSize: RFPercentage(2),
     textAlign: 'center',
+    bottom:Platform.OS === 'android' ? 2 : 0
   },
   mediaWrapper: {
     alignSelf: 'center',

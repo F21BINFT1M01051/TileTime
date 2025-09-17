@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular,
     width: '90%',
     fontSize: RFPercentage(1.8),
-    lineHeight: RFPercentage(2),
+    // lineHeight: RFPercentage(3),
   },
   dropdownContainer: {
     position: 'absolute',

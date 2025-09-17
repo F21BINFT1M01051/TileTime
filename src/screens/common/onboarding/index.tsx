@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
   whiteContainer: {
     width: '100%',
     alignItems: 'center',
-    marginTop: RFPercentage(3),
+    marginTop: RFPercentage(4),
     paddingBottom: RFPercentage(5),
     justifyContent: 'center',
     flex: 1,

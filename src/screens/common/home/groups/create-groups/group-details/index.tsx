@@ -222,7 +222,7 @@ const GroupDetails = ({ navigation }: any) => {
           blurAmount={5}
           reducedTransparencyFallbackColor="white"
         />
-        <TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
           <View
             style={{
               width: '90%',
@@ -240,7 +240,7 @@ const GroupDetails = ({ navigation }: any) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 paddingVertical: RFPercentage(4),
-                paddingBottom:RFPercentage(3)
+                paddingBottom: RFPercentage(3),
               }}
             >
               <Text
@@ -281,6 +281,7 @@ const GroupDetails = ({ navigation }: any) => {
                       fontFamily: FONTS.bold,
                       textAlign: 'center',
                       fontSize: RFPercentage(2),
+                      lineHeight: RFPercentage(2),
                     }}
                   >
                     Don’t Delete
@@ -306,6 +307,7 @@ const GroupDetails = ({ navigation }: any) => {
                       fontFamily: FONTS.bold,
                       textAlign: 'center',
                       fontSize: RFPercentage(2.1),
+                      lineHeight: RFPercentage(2),
                     }}
                   >
                     Delete

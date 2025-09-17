@@ -15,6 +15,7 @@ import {
   ScrollView,
   Share,
   KeyboardAvoidingView,
+  Dimensions,
 } from 'react-native';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../../../config/theme';
@@ -29,6 +30,8 @@ import { pick } from '@react-native-documents/picker';
 import CreateEvent from '../../../../../components/CreateEvent';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEventType } from '../../../../../redux/event-type/Actions';
+
+const { height } = Dimensions.get('window');
 
 moment.updateLocale('en', {
   relativeTime: {
@@ -462,141 +465,136 @@ const ChatScreen = ({ route, navigation }: any) => {
             )}
           </View>
         </View>
-        <View style={styles.chatContainer}>
-          <ImageBackground
-            source={IMAGES.chat}
-            resizeMode="cover"
-            style={{ flex: 1 }}
-          >
-            <GiftedChat
-              messages={messages}
-              user={{
-                _id: 1,
-                name: 'You',
-                avatar: 'https://placeimg.com/140/140/any',
-              }}
-              alignTop={true}
-              renderBubble={renderBubble}
-              renderMessage={renderMessage}
-              renderDay={renderDay}
-              inverted={true}
-              listViewProps={{
-                ListHeaderComponent: () =>
-                  messages.length === 0 && isNew && isGroup ? (
-                    <View style={{ marginBottom: RFPercentage(20) }}>
-                      <View style={styles.todayBadge}>
-                        <Text style={styles.todayText}>Today</Text>
-                      </View>
 
-                      <View style={styles.groupInfoCard}>
-                        <View style={styles.largeGroupIconContainer}>
-                          <Image
-                            source={IMAGES.customProfile}
-                            resizeMode="cover"
-                            style={styles.largeGroupIcon}
-                          />
-                        </View>
-                        <Text style={styles.createdText}>
-                          You created this group
-                        </Text>
-                        <Text style={styles.membersText}>
-                          Group - 2 Members
-                        </Text>
-                        <View style={styles.buttonContainer}>
-                          <CustomButton
-                            title="Add Members"
-                            icon={ICONS.plus}
-                            onPress={() => navigation.navigate('AddMembers')}
-                          />
-                        </View>
-                        <View style={styles.secondButtonContainer}>
-                          <CustomButton
-                            title="Share Group Link"
-                            onPress={onShare}
-                            icon={ICONS.link}
-                          />
-                        </View>
-                      </View>
+        <ImageBackground
+          source={IMAGES.chat}
+          resizeMode="cover"
+          style={{ flex: 1 }}
+        >
+          <GiftedChat
+            messages={messages}
+            user={{
+              _id: 1,
+              name: 'You',
+              avatar: 'https://placeimg.com/140/140/any',
+            }}
+            renderBubble={renderBubble}
+            renderMessage={renderMessage}
+            renderDay={renderDay}
+            listViewProps={{
+              ListHeaderComponent: () =>
+                messages.length === 0 && isNew && isGroup ? (
+                  <View style={{ marginBottom: height * 0.15 }}>
+                    <View style={styles.todayBadge}>
+                      <Text style={styles.todayText}>Today</Text>
+                    </View>
 
-                      <View style={styles.conversationPrompt}>
-                        <Text style={styles.conversationText}>
-                          {`Start a conversation, ask a\nquestion, or just say hi.`}
-                        </Text>
+                    <View style={styles.groupInfoCard}>
+                      <View style={styles.largeGroupIconContainer}>
+                        <Image
+                          source={IMAGES.customProfile}
+                          resizeMode="cover"
+                          style={styles.largeGroupIcon}
+                        />
+                      </View>
+                      <Text style={styles.createdText}>
+                        You created this group
+                      </Text>
+                      <Text style={styles.membersText}>Group - 2 Members</Text>
+                      <View style={styles.buttonContainer}>
+                        <CustomButton
+                          title="Add Members"
+                          icon={ICONS.plus}
+                          onPress={() => navigation.navigate('AddMembers')}
+                        />
+                      </View>
+                      <View style={styles.secondButtonContainer}>
+                        <CustomButton
+                          title="Share Group Link"
+                          onPress={onShare}
+                          icon={ICONS.link}
+                        />
                       </View>
                     </View>
-                  ) : null,
-              }}
-              renderMessageImage={renderMessageImage}
-              renderInputToolbar={() => (
-                <View style={styles.inputToolbarContainer}>
-                  <View style={styles.inputBar}>
-                    <TouchableOpacity
-                      onPress={() => setAttachmentModalVisible(true)}
-                      style={{
-                        position: 'absolute',
-                        left: 0,
-                        bottom: RFPercentage(1.5),
-                        marginHorizontal: RFPercentage(1),
-                      }}
-                    >
-                      <Image
-                        source={ICONS.plus6}
-                        style={styles.plusIcon}
-                        resizeMode="contain"
-                      />
-                    </TouchableOpacity>
 
-                    <TextInput
-                      style={styles.messageInput}
-                      placeholder="Type your message here"
-                      placeholderTextColor={COLORS.search}
-                      value={message}
-                      onChangeText={setMessage}
-                      multiline={true}
-                      scrollEnabled={true}
-                      textAlignVertical="top"
-                      cursorColor={COLORS.primary}
-                      selectionColor={COLORS.primary}
-                    />
-
-                    <TouchableOpacity
-                      style={{
-                        position: 'absolute',
-                        right: 0,
-                        bottom: RFPercentage(1.5),
-                        marginHorizontal: RFPercentage(2),
-                      }}
-                      onPress={() => {
-                        if (message.trim()) {
-                          const newMessage = {
-                            _id: Date.now(),
-                            text: message,
-                            createdAt: new Date(),
-                            user: {
-                              _id: 1,
-                              name: 'You',
-                              avatar: 'https://placeimg.com/140/140/any',
-                            },
-                          };
-                          setMessages(prev =>
-                            GiftedChat.append(prev, [newMessage]),
-                          );
-                          setMessage('');
-                        }
-                      }}
-                    >
-                      <Image
-                        source={ICONS.send}
-                        style={styles.sendButtonIcon}
-                        resizeMode="contain"
-                      />
-                    </TouchableOpacity>
+                    <View style={styles.conversationPrompt}>
+                      <Text style={styles.conversationText}>
+                        {`Start a conversation, ask a\nquestion, or just say hi.`}
+                      </Text>
+                    </View>
                   </View>
+                ) : null,
+            }}
+            renderMessageImage={renderMessageImage}
+            renderInputToolbar={() => (
+              <View style={styles.inputToolbarContainer}>
+                <View style={styles.inputBar}>
+                  <TouchableOpacity
+                    onPress={() => setAttachmentModalVisible(true)}
+                    style={{
+                      position: 'absolute',
+                      left: 0,
+                      bottom: RFPercentage(1.5),
+                      marginHorizontal: RFPercentage(1),
+                    }}
+                  >
+                    <Image
+                      source={ICONS.plus6}
+                      style={styles.plusIcon}
+                      resizeMode="contain"
+                    />
+                  </TouchableOpacity>
+
+                  <TextInput
+                    style={styles.messageInput}
+                    placeholder="Type your message here"
+                    placeholderTextColor={COLORS.search}
+                    value={message}
+                    onChangeText={setMessage}
+                    multiline={true}
+                    scrollEnabled={true}
+                    textAlignVertical="top"
+                    cursorColor={COLORS.primary}
+                    selectionColor={COLORS.primary}
+                  />
+
+                  <TouchableOpacity
+                    style={{
+                      position: 'absolute',
+                      right: 0,
+                      bottom: RFPercentage(1.5),
+                      marginHorizontal: RFPercentage(2),
+                    }}
+                    onPress={() => {
+                      if (message.trim()) {
+                        const newMessage = {
+                          _id: Date.now(),
+                          text: message,
+                          createdAt: new Date(),
+                          user: {
+                            _id: 1,
+                            name: 'You',
+                            avatar: 'https://placeimg.com/140/140/any',
+                          },
+                        };
+                        setMessages(prev =>
+                          GiftedChat.append(prev, [newMessage]),
+                        );
+                        setMessage('');
+                      }
+                    }}
+                  >
+                    <Image
+                      source={ICONS.send}
+                      style={styles.sendButtonIcon}
+                      resizeMode="contain"
+                    />
+                  </TouchableOpacity>
                 </View>
-              )}
-            />
-          </ImageBackground>
-        </View>
+              </View>
+            )}
+          />
+        </ImageBackground>
 
         <Modal
           visible={attachmentModalVisible}
@@ -830,6 +828,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontFamily: FONTS.medium,
     fontSize: RFPercentage(1.8),
+    bottom: Platform.OS === 'android' ? 2 : 0,
   },
   groupInfoCard: {
     width: '90%',
@@ -1040,9 +1039,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular,
     textAlignVertical: 'top',
     paddingVertical: RFPercentage(1),
-    lineHeight: RFPercentage(2.2),
     paddingHorizontal: RFPercentage(2),
-    // backgroundColor:"red"dskdhs
   },
 
   sendButtonIcon: {

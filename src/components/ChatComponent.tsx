@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     color: COLORS.lightGrey,
     fontFamily: FONTS.regular,
     fontSize: RFPercentage(1.8),
-    marginTop: RFPercentage(0.9),
+    marginTop: RFPercentage(0.5),
   },
   unreadBadge: {
     width: RFPercentage(3),

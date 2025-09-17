@@ -10,6 +10,7 @@ import {
   Animated,
   Dimensions,
   ScrollView,
+  Platform,
 } from 'react-native';
 import React, { useState, useRef } from 'react';
 import { COLORS, ICONS, FONTS, IMAGES } from '../../../../config/theme';
@@ -18,7 +19,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 import SearchField from '../../../../components/SearchField';
 import { BlurView } from '@react-native-community/blur';
 import SocialField from '../../../../components/SocialField';
-import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import * as RNHTMLtoPDF from 'react-native-html-to-pdf';
 import Share from 'react-native-share';
 
 const { height } = Dimensions.get('window');
@@ -88,6 +89,7 @@ const EventAttendees = () => {
 
   const [selectedUser, setSelectedUser] = useState(null);
   const [isModalVisible, setModalVisible] = useState(false);
+  console.log('RNHTMLtoPDF =>', RNHTMLtoPDF);
 
   const translateY = useRef(new Animated.Value(height)).current;
 
@@ -123,61 +125,41 @@ const EventAttendees = () => {
 
   const exportAttendeesPDF = async () => {
     try {
-      // HTML content for the PDF
-      let htmlContent = `
-      <h1>Attendees List</h1>
-      <table style="width:100%; border-collapse: collapse;">
-        <tr>
-          <th style="border:1px solid #000; padding:8px;">Name</th>
-          <th style="border:1px solid #000; padding:8px;">Status</th>
-          <th style="border:1px solid #000; padding:8px;">Since</th>
-        </tr>
-        ${filteredAttendees
-          .map(
-            item => `
+      const rows = filteredAttendees
+        .map(
+          a => `
             <tr>
-              <td style="border:1px solid #000; padding:8px;">${item.name}</td>
-              <td style="border:1px solid #000; padding:8px;">${item.status}</td>
-              <td style="border:1px solid #000; padding:8px;">${item.since}</td>
+              <td style="border:1px solid #ccc; padding:6px;">${a.name}</td>
+              <td style="border:1px solid #ccc; padding:6px;">${a.status}</td>
+              <td style="border:1px solid #ccc; padding:6px;">${a.since}</td>
             </tr>`,
-          )
-          .join('')}
-      </table>
-    `;
+        )
+        .join('');
 
-      // Generate PDF
-      const options = {
-        html: htmlContent,
+      const html = `
+        <h1 style="text-align:center;">Attendees List</h1>
+        <table style="width:100%; border-collapse:collapse;">
+          <thead>
+            <tr style="background:#eee;">
+              <th style="border:1px solid #ccc; padding:6px;">Name</th>
+              <th style="border:1px solid #ccc; padding:6px;">Status</th>
+              <th style="border:1px solid #ccc; padding:6px;">Since</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+
+      const pdfOptions = {
+        html,
         fileName: 'attendees_list',
-        directory: 'Documents',
+        directory: 'Downloads',
       };
-
-      const file = await RNHTMLtoPDF.convert(options);
-
-      // Share PDF
-      await Share.open({
-        title: 'Attendees List',
-        url: `file://${file.filePath}`,
-        type: 'application/pdf',
-      });
-    } catch (error) {
-      console.log('Error generating PDF:', error);
-    }
-  };
-
- const createPDF = async () => {
-    try {
-      let options = {
-        html: '<h1>PDF TEST</h1>',
-        fileName: 'test',
-        base64: true,
-        directory: 'Documents',
-      };
-
-      let results = await RNHTMLtoPDF.convert(options); // Correct method
-      console.log('PDF file path:', results.filePath);
-    } catch (error) {
-      console.log('Error generating PDF:', error);
+      console.log('pdfOptions.......', pdfOptions);
+      const file = await RNHTMLtoPDF.generatePDF(pdfOptions);
+      console.log('file.......', file);
+    } catch (err) {
+      console.log('PDF Error:', err);
     }
   };
 

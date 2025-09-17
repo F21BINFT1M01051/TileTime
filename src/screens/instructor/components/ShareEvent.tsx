@@ -319,10 +319,11 @@ const styles = StyleSheet.create({
     height: RFPercentage(2.2),
   },
   shareText: {
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(1.8),
     fontFamily: FONTS.bold,
     color: COLORS.primary,
     marginLeft: RFPercentage(1.8),
+    lineHeight:RFPercentage(1.9)
   },
   modalFooter: {
     borderTopWidth: RFPercentage(0.1),

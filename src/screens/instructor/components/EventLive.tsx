@@ -309,6 +309,7 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontFamily: FONTS.medium,
     fontSize: RFPercentage(1.4),
+    lineHeight:RFPercentage(1.4)
   },
   flatListContainer: {
     marginTop: RFPercentage(5),
@@ -337,10 +338,11 @@ const styles = StyleSheet.create({
     height: RFPercentage(2),
   },
   shareText: {
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.6),
     fontFamily: FONTS.semiBold,
     color: COLORS.primary,
     marginLeft: RFPercentage(0.7),
+    lineHeight:RFPercentage(1.7)
   },
   modalFooter: {
     borderTopWidth: RFPercentage(0.1),
