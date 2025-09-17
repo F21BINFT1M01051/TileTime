@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
   skipButton: {
     width: RFPercentage(20),
     alignSelf: 'center',
-    marginTop: RFPercentage(3),
+    marginTop: RFPercentage(2),
   },
   skipText: {
     fontFamily: FONTS.semiBold,

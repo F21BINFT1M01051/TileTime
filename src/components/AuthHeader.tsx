@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   backBtn: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: '70%',
+    width: '75%',
   },
   backIcon: {
     width: RFPercentage(2.8),
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   getStartedText: {
     color: COLORS.primary,
     fontFamily: FONTS.headline,
-    fontSize: RFPercentage(2.7),
+    fontSize: RFPercentage(2.6),
     marginLeft: RFPercentage(1),
     lineHeight: RFPercentage(3),
   },
