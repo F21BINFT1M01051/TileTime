@@ -19,6 +19,7 @@ interface Props {
   onSelect: () => void;
   icon: any;
   showWarning?: boolean;
+  warning?: string;
 }
 
 const Selection = ({
@@ -28,6 +29,7 @@ const Selection = ({
   onSelect,
   icon,
   showWarning,
+  warning,
 }: Props) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
@@ -87,41 +89,40 @@ const Selection = ({
               <Text style={styles.title}>{title}</Text>
               <Text style={styles.subTitle}>{subTitle}</Text>
             </View>
-            {showWarning && (
-              <Animated.View
+
+            <Animated.View
+              style={{
+                opacity: fadeAnim,
+                width: '100%',
+                backgroundColor: '#FFF4D1',
+                paddingHorizontal: RFPercentage(1.5),
+                height: RFPercentage(6),
+                borderRadius: RFPercentage(1.3),
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginTop: RFPercentage(2),
+              }}
+            >
+              <Image
+                source={ICONS.warn}
+                resizeMode="contain"
                 style={{
-                  opacity: fadeAnim,
-                  width: '100%',
-                  backgroundColor: '#FFF4D1',
-                  paddingHorizontal: RFPercentage(1.5),
-                  height: RFPercentage(6),
-                  borderRadius: RFPercentage(1.3),
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginTop: RFPercentage(2),
+                  width: RFPercentage(2.3),
+                  height: RFPercentage(2.3),
+                }}
+              />
+              <Text
+                style={{
+                  color: COLORS.primary,
+                  fontFamily: FONTS.regular,
+                  fontSize: RFPercentage(1.6),
+                  marginLeft: RFPercentage(1),
+                  lineHeight: RFPercentage(1.7),
                 }}
               >
-                <Image
-                  source={ICONS.warn}
-                  resizeMode="contain"
-                  style={{
-                    width: RFPercentage(2.3),
-                    height: RFPercentage(2.3),
-                  }}
-                />
-                <Text
-                  style={{
-                    color: COLORS.primary,
-                    fontFamily: FONTS.regular,
-                    fontSize: RFPercentage(1.6),
-                    marginLeft: RFPercentage(1),
-                    lineHeight: RFPercentage(1.7),
-                  }}
-                >
-                  {`Choosing Instructor doesn’t limit you, you can\nstill register and play in events as a Player.`}
-                </Text>
-              </Animated.View>
-            )}
+                {warning}
+              </Text>
+            </Animated.View>
           </View>
         </ImageBackground>
       ) : (

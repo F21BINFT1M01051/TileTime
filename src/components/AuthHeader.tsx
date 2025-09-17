@@ -21,6 +21,7 @@ interface Props {
   rightIcon?: any;
   onPress2?: () => void;
   rightIconStyle?: object;
+  backNav ? : ()=> void
 }
 
 const AuthHeader = (props: Props) => {

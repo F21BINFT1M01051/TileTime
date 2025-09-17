@@ -145,6 +145,7 @@ const LoginSignUp = ({ navigation }: any) => {
               </Formik>
               <View style={styles.signupContainer}>
                 <TouchableOpacity
+                activeOpacity={0.8}
                   onPress={() => {
                     navigation.navigate('OnBoarding');
                   }}

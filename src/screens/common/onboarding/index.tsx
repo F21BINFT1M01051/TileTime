@@ -215,6 +215,6 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.semiBold,
     color: COLORS.black,
     textAlign: 'center',
-    fontSize: RFPercentage(2),
+    fontSize: RFPercentage(2.1),
   },
 });

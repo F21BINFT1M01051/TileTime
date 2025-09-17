@@ -163,7 +163,7 @@ const Events = ({ navigation }: any) => {
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <>
-          <TopNavigation title="My Events" right text="Saved Draft" />
+          <TopNavigation title="My Events" right={true} text="Saved Draft" />
 
           <ScrollView
             showsVerticalScrollIndicator={false}

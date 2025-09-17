@@ -13,7 +13,7 @@ import { COLORS, FONTS, ICONS, IMAGES } from '../../../config/theme';
 
 // Week row helper
 const getSevenDayRow = () => {
-  const days = ['Mo', 'Tu', 'Wed', 'Th', 'Fr', 'Sa', 'Su'];
+  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   const today = new Date();
   const dayOfWeek = today.getDay();
   const diffToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
@@ -113,7 +113,19 @@ export default function TodayEvents() {
             return (
               <View
                 key={event.id}
-                style={[styles.event, { height, marginTop: RFPercentage(2) }]}
+                style={[
+                  styles.event,
+                  {
+                    height,
+                    marginTop: RFPercentage(2),
+                    backgroundColor:
+                      event.id === 2
+                        ? 'rgba(150, 152, 200, 0.25)'
+                        : event.id === 3
+                        ? 'rgba(222, 234, 255, 0.69)'
+                        : 'rgba(81, 135, 144, 0.14)',
+                  },
+                ]}
               >
                 <View style={styles.header}>
                   <View style={styles.eventTitleWrapper}>
@@ -229,7 +241,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular,
     fontSize: RFPercentage(1.5),
     color: COLORS.lightGrey,
-    marginTop: Platform.OS === 'ios' ?  RFPercentage(0.4) : 0,
+    marginTop: Platform.OS === 'ios' ? RFPercentage(0.4) : 0,
   },
   dayDate: {
     fontFamily: FONTS.semiBold,
@@ -298,14 +310,14 @@ const styles = StyleSheet.create({
   eventImage: {
     width: RFPercentage(6),
     height: RFPercentage(7),
-    borderRadius:RFPercentage(1.5),
-    borderRightWidth:RFPercentage(0.3),
-    borderRightColor:COLORS.yellow
+    borderRadius: RFPercentage(1.5),
+    borderRightWidth: RFPercentage(0.3),
+    borderRightColor: COLORS.yellow,
   },
   smallEventImage: {
     width: RFPercentage(3),
     height: RFPercentage(3),
-    borderRadius:RFPercentage(1)
+    borderRadius: RFPercentage(1),
   },
   avatarContainer: {
     flexDirection: 'row',

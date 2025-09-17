@@ -358,6 +358,10 @@ const EditProfileInstructor = () => {
                   onChangeText={text => {
                     const formatted = formatPhoneNumber(text);
                     setPhone(formatted);
+                    const digits = formatted.replace(/\D/g, '');
+                    if (digits.length === 11) {
+                      setTimeout(() => Keyboard.dismiss(), 50);
+                    }
                   }}
                   defaultColor={COLORS.focused}
                   focusedColor={COLORS.focused}
@@ -405,15 +409,13 @@ const EditProfileInstructor = () => {
             </View>
           </ScrollView>
 
-        
-            <View style={styles.footer}>
-              <CustomButton
-                title="Save"
-                style={styles.saveButton}
-                onPress={() => {}}
-              />
-            </View>
-         
+          <View style={styles.footer}>
+            <CustomButton
+              title="Save"
+              style={styles.saveButton}
+              onPress={() => {}}
+            />
+          </View>
         </>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>

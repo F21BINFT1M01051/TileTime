@@ -33,13 +33,13 @@ const RoleSelection = ({ navigation }: any) => {
 
       <View style={styles.whiteContainer}>
         <View style={styles.contentWrapper}>
-          <Text style={styles.getStartedText}>Welcome to Tile Time</Text>
+          <Text style={styles.getStartedText}>Welcome to TileTime</Text>
           <Text style={styles.subText}>Tell us how you'd like to join</Text>
 
           <View style={styles.selectionWrapper}>
             <Selection
               title="As Instructor"
-              subTitle="Share your expertise, connect with players, and grow your teaching presence in the Tile Time community."
+              subTitle="Share your expertise, connect with players, and grow your teaching presence in the TileTime community."
               isSelected={selected === 'Instructor'}
               onSelect={() => {
                 setSelected('Instructor');
@@ -47,6 +47,7 @@ const RoleSelection = ({ navigation }: any) => {
               }}
               icon={ICONS.teacher}
               showWarning={true}
+              warning={`Choosing Instructor doesn’t limit you, you can\nstill register and play in events as a Player.`}
             />
             <Selection
               title="As Player"
@@ -57,7 +58,8 @@ const RoleSelection = ({ navigation }: any) => {
                 dispatch(setUserFlow('Player'));
               }}
               icon={ICONS.user6}
-              showWarning={false}
+              showWarning={true}
+              warning={`Choosing Player doesn’t limit you, you can\nstill register and play in events as a Instructor.`}
             />
           </View>
         </View>

@@ -1,3 +1,4 @@
+import React, { useState, useEffect, useRef } from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,12 +8,13 @@ import {
   ScrollView,
   Keyboard,
   TouchableWithoutFeedback,
-  KeyboardAvoidingView,
   Platform,
   ImageBackground,
   Linking,
+  KeyboardAvoidingView,
+  Dimensions,
+  Animated,
 } from 'react-native';
-import React, { useState } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import { COLORS, FONTS, IMAGES } from '../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
@@ -23,7 +25,7 @@ import * as yup from 'yup';
 import { Formik } from 'formik';
 import Toast from 'react-native-toast-message';
 
-let validationSchema = yup.object({
+const validationSchema = yup.object({
   email: yup.string().email('Invalid email').required('Email is required'),
   password: yup
     .string()
@@ -36,7 +38,50 @@ let validationSchema = yup.object({
 });
 
 const Login = ({ navigation }: any) => {
-  const handleSignIn = async (values: any) => {
+  const [screenHeight, setScreenHeight] = useState(
+    Dimensions.get('window').height,
+  );
+
+  const keyboardHeight = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    const showListener = Keyboard.addListener(
+      Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow',
+      e => {
+        Animated.timing(keyboardHeight, {
+          toValue: e.endCoordinates.height,
+          duration: 300,
+          useNativeDriver: false,
+        }).start();
+      },
+    );
+
+    const hideListener = Keyboard.addListener(
+      Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide',
+      () => {
+        Animated.timing(keyboardHeight, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: false,
+        }).start();
+      },
+    );
+
+    const dimensionChangeListener = Dimensions.addEventListener(
+      'change',
+      ({ window }) => {
+        setScreenHeight(window.height);
+      },
+    );
+
+    return () => {
+      showListener.remove();
+      hideListener.remove();
+      dimensionChangeListener?.remove();
+    };
+  }, []);
+
+  const handleSignIn = (values: any) => {
     if (!values.email || !values.password) {
       Toast.show({
         type: 'info',
@@ -44,41 +89,80 @@ const Login = ({ navigation }: any) => {
         text2: 'Email and Password is required',
       });
       return;
-    } else {
-      navigation.navigate('SignUp');
     }
+    navigation.navigate('SignUp');
   };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      >
-        <ScrollView
-          style={{ backgroundColor: COLORS.white, flex: 1 }}
-          contentContainerStyle={{ flexGrow: 1 }}
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <Animated.ScrollView
+          style={{ flex: 1, backgroundColor: COLORS.white }}
+          contentContainerStyle={{
+            flexGrow: 1,
+            minHeight: screenHeight,
+            paddingBottom: keyboardHeight,
+          }}
+          keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="always"
+          bounces={false}
         >
-          <ImageBackground
-            source={IMAGES.auth}
-            resizeMode="cover"
-            style={{ width: '100%', height: RFPercentage(22) }}
+          {/* Logo Section */}
+          <Animated.View
+            style={{
+              width: '100%',
+              height: keyboardHeight.interpolate({
+                inputRange: [0, 300],
+                outputRange: [RFPercentage(22), RFPercentage(15)],
+                extrapolate: 'clamp',
+              }),
+            }}
           >
-            <LinearGradient
-              colors={[COLORS.authGradient1, COLORS.authGradient2]}
-              style={styles.logoContainer}
+            <ImageBackground
+              source={IMAGES.auth}
+              resizeMode="cover"
+              style={{ width: '100%', height: '100%' }}
             >
-              <Image
-                source={IMAGES.logo}
-                resizeMode="contain"
-                style={styles.logo}
-              />
-            </LinearGradient>
-          </ImageBackground>
+              <LinearGradient
+                colors={[COLORS.authGradient1, COLORS.authGradient2]}
+                style={styles.logoContainer}
+              >
+                <Animated.Image
+                  source={IMAGES.logo}
+                  resizeMode="contain"
+                  style={{
+                    width: keyboardHeight.interpolate({
+                      inputRange: [0, 300],
+                      outputRange: [RFPercentage(18), RFPercentage(14)],
+                      extrapolate: 'clamp',
+                    }),
+                    height: keyboardHeight.interpolate({
+                      inputRange: [0, 300],
+                      outputRange: [RFPercentage(18), RFPercentage(14)],
+                      extrapolate: 'clamp',
+                    }),
+                  }}
+                />
+              </LinearGradient>
+            </ImageBackground>
+          </Animated.View>
 
-          <View style={styles.whiteContainer}>
+          {/* Form Container */}
+          <Animated.View
+            style={[
+              styles.whiteContainer,
+              {
+                marginTop: keyboardHeight.interpolate({
+                  inputRange: [0, 300],
+                  outputRange: [RFPercentage(-1.5), RFPercentage(-3)],
+                  extrapolate: 'clamp',
+                }),
+              },
+            ]}
+          >
             <AuthHeader
               title="Log In"
               wrapStyle={{
@@ -90,12 +174,9 @@ const Login = ({ navigation }: any) => {
 
             <View style={styles.contentWrapper}>
               <Formik
-                initialValues={{
-                  email: '',
-                  password: '',
-                }}
+                initialValues={{ email: '', password: '' }}
                 validationSchema={validationSchema}
-                onSubmit={values => handleSignIn(values)}
+                onSubmit={handleSignIn}
               >
                 {({
                   handleChange,
@@ -104,79 +185,51 @@ const Login = ({ navigation }: any) => {
                   values,
                   errors,
                   touched,
-                  setFieldTouched,
                 }) => (
                   <>
-                    <View style={styles.emailField}>
-                      <InputField
-                        placeholder="Email Address"
-                        onChangeText={handleChange('email')}
-                        handleBlur={handleBlur('email')}
-                        value={values.email}
-                        password={false}
-                        hasError={touched.email && errors.email ? true : false}
-                        defaultColor={COLORS.placeholder}
-                        focusedColor={COLORS.focused}
-                        errorColor={COLORS.red}
-                        style={{
-                          borderColor:
-                            touched.email && errors.email
-                              ? COLORS.red
-                              : COLORS.fieldBorder,
-                        }}
-                      />
-                      {touched.email && errors.email && (
-                        <View style={{ marginTop: RFPercentage(0.6) }}>
-                          <Text
-                            style={{
-                              color: COLORS.red,
-                              fontFamily: FONTS.regular,
-                              fontSize: RFPercentage(1.7),
-                            }}
-                          >
-                            {errors?.email}
-                          </Text>
-                        </View>
-                      )}
-                    </View>
+                    <InputField
+                      placeholder="Email Address"
+                      onChangeText={handleChange('email')}
+                      handleBlur={handleBlur('email')}
+                      value={values.email}
+                      password={false}
+                      hasError={touched.email && !!errors.email}
+                      defaultColor={COLORS.placeholder}
+                      focusedColor={COLORS.focused}
+                      errorColor={COLORS.red}
+                      style={{
+                        borderColor:
+                          touched.email && errors.email
+                            ? COLORS.red
+                            : COLORS.fieldBorder,
+                        marginBottom: RFPercentage(1),
+                      }}
+                    />
+                    {touched.email && errors.email && (
+                      <Text style={styles.errorText}>{errors.email}</Text>
+                    )}
 
-                    <View style={styles.passwordField}>
-                      <InputField
-                        placeholder="Enter Password"
-                        onChangeText={text => {
-                          // setFieldTouched('password', true);
-                          handleChange('password')(text);
-                        }}
-                        handleBlur={handleBlur('password')}
-                        value={values.password}
-                        password={true}
-                        hasError={
-                          touched.password && errors.password ? true : false
-                        }
-                        defaultColor={COLORS.placeholder}
-                        focusedColor={COLORS.focused}
-                        errorColor={COLORS.red}
-                        style={{
-                          borderColor:
-                            touched.password && errors.password
-                              ? COLORS.red
-                              : COLORS.fieldBorder,
-                        }}
-                      />
-                      {touched.password && errors.password && (
-                        <View style={{ marginTop: RFPercentage(0.6) }}>
-                          <Text
-                            style={{
-                              color: COLORS.red,
-                              fontFamily: FONTS.regular,
-                              fontSize: RFPercentage(1.7),
-                            }}
-                          >
-                            {errors?.password}
-                          </Text>
-                        </View>
-                      )}
-                    </View>
+                    <InputField
+                      placeholder="Enter Password"
+                      onChangeText={handleChange('password')}
+                      handleBlur={handleBlur('password')}
+                      value={values.password}
+                      password
+                      hasError={touched.password && !!errors.password}
+                      defaultColor={COLORS.placeholder}
+                      focusedColor={COLORS.focused}
+                      errorColor={COLORS.red}
+                      style={{
+                        borderColor:
+                          touched.password && errors.password
+                            ? COLORS.red
+                            : COLORS.fieldBorder,
+                        marginBottom: RFPercentage(0.7),
+                      }}
+                    />
+                    {touched.password && errors.password && (
+                      <Text style={styles.errorText}>{errors.password}</Text>
+                    )}
 
                     <TouchableOpacity
                       activeOpacity={0.8}
@@ -206,14 +259,16 @@ const Login = ({ navigation }: any) => {
                   </>
                 )}
               </Formik>
-              <View style={styles.signupContainer}>
-                <Text style={styles.noAccountText}>Don’t Have An Account?</Text>
+
+              <View style={styles.footerLinkContainer}>
+                <Text style={styles.footerTextGray}>Have An Account?</Text>
                 <TouchableOpacity
+                  activeOpacity={0.8}
                   onPress={() => {
                     navigation.navigate('SignUp');
                   }}
                 >
-                  <Text style={styles.signupText}>Sign Up</Text>
+                  <Text style={styles.signInLink}>Sign Up</Text>
                 </TouchableOpacity>
               </View>
               <TouchableOpacity
@@ -228,6 +283,7 @@ const Login = ({ navigation }: any) => {
                   const email = 'alston@tiletime.com';
                   const subject = 'Support';
                   const body = 'Hello..,';
+
                   if (Platform.OS === 'android') {
                     const url = `mailto:${email}?subject=${encodeURIComponent(
                       subject,
@@ -249,34 +305,25 @@ const Login = ({ navigation }: any) => {
                 <Text style={styles.footerText}>Contact Us</Text>
               </TouchableOpacity>
             </View>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+          </Animated.View>
+        </Animated.ScrollView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 
 export default Login;
 
 const styles = StyleSheet.create({
-  gradient: {
-    flex: 1,
-    alignItems: 'center',
-  },
   logoContainer: {
     width: '100%',
     alignItems: 'center',
     height: '100%',
+    justifyContent: 'center',
   },
   logo: {
     width: RFPercentage(18),
     height: RFPercentage(18),
-    marginTop: RFPercentage(2),
-  },
-  headlineImage: {
-    width: RFPercentage(50),
-    height: RFPercentage(10),
-    marginTop: RFPercentage(1),
   },
   whiteContainer: {
     width: '100%',
@@ -288,33 +335,29 @@ const styles = StyleSheet.create({
     borderColor: COLORS.lightWhite,
     flex: 1,
     marginTop: RFPercentage(-1.5),
+    paddingBottom: RFPercentage(2),
   },
   contentWrapper: {
     width: '90%',
     alignSelf: 'center',
   },
-
-  emailField: {},
-  passwordField: {},
   forgotPasswordButton: {
     alignSelf: 'flex-end',
+    marginBottom: RFPercentage(2),
   },
   forgotPasswordText: {
     fontFamily: FONTS.regular,
-    marginTop: RFPercentage(0.6),
     color: COLORS.lightGrey,
     fontSize: RFPercentage(1.8),
   },
   buttonWrapper: {
     width: '100%',
-    marginTop: RFPercentage(8),
+    marginTop: RFPercentage(4),
   },
   signupContainer: {
-    alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
     flexDirection: 'row',
-    marginTop: RFPercentage(4),
+    alignSelf: 'center',
+    marginTop: RFPercentage(2),
   },
   noAccountText: {
     fontFamily: FONTS.regular,
@@ -324,7 +367,7 @@ const styles = StyleSheet.create({
   signupText: {
     fontFamily: FONTS.semiBold,
     color: COLORS.primary,
-    left: RFPercentage(0.4),
+    marginLeft: RFPercentage(0.5),
     fontSize: RFPercentage(1.9),
   },
   footerText: {
@@ -332,6 +375,30 @@ const styles = StyleSheet.create({
     color: COLORS.lightGrey,
     fontSize: RFPercentage(1.9),
     textAlign: 'center',
-    marginTop: RFPercentage(1.3),
+    marginTop: RFPercentage(1),
+  },
+  errorText: {
+    color: COLORS.red,
+    fontFamily: FONTS.regular,
+    fontSize: RFPercentage(1.7),
+    marginBottom: RFPercentage(1),
+  },
+  footerLinkContainer: {
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginTop: RFPercentage(2),
+  },
+  footerTextGray: {
+    fontFamily: FONTS.regular,
+    color: COLORS.lightGrey,
+    fontSize: RFPercentage(1.9),
+  },
+  signInLink: {
+    fontFamily: FONTS.semiBold,
+    color: COLORS.primary,
+    left: RFPercentage(0.4),
+    fontSize: RFPercentage(1.9),
   },
 });

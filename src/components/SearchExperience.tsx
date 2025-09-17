@@ -240,5 +240,6 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontSize: RFPercentage(1.7),
     marginRight: RFPercentage(0.8),
+    lineHeight:RFPercentage(1.7)
   },
 });

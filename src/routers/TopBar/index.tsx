@@ -19,6 +19,7 @@ interface Props {
   onPress2?: () => void;
   onPress3?: () => void;
   noVector?: boolean;
+  rightText?: string;
 }
 
 const TopNavigation = (props: Props) => {
@@ -45,9 +46,9 @@ const TopNavigation = (props: Props) => {
           >
             <Text
               style={{
-                color: COLORS.white,
+                color: COLORS.primary,
                 fontFamily: FONTS.semiBold,
-                fontSize: RFPercentage(1.8),
+                fontSize: RFPercentage(1.9),
               }}
             >
               {props.text}
@@ -72,7 +73,7 @@ const TopNavigation = (props: Props) => {
                 style={{
                   width: RFPercentage(2.8),
                   height: RFPercentage(2.8),
-                  marginRight: RFPercentage(1.4),
+                  marginRight: RFPercentage(2.3),
                 }}
               />
             </TouchableOpacity>
@@ -100,8 +101,8 @@ const styles = StyleSheet.create({
     height: Platform.OS === 'ios' ? RFPercentage(14) : RFPercentage(12),
     justifyContent: 'flex-end',
     paddingBottom: RFPercentage(2),
-    borderBottomWidth:RFPercentage(0.1),
-    borderBottomColor:COLORS.grey7
+    borderBottomWidth: RFPercentage(0.1),
+    borderBottomColor: COLORS.grey7,
   },
   innerContainer: {
     flexDirection: 'row',

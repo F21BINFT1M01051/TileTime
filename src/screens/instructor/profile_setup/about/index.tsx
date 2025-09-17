@@ -148,7 +148,6 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
   };
 
   return (
-    
     <TouchableWithoutFeedback
       onPress={() => {
         Keyboard.dismiss();
@@ -434,6 +433,10 @@ const About = forwardRef<AboutFormRef, AboutProps>(({ setFormValid }, ref) => {
                       onChangeText={text => {
                         const formatted = formatPhoneNumber(text);
                         handleChange('phoneNumber')(formatted);
+                        const digits = formatted.replace(/\D/g, '');
+                        if (digits.length === 11) {
+                          setTimeout(() => Keyboard.dismiss(), 50);
+                        }
                       }}
                       handleBlur={handleBlur('phoneNumber')}
                       length={15}
@@ -533,9 +536,9 @@ export default About;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width:"90%",
-    alignSelf:"center",
-    marginTop:RFPercentage(3)
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: RFPercentage(3),
   },
   title: {
     fontFamily: FONTS.headline,

@@ -10,8 +10,9 @@ import {
   KeyboardAvoidingView,
   Platform,
   ImageBackground,
+  Animated,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
@@ -28,6 +29,37 @@ const validationSchema = yup.object({
 
 const ForgetPassword = ({ navigation }: any) => {
   const [sent, setSent] = useState(false);
+  const keyboardHeight = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    const showListener = Keyboard.addListener(
+      Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow',
+      e => {
+        Animated.timing(keyboardHeight, {
+          toValue: e.endCoordinates.height,
+          duration: 300,
+          useNativeDriver: false,
+        }).start();
+      },
+    );
+
+    const hideListener = Keyboard.addListener(
+      Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide',
+      () => {
+        Animated.timing(keyboardHeight, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: false,
+        }).start();
+      },
+    );
+
+    return () => {
+      showListener.remove();
+      hideListener.remove();
+    };
+  }, []);
+
   const handleNext = async (values: any) => {
     if (!values.email) {
       Toast.show({
@@ -38,8 +70,11 @@ const ForgetPassword = ({ navigation }: any) => {
       return;
     } else {
       setSent(true);
-      //   navigation.navigate('Login');
     }
+  };
+  const back = () => {
+    Keyboard.dismiss();
+    navigation.goBack();
   };
 
   return (
@@ -48,31 +83,68 @@ const ForgetPassword = ({ navigation }: any) => {
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <ScrollView
+        <Animated.ScrollView
           style={{ backgroundColor: COLORS.white, flex: 1 }}
-          contentContainerStyle={{ flexGrow: 1 }}
+          contentContainerStyle={{
+            flexGrow: 1,
+            paddingBottom: keyboardHeight,
+          }}
           keyboardShouldPersistTaps="always"
         >
-          <ImageBackground
-            source={IMAGES.auth}
-            resizeMode="cover"
-            style={{ width: '100%', height: RFPercentage(22) }}
+          <Animated.View
+            style={{
+              width: '100%',
+              height: keyboardHeight.interpolate({
+                inputRange: [0, 300],
+                outputRange: [RFPercentage(22), RFPercentage(15)],
+                extrapolate: 'clamp',
+              }),
+            }}
           >
-            <LinearGradient
-              colors={[COLORS.authGradient1, COLORS.authGradient2]}
-              style={styles.logoContainer}
+            <ImageBackground
+              source={IMAGES.auth}
+              resizeMode="cover"
+              style={{ width: '100%', height: '100%' }}
             >
-              <Image
-                source={IMAGES.logo}
-                resizeMode="contain"
-                style={styles.logo}
-              />
-            </LinearGradient>
-          </ImageBackground>
+              <LinearGradient
+                colors={[COLORS.authGradient1, COLORS.authGradient2]}
+                style={styles.logoContainer}
+              >
+                <Animated.Image
+                  source={IMAGES.logo}
+                  resizeMode="contain"
+                  style={{
+                    width: keyboardHeight.interpolate({
+                      inputRange: [0, 300],
+                      outputRange: [RFPercentage(18), RFPercentage(14)],
+                      extrapolate: 'clamp',
+                    }),
+                    height: keyboardHeight.interpolate({
+                      inputRange: [0, 300],
+                      outputRange: [RFPercentage(18), RFPercentage(14)],
+                      extrapolate: 'clamp',
+                    }),
+                    marginTop: RFPercentage(2),
+                  }}
+                />
+              </LinearGradient>
+            </ImageBackground>
+          </Animated.View>
 
-          <View style={styles.whiteContainer}>
+          <Animated.View
+            style={[
+              styles.whiteContainer,
+              {
+                marginTop: keyboardHeight.interpolate({
+                  inputRange: [0, 300],
+                  outputRange: [RFPercentage(-1.5), RFPercentage(-3)],
+                  extrapolate: 'clamp',
+                }),
+              },
+            ]}
+          >
             {sent ? (
-              <View style={{ width: '90%', marginTop: RFPercentage(4) }}>
+              <View style={{ width: '90%', marginTop: RFPercentage(4), flex:1 }}>
                 <Image
                   source={ICONS.mail}
                   resizeMode="contain"
@@ -102,7 +174,10 @@ const ForgetPassword = ({ navigation }: any) => {
                 <View style={{ marginTop: RFPercentage(5.5) }}>
                   <CustomButton
                     title="Back To Login"
-                    onPress={() => navigation.goBack()}
+                    onPress={() => {
+                      navigation.goBack();
+                      Keyboard.dismiss;
+                    }}
                   />
                 </View>
               </View>
@@ -110,6 +185,7 @@ const ForgetPassword = ({ navigation }: any) => {
               <View style={{ width: '100%' }}>
                 <AuthHeader
                   title="Reset Password"
+                  onPress={back}
                   wrapStyle={{
                     height: RFPercentage(5),
                     borderBottomWidth: 0,
@@ -204,8 +280,8 @@ const ForgetPassword = ({ navigation }: any) => {
                 </View>
               </View>
             )}
-          </View>
-        </ScrollView>
+          </Animated.View>
+        </Animated.ScrollView>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
@@ -214,10 +290,6 @@ const ForgetPassword = ({ navigation }: any) => {
 export default ForgetPassword;
 
 const styles = StyleSheet.create({
-  gradient: {
-    flex: 1,
-    alignItems: 'center',
-  },
   logoContainer: {
     width: '100%',
     alignItems: 'center',
@@ -226,12 +298,6 @@ const styles = StyleSheet.create({
   logo: {
     width: RFPercentage(18),
     height: RFPercentage(18),
-    marginTop: RFPercentage(2),
-  },
-  headlineImage: {
-    width: RFPercentage(50),
-    height: RFPercentage(10),
-    marginTop: RFPercentage(1),
   },
   whiteContainer: {
     width: '100%',
@@ -249,23 +315,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: RFPercentage(2),
   },
-
   emailField: {},
-
   buttonWrapper: {
     width: '100%',
     marginTop: RFPercentage(10),
-  },
-  signupContainer: {
-    alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: RFPercentage(3),
-  },
-
-  signupText: {
-    fontFamily: FONTS.semiBold,
-    color: COLORS.black,
-    fontSize: RFPercentage(1.9),
   },
 });

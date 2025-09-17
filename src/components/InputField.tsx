@@ -126,6 +126,9 @@ const InputField: React.FC<Props> = ({
             cursorColor={COLORS.primary}
             selectionColor={COLORS.primary}
             editable={editable}
+            autoCorrect={false}
+            autoComplete="off"
+            textContentType="none"
           />
 
           {password && (

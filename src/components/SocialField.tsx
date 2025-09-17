@@ -70,13 +70,7 @@ const SocialField = (props: Props) => {
             />
           )}
 
-          <Text
-            style={[
-              styles.text,
-              { color: props.color || COLORS.black },
-              props.textStyle,
-            ]}
-          >
+          <Text style={[styles.text, { color: COLORS.black }, props.textStyle]}>
             {props.name}
           </Text>
         </View>
@@ -105,8 +99,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(2),
-    lineHeight:RFPercentage(2)
+    fontSize: RFPercentage(2.2),
+    lineHeight: RFPercentage(2.2),
   },
   connectedContainer: {
     width: '90%',
@@ -124,14 +118,14 @@ const styles = StyleSheet.create({
   },
   connectedName: {
     color: COLORS.icon,
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(2),
     fontFamily: FONTS.semiBold,
   },
   connectedFollowers: {
     color: COLORS.lightGrey,
-    fontSize: RFPercentage(1.6),
+    fontSize: RFPercentage(1.7),
     fontFamily: FONTS.regular,
-    marginTop: RFPercentage(1),
+    marginTop: Platform.OS === 'android' ? 2 : RFPercentage(1),
   },
   connectedIconWrapper: {
     position: 'absolute',

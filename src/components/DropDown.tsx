@@ -115,7 +115,7 @@ const DropdownField: React.FC<Props> = ({
           <Feather
             name={isDropdownVisible ? 'chevron-up' : 'chevron-down'}
             size={RFPercentage(2.4)}
-            color={COLORS.placeholder}
+            color={COLORS.primary}
           />
         </TouchableOpacity>
       </View>
@@ -189,9 +189,10 @@ const styles = StyleSheet.create({
     borderRadius: RFPercentage(1.5),
     backgroundColor: COLORS.white,
     zIndex: 999999,
-    marginTop: RFPercentage(1),
     width: '100%',
     paddingVertical: RFPercentage(1),
+    position:"absolute",
+    top:RFPercentage(10)
   },
 
   dropdownItem: {

@@ -813,14 +813,24 @@ const styles = StyleSheet.create({
   },
   todayBadge: {
     alignSelf: 'center',
-    width: RFPercentage(10),
-    height: RFPercentage(3.8),
+    width: RFPercentage(9),
+    height: RFPercentage(3.6),
     backgroundColor: COLORS.white,
     borderRadius: RFPercentage(0.7),
     marginTop: RFPercentage(3),
     alignItems: 'center',
     justifyContent: 'center',
+
+    // --- iOS Shadow ---
+   shadowColor: 'rgba(0,0,0,0.3)',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+
+    // --- Android Shadow ---
+    elevation: 3,
   },
+
   chatContainer: {
     flex: 1,
   },
@@ -1055,7 +1065,7 @@ const styles = StyleSheet.create({
   },
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.4)',
+    // backgroundColor: 'rgba(0,0,0,0.4)',
     justifyContent: 'flex-end',
   },
   modalContainer: {

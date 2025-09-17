@@ -59,7 +59,8 @@ const EditProfile = () => {
   const [imageUri, setImageUri] = useState(null);
   const [bio, setBio] = useState(
     'Passionate coach with a love for helping players unlock their full potential. Let’s grow your game,  one step at a time.',
-  );  const [name, setName] = useState('Alexender');
+  );
+  const [name, setName] = useState('Alexender');
   const [city, setCity] = useState('Paris');
   const [phone, setPhone] = useState('+1-343-433-6370');
 
@@ -77,8 +78,6 @@ const EditProfile = () => {
       }
     });
   };
-
- 
 
   const formatPhoneNumber = (raw: string = ''): string => {
     let digits = raw.replace(/\D/g, '');
@@ -240,6 +239,10 @@ const EditProfile = () => {
                   onChangeText={text => {
                     const formatted = formatPhoneNumber(text);
                     setPhone(formatted);
+                    const digits = formatted.replace(/\D/g, '');
+                    if (digits.length === 11) {
+                      setTimeout(() => Keyboard.dismiss(), 50);
+                    }
                   }}
                   type="phone-pad"
                   icon={

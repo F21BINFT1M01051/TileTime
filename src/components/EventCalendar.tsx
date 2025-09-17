@@ -13,7 +13,7 @@ const avatars = [
 ];
 
 const getSevenDayRow = () => {
-  const days = ['Mo', 'Tu', 'Wed', 'Th', 'Fr', 'Sa', 'Su'];
+  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   const today = new Date();
   const dayOfWeek = today.getDay(); // 0 (Sun) - 6 (Sat)
   const diffToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
