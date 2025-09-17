@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '90%',
     alignSelf: 'center',
-    marginTop: Platform.OS === 'android' ? RFPercentage(6) : RFPercentage(7.6),
+    marginTop: Platform.OS === 'android' ? RFPercentage(5) : RFPercentage(7.6),
   },
   mainContent: { width: '90%', alignSelf: 'center', bottom: RFPercentage(5) },
   avatarOuterLayer: {

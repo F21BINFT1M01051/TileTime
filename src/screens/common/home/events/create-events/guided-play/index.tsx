@@ -191,8 +191,12 @@ const GuidedPlay = ({ route }: any) => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={styles.mainContainer}>
+    <TouchableWithoutFeedback
+      onPress={Keyboard.dismiss}
+      accessible={false}
+      style={{ flex: 1, backgroundColor: COLORS.white }}
+    >
+      <>
         {/* Header */}
         <AuthHeader
           title={role === 'Instructor' ? 'Create Guided Play' : 'Create Event'}
@@ -206,6 +210,7 @@ const GuidedPlay = ({ route }: any) => {
           contentContainerStyle={{
             paddingBottom: RFPercentage(30),
             flexGrow: 1,
+            backgroundColor: COLORS.white,
           }}
           keyboardShouldPersistTaps="handled"
           enableOnAndroid
@@ -393,7 +398,7 @@ const GuidedPlay = ({ route }: any) => {
             </View>
           </TouchableWithoutFeedback>
         </Modal>
-      </View>
+      </>
     </TouchableWithoutFeedback>
   );
 };
@@ -592,6 +597,6 @@ const styles = StyleSheet.create({
     lineHeight: RFPercentage(2),
   },
   saveButton: {
-    width: '60%',
+    width: '67%',
   },
 });

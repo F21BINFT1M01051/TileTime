@@ -312,7 +312,7 @@ const styles = StyleSheet.create({
     lineHeight:RFPercentage(1.4)
   },
   flatListContainer: {
-    marginTop: RFPercentage(5),
+    marginTop: RFPercentage(3),
   },
   flatListColumn: {
     justifyContent: 'space-between',

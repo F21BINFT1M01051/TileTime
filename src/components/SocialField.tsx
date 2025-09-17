@@ -101,12 +101,13 @@ const styles = StyleSheet.create({
   icon: {
     width: RFPercentage(2.5),
     height: RFPercentage(2.5),
-    marginRight: RFPercentage(1.5),
+    // marginRight: RFPercentage(1.5),
   },
   text: {
     fontFamily: FONTS.bold,
     fontSize: RFPercentage(2),
     lineHeight: RFPercentage(2),
+    paddingHorizontal: RFPercentage(2),
   },
   connectedContainer: {
     width: '90%',

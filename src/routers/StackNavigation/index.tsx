@@ -63,6 +63,7 @@ import EditEventGameDetails from '../../screens/instructor/manage-events/edit-ga
 import EditAddOneExtra from '../../screens/instructor/manage-events/edit-addOnesExtra';
 import EventBroadCast from '../../screens/instructor/manage-events/event-broadcast';
 import EditGroup from '../../screens/common/home/groups/create-groups/edit-group';
+import Splash from '../../screens/common/splash';
 
 export type RootStackParamList = {
   OnBoarding: undefined;
@@ -126,6 +127,7 @@ export type RootStackParamList = {
   EditAddOneExtra: undefined;
   EventBroadCast: undefined;
   EditGroup: undefined;
+  Splash: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -138,8 +140,8 @@ const Navigator: React.FC = () => {
           headerShown: false,
         }}
       >
-
         {/* ----------------Common Flow----------- */}
+        <Stack.Screen name="Splash" component={Splash} />
         <Stack.Screen name="OnBoarding" component={OnBoarding} />
         <Stack.Screen name="LoginSignUp" component={LoginSignUp} />
         <Stack.Screen name="Login" component={Login} />

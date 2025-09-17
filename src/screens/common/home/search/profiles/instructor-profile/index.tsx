@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '90%',
     alignSelf: 'center',
-    marginTop: Platform.OS === 'android' ? RFPercentage(7) : RFPercentage(7.6),
+    marginTop: Platform.OS === 'android' ? RFPercentage(5) : RFPercentage(7.6),
   },
   groupDesc: {
     fontFamily: FONTS.regular2,

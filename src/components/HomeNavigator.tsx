@@ -19,7 +19,7 @@ const HomeNavigator = (props: Props) => {
         {
           backgroundColor: COLORS.white,
           width: '100%',
-          height: Platform.OS === 'android' ? RFPercentage(13) : RFPercentage(12),
+          height: Platform.OS === 'android' ? RFPercentage(10) : RFPercentage(12),
           justifyContent: 'flex-end',
           borderBottomWidth: RFPercentage(0.1),
           borderBottomColor: COLORS.lightWhite,

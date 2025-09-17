@@ -98,6 +98,8 @@ export const IMAGES = {
   doc: require('../assets/images/doc.png'),
   event9: require('../assets/images/event99.png'),
   event10: require('../assets/images/event10.png'),
+  sp: require('../assets/images/sp.png'),
+  s2: require('../assets/images/s2.png'),
 };
 
 export const ICONS = {

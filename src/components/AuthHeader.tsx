@@ -21,7 +21,7 @@ interface Props {
   rightIcon?: any;
   onPress2?: () => void;
   rightIconStyle?: object;
-  backNav ? : ()=> void
+  backNav?: () => void;
 }
 
 const AuthHeader = (props: Props) => {
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.white,
     width: '100%',
-    height: Platform.OS === 'ios' ? RFPercentage(13) : RFPercentage(12),
+    height: Platform.OS === 'ios' ? RFPercentage(13) : RFPercentage(10),
     justifyContent: 'flex-end',
     borderBottomWidth: RFPercentage(0.1),
     borderBottomColor: COLORS.grey7,
@@ -87,11 +87,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'center',
-    // backgroundColor:"red"
   },
   backBtn: {
     flexDirection: 'row',
     alignItems: 'center',
+    width: '70%',
   },
   backIcon: {
     width: RFPercentage(2.8),
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.headline,
     fontSize: RFPercentage(2.7),
     marginLeft: RFPercentage(1),
-    lineHeight:RFPercentage(3)
+    lineHeight: RFPercentage(3),
   },
   rightBtn: {
     position: 'absolute',

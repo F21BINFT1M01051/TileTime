@@ -877,7 +877,6 @@ const styles = StyleSheet.create({
   innerWrapper: {
     width: '100%',
     alignSelf: 'center',
-    marginTop: RFPercentage(1),
   },
   // Step bar navigation styles
   stepBarContainer: {
