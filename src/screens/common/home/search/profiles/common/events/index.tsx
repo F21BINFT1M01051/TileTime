@@ -62,7 +62,9 @@ const CommonEvents = ({ navigation, route }) => {
             return (
               <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={() => navigation.navigate('EventDetails')}
+                onPress={() =>
+                  navigation.navigate('EventDetails', { preview: false })
+                }
               >
                 <View style={styles.contactRow}>
                   <View style={styles.contactLeft}>

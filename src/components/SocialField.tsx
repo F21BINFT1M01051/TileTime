@@ -70,7 +70,13 @@ const SocialField = (props: Props) => {
             />
           )}
 
-          <Text style={[styles.text, { color: COLORS.black }, props.textStyle]}>
+          <Text
+            style={[
+              styles.text,
+              { color: props.color ? props.color : COLORS.black },
+              props.textStyle,
+            ]}
+          >
             {props.name}
           </Text>
         </View>
@@ -99,8 +105,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: FONTS.bold,
-    fontSize: RFPercentage(2.2),
-    lineHeight: RFPercentage(2.2),
+    fontSize: RFPercentage(2.1),
+    lineHeight: RFPercentage(2.1),
   },
   connectedContainer: {
     width: '90%',

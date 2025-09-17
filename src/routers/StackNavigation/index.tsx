@@ -62,6 +62,7 @@ import EditEventAdmissionDetails from '../../screens/instructor/manage-events/ed
 import EditEventGameDetails from '../../screens/instructor/manage-events/edit-gameDetails';
 import EditAddOneExtra from '../../screens/instructor/manage-events/edit-addOnesExtra';
 import EventBroadCast from '../../screens/instructor/manage-events/event-broadcast';
+import EditGroup from '../../screens/common/home/groups/create-groups/edit-group';
 
 export type RootStackParamList = {
   OnBoarding: undefined;
@@ -120,10 +121,11 @@ export type RootStackParamList = {
   EventAttendeesV2: undefined;
   EventAttachments: undefined;
   EditEventDescription: undefined;
-  EditEventAdmissionDetails:undefined;
-  EditEventGameDetails:undefined;
+  EditEventAdmissionDetails: undefined;
+  EditEventGameDetails: undefined;
   EditAddOneExtra: undefined;
-  EventBroadCast:undefined
+  EventBroadCast: undefined;
+  EditGroup: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -136,7 +138,6 @@ const Navigator: React.FC = () => {
           headerShown: false,
         }}
       >
-        {/* <Stack.Screen name="InstructorTabs" component={InstructorTabs} /> */}
 
         {/* ----------------Common Flow----------- */}
         <Stack.Screen name="OnBoarding" component={OnBoarding} />
@@ -169,11 +170,21 @@ const Navigator: React.FC = () => {
         <Stack.Screen name="EventCoHosts" component={EventCoHosts} />
         <Stack.Screen name="EventAttendeesV2" component={EventAttendeesV2} />
         <Stack.Screen name="EventAttachments" component={EventAttachments} />
-        <Stack.Screen name="EditEventDescription" component={EditEventDescription} />
-        <Stack.Screen name="EditEventAdmissionDetails" component={EditEventAdmissionDetails} />
-        <Stack.Screen name="EditEventGameDetails" component={EditEventGameDetails} />
+        <Stack.Screen
+          name="EditEventDescription"
+          component={EditEventDescription}
+        />
+        <Stack.Screen
+          name="EditEventAdmissionDetails"
+          component={EditEventAdmissionDetails}
+        />
+        <Stack.Screen
+          name="EditEventGameDetails"
+          component={EditEventGameDetails}
+        />
         <Stack.Screen name="EditAddOneExtra" component={EditAddOneExtra} />
         <Stack.Screen name="EventBroadCast" component={EventBroadCast} />
+        <Stack.Screen name="EditGroup" component={EditGroup} />
 
         <Stack.Screen
           name="DirectChatSelection"

@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular,
     fontSize: RFPercentage(1.5),
     color: COLORS.lightGrey,
-    marginTop: Platform.OS === 'ios' ? RFPercentage(0.4) : 0,
+    marginTop: Platform.OS === 'ios' ? RFPercentage(0.6) : 0,
   },
   dayDate: {
     fontFamily: FONTS.semiBold,

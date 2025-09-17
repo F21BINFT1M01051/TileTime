@@ -38,7 +38,9 @@ let validationSchema = yup.object({
 });
 
 const SignUp = ({ navigation }: any) => {
-  const [screenHeight, setScreenHeight] = useState(Dimensions.get('window').height);
+  const [screenHeight, setScreenHeight] = useState(
+    Dimensions.get('window').height,
+  );
   const keyboardHeight = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -98,7 +100,11 @@ const SignUp = ({ navigation }: any) => {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Animated.ScrollView
           style={{ flex: 1, backgroundColor: COLORS.white }}
-          contentContainerStyle={{ flexGrow: 1, minHeight: screenHeight, paddingBottom: keyboardHeight }}
+          contentContainerStyle={{
+            flexGrow: 1,
+            minHeight: screenHeight,
+            paddingBottom: keyboardHeight,
+          }}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
           bounces={false}
@@ -158,7 +164,11 @@ const SignUp = ({ navigation }: any) => {
           >
             <AuthHeader
               title="Create Your Account"
-              wrapStyle={{ height: RFPercentage(5), borderBottomWidth: 0, marginTop: RFPercentage(2.5) }}
+              wrapStyle={{
+                height: RFPercentage(5),
+                borderBottomWidth: 0,
+                marginTop: RFPercentage(2.5),
+              }}
             />
 
             <View style={styles.contentWrapper}>
@@ -167,7 +177,14 @@ const SignUp = ({ navigation }: any) => {
                 validationSchema={validationSchema}
                 onSubmit={handleSignUp}
               >
-                {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+                {({
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  values,
+                  errors,
+                  touched,
+                }) => (
                   <>
                     <View style={styles.inputMarginTop}>
                       <InputField
@@ -181,7 +198,10 @@ const SignUp = ({ navigation }: any) => {
                         focusedColor={COLORS.focused}
                         errorColor={COLORS.red}
                         style={{
-                          borderColor: touched.email && errors.email ? COLORS.red : COLORS.fieldBorder,
+                          borderColor:
+                            touched.email && errors.email
+                              ? COLORS.red
+                              : COLORS.fieldBorder,
                         }}
                       />
                       {touched.email && errors.email && (
@@ -200,8 +220,11 @@ const SignUp = ({ navigation }: any) => {
                       focusedColor={COLORS.focused}
                       errorColor={COLORS.red}
                       style={{
-                        borderColor: touched.password && errors.password ? COLORS.red : COLORS.fieldBorder,
-                        marginTop: RFPercentage(3),
+                        borderColor:
+                          touched.password && errors.password
+                            ? COLORS.red
+                            : COLORS.fieldBorder,
+                        marginTop: RFPercentage(2.2),
                       }}
                     />
                     {touched.password && errors.password && (
@@ -213,9 +236,13 @@ const SignUp = ({ navigation }: any) => {
                         title="Sign Up"
                         onPress={handleSubmit}
                         style={{
-                          backgroundColor: !values.email || !!errors.email || !values.password || !!errors.password
-                            ? COLORS.disabled
-                            : COLORS.primary,
+                          backgroundColor:
+                            !values.email ||
+                            !!errors.email ||
+                            !values.password ||
+                            !!errors.password
+                              ? COLORS.disabled
+                              : COLORS.primary,
                         }}
                       />
                     </View>
@@ -225,21 +252,31 @@ const SignUp = ({ navigation }: any) => {
 
               <View style={styles.footerLinkContainer}>
                 <Text style={styles.footerTextGray}>Have An Account?</Text>
-                <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate('Login')}>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => navigation.navigate('Login')}
+                >
                   <Text style={styles.signInLink}>Log In</Text>
                 </TouchableOpacity>
               </View>
 
-              <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate('PrivacyPolicy')}>
+              <TouchableOpacity
+                style={{ width: RFPercentage(16), alignSelf: 'center' }}
+                activeOpacity={0.8}
+                onPress={() => navigation.navigate('PrivacyPolicy')}
+              >
                 <Text style={styles.footerText}>Privacy & Terms</Text>
               </TouchableOpacity>
               <TouchableOpacity
+                style={{ width: RFPercentage(16), alignSelf: 'center' }}
                 activeOpacity={0.8}
                 onPress={async () => {
                   const email = 'alston@tiletime.com';
                   const subject = 'Support';
                   const body = 'Hello..,';
-                  const url = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                  const url = `mailto:${email}?subject=${encodeURIComponent(
+                    subject,
+                  )}&body=${encodeURIComponent(body)}`;
                   await Linking.openURL(url);
                 }}
               >
@@ -256,7 +293,12 @@ const SignUp = ({ navigation }: any) => {
 export default SignUp;
 
 const styles = StyleSheet.create({
-  logoContainer: { width: '100%', alignItems: 'center', height: '100%', justifyContent: 'center' },
+  logoContainer: {
+    width: '100%',
+    alignItems: 'center',
+    height: '100%',
+    justifyContent: 'center',
+  },
   logo: { width: RFPercentage(18), height: RFPercentage(18) },
   whiteContainer: {
     width: '100%',
@@ -273,9 +315,35 @@ const styles = StyleSheet.create({
   contentWrapper: { width: '90%', alignSelf: 'center' },
   inputMarginTop: {},
   buttonWrapper: { width: '100%', marginTop: RFPercentage(8) },
-  footerLinkContainer: { alignSelf: 'center', justifyContent: 'center', alignItems: 'center', flexDirection: 'row', marginTop: RFPercentage(2) },
-  footerTextGray: { fontFamily: FONTS.regular, color: COLORS.lightGrey, fontSize: RFPercentage(1.9) },
-  signInLink: { fontFamily: FONTS.semiBold, color: COLORS.primary, left: RFPercentage(0.4), fontSize: RFPercentage(1.9) },
-  footerText: { fontFamily: FONTS.regular, color: COLORS.lightGrey, textAlign: 'center', marginTop: RFPercentage(1), fontSize: RFPercentage(1.9) },
-  errorText: { color: COLORS.red, fontFamily: FONTS.regular, fontSize: RFPercentage(1.7), marginBottom: RFPercentage(1) },
+  footerLinkContainer: {
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginTop: RFPercentage(3),
+  },
+  footerTextGray: {
+    fontFamily: FONTS.regular,
+    color: COLORS.lightGrey,
+    fontSize: RFPercentage(1.9),
+  },
+  signInLink: {
+    fontFamily: FONTS.semiBold,
+    color: COLORS.primary,
+    left: RFPercentage(0.4),
+    fontSize: RFPercentage(1.9),
+  },
+  footerText: {
+    fontFamily: FONTS.regular,
+    color: COLORS.lightGrey,
+    textAlign: 'center',
+    marginTop: RFPercentage(1.6),
+    fontSize: RFPercentage(1.9),
+  },
+  errorText: {
+    color: COLORS.red,
+    fontFamily: FONTS.regular,
+    fontSize: RFPercentage(1.7),
+    marginBottom: RFPercentage(1),
+  },
 });

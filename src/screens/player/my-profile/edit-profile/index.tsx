@@ -27,7 +27,7 @@ const data = [
     id: 1,
     name: 'Connect With Facebook',
     navigationScreen: '',
-    color: COLORS.skyBlue,
+    color: COLORS.black,
     icon: ICONS.facebook,
     connected: true,
   },
@@ -36,7 +36,7 @@ const data = [
     name: 'Connect With Instagram',
     navigationScreen: '',
     icon: ICONS.insta,
-    color: COLORS.pink2,
+    color: COLORS.black,
     connected: false,
   },
   {

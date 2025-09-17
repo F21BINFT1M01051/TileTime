@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular,
     fontSize: RFPercentage(1.5),
     color: COLORS.lightGrey,
-    top: RFPercentage(0.3),
+    top: RFPercentage(0.5),
   },
   dayDate: {
     fontFamily: FONTS.inter_semiBold,

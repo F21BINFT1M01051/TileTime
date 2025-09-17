@@ -60,7 +60,7 @@ const GroupDetails = ({ navigation }: any) => {
           >
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={() => navigation.navigate('CreateGroup')}
+              onPress={() => navigation.navigate('EditGroup')}
               style={styles.editButton}
             >
               <Image

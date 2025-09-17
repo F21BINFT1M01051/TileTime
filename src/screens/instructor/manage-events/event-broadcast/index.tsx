@@ -738,13 +738,20 @@ const styles = StyleSheet.create({
   },
   todayBadge: {
     alignSelf: 'center',
-    width: RFPercentage(10),
-    height: RFPercentage(3.8),
+    width: RFPercentage(9),
+    height: RFPercentage(3.6),
     backgroundColor: COLORS.white,
     borderRadius: RFPercentage(0.7),
     marginTop: RFPercentage(3),
     alignItems: 'center',
     justifyContent: 'center',
+    shadowColor: 'rgba(0,0,0,0.3)',
+    shadowOffset: { width: 4, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+
+    // --- Android Shadow ---
+    elevation: 3,
   },
   chatContainer: {
     flex: 1,
@@ -753,7 +760,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontFamily: FONTS.medium,
     fontSize: RFPercentage(1.8),
-    bottom:Platform.OS === 'android' ? 2 : 0
+    bottom: Platform.OS === 'android' ? 2 : 0,
   },
   groupInfoCard: {
     width: '90%',

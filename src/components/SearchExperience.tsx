@@ -84,7 +84,7 @@ const Search = ({ placeholder, value, onChangeText, data }: Props) => {
       {/*  Dropdown Shown ABOVE selected items */}
       {showDropdown && value.length > 0 && (
         <View style={styles.dropdownContainer}>
-          <ScrollView 
+          <ScrollView
             nestedScrollEnabled={true}
             style={styles.dropdownScrollView}
             keyboardShouldPersistTaps="always"
@@ -106,7 +106,7 @@ const Search = ({ placeholder, value, onChangeText, data }: Props) => {
                 </TouchableOpacity>
               );
             })}
-            
+
             {value.length > 0 && !filteredData.includes(value) && (
               <TouchableOpacity
                 style={[
@@ -189,7 +189,8 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular,
     width: '90%',
     fontSize: RFPercentage(1.8),
-    // lineHeight: RFPercentage(3),
+    height: RFPercentage(4),
+    // lineHeight: RFPercentage(2),
   },
   dropdownContainer: {
     position: 'absolute',
@@ -202,7 +203,6 @@ const styles = StyleSheet.create({
     borderWidth: RFPercentage(0.1),
     maxHeight: RFPercentage(25),
     zIndex: 999, // Ensure it appears above selected items
-  
   },
   dropdownScrollView: {
     paddingVertical: RFPercentage(1),
@@ -240,6 +240,6 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontSize: RFPercentage(1.7),
     marginRight: RFPercentage(0.8),
-    lineHeight:RFPercentage(1.7)
+    lineHeight: RFPercentage(1.7),
   },
 });

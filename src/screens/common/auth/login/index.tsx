@@ -202,7 +202,7 @@ const Login = ({ navigation }: any) => {
                           touched.email && errors.email
                             ? COLORS.red
                             : COLORS.fieldBorder,
-                        marginBottom: RFPercentage(1),
+                        marginBottom: RFPercentage(0.5),
                       }}
                     />
                     {touched.email && errors.email && (
@@ -224,7 +224,7 @@ const Login = ({ navigation }: any) => {
                           touched.password && errors.password
                             ? COLORS.red
                             : COLORS.fieldBorder,
-                        marginBottom: RFPercentage(0.7),
+                        marginBottom: RFPercentage(1),
                       }}
                     />
                     {touched.password && errors.password && (
@@ -274,10 +274,12 @@ const Login = ({ navigation }: any) => {
               <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={() => navigation.navigate('PrivacyPolicy')}
+                style={{ width: RFPercentage(16), alignSelf: 'center' }}
               >
                 <Text style={styles.footerText}>Privacy & Terms</Text>
               </TouchableOpacity>
               <TouchableOpacity
+                style={{ width: RFPercentage(16), alignSelf: 'center' }}
                 activeOpacity={0.8}
                 onPress={async () => {
                   const email = 'alston@tiletime.com';
@@ -357,7 +359,7 @@ const styles = StyleSheet.create({
   signupContainer: {
     flexDirection: 'row',
     alignSelf: 'center',
-    marginTop: RFPercentage(2),
+    marginTop: RFPercentage(3),
   },
   noAccountText: {
     fontFamily: FONTS.regular,
@@ -375,7 +377,7 @@ const styles = StyleSheet.create({
     color: COLORS.lightGrey,
     fontSize: RFPercentage(1.9),
     textAlign: 'center',
-    marginTop: RFPercentage(1),
+    marginTop: RFPercentage(1.5),
   },
   errorText: {
     color: COLORS.red,
@@ -388,7 +390,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    marginTop: RFPercentage(2),
+    marginTop: RFPercentage(3),
   },
   footerTextGray: {
     fontFamily: FONTS.regular,

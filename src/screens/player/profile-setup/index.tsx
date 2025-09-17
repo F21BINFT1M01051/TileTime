@@ -49,14 +49,14 @@ const data = [
   {
     id: 1,
     name: 'Connect With Facebook',
-    color: COLORS.skyBlue,
+    color: COLORS.black,
     icon: ICONS.facebook,
     connected: false,
   },
   {
     id: 2,
     name: 'Connect With Instagram',
-    color: COLORS.pink2,
+    color: COLORS.black,
     icon: ICONS.insta,
     connected: false,
   },

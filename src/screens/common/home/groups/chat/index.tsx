@@ -822,8 +822,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
 
     // --- iOS Shadow ---
-   shadowColor: 'rgba(0,0,0,0.3)',
-    shadowOffset: { width: 0, height: 2 },
+    shadowColor: 'rgba(0,0,0,0.3)',
+    shadowOffset: { width: 4, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
 
@@ -900,6 +900,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: RFPercentage(1.3),
+    // --- iOS Shadow ---
+    shadowColor: 'rgba(0,0,0,0.3)',
+    shadowOffset: { width: 4, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+
+    // --- Android Shadow ---
+    elevation: 3,
   },
   conversationText: {
     color: COLORS.primary,
