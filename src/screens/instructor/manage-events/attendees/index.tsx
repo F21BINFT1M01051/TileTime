@@ -11,6 +11,7 @@ import {
   Dimensions,
   ScrollView,
   Platform,
+  Share,
 } from 'react-native';
 import React, { useState, useRef } from 'react';
 import { COLORS, ICONS, FONTS, IMAGES } from '../../../../config/theme';
@@ -20,7 +21,6 @@ import SearchField from '../../../../components/SearchField';
 import { BlurView } from '@react-native-community/blur';
 import SocialField from '../../../../components/SocialField';
 import * as RNHTMLtoPDF from 'react-native-html-to-pdf';
-import Share from 'react-native-share';
 
 const { height } = Dimensions.get('window');
 
@@ -158,6 +158,13 @@ const EventAttendees = () => {
       console.log('pdfOptions.......', pdfOptions);
       const file = await RNHTMLtoPDF.generatePDF(pdfOptions);
       console.log('file.......', file);
+
+      await Share.share({
+        url:
+          Platform.OS === 'android' ? `file://${file.filePath}` : file.filePath,
+        title: 'Attendees List',
+        message: 'Here is the exported attendees list PDF.',
+      });
     } catch (err) {
       console.log('PDF Error:', err);
     }

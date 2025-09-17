@@ -11,14 +11,17 @@ import Toast from 'react-native-toast-message';
 import { toastConfig } from './src/utils/toastConfig';
 import { Provider } from 'react-redux';
 import store from './src/redux/store';
+import { KeyboardProvider } from 'react-native-keyboard-controller';
 
 function App() {
   return (
     <Provider store={store}>
-      <PaperProvider>
-        <Navigator />
-        <Toast config={toastConfig} />
-      </PaperProvider>
+      <KeyboardProvider>
+        <PaperProvider>
+          <Navigator />
+          <Toast config={toastConfig} />
+        </PaperProvider>
+      </KeyboardProvider>
     </Provider>
   );
 }

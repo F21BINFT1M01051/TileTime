@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
   Keyboard,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { COLORS, FONTS, ICONS } from '../../../../../config/theme';
@@ -53,83 +54,87 @@ const BankAccounts = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <AuthHeader title="Setup Bank Account" />
-      <View style={styles.innerContainer}>
-        <Text style={styles.heading}>Select an account for payouts</Text>
-        <Text style={styles.subHeading}>
-          A payout is the transfer of funds from Stripe to your bank account.
-          Link your bank account to seamlessly receive payouts and help us
-          better understand your business.
-        </Text>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <AuthHeader title="Setup Bank Account" />
+        <View style={styles.innerContainer}>
+          <Text style={styles.heading}>Select an account for payouts</Text>
+          <Text style={styles.subHeading}>
+            A payout is the transfer of funds from Stripe to your bank account.
+            Link your bank account to seamlessly receive payouts and help us
+            better understand your business.
+          </Text>
 
-        <View style={styles.searchWrap}>
-          <SearchField
-            placeholder="Search your bank"
-            value={search}
-            onChangeText={setSearch}
-          />
+          <View style={styles.searchWrap}>
+            <SearchField
+              placeholder="Search your bank"
+              value={search}
+              onChangeText={setSearch}
+            />
+          </View>
+
+          <View style={styles.listWrap}>
+            <FlatList
+              data={filteredBanks}
+              keyboardShouldPersistTaps="always"
+              numColumns={3}
+              keyExtractor={item => item.id.toString()}
+              scrollEnabled={false}
+              columnWrapperStyle={styles.columnWrapper}
+              contentContainerStyle={{ paddingBottom: RFPercentage(1) }}
+              renderItem={({ item }) => {
+                const isSelected = selectedBank === item.id;
+                return (
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    style={[
+                      styles.bankCard,
+                      {
+                        borderColor: isSelected
+                          ? COLORS.pink
+                          : COLORS.lightWhite,
+                      },
+                    ]}
+                    onPress={() => setSelectedBank(item.id)}
+                  >
+                    <Image
+                      source={item.icon}
+                      resizeMode="contain"
+                      style={styles.bankLogo}
+                    />
+                  </TouchableOpacity>
+                );
+              }}
+            />
+          </View>
+          {!keyboardIsVisible && (
+            <>
+              <TouchableOpacity activeOpacity={0.8} style={styles.manualWrap}>
+                <Text style={styles.manualText}>
+                  Enter bank details manually instead
+                </Text>
+                <AntDesign
+                  name="arrowright"
+                  size={RFPercentage(1.8)}
+                  color={COLORS.primary}
+                  style={styles.manualIcon}
+                />
+              </TouchableOpacity>
+
+              <TouchableOpacity activeOpacity={0.8} style={styles.nextBtn}>
+                <Text style={styles.nextText}>Next</Text>
+                <AntDesign
+                  name="arrowright"
+                  size={RFPercentage(2)}
+                  color={COLORS.white}
+                  style={styles.nextIcon}
+                />
+              </TouchableOpacity>
+            </>
+          )}
         </View>
-
-        <View style={styles.listWrap}>
-          <FlatList
-            data={filteredBanks}
-            keyboardShouldPersistTaps="always"
-            numColumns={3}
-            keyExtractor={item => item.id.toString()}
-            scrollEnabled={false}
-            columnWrapperStyle={styles.columnWrapper}
-            contentContainerStyle={{ paddingBottom: RFPercentage(1) }}
-            renderItem={({ item }) => {
-              const isSelected = selectedBank === item.id;
-              return (
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  style={[
-                    styles.bankCard,
-                    {
-                      borderColor: isSelected ? COLORS.pink : COLORS.lightWhite,
-                    },
-                  ]}
-                  onPress={() => setSelectedBank(item.id)}
-                >
-                  <Image
-                    source={item.icon}
-                    resizeMode="contain"
-                    style={styles.bankLogo}
-                  />
-                </TouchableOpacity>
-              );
-            }}
-          />
-        </View>
-        {!keyboardIsVisible && (
-          <>
-            <TouchableOpacity activeOpacity={0.8} style={styles.manualWrap}>
-              <Text style={styles.manualText}>
-                Enter bank details manually instead
-              </Text>
-              <AntDesign
-                name="arrowright"
-                size={RFPercentage(1.8)}
-                color={COLORS.primary}
-                style={styles.manualIcon}
-              />
-            </TouchableOpacity>
-
-            <TouchableOpacity activeOpacity={0.8} style={styles.nextBtn}>
-              <Text style={styles.nextText}>Next</Text>
-              <AntDesign
-                name="arrowright"
-                size={RFPercentage(2)}
-                color={COLORS.white}
-                style={styles.nextIcon}
-              />
-            </TouchableOpacity>
-          </>
-        )}
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -196,6 +201,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontFamily: FONTS.semiBold,
     fontSize: RFPercentage(1.8),
+    lineHeight: RFPercentage(1.8),
   },
   manualIcon: {
     marginLeft: RFPercentage(0.4),
@@ -214,6 +220,7 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontFamily: FONTS.semiBold,
     fontSize: RFPercentage(1.8),
+    lineHeight: RFPercentage(1.5),
   },
   nextIcon: {
     marginLeft: RFPercentage(0.4),

@@ -424,12 +424,14 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(1.9),
     fontFamily: FONTS.regular,
     marginLeft: RFPercentage(1.6),
+    lineHeight: RFPercentage(1.9),
   },
   notConnectedText: {
     color: COLORS.lightGrey,
     fontSize: RFPercentage(1.9),
     fontFamily: FONTS.regular,
     marginLeft: RFPercentage(1.6),
+    lineHeight: RFPercentage(1.9),
   },
   connectButton: {
     width: RFPercentage(13.4),
@@ -445,6 +447,7 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontSize: RFPercentage(1.7),
     fontFamily: FONTS.medium,
+    lineHeight: RFPercentage(1.7),
   },
   toggleRow: {
     width: '100%',
@@ -629,6 +632,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.semiBold,
     color: COLORS.primary,
     fontSize: RFPercentage(1.9),
+    lineHeight: RFPercentage(1.9),
   },
   checkIcon: {
     width: RFPercentage(5),
@@ -646,5 +650,6 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontSize: RFPercentage(1.7),
     fontFamily: FONTS.medium,
+    lineHeight: RFPercentage(1.7),
   },
 });

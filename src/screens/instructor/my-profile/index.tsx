@@ -434,6 +434,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontSize: RFPercentage(1.7),
     fontFamily: FONTS.medium,
+    lineHeight: RFPercentage(1.7),
   },
   connectList: {
     paddingBottom: RFPercentage(2),
@@ -453,12 +454,14 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(1.9),
     fontFamily: FONTS.regular,
     marginLeft: RFPercentage(1.6),
+    lineHeight: RFPercentage(1.9),
   },
   notConnectedText: {
     color: COLORS.lightGrey,
     fontSize: RFPercentage(1.9),
     fontFamily: FONTS.regular,
     marginLeft: RFPercentage(1.6),
+    lineHeight: RFPercentage(1.9),
   },
   connectNowButton: {
     width: RFPercentage(12),
@@ -474,6 +477,7 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontSize: RFPercentage(1.5),
     fontFamily: FONTS.medium,
+    lineHeight: RFPercentage(1.5),
   },
   stepRow: {
     width: '100%',
@@ -512,5 +516,6 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontSize: RFPercentage(1.7),
     fontFamily: FONTS.medium,
+    lineHeight: RFPercentage(1.7),
   },
 });

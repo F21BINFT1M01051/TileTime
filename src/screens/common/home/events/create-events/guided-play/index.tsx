@@ -416,7 +416,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
   },
   scrollViewContent: {
-    paddingBottom: RFPercentage(12),
+    paddingBottom: RFPercentage(13),
     flexGrow: 1,
   },
   progressBarBackground: {
@@ -599,6 +599,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontSize: RFPercentage(2),
     fontFamily: FONTS.bold,
+    lineHeight:RFPercentage(2)
   },
   saveButton: {
     width: '60%',

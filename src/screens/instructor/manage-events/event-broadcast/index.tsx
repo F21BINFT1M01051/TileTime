@@ -1,4 +1,4 @@
-import React, { useState, } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -175,7 +175,7 @@ const EventBroadCast = ({ route, navigation }: any) => {
           marginHorizontal: RFPercentage(2),
           flexDirection: isUser ? 'row-reverse' : 'row',
           alignItems: 'flex-end',
-          marginVertical: RFPercentage(1),
+          marginVertical: RFPercentage(0.7),
         }}
       >
         <View style={{ position: 'relative' }}>
@@ -299,349 +299,348 @@ const EventBroadCast = ({ route, navigation }: any) => {
   ];
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.container}>
-        {/* Header */}
-        <View style={styles.headerBorder}>
-          <View style={styles.headerContainer}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+    <View style={styles.container}>
+      {/* Header */}
+      <View style={styles.headerBorder}>
+        <View style={styles.headerContainer}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Image
+              source={ICONS.back}
+              resizeMode="contain"
+              style={{ width: RFPercentage(3), height: RFPercentage(2.5) }}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => {
+              navigation.navigate('EventDetails', { preview: true });
+            }}
+          >
+            <View style={styles.groupIconContainer}>
               <Image
-                source={ICONS.back}
-                resizeMode="contain"
-                style={{ width: RFPercentage(3), height: RFPercentage(2.5) }}
+                source={IMAGES.customProfile}
+                resizeMode="cover"
+                style={styles.groupIcon}
               />
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => {
-                navigation.navigate('EventDetails', { preview: true });
-              }}
-            >
-              <View style={styles.groupIconContainer}>
-                <Image
-                  source={IMAGES.customProfile}
-                  resizeMode="cover"
-                  style={styles.groupIcon}
-                />
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => {
-                navigation.navigate('EventDetails', { preview: true });
-              }}
-            >
-              <Text style={styles.groupNameText}>
-                {`Four Winds: Community Mahjong...`}
-              </Text>
-            </TouchableOpacity>
-          </View>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => {
+              navigation.navigate('EventDetails', { preview: true });
+            }}
+          >
+            <Text style={styles.groupNameText}>
+              {`Four Winds: Community Mahjong...`}
+            </Text>
+          </TouchableOpacity>
         </View>
-        {/* <View style={styles.chatContainer}> */}
+      </View>
+      {/* <View style={styles.chatContainer}> */}
 
-        <ImageBackground
-          source={IMAGES.chat}
-          resizeMode="cover"
-          style={{ flex: 1, paddingTop: RFPercentage(2) }}
-        >
-          {messages.length > 0 && (
-            <View style={styles.stickyBanner}>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Image
-                  source={ICONS.broad}
-                  resizeMode="contain"
+      <ImageBackground
+        source={IMAGES.chat}
+        resizeMode="cover"
+        style={{ flex: 1, paddingTop: RFPercentage(2) }}
+      >
+        {messages.length > 0 && (
+          <View style={styles.stickyBanner}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Image
+                source={ICONS.broad}
+                resizeMode="contain"
+                style={{
+                  width: RFPercentage(3.8),
+                  height: RFPercentage(3.8),
+                }}
+              />
+              <View style={{ width: '85%', marginLeft: RFPercentage(1.5) }}>
+                <Text
                   style={{
-                    width: RFPercentage(3.8),
-                    height: RFPercentage(3.8),
+                    fontFamily: FONTS.semiBold,
+                    color: COLORS.primary,
+                    fontSize: RFPercentage(1.9),
                   }}
-                />
-                <View style={{ width: '85%', marginLeft: RFPercentage(1.5) }}>
-                  <Text
-                    style={{
-                      fontFamily: FONTS.semiBold,
-                      color: COLORS.primary,
-                      fontSize: RFPercentage(1.9),
-                    }}
-                  >
-                    Event Broadcast
-                  </Text>
-                  <Text
-                    style={{
-                      color: COLORS.lightGrey,
-                      fontFamily: FONTS.regular,
-                      fontSize: RFPercentage(1.7),
-                      marginTop:
-                        Platform.OS === 'android' ? 0 : RFPercentage(0.5),
-                    }}
-                  >
-                    Messages sent from here will be delivered to all attendees
-                  </Text>
+                >
+                  Event Broadcast
+                </Text>
+                <Text
+                  style={{
+                    color: COLORS.lightGrey,
+                    fontFamily: FONTS.regular,
+                    fontSize: RFPercentage(1.7),
+                    marginTop:
+                      Platform.OS === 'android' ? 0 : RFPercentage(0.5),
+                  }}
+                >
+                  Messages sent from here will be delivered to all attendees
+                </Text>
+              </View>
+            </View>
+          </View>
+        )}
+        <GiftedChat
+          messages={messages}
+          user={{
+            _id: 1,
+            name: 'You',
+            avatar: 'https://placeimg.com/140/140/any',
+          }}
+          renderBubble={renderBubble}
+          renderMessage={renderMessage}
+          renderDay={renderDay}
+          listViewProps={{
+            removeClippedSubviews: false,
+            keyboardShouldPersistTaps: 'handled',
+            showsVerticalScrollIndicator: true,
+            maintainVisibleContentPosition: {
+              minIndexForVisible: 0,
+              autoscrollToTopThreshold: 10,
+            },
+            ListHeaderComponent: () =>
+              messages.length === 0 && isNew ? (
+                <View style={{ marginBottom: height * 0.42 }}>
+                  <View style={styles.groupInfoCard}>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        width: '90%',
+                        alignSelf: 'center',
+                      }}
+                    >
+                      <Image
+                        source={ICONS.broadcast}
+                        resizeMode="contain"
+                        style={{
+                          width: RFPercentage(9),
+                          height: RFPercentage(9),
+                        }}
+                      />
+                      <Text
+                        style={{
+                          fontFamily: FONTS.bold,
+                          color: COLORS.primary,
+                          fontSize: RFPercentage(3.4),
+                          textAlign: 'center',
+                          width: '80%',
+                          right: RFPercentage(0.5),
+                        }}
+                      >
+                        This is your event broadcast space
+                      </Text>
+                    </View>
+                    <Text
+                      style={{
+                        fontFamily: FONTS.regular,
+                        color: COLORS.icon,
+                        fontSize: RFPercentage(1.9),
+                        lineHeight: RFPercentage(2),
+                        width: '90%',
+                        alignSelf: 'center',
+                        marginTop: RFPercentage(1.4),
+                        textAlign: 'center',
+                      }}
+                    >
+                      Keep your attendees updated! Share event details,
+                      reminders, and announcements here
+                    </Text>
+                  </View>
+
+                  <View style={styles.conversationPrompt}>
+                    <Text style={styles.conversationText}>
+                      {`Share your first update`}
+                    </Text>
+                  </View>
                 </View>
+              ) : null,
+          }}
+          renderMessageImage={renderMessageImage}
+          renderInputToolbar={() => (
+            <View style={styles.inputToolbarContainer}>
+              <View style={styles.inputBar}>
+                <TouchableOpacity
+                  onPress={() => setAttachmentModalVisible(true)}
+                  style={{
+                    position: 'absolute',
+                    left: 0,
+                    bottom: RFPercentage(1.5),
+                    marginHorizontal: RFPercentage(1),
+                  }}
+                >
+                  <Image
+                    source={ICONS.plus6}
+                    style={styles.plusIcon}
+                    resizeMode="contain"
+                  />
+                </TouchableOpacity>
+
+                <TextInput
+                  style={styles.messageInput}
+                  placeholder="Type your message here"
+                  placeholderTextColor={COLORS.search}
+                  value={message}
+                  onChangeText={setMessage}
+                  multiline={true}
+                  scrollEnabled={true}
+                  textAlignVertical="top"
+                  cursorColor={COLORS.primary}
+                  selectionColor={COLORS.primary}
+                />
+
+                <TouchableOpacity
+                  style={{
+                    position: 'absolute',
+                    right: 0,
+                    bottom: RFPercentage(1.5),
+                    marginHorizontal: RFPercentage(2),
+                  }}
+                  onPress={() => {
+                    if (message.trim()) {
+                      const newMessage = {
+                        _id: Date.now(),
+                        text: message,
+                        createdAt: new Date(),
+                        user: {
+                          _id: 1,
+                          name: 'You',
+                          avatar: 'https://placeimg.com/140/140/any',
+                        },
+                      };
+                      setMessages(prev =>
+                        GiftedChat.append(prev, [newMessage]),
+                      );
+                      setMessage('');
+                    }
+                  }}
+                >
+                  <Image
+                    source={ICONS.send}
+                    style={styles.sendButtonIcon}
+                    resizeMode="contain"
+                  />
+                </TouchableOpacity>
               </View>
             </View>
           )}
-          <GiftedChat
-            messages={messages}
-            user={{
-              _id: 1,
-              name: 'You',
-              avatar: 'https://placeimg.com/140/140/any',
-            }}
-            messagesContainerStyle={{ flex: 1 }}
-            renderBubble={renderBubble}
-            renderMessage={renderMessage}
-            renderDay={renderDay}
-            listViewProps={{
-              keyboardShouldPersistTaps: 'handled',
-              contentContainerStyle: { flexGrow: 1 },
-              ListHeaderComponent: () =>
-                messages.length === 0 && isNew ? (
-                  <View style={{marginBottom:height*0.42}}>
-                    <View style={styles.groupInfoCard}>
-                      <View
+        />
+      </ImageBackground>
+      {/* </View> */}
+
+      <Modal
+        visible={attachmentModalVisible}
+        animationType="fade"
+        transparent
+        onRequestClose={() => setAttachmentModalVisible(false)}
+      >
+        <TouchableWithoutFeedback
+          onPress={() => setAttachmentModalVisible(false)}
+        >
+          <View style={styles.modalOverlay}>
+            <View style={styles.modalContainer}>
+              <Text style={styles.modalTitle}>Share</Text>
+
+              <View
+                style={{
+                  width: '100%',
+                  alignItems: 'center',
+                  marginTop: RFPercentage(1),
+                }}
+              >
+                <FlatList
+                  data={ShareOptions}
+                  keyExtractor={item => item.id.toString()}
+                  horizontal
+                  renderItem={({ item }) => {
+                    return (
+                      <TouchableOpacity
+                        onPress={item.onPress}
+                        activeOpacity={0.8}
                         style={{
-                          flexDirection: 'row',
+                          marginHorizontal: RFPercentage(3),
                           alignItems: 'center',
-                          width: '90%',
-                          alignSelf: 'center',
                         }}
                       >
-                        <Image
-                          source={ICONS.broadcast}
-                          resizeMode="contain"
+                        <View
                           style={{
-                            width: RFPercentage(9),
-                            height: RFPercentage(9),
+                            width: RFPercentage(7),
+                            height: RFPercentage(7),
+                            borderRadius: RFPercentage(100),
+                            backgroundColor: item.color,
+                            alignItems: 'center',
+                            justifyContent: 'center',
                           }}
-                        />
+                        >
+                          {item.name === 'Contacts' ? (
+                            <View>
+                              <MaterialIcons
+                                name={item.icon}
+                                size={RFPercentage(2.8)}
+                                color={COLORS.white}
+                              />
+                            </View>
+                          ) : (
+                            <View>
+                              <Ionicons
+                                name={item.icon}
+                                size={RFPercentage(2.8)}
+                                color={COLORS.white}
+                              />
+                            </View>
+                          )}
+                        </View>
                         <Text
                           style={{
-                            fontFamily: FONTS.bold,
-                            color: COLORS.primary,
-                            fontSize: RFPercentage(3.4),
-                            textAlign: 'center',
-                            width: '80%',
-                            right: RFPercentage(0.5),
+                            color: COLORS.grey3,
+                            fontFamily: FONTS.medium,
+                            fontSize: RFPercentage(1.7),
+                            marginTop: RFPercentage(1),
                           }}
                         >
-                          This is your event broadcast space
+                          {item.name}
                         </Text>
-                      </View>
-                      <Text
-                        style={{
-                          fontFamily: FONTS.regular,
-                          color: COLORS.icon,
-                          fontSize: RFPercentage(1.9),
-                          lineHeight: RFPercentage(2),
-                          width: '90%',
-                          alignSelf: 'center',
-                          marginTop: RFPercentage(1.4),
-                          textAlign: 'center',
-                        }}
-                      >
-                        Keep your attendees updated! Share event details,
-                        reminders, and announcements here
-                      </Text>
-                    </View>
-
-                    <View style={styles.conversationPrompt}>
-                      <Text style={styles.conversationText}>
-                        {`Share your first update`}
-                      </Text>
-                    </View>
-                  </View>
-                ) : null,
-            }}
-            renderMessageImage={renderMessageImage}
-            renderInputToolbar={() => (
-              <View style={styles.inputToolbarContainer}>
-                <View style={styles.inputBar}>
-                  <TouchableOpacity
-                    onPress={() => setAttachmentModalVisible(true)}
-                    style={{
-                      position: 'absolute',
-                      left: 0,
-                      bottom: RFPercentage(1.5),
-                      marginHorizontal: RFPercentage(1),
-                    }}
-                  >
-                    <Image
-                      source={ICONS.plus6}
-                      style={styles.plusIcon}
-                      resizeMode="contain"
-                    />
-                  </TouchableOpacity>
-
-                  <TextInput
-                    style={styles.messageInput}
-                    placeholder="Type your message here"
-                    placeholderTextColor={COLORS.search}
-                    value={message}
-                    onChangeText={setMessage}
-                    multiline={true}
-                    scrollEnabled={true}
-                    textAlignVertical="top"
-                    cursorColor={COLORS.primary}
-                    selectionColor={COLORS.primary}
-                  />
-
-                  <TouchableOpacity
-                    style={{
-                      position: 'absolute',
-                      right: 0,
-                      bottom: RFPercentage(1.5),
-                      marginHorizontal: RFPercentage(2),
-                    }}
-                    onPress={() => {
-                      if (message.trim()) {
-                        const newMessage = {
-                          _id: Date.now(),
-                          text: message,
-                          createdAt: new Date(),
-                          user: {
-                            _id: 1,
-                            name: 'You',
-                            avatar: 'https://placeimg.com/140/140/any',
-                          },
-                        };
-                        setMessages(prev =>
-                          GiftedChat.append(prev, [newMessage]),
-                        );
-                        setMessage('');
-                      }
-                    }}
-                  >
-                    <Image
-                      source={ICONS.send}
-                      style={styles.sendButtonIcon}
-                      resizeMode="contain"
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            )}
-          />
-        </ImageBackground>
-        {/* </View> */}
-
-        <Modal
-          visible={attachmentModalVisible}
-          animationType="fade"
-          transparent
-          onRequestClose={() => setAttachmentModalVisible(false)}
-        >
-          <TouchableWithoutFeedback
-            onPress={() => setAttachmentModalVisible(false)}
-          >
-            <View style={styles.modalOverlay}>
-              <View style={styles.modalContainer}>
-                <Text style={styles.modalTitle}>Share</Text>
-
-                <View
-                  style={{
-                    width: '100%',
-                    alignItems: 'center',
-                    marginTop: RFPercentage(1),
+                      </TouchableOpacity>
+                    );
                   }}
-                >
-                  <FlatList
-                    data={ShareOptions}
-                    keyExtractor={item => item.id.toString()}
-                    horizontal
-                    renderItem={({ item }) => {
-                      return (
-                        <TouchableOpacity
-                          onPress={item.onPress}
-                          activeOpacity={0.8}
-                          style={{
-                            marginHorizontal: RFPercentage(3),
-                            alignItems: 'center',
-                          }}
-                        >
-                          <View
-                            style={{
-                              width: RFPercentage(7),
-                              height: RFPercentage(7),
-                              borderRadius: RFPercentage(100),
-                              backgroundColor: item.color,
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                            }}
-                          >
-                            {item.name === 'Contacts' ? (
-                              <View>
-                                <MaterialIcons
-                                  name={item.icon}
-                                  size={RFPercentage(2.8)}
-                                  color={COLORS.white}
-                                />
-                              </View>
-                            ) : (
-                              <View>
-                                <Ionicons
-                                  name={item.icon}
-                                  size={RFPercentage(2.8)}
-                                  color={COLORS.white}
-                                />
-                              </View>
-                            )}
-                          </View>
-                          <Text
-                            style={{
-                              color: COLORS.grey3,
-                              fontFamily: FONTS.medium,
-                              fontSize: RFPercentage(1.7),
-                              marginTop: RFPercentage(1),
-                            }}
-                          >
-                            {item.name}
-                          </Text>
-                        </TouchableOpacity>
-                      );
-                    }}
-                  />
-                </View>
+                />
               </View>
             </View>
-          </TouchableWithoutFeedback>
-        </Modal>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
 
-        <CreateEvent
-          visible={isModalVisible}
-          onClose={() => setIsModalVisible(false)}
-          title="Select Event Type"
-          selectedValue={selectedType}
-          onSelect={(value: any) => {
-            setSelectedType(value);
-            dispatch(setEventType(value));
-          }}
-          onConfirm={() => {
+      <CreateEvent
+        visible={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+        title="Select Event Type"
+        selectedValue={selectedType}
+        onSelect={(value: any) => {
+          setSelectedType(value);
+          dispatch(setEventType(value));
+        }}
+        onConfirm={() => {
+          setIsModalVisible(false);
+          if (selectedType === 'Open Play') {
+            navigation.navigate('InvitePlayer');
+          } else if (
+            selectedType === 'Mahjong Lessons' &&
+            role === 'Instructor'
+          ) {
+            navigation.navigate('SelectPlayersInstructor');
+          } else if (selectedType === 'Mahjong Lessons' && role === 'Player') {
+            navigation.navigate('CreateLessonPlayer');
+          } else if (selectedType === 'Guided Play') {
+            navigation.navigate('GuidedPlay', {
+              players: false,
+              groups: false,
+              link: true,
+            });
+          } else {
             setIsModalVisible(false);
-            if (selectedType === 'Open Play') {
-              navigation.navigate('InvitePlayer');
-            } else if (
-              selectedType === 'Mahjong Lessons' &&
-              role === 'Instructor'
-            ) {
-              navigation.navigate('SelectPlayersInstructor');
-            } else if (
-              selectedType === 'Mahjong Lessons' &&
-              role === 'Player'
-            ) {
-              navigation.navigate('CreateLessonPlayer');
-            } else if (selectedType === 'Guided Play') {
-              navigation.navigate('GuidedPlay', {
-                players: false,
-                groups: false,
-                link: true,
-              });
-            } else {
-              setIsModalVisible(false);
-            }
-          }}
-        />
-      </View>
-    </TouchableWithoutFeedback>
+          }
+        }}
+      />
+    </View>
   );
 };
 
@@ -754,6 +753,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontFamily: FONTS.medium,
     fontSize: RFPercentage(1.8),
+    bottom:Platform.OS === 'android' ? 2 : 0
   },
   groupInfoCard: {
     width: '90%',
@@ -962,7 +962,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular,
     textAlignVertical: 'top',
     paddingVertical: RFPercentage(1),
-    lineHeight: RFPercentage(2.2),
+    // lineHeight: RFPercentage(2.2),
     paddingHorizontal: RFPercentage(2),
     // backgroundColor:"red"dskdhs
   },

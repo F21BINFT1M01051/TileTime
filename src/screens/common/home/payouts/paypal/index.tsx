@@ -8,6 +8,8 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 import React from 'react';
 import { COLORS, FONTS, ICONS } from '../../../../../config/theme';
@@ -17,86 +19,91 @@ import CustomButton from '../../../../../components/CustomButton';
 
 const PayPal = ({ navigation }: any) => {
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-    >
-      <View style={styles.container}>
-        <AuthHeader title="Link PayPal" />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        <View style={styles.container}>
+          <AuthHeader title="Link PayPal" />
 
-        {/* Scrollable content */}
-        <ScrollView
-          contentContainerStyle={{ paddingBottom: RFPercentage(5) }}
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="always"
-        >
-          <View style={styles.innerContainer}>
-            <Image
-              source={ICONS.paypal2}
-              resizeMode="cover"
-              style={styles.paypalImage}
-            />
+          {/* Scrollable content */}
+          <ScrollView
+            contentContainerStyle={{
+              flexGrow: 1,
+              paddingBottom: RFPercentage(5),
+            }}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="always"
+          >
+            <View style={styles.innerContainer}>
+              <Image
+                source={ICONS.paypal2}
+                resizeMode="cover"
+                style={styles.paypalImage}
+              />
 
-            <Text style={styles.titleText}>
-              Connect Your PayPal Account to TileTime
-            </Text>
-
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionHeading}>This Let's TileTime:</Text>
-
-              <Text style={styles.sectionHeadingWithMargin}>
-                Receive Personal Info
+              <Text style={styles.titleText}>
+                Connect Your PayPal Account to TileTime
               </Text>
-              <View style={styles.inputWrapper}>
-                <TextInput
-                  placeholder="Full name, email address, shipping address"
-                  placeholderTextColor={COLORS.placeholder}
-                  style={styles.input}
-                  cursorColor={COLORS.primary}
-                  selectionColor={COLORS.primary}
-                />
+
+              <View style={styles.sectionContainer}>
+                <Text style={styles.sectionHeading}>This Let's TileTime:</Text>
+
+                <Text style={styles.sectionHeadingWithMargin}>
+                  Receive Personal Info
+                </Text>
+                <View style={styles.inputWrapper}>
+                  <TextInput
+                    placeholder="Full name, email address, shipping address"
+                    placeholderTextColor={COLORS.placeholder}
+                    style={styles.input}
+                    cursorColor={COLORS.primary}
+                    selectionColor={COLORS.primary}
+                  />
+                </View>
+
+                <Text style={styles.sectionHeadingWithMargin}>
+                  Access Payment Methods
+                </Text>
+                <View style={styles.inputWrapper}>
+                  <TextInput
+                    placeholder="Access last 4 digits of your payment method"
+                    placeholderTextColor={COLORS.placeholder}
+                    style={styles.input}
+                    cursorColor={COLORS.primary}
+                    selectionColor={COLORS.primary}
+                  />
+                </View>
               </View>
 
-              <Text style={styles.sectionHeadingWithMargin}>
-                Access Payment Methods
-              </Text>
-              <View style={styles.inputWrapper}>
-                <TextInput
-                  placeholder="Access last 4 digits of your payment method"
-                  placeholderTextColor={COLORS.placeholder}
-                  style={styles.input}
-                  cursorColor={COLORS.primary}
-                  selectionColor={COLORS.primary}
-                />
+              <View style={styles.footerContainer}>
+                <Text style={styles.footerText}>
+                  TileTime is responsible for the use of your info in accordance
+                  with its{' '}
+                  <Text style={styles.linkText}>Privacy Statement</Text> and
+                  <Text style={styles.linkText}> Terms and Condition</Text>. You
+                  can stop future sharing of your info at any time in your{' '}
+                  <Text style={styles.linkText}>PayPal Profile</Text>.
+                </Text>
+              </View>
+
+              {/* Keep actions inside scroll but pinned at bottom with padding */}
+              <View style={styles.actionsContainer}>
+                <CustomButton title="Login" onPress={() => {}} />
+                <TouchableOpacity
+                  style={styles.cancelButton}
+                  activeOpacity={0.8}
+                  onPress={() => navigation.goBack()}
+                >
+                  <Text style={styles.cancelText}>Cancel</Text>
+                </TouchableOpacity>
               </View>
             </View>
-
-            <View style={styles.footerContainer}>
-              <Text style={styles.footerText}>
-                TileTime is responsible for the use of your info in accordance
-                with its <Text style={styles.linkText}>Privacy Statement</Text>{' '}
-                and
-                <Text style={styles.linkText}> Terms and Condition</Text>. You
-                can stop future sharing of your info at any time in your{' '}
-                <Text style={styles.linkText}>PayPal Profile</Text>.
-              </Text>
-            </View>
-
-            {/* Keep actions inside scroll but pinned at bottom with padding */}
-            <View style={styles.actionsContainer}>
-              <CustomButton title="Login" onPress={() => {}} />
-              <TouchableOpacity
-                style={styles.cancelButton}
-                activeOpacity={0.8}
-                onPress={() => navigation.goBack()}
-              >
-                <Text style={styles.cancelText}>Cancel</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </ScrollView>
-      </View>
-    </KeyboardAvoidingView>
+          </ScrollView>
+        </View>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -152,7 +159,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular,
     color: COLORS.primary,
     fontSize: RFPercentage(1.8),
-    lineHeight:RFPercentage(1.8)
+    lineHeight: RFPercentage(1.8),
   },
   footerContainer: {
     marginTop: RFPercentage(6),

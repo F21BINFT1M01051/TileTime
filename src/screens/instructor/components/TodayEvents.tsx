@@ -6,6 +6,7 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { COLORS, FONTS, ICONS, IMAGES } from '../../../config/theme';
@@ -228,7 +229,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular,
     fontSize: RFPercentage(1.5),
     color: COLORS.lightGrey,
-    marginTop: RFPercentage(0.4),
+    marginTop: Platform.OS === 'ios' ?  RFPercentage(0.4) : 0,
   },
   dayDate: {
     fontFamily: FONTS.semiBold,

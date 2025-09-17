@@ -350,7 +350,37 @@ const Events = ({ navigation }: any) => {
               activeOpacity={0.8}
               onPress={openModal}
             >
-              <Text style={{color:COLORS.white, fontFamily:FONTS.bold, fontSize:RFPercentage(1.8)}}>+ New Event</Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Text
+                  style={{
+                    color: COLORS.white,
+                    fontFamily: FONTS.bold,
+                    fontSize: RFPercentage(2.3),
+                    lineHeight: RFPercentage(2.3),
+                    top:1
+                  }}
+                >
+                  +
+                </Text>
+
+                <Text
+                  style={{
+                    color: COLORS.white,
+                    fontFamily: FONTS.bold,
+                    fontSize: RFPercentage(1.8),
+                    lineHeight: RFPercentage(1.8),
+                    marginLeft:RFPercentage(0.5)
+                  }}
+                >
+                  New Event
+                </Text>
+              </View>
             </TouchableOpacity>
           )}
 

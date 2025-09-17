@@ -131,7 +131,7 @@ const groups = [
     id: 4,
     name: 'Study Buddies',
     message: 'Fatima: Quiz prep session at 8pm?',
-    unread: 2,
+    unread: 0,
     mute: true,
     profile: IMAGES.customProfile,
   },

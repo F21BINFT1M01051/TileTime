@@ -63,40 +63,38 @@ const InstructorProfileSetup = ({ navigation }: any) => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={dismissAll}>
-      <KeyboardAvoidingView
-        style={{ flex: 1, backgroundColor: COLORS.white }}
-        keyboardVerticalOffset={-height}
-      >
-        <>
-          <AuthHeader
-            title="Set Up Your Profile"
-            onPress={() => {
-              stepIndex === 0
-                ? navigation.goBack()
-                : setStepIndex(stepIndex - 1);
-            }}
-          />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={{ flex: 1, backgroundColor: COLORS.white }}>
+        <AuthHeader
+          title="Set Up Your Profile"
+          onPress={() =>
+            stepIndex === 0 ? navigation.goBack() : setStepIndex(stepIndex - 1)
+          }
+        />
 
-          {/* <View style={{ flex: 1 }}> */}
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={-height}
+        >
           <ScrollView
             style={{ flex: 1 }}
             contentContainerStyle={{
-              paddingBottom:
-                stepIndex === 0 ? RFPercentage(7) : RFPercentage(15),
+              paddingBottom: RFPercentage(7),
             }}
-            showsVerticalScrollIndicator={false}
-            keyboardShouldPersistTaps="always"
+            keyboardShouldPersistTaps="handled"
           >
             <View style={styles.progressBarBackground}>
               <View
                 style={[styles.progressBarFill, { width: `${progress}%` }]}
               />
             </View>
-
-            <View style={styles.contentWrapper}>{renderStepContent()}</View>
+            {renderStepContent()}
           </ScrollView>
+        </KeyboardAvoidingView>
 
+        {/* Fixed Bottom Button */}
+        <View style={{}}>
           {stepIndex !== 0 && (
             <View style={{ width: '100%', backgroundColor: COLORS.white }}>
               <TouchableOpacity
@@ -110,23 +108,21 @@ const InstructorProfileSetup = ({ navigation }: any) => {
               </TouchableOpacity>
             </View>
           )}
-          {/* </View> */}
           <View style={styles.bottomWrapper}>
-            <View style={styles.buttonContainer}>
-              <CustomButton
-                title="Save And Next"
-                onPress={handleNext}
-                style={{
-                  backgroundColor:
-                    stepIndex === 0 && !isAboutValid
-                      ? COLORS.disabled
-                      : COLORS.primary,
-                }}
-              />
-            </View>
+            <CustomButton
+              title="Save And Next"
+              onPress={handleNext}
+              style={{
+                backgroundColor:
+                  stepIndex === 0 && !isAboutValid
+                    ? COLORS.disabled
+                    : COLORS.primary,
+                width: '90%',
+              }}
+            />
           </View>
-        </>
-      </KeyboardAvoidingView>
+        </View>
+      </View>
     </TouchableWithoutFeedback>
   );
 };
@@ -175,6 +171,7 @@ const styles = StyleSheet.create({
     borderTopColor: COLORS.lightWhite,
     backgroundColor: COLORS.white,
     paddingBottom: RFPercentage(4),
+    alignItems: 'center',
   },
 
   buttonContainer: {

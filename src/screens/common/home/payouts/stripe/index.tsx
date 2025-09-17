@@ -21,15 +21,15 @@ const Stripe = ({ navigation }: any) => {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
+      <AuthHeader title="Setup Stripe" />
+
       <ScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
+        contentContainerStyle={{ flexGrow: 1, paddingBottom: RFPercentage(5) }}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
-        <AuthHeader title="Setup Stripe" />
-
         <View style={styles.innerContainer}>
           <Image
             source={ICONS.stripe2}
@@ -128,7 +128,6 @@ const styles = StyleSheet.create({
   },
   card: {
     width: '100%',
-    height: '60%',
     backgroundColor: COLORS.white,
     alignItems: 'center',
     marginTop: RFPercentage(3),
@@ -172,7 +171,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular,
     color: COLORS.primary,
     fontSize: RFPercentage(1.6),
-    lineHeight: RFPercentage(2),
+    lineHeight: RFPercentage(1.8),
     paddingVertical: 0,
     marginVertical: 0,
   },
@@ -204,6 +203,7 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(1.6),
     fontFamily: FONTS.regular,
     marginLeft: RFPercentage(1),
+    lineHeight:RFPercentage(1.6)
   },
   continueBtn: {
     height: RFPercentage(4.8),

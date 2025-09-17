@@ -544,6 +544,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontSize: RFPercentage(2),
     fontFamily: FONTS.bold,
+    lineHeight:RFPercentage(2)
   },
   saveButton: {
     width: RFPercentage(25),

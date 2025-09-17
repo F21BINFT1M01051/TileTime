@@ -169,7 +169,7 @@ const ChatScreen = ({ route, navigation }: any) => {
             },
             image: image.uri,
           };
-
+          Keyboard.dismiss();
           setMessages(prev => GiftedChat.append(prev, [newMessage]));
           setAttachmentModalVisible(false);
         }
@@ -350,104 +350,71 @@ const ChatScreen = ({ route, navigation }: any) => {
   ];
 
   return (
-    <TouchableWithoutFeedback
-      onPress={() => Keyboard.dismiss()}
-      accessible={false}
-    >
-      <View style={styles.container}>
-        {/* Header */}
-        <View style={styles.headerBorder}>
-          <View style={styles.headerContainer}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <Image
-                source={ICONS.back}
-                resizeMode="contain"
-                style={{ width: RFPercentage(3), height: RFPercentage(2.5) }}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() =>
-                navigation.navigate(isGroup ? 'GroupDetails' : 'UserDetails')
-              }
-            >
-              {isGroup ? (
-                <>
-                  <View style={styles.groupIconContainer}>
-                    <Image
-                      source={IMAGES.customProfile}
-                      resizeMode="cover"
-                      style={styles.groupIcon}
-                    />
-                  </View>
-                </>
-              ) : (
-                <>
-                  <View style={styles.avatarOuterLayer}>
-                    <View style={styles.avatarMiddleLayer}>
-                      <View style={styles.avatarInnerLayer}>
-                        <Image
-                          source={IMAGES.profile2}
-                          resizeMode="cover"
-                          style={styles.avatarImage}
-                        />
-                      </View>
-                    </View>
-                  </View>
-                </>
-              )}
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() =>
-                navigation.navigate(isGroup ? 'GroupDetails' : 'UserDetails')
-              }
-            >
-              <Text style={styles.groupNameText}>
-                {isGroup ? `Mahjong - Richie Rich Gr..` : `Sophie Reynolds`}
-              </Text>
-            </TouchableOpacity>
-
+    <View style={styles.container}>
+      {/* Header */}
+      <View style={styles.headerBorder}>
+        <View style={styles.headerContainer}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Image
+              source={ICONS.back}
+              resizeMode="contain"
+              style={{ width: RFPercentage(3), height: RFPercentage(2.5) }}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() =>
+              navigation.navigate(isGroup ? 'GroupDetails' : 'UserDetails')
+            }
+          >
             {isGroup ? (
               <>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    position: 'absolute',
-                    right: 0,
-                  }}
-                >
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={() => {
-                      openModal();
-                    }}
-                  >
-                    <Image
-                      source={ICONS.calender2}
-                      resizeMode="contain"
-                      style={styles.cal}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={() => navigation.navigate('AddMembers')}
-                  >
-                    <Image
-                      source={ICONS.userAdd}
-                      resizeMode="contain"
-                      style={{
-                        width: RFPercentage(2.6),
-                        height: RFPercentage(2.6),
-                      }}
-                    />
-                  </TouchableOpacity>
+                <View style={styles.groupIconContainer}>
+                  <Image
+                    source={IMAGES.customProfile}
+                    resizeMode="cover"
+                    style={styles.groupIcon}
+                  />
                 </View>
               </>
             ) : (
               <>
+                <View style={styles.avatarOuterLayer}>
+                  <View style={styles.avatarMiddleLayer}>
+                    <View style={styles.avatarInnerLayer}>
+                      <Image
+                        source={IMAGES.profile2}
+                        resizeMode="cover"
+                        style={styles.avatarImage}
+                      />
+                    </View>
+                  </View>
+                </View>
+              </>
+            )}
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() =>
+              navigation.navigate(isGroup ? 'GroupDetails' : 'UserDetails')
+            }
+          >
+            <Text style={styles.groupNameText}>
+              {isGroup ? `Mahjong - Richie Rich Gr..` : `Sophie Reynolds`}
+            </Text>
+          </TouchableOpacity>
+
+          {isGroup ? (
+            <>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  position: 'absolute',
+                  right: 0,
+                }}
+              >
                 <TouchableOpacity
-                  style={styles.dotsButton}
+                  activeOpacity={0.8}
                   onPress={() => {
                     openModal();
                   }}
@@ -455,265 +422,298 @@ const ChatScreen = ({ route, navigation }: any) => {
                   <Image
                     source={ICONS.calender2}
                     resizeMode="contain"
+                    style={styles.cal}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => navigation.navigate('AddMembers')}
+                >
+                  <Image
+                    source={ICONS.userAdd}
+                    resizeMode="contain"
                     style={{
-                      width: RFPercentage(3),
-                      height: RFPercentage(3),
+                      width: RFPercentage(2.6),
+                      height: RFPercentage(2.6),
                     }}
                   />
                 </TouchableOpacity>
-              </>
-            )}
-          </View>
+              </View>
+            </>
+          ) : (
+            <>
+              <TouchableOpacity
+                style={styles.dotsButton}
+                onPress={() => {
+                  openModal();
+                }}
+              >
+                <Image
+                  source={ICONS.calender2}
+                  resizeMode="contain"
+                  style={{
+                    width: RFPercentage(3),
+                    height: RFPercentage(3),
+                  }}
+                />
+              </TouchableOpacity>
+            </>
+          )}
         </View>
+      </View>
 
-        <ImageBackground
-          source={IMAGES.chat}
-          resizeMode="cover"
-          style={{ flex: 1 }}
-        >
-          <GiftedChat
-            messages={messages}
-            user={{
-              _id: 1,
-              name: 'You',
-              avatar: 'https://placeimg.com/140/140/any',
-            }}
-            renderBubble={renderBubble}
-            renderMessage={renderMessage}
-            renderDay={renderDay}
-            listViewProps={{
-              ListHeaderComponent: () =>
-                messages.length === 0 && isNew && isGroup ? (
-                  <View style={{ marginBottom: height * 0.15 }}>
-                    <View style={styles.todayBadge}>
-                      <Text style={styles.todayText}>Today</Text>
+      <ImageBackground
+        source={IMAGES.chat}
+        resizeMode="cover"
+        style={{ flex: 1 }}
+      >
+        <GiftedChat
+          messages={messages}
+          user={{
+            _id: 1,
+            name: 'You',
+            avatar: 'https://placeimg.com/140/140/any',
+          }}
+          renderBubble={renderBubble}
+          renderMessage={renderMessage}
+          renderDay={renderDay}
+          listViewProps={{
+            removeClippedSubviews: false,
+            keyboardShouldPersistTaps: 'handled',
+            showsVerticalScrollIndicator: true,
+            maintainVisibleContentPosition: {
+              minIndexForVisible: 0,
+              autoscrollToTopThreshold: 10,
+            },
+            ListHeaderComponent: () =>
+              messages.length === 0 && isNew && isGroup ? (
+                <View style={{ marginBottom: height * 0.15 }}>
+                  <View style={styles.todayBadge}>
+                    <Text style={styles.todayText}>Today</Text>
+                  </View>
+
+                  <View style={styles.groupInfoCard}>
+                    <View style={styles.largeGroupIconContainer}>
+                      <Image
+                        source={IMAGES.customProfile}
+                        resizeMode="cover"
+                        style={styles.largeGroupIcon}
+                      />
                     </View>
-
-                    <View style={styles.groupInfoCard}>
-                      <View style={styles.largeGroupIconContainer}>
-                        <Image
-                          source={IMAGES.customProfile}
-                          resizeMode="cover"
-                          style={styles.largeGroupIcon}
-                        />
-                      </View>
-                      <Text style={styles.createdText}>
-                        You created this group
-                      </Text>
-                      <Text style={styles.membersText}>Group - 2 Members</Text>
-                      <View style={styles.buttonContainer}>
-                        <CustomButton
-                          title="Add Members"
-                          icon={ICONS.plus}
-                          onPress={() => navigation.navigate('AddMembers')}
-                        />
-                      </View>
-                      <View style={styles.secondButtonContainer}>
-                        <CustomButton
-                          title="Share Group Link"
-                          onPress={onShare}
-                          icon={ICONS.link}
-                        />
-                      </View>
+                    <Text style={styles.createdText}>
+                      You created this group
+                    </Text>
+                    <Text style={styles.membersText}>Group - 2 Members</Text>
+                    <View style={styles.buttonContainer}>
+                      <CustomButton
+                        title="Add Members"
+                        icon={ICONS.plus}
+                        onPress={() => navigation.navigate('AddMembers')}
+                      />
                     </View>
-
-                    <View style={styles.conversationPrompt}>
-                      <Text style={styles.conversationText}>
-                        {`Start a conversation, ask a\nquestion, or just say hi.`}
-                      </Text>
+                    <View style={styles.secondButtonContainer}>
+                      <CustomButton
+                        title="Share Group Link"
+                        onPress={onShare}
+                        icon={ICONS.link}
+                      />
                     </View>
                   </View>
-                ) : null,
-            }}
-            renderMessageImage={renderMessageImage}
-            renderInputToolbar={() => (
-              <View style={styles.inputToolbarContainer}>
-                <View style={styles.inputBar}>
-                  <TouchableOpacity
-                    onPress={() => setAttachmentModalVisible(true)}
-                    style={{
-                      position: 'absolute',
-                      left: 0,
-                      bottom: RFPercentage(1.5),
-                      marginHorizontal: RFPercentage(1),
-                    }}
-                  >
-                    <Image
-                      source={ICONS.plus6}
-                      style={styles.plusIcon}
-                      resizeMode="contain"
-                    />
-                  </TouchableOpacity>
 
-                  <TextInput
-                    style={styles.messageInput}
-                    placeholder="Type your message here"
-                    placeholderTextColor={COLORS.search}
-                    value={message}
-                    onChangeText={setMessage}
-                    multiline={true}
-                    scrollEnabled={true}
-                    textAlignVertical="top"
-                    cursorColor={COLORS.primary}
-                    selectionColor={COLORS.primary}
-                  />
-
-                  <TouchableOpacity
-                    style={{
-                      position: 'absolute',
-                      right: 0,
-                      bottom: RFPercentage(1.5),
-                      marginHorizontal: RFPercentage(2),
-                    }}
-                    onPress={() => {
-                      if (message.trim()) {
-                        const newMessage = {
-                          _id: Date.now(),
-                          text: message,
-                          createdAt: new Date(),
-                          user: {
-                            _id: 1,
-                            name: 'You',
-                            avatar: 'https://placeimg.com/140/140/any',
-                          },
-                        };
-                        setMessages(prev =>
-                          GiftedChat.append(prev, [newMessage]),
-                        );
-                        setMessage('');
-                      }
-                    }}
-                  >
-                    <Image
-                      source={ICONS.send}
-                      style={styles.sendButtonIcon}
-                      resizeMode="contain"
-                    />
-                  </TouchableOpacity>
+                  <View style={styles.conversationPrompt}>
+                    <Text style={styles.conversationText}>
+                      {`Start a conversation, ask a\nquestion, or just say hi.`}
+                    </Text>
+                  </View>
                 </View>
-              </View>
-            )}
-          />
-        </ImageBackground>
-
-        <Modal
-          visible={attachmentModalVisible}
-          animationType="fade"
-          transparent
-          onRequestClose={() => setAttachmentModalVisible(false)}
-        >
-          <TouchableWithoutFeedback
-            onPress={() => setAttachmentModalVisible(false)}
-          >
-            <View style={styles.modalOverlay}>
-              <View style={styles.modalContainer}>
-                <Text style={styles.modalTitle}>Share</Text>
-
-                <View
+              ) : null,
+          }}
+          renderMessageImage={renderMessageImage}
+          renderInputToolbar={() => (
+            <View style={styles.inputToolbarContainer}>
+              <View style={styles.inputBar}>
+                <TouchableOpacity
+                  onPress={() => setAttachmentModalVisible(true)}
                   style={{
-                    width: '100%',
-                    alignItems: 'center',
-                    marginTop: RFPercentage(1),
+                    position: 'absolute',
+                    left: 0,
+                    bottom: RFPercentage(1.5),
+                    marginHorizontal: RFPercentage(1),
                   }}
                 >
-                  <FlatList
-                    data={ShareOptions}
-                    keyExtractor={item => item.id.toString()}
-                    horizontal
-                    renderItem={({ item }) => {
-                      return (
-                        <TouchableOpacity
-                          onPress={item.onPress}
-                          activeOpacity={0.8}
-                          style={{
-                            marginHorizontal: RFPercentage(3),
-                            alignItems: 'center',
-                          }}
-                        >
-                          <View
-                            style={{
-                              width: RFPercentage(7),
-                              height: RFPercentage(7),
-                              borderRadius: RFPercentage(100),
-                              backgroundColor: item.color,
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                            }}
-                          >
-                            {item.name === 'Contacts' ? (
-                              <View>
-                                <MaterialIcons
-                                  name={item.icon}
-                                  size={RFPercentage(2.8)}
-                                  color={COLORS.white}
-                                />
-                              </View>
-                            ) : (
-                              <View>
-                                <Ionicons
-                                  name={item.icon}
-                                  size={RFPercentage(2.8)}
-                                  color={COLORS.white}
-                                />
-                              </View>
-                            )}
-                          </View>
-                          <Text
-                            style={{
-                              color: COLORS.grey3,
-                              fontFamily: FONTS.medium,
-                              fontSize: RFPercentage(1.7),
-                              marginTop: RFPercentage(1),
-                            }}
-                          >
-                            {item.name}
-                          </Text>
-                        </TouchableOpacity>
-                      );
-                    }}
+                  <Image
+                    source={ICONS.plus6}
+                    style={styles.plusIcon}
+                    resizeMode="contain"
                   />
-                </View>
+                </TouchableOpacity>
+
+                <TextInput
+                  style={styles.messageInput}
+                  placeholder="Type your message here"
+                  placeholderTextColor={COLORS.search}
+                  value={message}
+                  onChangeText={setMessage}
+                  multiline={true}
+                  scrollEnabled={true}
+                  textAlignVertical="top"
+                  cursorColor={COLORS.primary}
+                  selectionColor={COLORS.primary}
+                />
+
+                <TouchableOpacity
+                  style={{
+                    position: 'absolute',
+                    right: 0,
+                    bottom: RFPercentage(1.5),
+                    marginHorizontal: RFPercentage(2),
+                  }}
+                  onPress={() => {
+                    if (message.trim()) {
+                      const newMessage = {
+                        _id: Date.now(),
+                        text: message,
+                        createdAt: new Date(),
+                        user: {
+                          _id: 1,
+                          name: 'You',
+                          avatar: 'https://placeimg.com/140/140/any',
+                        },
+                      };
+                      setMessages(prev =>
+                        GiftedChat.append(prev, [newMessage]),
+                      );
+                      setMessage('');
+                    }
+                  }}
+                >
+                  <Image
+                    source={ICONS.send}
+                    style={styles.sendButtonIcon}
+                    resizeMode="contain"
+                  />
+                </TouchableOpacity>
               </View>
             </View>
-          </TouchableWithoutFeedback>
-        </Modal>
-
-        <CreateEvent
-          visible={isModalVisible}
-          onClose={() => setIsModalVisible(false)}
-          title="Select Event Type"
-          selectedValue={selectedType}
-          onSelect={(value: any) => {
-            setSelectedType(value);
-            dispatch(setEventType(value));
-          }}
-          onConfirm={() => {
-            setIsModalVisible(false);
-            if (selectedType === 'Open Play') {
-              navigation.navigate('InvitePlayer');
-            } else if (
-              selectedType === 'Mahjong Lessons' &&
-              role === 'Instructor'
-            ) {
-              navigation.navigate('SelectPlayersInstructor');
-            } else if (
-              selectedType === 'Mahjong Lessons' &&
-              role === 'Player'
-            ) {
-              navigation.navigate('CreateLessonPlayer');
-            } else if (selectedType === 'Guided Play') {
-              navigation.navigate('GuidedPlay', {
-                players: false,
-                groups: false,
-                link: true,
-              });
-            } else {
-              setIsModalVisible(false);
-            }
-          }}
+          )}
         />
-      </View>
-    </TouchableWithoutFeedback>
+      </ImageBackground>
+
+      <Modal
+        visible={attachmentModalVisible}
+        animationType="fade"
+        transparent
+        onRequestClose={() => setAttachmentModalVisible(false)}
+      >
+        <TouchableWithoutFeedback
+          onPress={() => setAttachmentModalVisible(false)}
+        >
+          <View style={styles.modalOverlay}>
+            <View style={styles.modalContainer}>
+              <Text style={styles.modalTitle}>Share</Text>
+
+              <View
+                style={{
+                  width: '100%',
+                  alignItems: 'center',
+                  marginTop: RFPercentage(1),
+                }}
+              >
+                <FlatList
+                  data={ShareOptions}
+                  keyExtractor={item => item.id.toString()}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  renderItem={({ item }) => {
+                    return (
+                      <TouchableOpacity
+                        onPress={item.onPress}
+                        activeOpacity={0.8}
+                        style={{
+                          marginHorizontal: RFPercentage(3),
+                          alignItems: 'center',
+                        }}
+                      >
+                        <View
+                          style={{
+                            width: RFPercentage(7),
+                            height: RFPercentage(7),
+                            borderRadius: RFPercentage(100),
+                            backgroundColor: item.color,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          {item.name === 'Contacts' ? (
+                            <View>
+                              <MaterialIcons
+                                name={item.icon}
+                                size={RFPercentage(2.8)}
+                                color={COLORS.white}
+                              />
+                            </View>
+                          ) : (
+                            <View>
+                              <Ionicons
+                                name={item.icon}
+                                size={RFPercentage(2.8)}
+                                color={COLORS.white}
+                              />
+                            </View>
+                          )}
+                        </View>
+                        <Text
+                          style={{
+                            color: COLORS.grey3,
+                            fontFamily: FONTS.medium,
+                            fontSize: RFPercentage(1.7),
+                            marginTop: RFPercentage(1),
+                          }}
+                        >
+                          {item.name}
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  }}
+                />
+              </View>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
+
+      <CreateEvent
+        visible={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+        title="Select Event Type"
+        selectedValue={selectedType}
+        onSelect={(value: any) => {
+          setSelectedType(value);
+          dispatch(setEventType(value));
+        }}
+        onConfirm={() => {
+          setIsModalVisible(false);
+          if (selectedType === 'Open Play') {
+            navigation.navigate('InvitePlayer');
+          } else if (
+            selectedType === 'Mahjong Lessons' &&
+            role === 'Instructor'
+          ) {
+            navigation.navigate('SelectPlayersInstructor');
+          } else if (selectedType === 'Mahjong Lessons' && role === 'Player') {
+            navigation.navigate('CreateLessonPlayer');
+          } else if (selectedType === 'Guided Play') {
+            navigation.navigate('GuidedPlay', {
+              players: false,
+              groups: false,
+              link: true,
+            });
+          } else {
+            setIsModalVisible(false);
+          }
+        }}
+      />
+    </View>
   );
 };
 
@@ -1035,13 +1035,12 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: RFPercentage(1),
     color: COLORS.inputColor,
-    fontSize: RFPercentage(1.9),
+    fontSize: RFPercentage(2), // text & cursor size
     fontFamily: FONTS.regular,
-    textAlignVertical: 'top',
+    textAlignVertical: 'top', // Android
     paddingVertical: RFPercentage(1),
     paddingHorizontal: RFPercentage(2),
   },
-
   sendButtonIcon: {
     width: RFPercentage(2.8),
     height: RFPercentage(2.8),

@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
   messageText: {
     color: COLORS.lightGrey,
     fontFamily: FONTS.regular,
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.9),
     marginTop: RFPercentage(0.5),
   },
   unreadBadge: {
@@ -139,6 +139,7 @@ const styles = StyleSheet.create({
     color: COLORS.pink,
     fontFamily: FONTS.medium2,
     fontSize: RFPercentage(1.6),
+    lineHeight:RFPercentage(1.6)
   },
   muteIcon: {
     width: RFPercentage(2.6),

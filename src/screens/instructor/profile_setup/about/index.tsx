@@ -533,6 +533,9 @@ export default About;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width:"90%",
+    alignSelf:"center",
+    marginTop:RFPercentage(3)
   },
   title: {
     fontFamily: FONTS.headline,

@@ -25,9 +25,9 @@ const ProffessionalInfo = ({ setHasExperience }: ProffessionalInfoProps) => {
     setHasExperience(Experience.trim().length > 0);
   }, [Experience]);
 
-   const dismissAll = () => {
-      Keyboard.dismiss();
-    };
+  const dismissAll = () => {
+    Keyboard.dismiss();
+  };
 
   return (
     <TouchableWithoutFeedback onPress={dismissAll}>
@@ -78,7 +78,9 @@ export default ProffessionalInfo;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: RFPercentage(-0.5),
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: RFPercentage(3),
   },
   headerText: {
     fontFamily: FONTS.headline,

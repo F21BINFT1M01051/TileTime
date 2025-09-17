@@ -7,6 +7,7 @@ import {
   Image,
   FlatList,
   Linking,
+  Platform,
 } from 'react-native';
 import {
   pick,
@@ -15,31 +16,42 @@ import {
 } from '@react-native-documents/picker';
 import { COLORS, FONTS, ICONS } from '../../../../../../../config/theme';
 import { RFPercentage } from 'react-native-responsive-fontsize';
+import { useNavigation } from '@react-navigation/native';
 
 const GuidedPlayAttachments = () => {
   const [attachments, setAttachments] = useState([]);
+  const navigation = useNavigation();
 
   const pickDocument = async () => {
     try {
       const result = await pick();
       if (!result) return;
       const files = Array.isArray(result) ? result : [result];
-      const localCopies = await Promise.all(
-        files.map(async file => {
-          const localCopy = await keepLocalCopy(file, {
-            directory: 'cachesDirectory',
-          });
-          return { ...file, fileCopyUri: localCopy.fileCopyUri };
-        }),
-      );
-      setAttachments(prev => [...prev, ...localCopies]);
+      const processedFiles = files.map(file => ({
+        ...file,
+        fileCopyUri: file.uri,
+        type: file.type || 'application/octet-stream',
+      }));
+      setAttachments(prev => [...prev, ...processedFiles]);
     } catch (err) {
       if (err?.message?.includes('cancelled')) {
-        console.log('User cancelled');
       } else {
         console.log('Error picking document: ', err);
       }
     }
+  };
+
+  const getFileType = file => {
+    if (!file || !file.type) return 'unknown';
+
+    const type = file.type.toLowerCase();
+
+    if (type.includes('image/')) return 'image';
+    if (type.includes('pdf')) return 'pdf';
+    if (type.includes('word') || type.includes('document')) return 'document';
+    if (type.includes('sheet') || type.includes('excel')) return 'spreadsheet';
+
+    return 'other';
   };
 
   const removeAttachment = index => {
@@ -75,13 +87,19 @@ const GuidedPlayAttachments = () => {
                 <TouchableOpacity
                   activeOpacity={0.8}
                   style={styles.fileCard}
-                  // onPress={() => viewAttachment(item)}
+                  onPress={() => {
+                    if (getFileType(item) === 'image') {
+                      navigation.navigate('ImageViewer');
+                    } else {
+                      navigation.navigate('DocViewer');
+                    }
+                  }}
                 >
                   <View style={styles.fileRow}>
                     <View style={styles.filePreview}>
-                      {isKnownType(item, 'image/*') ? (
+                      {getFileType(item) === 'image' ? (
                         <Image
-                          source={{ uri: item.fileCopyUri || item.uri }}
+                          source={{ uri: item?.fileCopyUri || item?.uri }}
                           style={styles.fileImage}
                         />
                       ) : (
@@ -215,7 +233,7 @@ const styles = StyleSheet.create({
     color: COLORS.grey3,
     fontSize: RFPercentage(1.7),
     fontFamily: FONTS.regular,
-    marginTop: RFPercentage(0.8),
+    marginTop: Platform.OS === 'ios' ? RFPercentage(0.8) : RFPercentage(0.5),
   },
   deleteButton: { position: 'absolute', right: 0 },
   deleteIcon: { width: RFPercentage(2), height: RFPercentage(2) },
