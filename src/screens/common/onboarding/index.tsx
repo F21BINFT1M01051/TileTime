@@ -5,7 +5,7 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
-  ScrollView,
+  Platform,
   ImageBackground,
 } from 'react-native';
 import React from 'react';
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
   whiteContainer: {
     width: '100%',
     alignItems: 'center',
-    marginTop: RFPercentage(4),
+    marginTop: Platform.OS === 'ios' ? RFPercentage(4) : RFPercentage(8),
     paddingBottom: RFPercentage(5),
     justifyContent: 'center',
     flex: 1,
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
   skipButton: {
     width: RFPercentage(20),
     alignSelf: 'center',
-    marginTop: RFPercentage(4),
+    marginTop: RFPercentage(3),
   },
   skipText: {
     fontFamily: FONTS.semiBold,

@@ -21,6 +21,7 @@ import SearchField from '../../../../components/SearchField';
 import { BlurView } from '@react-native-community/blur';
 import SocialField from '../../../../components/SocialField';
 import * as RNHTMLtoPDF from 'react-native-html-to-pdf';
+import Entypo from 'react-native-vector-icons/Entypo';
 
 const { height } = Dimensions.get('window');
 
@@ -264,10 +265,10 @@ const EventAttendees = () => {
                     style={styles.dotsButton}
                     onPress={() => openModal(item)}
                   >
-                    <Image
-                      source={ICONS.dots}
-                      resizeMode="contain"
-                      style={styles.dotsIcon}
+                    <Entypo
+                      name="dots-three-vertical"
+                      color={COLORS.icon}
+                      size={RFPercentage(2)}
                     />
                   </TouchableOpacity>
                 </View>

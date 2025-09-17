@@ -760,7 +760,7 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(2),
   },
   bioContainer: {
-    backgroundColor: COLORS.fieldColor,
+    backgroundColor: COLORS.white,
     borderWidth: RFPercentage(0.1),
     borderColor: COLORS.fieldBorder,
     borderRadius: RFPercentage(1.5),

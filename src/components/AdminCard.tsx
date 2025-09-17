@@ -288,6 +288,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular2,
     color: COLORS.primary,
     fontSize: RFPercentage(1.4),
+    lineHeight:RFPercentage(1.4)
   },
   toolTipBox: {
     width: RFPercentage(30),

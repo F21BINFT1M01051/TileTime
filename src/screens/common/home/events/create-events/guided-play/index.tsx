@@ -29,6 +29,7 @@ import GuidedPlayPublish from './publish';
 import EventLive from '../../../../../instructor/components/EventLive';
 import { useSelector } from 'react-redux';
 import InstructorSelection from './instructor-selection';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const coHosts = [
   {
@@ -190,220 +191,209 @@ const GuidedPlay = ({ route }: any) => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        keyboardVerticalOffset={-height}
-      >
-        <View style={styles.mainContainer}>
-          {/* Header */}
-          <AuthHeader
-            title={
-              role === 'Instructor' ? 'Create Guided Play' : 'Create Event'
-            }
-            right={true}
-            rightText="Save Draft"
-            onPress={() => {
-              stepIndex === 0
-                ? navigation.goBack()
-                : setStepIndex(stepIndex - 1);
-            }}
-          />
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={styles.scrollViewContent}
-            keyboardShouldPersistTaps="always"
-          >
-            <View style={styles.progressBarBackground}>
-              <View
-                style={[styles.progressBarFill, { width: `${progress}%` }]}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={styles.mainContainer}>
+        {/* Header */}
+        <AuthHeader
+          title={role === 'Instructor' ? 'Create Guided Play' : 'Create Event'}
+          right={true}
+          rightText="Save Draft"
+          onPress={() => {
+            stepIndex === 0 ? navigation.goBack() : setStepIndex(stepIndex - 1);
+          }}
+        />
+        <KeyboardAwareScrollView
+          contentContainerStyle={{
+            paddingBottom: RFPercentage(30),
+            flexGrow: 1,
+          }}
+          keyboardShouldPersistTaps="handled"
+          enableOnAndroid
+          extraScrollHeight={80}
+        >
+          <View style={styles.progressBarBackground}>
+            <View style={[styles.progressBarFill, { width: `${progress}%` }]} />
+          </View>
+
+          <View style={styles.innerWrapper}>
+            <View style={styles.contentWrapper}>{renderStepContent()}</View>
+          </View>
+        </KeyboardAwareScrollView>
+        {stepIndex === 0 ? (
+          <View style={styles.footer}>
+            <View style={styles.footerButtonWrapper}>
+              <CustomButton title="Save And Next" onPress={handleNext} />
+            </View>
+          </View>
+        ) : (
+          <View style={styles.bottomBar}>
+            <View style={styles.bottomContent}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => {
+                  stepIndex === 0
+                    ? navigation.goBack()
+                    : setStepIndex(stepIndex - 1);
+                }}
+                style={styles.backButton}
+              >
+                <Text style={styles.backButtonText}>Back</Text>
+              </TouchableOpacity>
+              <CustomButton
+                title={
+                  stepIndex === finalSteps.length - 1
+                    ? 'Publish Event'
+                    : finalSteps[stepIndex] === 'instuctorSelection'
+                    ? 'Send Requests and Publish'
+                    : 'Save And Next'
+                }
+                style={styles.saveButton}
+                onPress={handleNext}
               />
             </View>
+          </View>
+        )}
+        <EventLive
+          visible={modalVisible}
+          onClose={() => setModalVisible(false)}
+        />
 
-            <View style={styles.innerWrapper}>
-              <View style={styles.contentWrapper}>{renderStepContent()}</View>
-            </View>
-          </ScrollView>
-          {stepIndex === 0 ? (
-            <View style={styles.footer}>
-              <View style={styles.footerButtonWrapper}>
-                <CustomButton title="Save And Next" onPress={handleNext} />
-              </View>
-            </View>
-          ) : (
-            <View style={styles.bottomBar}>
-              <View style={styles.bottomContent}>
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  onPress={() => {
-                    stepIndex === 0
-                      ? navigation.goBack()
-                      : setStepIndex(stepIndex - 1);
-                  }}
-                  style={styles.backButton}
-                >
-                  <Text style={styles.backButtonText}>Back</Text>
-                </TouchableOpacity>
-                <CustomButton
-                  title={
-                    stepIndex === finalSteps.length - 1
-                      ? 'Publish Event'
-                      : finalSteps[stepIndex] === 'instuctorSelection'
-                      ? 'Send Requests and Publish'
-                      : 'Save And Next'
-                  }
-                  style={styles.saveButton}
-                  onPress={handleNext}
-                />
-              </View>
-            </View>
-          )}
-          <EventLive
-            visible={modalVisible}
-            onClose={() => setModalVisible(false)}
+        <Modal visible={modalVisible2} transparent animationType="none">
+          <BlurView
+            style={StyleSheet.absoluteFill}
+            blurType="dark"
+            blurAmount={5}
+            reducedTransparencyFallbackColor="white"
           />
-
-          <Modal visible={modalVisible2} transparent animationType="none">
-            <BlurView
-              style={StyleSheet.absoluteFill}
-              blurType="dark"
-              blurAmount={5}
-              reducedTransparencyFallbackColor="white"
-            />
-            <TouchableWithoutFeedback onPress={() => setModalVisible2(false)}>
-              <View style={styles.overlay}>
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                  <Animated.View
-                    style={[
-                      styles.modalContent,
-                      { transform: [{ translateY: slideAnim }] },
-                    ]}
-                  >
-                    <View style={styles.modalInnerContent}>
-                      {/* Header */}
-                      <View style={styles.modalHeader}>
-                        <Text style={styles.modalTitle}>Add Co-Hosts</Text>
-                        <TouchableOpacity
-                          activeOpacity={0.8}
-                          onPress={() => setModalVisible2(false)}
-                        >
-                          <Image
-                            source={ICONS.cross}
-                            resizeMode="contain"
-                            tintColor={COLORS.lightGrey}
-                            style={styles.crossIcon}
-                          />
-                        </TouchableOpacity>
-                      </View>
-
-                      {/* Search */}
-                      <View style={styles.searchContainer}>
-                        <SearchField
-                          placeholder="Search by name"
-                          value={query}
-                          onChangeText={setQuery}
+          <TouchableWithoutFeedback onPress={() => setModalVisible2(false)}>
+            <View style={styles.overlay}>
+              <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <Animated.View
+                  style={[
+                    styles.modalContent,
+                    { transform: [{ translateY: slideAnim }] },
+                  ]}
+                >
+                  <View style={styles.modalInnerContent}>
+                    {/* Header */}
+                    <View style={styles.modalHeader}>
+                      <Text style={styles.modalTitle}>Add Co-Hosts</Text>
+                      <TouchableOpacity
+                        activeOpacity={0.8}
+                        onPress={() => setModalVisible2(false)}
+                      >
+                        <Image
+                          source={ICONS.cross}
+                          resizeMode="contain"
+                          tintColor={COLORS.lightGrey}
+                          style={styles.crossIcon}
                         />
-                      </View>
+                      </TouchableOpacity>
+                    </View>
 
-                      {/* List */}
-                      <View style={styles.flatListContainer}>
-                        <FlatList
-                          data={filteredHosts}
-                          keyExtractor={item => item.id.toString()}
-                          keyboardShouldPersistTaps="always"
-                          ListEmptyComponent={
-                            <Text style={styles.noResultText}>
-                              No results found
-                            </Text>
-                          }
-                          renderItem={({ item }) => {
-                            const isSelected = selectedContacts.includes(
-                              item.id,
-                            );
-                            return (
-                              <TouchableOpacity
-                                activeOpacity={0.8}
-                                onPress={() => toggleContact(item.id)}
-                              >
-                                <View style={styles.contactRow}>
-                                  <View style={styles.contactLeft}>
-                                    <View style={styles.avatarOuterLayer}>
-                                      <View style={styles.avatarMiddleLayer}>
-                                        <View style={styles.avatarInnerLayer}>
-                                          <Image
-                                            source={item.profile}
-                                            resizeMode="cover"
-                                            style={styles.avatarImage}
-                                          />
-                                        </View>
+                    {/* Search */}
+                    <View style={styles.searchContainer}>
+                      <SearchField
+                        placeholder="Search by name"
+                        value={query}
+                        onChangeText={setQuery}
+                      />
+                    </View>
+
+                    {/* List */}
+                    <View style={styles.flatListContainer}>
+                      <FlatList
+                        data={filteredHosts}
+                        keyExtractor={item => item.id.toString()}
+                        keyboardShouldPersistTaps="always"
+                        ListEmptyComponent={
+                          <Text style={styles.noResultText}>
+                            No results found
+                          </Text>
+                        }
+                        renderItem={({ item }) => {
+                          const isSelected = selectedContacts.includes(item.id);
+                          return (
+                            <TouchableOpacity
+                              activeOpacity={0.8}
+                              onPress={() => toggleContact(item.id)}
+                            >
+                              <View style={styles.contactRow}>
+                                <View style={styles.contactLeft}>
+                                  <View style={styles.avatarOuterLayer}>
+                                    <View style={styles.avatarMiddleLayer}>
+                                      <View style={styles.avatarInnerLayer}>
+                                        <Image
+                                          source={item.profile}
+                                          resizeMode="cover"
+                                          style={styles.avatarImage}
+                                        />
                                       </View>
                                     </View>
-                                    <View style={styles.contactInfo}>
-                                      <Text style={styles.contactName}>
-                                        {item.name}
-                                      </Text>
-                                      <Text style={styles.contactMembers}>
-                                        {item.member}
-                                      </Text>
-                                    </View>
                                   </View>
-                                  <TouchableOpacity
-                                    onPress={() => toggleContact(item.id)}
-                                  >
-                                    <Image
-                                      resizeMode="contain"
-                                      source={
-                                        isSelected
-                                          ? ICONS.checked
-                                          : ICONS.uncheck
-                                      }
-                                      style={styles.checkIcon}
-                                    />
-                                  </TouchableOpacity>
+                                  <View style={styles.contactInfo}>
+                                    <Text style={styles.contactName}>
+                                      {item.name}
+                                    </Text>
+                                    <Text style={styles.contactMembers}>
+                                      {item.member}
+                                    </Text>
+                                  </View>
                                 </View>
-                              </TouchableOpacity>
+                                <TouchableOpacity
+                                  onPress={() => toggleContact(item.id)}
+                                >
+                                  <Image
+                                    resizeMode="contain"
+                                    source={
+                                      isSelected ? ICONS.checked : ICONS.uncheck
+                                    }
+                                    style={styles.checkIcon}
+                                  />
+                                </TouchableOpacity>
+                              </View>
+                            </TouchableOpacity>
+                          );
+                        }}
+                      />
+                    </View>
+                  </View>
+
+                  {/* Footer */}
+                  {!keyboardIsVisible && (
+                    <View style={styles.modalFooter}>
+                      <View style={styles.modalFooterInner}>
+                        <CustomButton
+                          title={
+                            selectedContacts.length > 0
+                              ? `Add ${selectedContacts.length} Co-Hosts`
+                              : `Add Co-Hosts`
+                          }
+                          onPress={() => {
+                            handleSelectedContacts(
+                              coHosts.filter(c =>
+                                selectedContacts.includes(c.id),
+                              ),
                             );
+                            setModalVisible2(false);
+                          }}
+                          disabled={selectedContacts.length === 0}
+                          style={{
+                            backgroundColor:
+                              selectedContacts.length > 0
+                                ? COLORS.primary
+                                : COLORS.disabled,
                           }}
                         />
                       </View>
                     </View>
-
-                    {/* Footer */}
-                    {!keyboardIsVisible && (
-                      <View style={styles.modalFooter}>
-                        <View style={styles.modalFooterInner}>
-                          <CustomButton
-                            title={
-                              selectedContacts.length > 0
-                                ? `Add ${selectedContacts.length} Co-Hosts`
-                                : `Add Co-Hosts`
-                            }
-                            onPress={() => {
-                              handleSelectedContacts(
-                                coHosts.filter(c =>
-                                  selectedContacts.includes(c.id),
-                                ),
-                              );
-                              setModalVisible2(false);
-                            }}
-                            disabled={selectedContacts.length === 0}
-                            style={{
-                              backgroundColor:
-                                selectedContacts.length > 0
-                                  ? COLORS.primary
-                                  : COLORS.disabled,
-                            }}
-                          />
-                        </View>
-                      </View>
-                    )}
-                  </Animated.View>
-                </TouchableWithoutFeedback>
-              </View>
-            </TouchableWithoutFeedback>
-          </Modal>
-        </View>
-      </KeyboardAvoidingView>
+                  )}
+                </Animated.View>
+              </TouchableWithoutFeedback>
+            </View>
+          </TouchableWithoutFeedback>
+        </Modal>
+      </View>
     </TouchableWithoutFeedback>
   );
 };
@@ -599,7 +589,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontSize: RFPercentage(2),
     fontFamily: FONTS.bold,
-    lineHeight:RFPercentage(2)
+    lineHeight: RFPercentage(2),
   },
   saveButton: {
     width: '60%',

@@ -22,6 +22,7 @@ import AuthHeader from '../../../../components/AuthHeader';
 import CustomButton from '../../../../components/CustomButton';
 import Search from '../../../../components/SearchExperience';
 import { launchImageLibrary } from 'react-native-image-picker';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const data = [
   {
@@ -111,313 +112,310 @@ const EditProfileInstructor = () => {
         }
       }}
     >
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        keyboardVerticalOffset={-height}
-      >
-        <>
-          <AuthHeader title="Edit Profile" style={styles.authHeaderText} />
-          <ScrollView
-            style={styles.mainWrapper}
-            contentContainerStyle={styles.scrollWrapper}
-            showsVerticalScrollIndicator={false}
-            keyboardShouldPersistTaps="always"
-          >
-            <View style={styles.container}>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={pickImage}
-                style={styles.profileContainer}
-              >
-                <View style={styles.profileCircle}>
-                  <Image
-                    source={imageUri ? { uri: imageUri } : ICONS.gallery}
-                    resizeMode="cover"
-                    style={imageUri ? styles.profileImage : styles.defaultImg}
-                  />
-
-                  {imageUri ? (
-                    <TouchableOpacity
-                      activeOpacity={0.8}
-                      onPress={pickImage}
-                      style={styles.editIconContainer}
-                    >
-                      <Image
-                        source={ICONS.edit}
-                        resizeMode="contain"
-                        style={styles.editIcon}
-                      />
-                    </TouchableOpacity>
-                  ) : (
-                    <TouchableOpacity
-                      activeOpacity={0.8}
-                      onPress={pickImage}
-                      style={styles.addPicButton}
-                    >
-                      <Text style={styles.addPicText}>Add your Picture</Text>
-                    </TouchableOpacity>
-                  )}
-                </View>
-              </TouchableOpacity>
-
-              <Text style={styles.title}>Basic Details</Text>
-              <View style={styles.inputSpacing}>
-                <InputField
-                  placeholder="Full Name"
-                  value={name}
-                  onChangeText={setName}
-                  password={false}
-                  defaultColor={COLORS.focused}
-                  focusedColor={COLORS.focused}
-                  errorColor={COLORS.red}
+      <>
+        <AuthHeader title="Edit Profile" style={styles.authHeaderText} />
+        <KeyboardAwareScrollView
+          style={{ flex: 1, backgroundColor: COLORS.white }}
+          contentContainerStyle={{ paddingBottom: RFPercentage(8) }}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+          enableOnAndroid
+          extraScrollHeight={80}
+        >
+          <View style={styles.container}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={pickImage}
+              style={styles.profileContainer}
+            >
+              <View style={styles.profileCircle}>
+                <Image
+                  source={imageUri ? { uri: imageUri } : ICONS.gallery}
+                  resizeMode="cover"
+                  style={imageUri ? styles.profileImage : styles.defaultImg}
                 />
-              </View>
 
+                {imageUri ? (
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={pickImage}
+                    style={styles.editIconContainer}
+                  >
+                    <Image
+                      source={ICONS.edit}
+                      resizeMode="contain"
+                      style={styles.editIcon}
+                    />
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={pickImage}
+                    style={styles.addPicButton}
+                  >
+                    <Text style={styles.addPicText}>Add your Picture</Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+            </TouchableOpacity>
+
+            <Text style={styles.title}>Basic Details</Text>
+            <View style={styles.inputSpacing}>
+              <InputField
+                placeholder="Full Name"
+                value={name}
+                onChangeText={setName}
+                password={false}
+                defaultColor={COLORS.focused}
+                focusedColor={COLORS.focused}
+                errorColor={COLORS.red}
+              />
+            </View>
+
+            <TouchableOpacity
+              style={styles.checkboxRow}
+              activeOpacity={0.8}
+              onPress={() => setChecked(!checked)}
+            >
               <TouchableOpacity
-                style={styles.checkboxRow}
                 activeOpacity={0.8}
                 onPress={() => setChecked(!checked)}
               >
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  onPress={() => setChecked(!checked)}
-                >
-                  <Image
-                    source={checked ? ICONS.checked : ICONS.uncheck}
-                    resizeMode="contain"
-                    style={styles.checkboxIcon}
-                  />
-                </TouchableOpacity>
-                <Text style={styles.checkboxText}>Doing business as</Text>
-              </TouchableOpacity>
-
-              {checked && (
-                <InputField
-                  placeholder="Enter Business Name"
-                  value={business}
-                  onChangeText={setBusiness}
-                  password={false}
+                <Image
+                  source={checked ? ICONS.checked : ICONS.uncheck}
+                  resizeMode="contain"
+                  style={styles.checkboxIcon}
                 />
-              )}
+              </TouchableOpacity>
+              <Text style={styles.checkboxText}>Doing business as</Text>
+            </TouchableOpacity>
 
-              <View style={styles.bioWrapper}>
-                <View style={styles.bioContainer}>
-                  <View style={styles.bioInner}>
-                    <View style={styles.bioHeader}>
-                      <Text style={styles.bioLabel}>Add Bio</Text>
-                      <Image
-                        source={ICONS.user2}
-                        resizeMode="contain"
-                        style={styles.bioIcon}
-                      />
-                    </View>
-                    <TextInput
-                      placeholder="Tell us about yourself..."
-                      placeholderTextColor={COLORS.placeholder}
-                      style={styles.bioInput}
-                      multiline={true}
-                      maxLength={MAX_LENGTH}
-                      value={bio}
-                      onChangeText={setBio}
-                      cursorColor={COLORS.primary}
-                      selectionColor={COLORS.primary}
+            {checked && (
+              <InputField
+                placeholder="Enter Business Name"
+                value={business}
+                onChangeText={setBusiness}
+                password={false}
+              />
+            )}
+
+            <View style={styles.bioWrapper}>
+              <View style={styles.bioContainer}>
+                <View style={styles.bioInner}>
+                  <View style={styles.bioHeader}>
+                    <Text style={styles.bioLabel}>Add Bio</Text>
+                    <Image
+                      source={ICONS.user2}
+                      resizeMode="contain"
+                      style={styles.bioIcon}
                     />
-                    <View style={styles.barsWrapper}>
-                      <Image
-                        source={ICONS.bars}
-                        resizeMode="contain"
-                        style={styles.barsIcon}
-                      />
-                    </View>
                   </View>
-                </View>
-              </View>
-
-              <Text style={styles.remainingChars}>
-                {MAX_LENGTH - bio.length} characters left
-              </Text>
-
-              <View style={{ marginTop: RFPercentage(2) }}>
-                <Text style={styles.conduct}>Cities you serve</Text>
-              </View>
-              <View style={styles.dropdowns}>
-                <View style={styles.dropdownHalf}>
-                  <InputField
-                    placeholder="City"
-                    value={city}
-                    onChangeText={setCity}
-                    defaultColor={COLORS.focused}
-                    focusedColor={COLORS.focused}
-                    errorColor={COLORS.red}
-                    password={false}
-                    style={{ paddingHorizontal: RFPercentage(0.7) }}
+                  <TextInput
+                    placeholder="Tell us about yourself..."
+                    placeholderTextColor={COLORS.placeholder}
+                    style={styles.bioInput}
+                    multiline={true}
+                    maxLength={MAX_LENGTH}
+                    value={bio}
+                    onChangeText={setBio}
+                    cursorColor={COLORS.primary}
+                    selectionColor={COLORS.primary}
                   />
-                  {!anotherCity && (
-                    <TouchableOpacity
-                      activeOpacity={0.8}
-                      style={styles.addLocation}
-                      onPress={() => setAnotherCity(true)}
-                    >
-                      <Image
-                        source={ICONS.plus5}
-                        tintColor={COLORS.primary}
-                        resizeMode="contain"
-                        style={styles.plusIcon}
-                      />
-                      <Text style={styles.addLocationText}>
-                        Add Another Location
-                      </Text>
-                    </TouchableOpacity>
-                  )}
-                </View>
-                <View style={styles.dropdownHalf}>
-                  <DropdownField
-                    placeholder="State"
-                    data={['Beijing', 'Shanghai', 'Guangdong', 'Sichuan']}
-                    selectedValue={state}
-                    onValueChange={(val: any) => setState(val)}
-                    isDropdownVisible={isDropdownVisible2}
-                    setIsDropdownVisible={setIsDropdownVisible2}
-                    style={styles.dropdownInput}
-                  />
-                </View>
-              </View>
-
-              {anotherCity && (
-                <>
-                  <View style={styles.dropdowns}>
-                    <View style={{ width: '48%' }}>
-                      <InputField
-                        placeholder="Another City"
-                        value={otherCity}
-                        onChangeText={setOtherCity}
-                        style={{
-                          paddingHorizontal: RFPercentage(0.7),
-                        }}
-                        password={false}
-                      />
-                    </View>
-
-                    <View style={{ width: '48%' }}>
-                      <DropdownField
-                        placeholder="State"
-                        data={['Beijing', 'Shanghai', 'Guangdong', 'Sichuan']}
-                        selectedValue={state2}
-                        onValueChange={(val: any) => setState2(val)}
-                        isDropdownVisible={isDropdownVisible3}
-                        setIsDropdownVisible={setIsDropdownVisible3}
-                        style={{ paddingHorizontal: RFPercentage(1) }}
-                      />
-                    </View>
-                  </View>
-                </>
-              )}
-
-              <View style={styles.sectionWrapper}>
-                <Text style={styles.sectionTitle}>
-                  Experience and Credentials
-                </Text>
-
-                <View style={styles.inputContainer}>
-                  <Text style={styles.sectionLabel}>Your Experience</Text>
-                  <View style={styles.searchSpacing}>
-                    <Search
-                      placeholder="Search And Add Experience"
-                      value={Experience}
-                      onChangeText={setExperience}
-                      data={[
-                        'Beginner-Friendly',
-                        'Fast Paced',
-                        'Ender Friendly',
-                        'Free',
-                      ]}
-                    />
-                  </View>
-
-                  <Text style={styles.credentialLabel}>Credentials</Text>
-                  <View style={styles.searchSpacing}>
-                    <Search
-                      placeholder="Search And Add Credentials"
-                      value={Credential}
-                      onChangeText={setCredential}
-                      data={[
-                        'OMM Certified',
-                        'MahjongLine Certified',
-                        'Gaming Industry Approved',
-                      ]}
+                  <View style={styles.barsWrapper}>
+                    <Image
+                      source={ICONS.bars}
+                      resizeMode="contain"
+                      style={styles.barsIcon}
                     />
                   </View>
                 </View>
               </View>
+            </View>
 
-              <View style={styles.sectionWrapper}>
-                <Text style={styles.sectionTitle}>Social Handles</Text>
+            <Text style={styles.remainingChars}>
+              {MAX_LENGTH - bio.length} characters left
+            </Text>
+
+            <View style={{ marginTop: RFPercentage(2) }}>
+              <Text style={styles.conduct}>Cities you serve</Text>
+            </View>
+            <View style={styles.dropdowns}>
+              <View style={styles.dropdownHalf}>
                 <InputField
-                  placeholder="Phone Number"
-                  value={phone}
-                  onChangeText={text => {
-                    const formatted = formatPhoneNumber(text);
-                    setPhone(formatted);
-                    const digits = formatted.replace(/\D/g, '');
-                    if (digits.length === 11) {
-                      setTimeout(() => Keyboard.dismiss(), 50);
-                    }
-                  }}
+                  placeholder="City"
+                  value={city}
+                  onChangeText={setCity}
                   defaultColor={COLORS.focused}
                   focusedColor={COLORS.focused}
                   errorColor={COLORS.red}
                   password={false}
-                  type="phone-pad"
-                  icon={
-                    <Image
-                      source={ICONS.phone}
-                      resizeMode="contain"
-                      style={styles.phoneIcon}
-                    />
-                  }
+                  style={{ paddingHorizontal: RFPercentage(0.7) }}
                 />
-
-                <InputField
-                  placeholder="Your Website URL"
-                  value={website}
-                  onChangeText={setWebsite}
-                  password={false}
-                  icon={
+                {!anotherCity && (
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    style={styles.addLocation}
+                    onPress={() => setAnotherCity(true)}
+                  >
                     <Image
-                      source={ICONS.globe}
+                      source={ICONS.plus5}
+                      tintColor={COLORS.primary}
                       resizeMode="contain"
-                      style={styles.globeIcon}
+                      style={styles.plusIcon}
                     />
-                  }
+                    <Text style={styles.addLocationText}>
+                      Add Another Location
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+              <View style={styles.dropdownHalf}>
+                <DropdownField
+                  placeholder="State"
+                  data={['Beijing', 'Shanghai', 'Guangdong', 'Sichuan']}
+                  selectedValue={state}
+                  onValueChange={(val: any) => setState(val)}
+                  isDropdownVisible={isDropdownVisible2}
+                  setIsDropdownVisible={setIsDropdownVisible2}
+                  style={styles.dropdownInput}
                 />
               </View>
+            </View>
 
-              <FlatList
-                data={data}
-                scrollEnabled={false}
-                keyExtractor={item => item.id.toString()}
-                renderItem={({ item }) => (
-                  <SocialField
-                    icon={item.icon}
-                    name={item.name}
-                    navigation={item.navigationScreen}
-                    color={item.color}
-                    connected={item.connected}
+            {anotherCity && (
+              <>
+                <View style={styles.dropdowns}>
+                  <View style={{ width: '48%' }}>
+                    <InputField
+                      placeholder="Another City"
+                      value={otherCity}
+                      onChangeText={setOtherCity}
+                      style={{
+                        paddingHorizontal: RFPercentage(0.7),
+                      }}
+                      password={false}
+                    />
+                  </View>
+
+                  <View style={{ width: '48%' }}>
+                    <DropdownField
+                      placeholder="State"
+                      data={['Beijing', 'Shanghai', 'Guangdong', 'Sichuan']}
+                      selectedValue={state2}
+                      onValueChange={(val: any) => setState2(val)}
+                      isDropdownVisible={isDropdownVisible3}
+                      setIsDropdownVisible={setIsDropdownVisible3}
+                      style={{ paddingHorizontal: RFPercentage(1) }}
+                    />
+                  </View>
+                </View>
+              </>
+            )}
+
+            <View style={styles.sectionWrapper}>
+              <Text style={styles.sectionTitle}>
+                Experience and Credentials
+              </Text>
+
+              <View style={styles.inputContainer}>
+                <Text style={styles.sectionLabel}>Your Experience</Text>
+                <View style={styles.searchSpacing}>
+                  <Search
+                    placeholder="Search And Add Experience"
+                    value={Experience}
+                    onChangeText={setExperience}
+                    data={[
+                      'Beginner-Friendly',
+                      'Fast Paced',
+                      'Ender Friendly',
+                      'Free',
+                    ]}
                   />
-                )}
+                </View>
+
+                <Text style={styles.credentialLabel}>Credentials</Text>
+                <View style={styles.searchSpacing}>
+                  <Search
+                    placeholder="Search And Add Credentials"
+                    value={Credential}
+                    onChangeText={setCredential}
+                    data={[
+                      'OMM Certified',
+                      'MahjongLine Certified',
+                      'Gaming Industry Approved',
+                    ]}
+                  />
+                </View>
+              </View>
+            </View>
+
+            <View style={styles.sectionWrapper}>
+              <Text style={styles.sectionTitle}>Social Handles</Text>
+              <InputField
+                placeholder="Phone Number"
+                value={phone}
+                onChangeText={text => {
+                  const formatted = formatPhoneNumber(text);
+                  setPhone(formatted);
+                  const digits = formatted.replace(/\D/g, '');
+                  if (digits.length === 11) {
+                    setTimeout(() => Keyboard.dismiss(), 50);
+                  }
+                }}
+                defaultColor={COLORS.focused}
+                focusedColor={COLORS.focused}
+                errorColor={COLORS.red}
+                password={false}
+                type="phone-pad"
+                icon={
+                  <Image
+                    source={ICONS.phone}
+                    resizeMode="contain"
+                    style={styles.phoneIcon}
+                  />
+                }
+              />
+
+              <InputField
+                placeholder="Your Website URL"
+                value={website}
+                onChangeText={setWebsite}
+                password={false}
+                icon={
+                  <Image
+                    source={ICONS.globe}
+                    resizeMode="contain"
+                    style={styles.globeIcon}
+                  />
+                }
               />
             </View>
-          </ScrollView>
 
-          <View style={styles.footer}>
-            <CustomButton
-              title="Save"
-              style={styles.saveButton}
-              onPress={() => {}}
+            <FlatList
+              data={data}
+              scrollEnabled={false}
+              keyExtractor={item => item.id.toString()}
+              renderItem={({ item }) => (
+                <SocialField
+                  icon={item.icon}
+                  name={item.name}
+                  navigation={item.navigationScreen}
+                  color={item.color}
+                  connected={item.connected}
+                />
+              )}
             />
           </View>
-        </>
-      </KeyboardAvoidingView>
+        </KeyboardAwareScrollView>
+
+        <View style={styles.footer}>
+          <CustomButton
+            title="Save"
+            style={styles.saveButton}
+            onPress={() => {}}
+          />
+        </View>
+      </>
     </TouchableWithoutFeedback>
   );
 };
@@ -655,5 +653,6 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontFamily: FONTS.medium,
     fontSize: RFPercentage(1.6),
+    lineHeight:RFPercentage(1.6)
   },
 });

@@ -157,6 +157,7 @@ const styles = StyleSheet.create({
     borderBottomColor: COLORS.fieldBorder,
     paddingBottom: RFPercentage(2),
     backgroundColor: COLORS.white,
+    overflow: 'visible',
   },
   headerContainer: {
     flexDirection: 'row',
@@ -225,6 +226,7 @@ const styles = StyleSheet.create({
     width: '90%',
     alignSelf: 'center',
     marginTop: RFPercentage(2),
+    zIndex:-99
   },
   flatListColumn: {
     justifyContent: 'space-between',

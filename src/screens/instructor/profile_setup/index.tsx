@@ -60,6 +60,7 @@ const InstructorProfileSetup = ({ navigation }: any) => {
           }
         />
 
+
         {/* Scrollable content that automatically avoids keyboard */}
         <KeyboardAwareScrollView
           contentContainerStyle={{ paddingBottom: RFPercentage(7), flexGrow: 1 }}

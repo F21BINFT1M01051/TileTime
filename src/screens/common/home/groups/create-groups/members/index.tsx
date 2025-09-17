@@ -405,6 +405,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontFamily: FONTS.bold,
     fontSize: RFPercentage(1.8),
+    lineHeight:RFPercentage(1.8)
   },
   sectionTitleDisabled: {
     color: COLORS.grey5,

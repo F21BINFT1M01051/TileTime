@@ -593,6 +593,7 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontFamily: FONTS.medium,
     fontSize: RFPercentage(1.6),
+    lineHeight: RFPercentage(1.6),
   },
   bioWrapper: {
     marginTop: RFPercentage(3),
