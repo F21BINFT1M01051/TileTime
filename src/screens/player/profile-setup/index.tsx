@@ -283,9 +283,14 @@ const PlayerProfileSetup = ({ navigation }: any) => {
                   <InputField
                     placeholder="Phone Number (Required)"
                     value={values.phoneNumber}
-                    onChangeText={text =>
-                      handleChange('phoneNumber')(formatPhoneNumber(text))
-                    }
+                    onChangeText={text => {
+                      const formatted = formatPhoneNumber(text);
+                      handleChange('phoneNumber')(formatted);
+                      const digits = formatted.replace(/\D/g, '');
+                      if (digits.length === 11) {
+                        setTimeout(() => Keyboard.dismiss(), 50);
+                      }
+                    }}
                     handleBlur={handleBlur('phoneNumber')}
                     hasError={touched.phoneNumber && !!errors.phoneNumber}
                     style={{
